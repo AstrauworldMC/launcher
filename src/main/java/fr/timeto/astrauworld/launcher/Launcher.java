@@ -89,7 +89,7 @@ public class Launcher {
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
         // noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", "207.180.196.61", "--port", "33542"));
 
-        Launcher.getInstance().setVisible(false);
+        LauncherFrame.getInstance().setVisible(false);
 
         noFramework.launch(mcVersion, forgeVerion, NoFramework.ModLoader.FORGE);
         System.exit(0);
@@ -135,12 +135,12 @@ public class Launcher {
 
             @Override
             public void step(Step step) {
-                LauncherPanel.infoLabel.setText(StepInfo.valueOf(step.name()).getDetails());
+            //    LauncherPanel.infoLabel.setText(StepInfo.valueOf(step.name()).getDetails());
 
             }
 
             public void onFileDownloaded(Path path) {
-                LauncherPanel.fileLabel.setText(path.getFileName().toString());
+            //    LauncherPanel.fileLabel.setText(path.getFileName().toString());
             }
 
             @Override
@@ -149,9 +149,9 @@ public class Launcher {
                 int progress = (int) info.getDownloadedBytes();
                 int maximum = (int) info.getTotalToDownloadBytes();
 
-                LauncherPanel.percentLabel.setText(decimalFormat.format((progress / maximum) * 100) + "%");
-                LauncherPanel.progressBar.setValue(progress);
-                LauncherPanel.progressBar.setMaximum(maximum);
+            //    LauncherPanel.percentLabel.setText(decimalFormat.format((progress / maximum) * 100) + "%");
+            //    LauncherPanel.progressBar.setValue(progress);
+            //    LauncherPanel.progressBar.setMaximum(maximum);
             }
         };
 
