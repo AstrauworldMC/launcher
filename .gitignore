@@ -1,4 +1,2 @@
-launcher.iml
 .idea/
-out/
-libs/
+.gradle/
