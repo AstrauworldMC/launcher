@@ -1,13 +1,46 @@
 package fr.timeto.astrauworld.launcher;
 
+import fr.flowarg.flowupdater.versions.AbstractForgeVersion;
+import fr.theshark34.openlauncherlib.util.Saver;
+import fr.theshark34.swinger.colored.SColoredButton;
+import fr.theshark34.swinger.event.SwingerEvent;
+import fr.theshark34.swinger.event.SwingerEventListener;
+import fr.theshark34.swinger.textured.STexturedButton;
+
 import javax.swing.*;
 import java.awt.*;
 
 import static fr.theshark34.swinger.Swinger.*;
 
-public class LauncherPanel extends JPanel {
+public class LauncherPanel extends JPanel implements SwingerEventListener {
 
      private Image background = getResourceIgnorePath("/Homepage.png");
+
+     private static LauncherPanel launcherPanel;
+
+     private LauncherScrollPane launcherScrollPane;
+
+     private Saver firstProfileSaver = new Saver(Launcher.awFirstProfileData);
+     private Saver secondProfileSaver = new Saver(Launcher.awSecondProfileData);
+     private Saver thirdProfileSaver = new Saver(Launcher.awThirdProfileData);
+
+     String lineSeparator = System.getProperty("line.separator");
+
+     public SColoredButton testButton = new SColoredButton(Color.CYAN, Color.BLUE);
+
+
+
+     public LauncherPanel() {
+          this.setLayout(null);
+
+     //     launcherScrollPane.setBounds(100,100,200,200);
+          this.add(launcherScrollPane = new LauncherScrollPane());
+
+          testButton.setBounds(10, 10, 100, 50);
+          testButton.addEventListener(this);
+          this.add(testButton);
+
+     }
 
      public void paintComponent(Graphics g) {
           super.paintComponent(g);
@@ -15,4 +48,8 @@ public class LauncherPanel extends JPanel {
      }
 
 
+     @Override
+     public void onEvent(SwingerEvent swingerEvent) {
+
+     }
 }
