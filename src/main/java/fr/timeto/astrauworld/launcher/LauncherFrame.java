@@ -14,12 +14,12 @@ public class LauncherFrame extends JFrame {
 
     public LauncherFrame() {
         this.setTitle("Astrauworld Launcher");
-        this.setSize(1000, 650); //TODO changer mettre la meme taille que le launcher Microsoft
+        this.setSize(1000, 630); //TODO changer mettre la meme taille que le launcher Microsoft
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setUndecorated(true);
-        this.setIconImage(Swinger.getResource("logo.png"));
+        this.setIconImage(Swinger.getResourceIgnorePath("/logo.png"));
         this.setContentPane(launcherPanel = new LauncherPanel());
 
         WindowMover mover = new WindowMover(this);
@@ -29,11 +29,7 @@ public class LauncherFrame extends JFrame {
         this.setVisible(true);
 
     }
-
     public static void main(String[] args) {
-
-        Swinger.setSystemLookNFeel();
-        Swinger.setResourcePath("/fr/timeto/astrauworld/launcher/resources/"); // TODO trouve pas les images référencés
 
         String OS = System.getProperty("os.name");
 

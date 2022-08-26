@@ -20,7 +20,9 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -191,6 +193,11 @@ public class Launcher {
 
     public static CrashReporter getCrashReporter() {
         return crashReporter;
+    }
+
+    public static BufferedImage getResource(String resource) {
+        BufferedImage imageUrl = getResource(separatorChar + "");
+        return null;
     }
 
 }
