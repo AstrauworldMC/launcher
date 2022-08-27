@@ -18,7 +18,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 
      private static LauncherPanel launcherPanel;
 
-     private LauncherScrollPane launcherScrollPane;
+     private LauncherScrollPanel launcherScrollPanel;
 
      private Saver firstProfileSaver = new Saver(Launcher.awFirstProfileData);
      private Saver secondProfileSaver = new Saver(Launcher.awSecondProfileData);
@@ -33,8 +33,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      public LauncherPanel() {
           this.setLayout(null);
 
-     //     launcherScrollPane.setBounds(100,100,200,200);
-          this.add(launcherScrollPane = new LauncherScrollPane());
+          this.add(launcherScrollPanel = new LauncherScrollPanel());
 
           testButton.setBounds(10, 10, 100, 50);
           testButton.addEventListener(this);
