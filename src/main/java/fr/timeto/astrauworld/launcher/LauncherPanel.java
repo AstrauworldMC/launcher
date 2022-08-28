@@ -33,7 +33,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      public LauncherPanel() {
           this.setLayout(null);
 
-          this.add(launcherScrollPanel = new LauncherScrollPanel());
+          this.add(launcherScrollPanel = new LauncherScrollPanel(), BorderLayout.CENTER);
+         // this.add(LauncherScrollPanel.scrollPane);
 
           testButton.setBounds(10, 10, 100, 50);
           testButton.addEventListener(this);
