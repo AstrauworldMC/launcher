@@ -14,7 +14,7 @@ import static fr.theshark34.swinger.Swinger.*;
 
 public class LauncherPanel extends JPanel implements SwingerEventListener {
 
-     private Image background = getResourceIgnorePath("/Homepage.png");
+     private Image background = getResourceIgnorePath("/baseGUI.png");
 
      private static LauncherPanel launcherPanel;
 
@@ -26,9 +26,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 
      String lineSeparator = System.getProperty("line.separator");
 
-     public SColoredButton testButton = new SColoredButton(Color.CYAN, Color.BLUE);
-
-
+     // Common components
+     public STexturedButton quitButton = new STexturedButton(getResourceIgnorePath("/commonButtons/quitButton.png"), getResourceIgnorePath("/commonButtons/quitButtonHover.png"));
+     private STexturedButton hideButton = new STexturedButton(getResourceIgnorePath("/commonButtons/hideButton.png"), getResourceIgnorePath("/commonButtons/hideButtonHover.png"));
 
      public LauncherPanel() {
           this.setLayout(null);
@@ -36,9 +36,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
           this.add(launcherScrollPanel = new LauncherScrollPanel(), BorderLayout.CENTER);
          // this.add(LauncherScrollPanel.scrollPane);
 
-          testButton.setBounds(10, 10, 100, 50);
-          testButton.addEventListener(this);
-          this.add(testButton);
+          // Common components
+          quitButton.setBounds(962, 1);
+          quitButton.addEventListener(this);
+          this.add(quitButton);
+
+          hideButton.setBounds(921, 1);
+          hideButton.addEventListener(this);
+          this.add(hideButton);
 
      }
 
@@ -49,7 +54,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 
 
      @Override
-     public void onEvent(SwingerEvent swingerEvent) {
+     public void onEvent(SwingerEvent e) {
+          if(e.getSource() == quitButton){
+               System.exit(0);
+          } else if (e.getSource() == hideButton) {
+               LauncherFrame.getInstance().setState(JFrame.ICONIFIED);
+          }
 
      }
 }
