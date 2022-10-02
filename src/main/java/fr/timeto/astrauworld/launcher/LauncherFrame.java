@@ -5,6 +5,9 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.util.WindowMover;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class LauncherFrame extends JFrame {
 
@@ -15,7 +18,7 @@ public class LauncherFrame extends JFrame {
 
     public LauncherFrame() {
         this.setTitle("Astrauworld Launcher");
-        this.setSize(1000, 630); //TODO changer mettre la meme taille que le launcher Microsoft
+        this.setSize(1000, 630);
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -30,7 +33,10 @@ public class LauncherFrame extends JFrame {
         this.setVisible(true);
 
     }
+
     public static void main(String[] args) {
+
+        System.out.println(LauncherPanel.firstProfileSaver.get("name"));
 
         String OS = System.getProperty("os.name");
 
@@ -48,6 +54,22 @@ public class LauncherFrame extends JFrame {
         Launcher.AW_CRASH_FOLDER.mkdir();
 
         crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
+
+      //  System.out.println(Swinger.getResourceIgnorePath("fonts/verdana.ttf"));
+
+      /*   try {
+            //create the font to use. Specify the size!
+            Font VerdanaRegular = Font.createFont(Font.TRUETYPE_FONT, LauncherFrame.class.getResourceAsStream("fonts/verdana.ttf")).deriveFont(12f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+            //register the font
+            ge.registerFont(VerdanaRegular);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
+        } */
 
         instance = new LauncherFrame();
 

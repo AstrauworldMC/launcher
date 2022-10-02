@@ -32,10 +32,10 @@ import java.util.List;
 public class Launcher {
 
     static final String separatorChar = System.getProperty("file.separator");
-    static final String userHomeDir = System.getProperty("user.home");
+    static final String userAppDataDir = System.getenv("APPDATA");
 
     // String des les path dont on a besoin
-    static final String filesFolder = userHomeDir + separatorChar + "AppData" + separatorChar + "Roaming" + separatorChar + "Astrauworld Launcher";
+    static final String filesFolder = userAppDataDir + separatorChar + "Astrauworld Launcher";
     static final String crashFolder = filesFolder + separatorChar + "crashes";
     static final String gameFilesFolder = filesFolder + separatorChar + "GameFiles";
     static final String dataFolder = filesFolder + separatorChar + "data";
