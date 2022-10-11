@@ -10,6 +10,7 @@ import fr.theshark34.swinger.textured.STexturedButton;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.*;
 
@@ -22,7 +23,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      private LauncherScrollPanel launcherScrollPanel;
 
      public static Saver firstProfileSaver = new Saver(Launcher.awFirstProfileData);
-     private static Saver secondProfileSaver = new Saver(Launcher.awSecondProfileData);
+     public static Saver secondProfileSaver = new Saver(Launcher.awSecondProfileData);
      private static Saver thirdProfileSaver = new Saver(Launcher.awThirdProfileData);
 
      String lineSeparator = System.getProperty("line.separator");
@@ -30,22 +31,26 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      public BufferedImage getProfileButton(String base, String version) {
           boolean profile = false;
           BufferedImage button = null;
-          if(base == "profile1"){
-               if(firstProfileSaver.get("name") != "none") {
+          firstProfileSaver.load();
+          secondProfileSaver.load();
+          thirdProfileSaver.load();
+
+          if(Objects.equals(base, "profile1")){
+               if(Objects.equals(firstProfileSaver.get("name"), "none")) {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + version + "None.png");
                }else {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + version + ".png");
                }
 
-          } else if (base == "profile2") {
-               if(secondProfileSaver.get("name") != "none") {
+          } else if (Objects.equals(base, "profile2")) {
+               if(Objects.equals(secondProfileSaver.get("name"), "none")) {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + version + "None.png");
                }else {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + version + ".png");
                }
 
-          } else if (base == "profile3") {
-               if(thirdProfileSaver.get("name") != "none") {
+          } else if (Objects.equals(base, "profile3")) {
+               if(Objects.equals(thirdProfileSaver.get("name"), "none")) {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + version + "None.png");
                }else {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + version + ".png");
@@ -74,14 +79,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
          // this.add(launcherScrollPanel = new LauncherScrollPanel(), BorderLayout.CENTER);
          // this.add(LauncherScrollPanel.scrollPane);
 
-          firstProfileSaver.set("name", "none");
+      /*    firstProfileSaver.set("name", "none");
           firstProfileSaver.set("email", "none");
 
           secondProfileSaver.set("name", "none");
           secondProfileSaver.set("email", "none");
 
           thirdProfileSaver.set("name", "none");
-          thirdProfileSaver.set("email", "none");
+          thirdProfileSaver.set("email", "none"); */
 
           // Common components
           quitButton.setBounds(962, 1);

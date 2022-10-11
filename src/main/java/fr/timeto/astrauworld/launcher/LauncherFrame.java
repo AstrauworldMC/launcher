@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class LauncherFrame extends JFrame {
 
@@ -37,6 +38,7 @@ public class LauncherFrame extends JFrame {
     public static void main(String[] args) {
 
         System.out.println(LauncherPanel.firstProfileSaver.get("name"));
+        System.out.println(LauncherPanel.secondProfileSaver.get("name"));
 
         String OS = System.getProperty("os.name");
 
