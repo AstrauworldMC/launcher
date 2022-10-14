@@ -1,22 +1,28 @@
 package fr.timeto.astrauworld.launcher;
 
 import fr.theshark34.openlauncherlib.util.CrashReporter;
+import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.util.WindowMover;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class LauncherFrame extends JFrame {
 
     private static LauncherFrame instance;
-    private LauncherPanel launcherPanel;
+    private final LauncherPanel launcherPanel;
     private JScrollPane scrollPane;
     private static CrashReporter crashReporter;
 
+    public static Saver firstProfileSaver = new Saver(Launcher.awFirstProfileData);
+    public static Saver secondProfileSaver = new Saver(Launcher.awSecondProfileData);
+    public static Saver thirdProfileSaver = new Saver(Launcher.awThirdProfileData);
+
+    /**
+     * Défini comment s'affichera la frame du launcher, son contenu, puis l'affiche
+     */
     public LauncherFrame() {
         this.setTitle("Astrauworld Launcher");
         this.setSize(1000, 630);
@@ -35,14 +41,58 @@ public class LauncherFrame extends JFrame {
 
     }
 
-    public static void main(String[] args) {
+    /**
+     * Initialise les fichiers de données situés dans [APPDATA]\Astrauworld Launcher\data
+     */
+    @SuppressWarnings("all")
+    public static void initializeDataFiles() {
+        if(Objects.equals(firstProfileSaver.get("fileCreated"), "true"))
+        {// Si le fichier existe, ne rien faire
+        } else {
+            // Informations générales
+            firstProfileSaver.set("name", "none");
+            firstProfileSaver.set("email", "none");
+            firstProfileSaver.set("password", "none");
+            firstProfileSaver.set("UUID", "none");
+            // Configuration de Minecraft
+            firstProfileSaver.set("Optifine", "false");
 
-        System.out.println(LauncherPanel.firstProfileSaver.get("name"));
-        System.out.println(LauncherPanel.secondProfileSaver.get("name"));
+            firstProfileSaver.set("fileCreated", "true");
+        }
+        if(Objects.equals(secondProfileSaver.get("fileCreated"), "true"))
+        {// Si le fichier existe, ne rien faire
+        } else {
+            // Informations générales
+            secondProfileSaver.set("name", "none");
+            secondProfileSaver.set("email", "none");
+            secondProfileSaver.set("password", "none");
+            secondProfileSaver.set("UUID", "none");
+            // Configuration de Minecraft
+            secondProfileSaver.set("Optifine", "false");
+
+            secondProfileSaver.set("fileCreated", "true");
+        }
+        if(Objects.equals(thirdProfileSaver.get("fileCreated"), "true"))
+        {// Si le fichier existe, ne rien faire
+        } else {
+            // Informations générales
+            thirdProfileSaver.set("name", "none");
+            thirdProfileSaver.set("email", "none");
+            thirdProfileSaver.set("password", "none");
+            thirdProfileSaver.set("UUID", "none");
+            // Configuration de Minecraft
+            thirdProfileSaver.set("Optifine", "false");
+
+            thirdProfileSaver.set("fileCreated", "true");
+        }
+
+    }
+
+    public static void main(String[] args) {
 
         String OS = System.getProperty("os.name");
 
-        if (OS.indexOf("Win") >= 0 || OS.indexOf("win") >= 0) {
+        if (OS.contains("Win") || OS.contains("win")) {
             System.out.println("Windows OK");
         }else {
             JOptionPane.showMessageDialog(null, "Désolé, votre système d'exploitation (" + OS + ") n´est pas encore compatible", "Erreur de compatibilité", JOptionPane.ERROR_MESSAGE);
@@ -55,23 +105,9 @@ public class LauncherFrame extends JFrame {
         Launcher.AW_GAMEFILES_FOLDER.mkdir();
         Launcher.AW_CRASH_FOLDER.mkdir();
 
+        initializeDataFiles();
+
         crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
-
-      //  System.out.println(Swinger.getResourceIgnorePath("fonts/verdana.ttf"));
-
-      /*   try {
-            //create the font to use. Specify the size!
-            Font VerdanaRegular = Font.createFont(Font.TRUETYPE_FONT, LauncherFrame.class.getResourceAsStream("fonts/verdana.ttf")).deriveFont(12f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-
-            //register the font
-            ge.registerFont(VerdanaRegular);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch(FontFormatException e) {
-            e.printStackTrace();
-        } */
 
         instance = new LauncherFrame();
 
