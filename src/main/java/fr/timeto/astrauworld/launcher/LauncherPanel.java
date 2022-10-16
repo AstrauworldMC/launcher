@@ -93,8 +93,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      private final STexturedButton profile3Button = new STexturedButton(getProfileButton("profile3", "normal"), getProfileButton("profile3", "hover"), getProfileButton("profile3", "selected"));
      private final STexturedButton changesButton = new STexturedButton(getResourceIgnorePath("/commonButtons/changesButton-normal.png"), getResourceIgnorePath("/commonButtons/changesButton-hover.png"), getResourceIgnorePath("/commonButtons/changesButton-selected.png"));
      private final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/commonButtons/aboutButton-selected.png"));
-
      private final JLabel tabLabel = new JLabel("", SwingConstants.LEFT);
+     private final JLabel tabSecondLabel = new JLabel("none", SwingConstants.LEFT);
+
+     // Profiles components - up
+     private final STexturedButton profilePlayTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Jouer-normal.png"), getResourceIgnorePath("/profilesPage/up/Jouer-hover.png"), getResourceIgnorePath("/profilesPage/up/Jouer-selected.png"));
+     private final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/profilesPage/up/Compte-selected.png"));
+     private final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/profilesPage/up/Mods-selected.png"));
+     private final STexturedButton profileSettingsTabButton= new STexturedButton(getResourceIgnorePath("/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/profilesPage/up/Reglages-selected.png"));
 
      /**
       * Initialise le panel de la frame (boutons, textes, images...)
@@ -106,8 +112,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
          // this.add(LauncherScrollPanel.scrollPane);
 
           // TODO Arriver à ajouter des fonts
-          File file = new File("/fonts/verdana.ttf");
-         /* try{
+         /* File file = new File("/fonts/verdana.ttf");
+          try{
 
                verdanaRegular = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("..../resources/fonts/verdana.ttf"));;
 
@@ -157,7 +163,35 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
           tabLabel.setBounds(190, 58, 809, 23);
           tabLabel.setForeground(Color.WHITE);
      //     tabLabel.setFont(verdanaRegular.deriveFont(20f));
+          tabLabel.setFont(tabLabel.getFont().deriveFont(20f));
           this.add(tabLabel);
+
+          tabSecondLabel.setBounds(190, 35, 809, 23);
+          tabSecondLabel.setForeground(Color.WHITE);
+          //     tabLabel.setFont(verdanaRegular.deriveFont(20f));
+          tabSecondLabel.setFont(tabLabel.getFont().deriveFont(15f));
+          this.add(tabSecondLabel);
+
+          // Profiles components - up
+          profilePlayTabButton.setBounds(178, 89);
+          profilePlayTabButton.addEventListener(this);
+          this.add(profilePlayTabButton);
+          profilePlayTabButton.setVisible(false);
+
+          profileAccountTabButton.setBounds(298, 89);
+          profileAccountTabButton.addEventListener(this);
+          this.add(profileAccountTabButton);
+          profileAccountTabButton.setVisible(false);
+
+          profileModsTabButton.setBounds(418, 89);
+          profileModsTabButton.addEventListener(this);
+          this.add(profileModsTabButton);
+          profileModsTabButton.setVisible(false);
+
+          profileSettingsTabButton.setBounds(538, 89);
+          profileSettingsTabButton.addEventListener(this);
+          this.add(profileSettingsTabButton);
+          profileSettingsTabButton.setVisible(false);
 
           setNewsPage(true);
 
@@ -169,7 +203,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
       */
      public void setNewsPage(boolean enabled) {
           if (enabled) {
-               setProfilePage(false, null);
+               setProfilePage(false, null, "home");
                setChangesPage(false);
                setAboutPage(false);
 
@@ -182,45 +216,138 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      }
 
      /**
-      * Change la page pour la page principale d'un profil
+      * Change la page pour la page d'un profil
       * @param enabled Si true, affiche la page et tous ces composants. Si false, fait disparaitre tous ces composants
       * @param profileNumber Le numéro du profil sélectionné
+      * @param tab Quelle 'sous-page' est selectionnée. Si null -> changement de page, si "null" -> aucun changement de profil
       */
      @SuppressWarnings("all")
-     public void setProfilePage(boolean enabled, String profileNumber) {
-          STexturedButton profileSelected = null;
-          STexturedButton profileNotSelected1 = profile1Button;
-          STexturedButton profileNotSelected2 = profile2Button;
-          if (Objects.equals(profileNumber, "1")) {
-               profileSelected = profile1Button;
-               profileNotSelected1 = profile2Button;
-               profileNotSelected2 = profile3Button;
-               tabLabel.setText("Profil 1");
-          } else if (Objects.equals(profileNumber, "2")) {
-               profileSelected = profile2Button;
-               profileNotSelected2 = profile3Button;
-               tabLabel.setText("Profil 2");
-          } else if (Objects.equals(profileNumber, "3")) {
-               profileSelected = profile3Button;
-               profileNotSelected1 = profile2Button;
-               profileNotSelected2 = profile1Button;
-               tabLabel.setText("Profil 3");
-          }
-
-          if (enabled) {
-               setNewsPage(false);
-               setChangesPage(false);
-               setAboutPage(false);
-
-               profileSelected.setEnabled(false);
-               profileNotSelected1.setEnabled(true);
-               profileNotSelected2.setEnabled(true);
-          }else {
-               profileNotSelected1.setEnabled(true);
-               profileNotSelected2.setEnabled(true);
-               if (profileNumber == null) {
-                    profile3Button.setEnabled(true);
+     public void setProfilePage(boolean enabled, String profileNumber, String tab) {
+          if(tab == "home") {
+               STexturedButton profileSelected = null;
+               STexturedButton profileNotSelected1 = profile1Button;
+               STexturedButton profileNotSelected2 = profile2Button;
+               if (Objects.equals(profileNumber, "1")) {
+                    profileSelected = profile1Button;
+                    profileNotSelected1 = profile2Button;
+                    profileNotSelected2 = profile3Button;
+                    tabLabel.setText("Profil 1");
+               } else if (Objects.equals(profileNumber, "2")) {
+                    profileSelected = profile2Button;
+                    profileNotSelected2 = profile3Button;
+                    tabLabel.setText("Profil 2");
+               } else if (Objects.equals(profileNumber, "3")) {
+                    profileSelected = profile3Button;
+                    profileNotSelected1 = profile2Button;
+                    profileNotSelected2 = profile1Button;
+                    tabLabel.setText("Profil 3");
+               } else if (Objects.equals(profileNumber, "null")) {
+                    if(!profile1Button.isEnabled()) {
+                         profileSelected = profile1Button;
+                         profileNotSelected1 = profile2Button;
+                         profileNotSelected2 = profile3Button;
+                    } else if (!profile2Button.isEnabled()) {
+                         profileSelected = profile2Button;
+                         profileNotSelected2 = profile3Button;
+                    } else if (!profile3Button.isEnabled()) {
+                         profileSelected = profile3Button;
+                         profileNotSelected1 = profile2Button;
+                         profileNotSelected2 = profile1Button;
+                    }
                }
+
+               if (enabled) {
+                    setNewsPage(false);
+                    setChangesPage(false);
+                    setAboutPage(false);
+
+                    profileSelected.setEnabled(false);
+                    profileNotSelected1.setEnabled(true);
+                    profileNotSelected2.setEnabled(true);
+
+                    profilePlayTabButton.setEnabled(false);
+                    profileAccountTabButton.setEnabled(true);
+                    profileModsTabButton.setEnabled(true);
+                    profileSettingsTabButton.setEnabled(true);
+
+                    profilePlayTabButton.setVisible(true);
+                    profileAccountTabButton.setVisible(true);
+                    profileModsTabButton.setVisible(true);
+                    profileSettingsTabButton.setVisible(true);
+
+                    tabSecondLabel.setText("Jouer");
+               } else {
+                    profileNotSelected1.setEnabled(true);
+                    profileNotSelected2.setEnabled(true);
+
+                    profilePlayTabButton.setVisible(false);
+                    profileAccountTabButton.setVisible(false);
+                    profileModsTabButton.setVisible(false);
+                    profileSettingsTabButton.setVisible(false);
+                    if (profileNumber == null) {
+                         profile3Button.setEnabled(true);
+                    }
+               }
+          } else if (tab == "account") {
+               if (enabled) {
+                    profilePlayTabButton.setEnabled(true);
+                    profileAccountTabButton.setEnabled(false);
+                    profileModsTabButton.setEnabled(true);
+                    profileSettingsTabButton.setEnabled(true);
+
+                    profilePlayTabButton.setVisible(true);
+                    profileAccountTabButton.setVisible(true);
+                    profileModsTabButton.setVisible(true);
+                    profileSettingsTabButton.setVisible(true);
+
+                    tabSecondLabel.setText("Compte");
+               } else {
+                    profilePlayTabButton.setVisible(false);
+                    profileAccountTabButton.setVisible(false);
+                    profileModsTabButton.setVisible(false);
+                    profileSettingsTabButton.setVisible(false);
+               }
+               
+          } else if (tab == "mods") {
+               if (enabled) {
+                    profilePlayTabButton.setEnabled(true);
+                    profileAccountTabButton.setEnabled(true);
+                    profileModsTabButton.setEnabled(false);
+                    profileSettingsTabButton.setEnabled(true);
+
+                    profilePlayTabButton.setVisible(true);
+                    profileAccountTabButton.setVisible(true);
+                    profileModsTabButton.setVisible(true);
+                    profileSettingsTabButton.setVisible(true);
+
+                    tabSecondLabel.setText("Mods");
+               } else {
+                    profilePlayTabButton.setVisible(false);
+                    profileAccountTabButton.setVisible(false);
+                    profileModsTabButton.setVisible(false);
+                    profileSettingsTabButton.setVisible(false);
+               }
+               
+          } else if (tab == "settings") {
+               if (enabled) {
+                    profilePlayTabButton.setEnabled(true);
+                    profileAccountTabButton.setEnabled(true);
+                    profileModsTabButton.setEnabled(true);
+                    profileSettingsTabButton.setEnabled(false);
+
+                    profilePlayTabButton.setVisible(true);
+                    profileAccountTabButton.setVisible(true);
+                    profileModsTabButton.setVisible(true);
+                    profileSettingsTabButton.setVisible(true);
+
+                    tabSecondLabel.setText("R\u00e9glages");
+               } else {
+                    profilePlayTabButton.setVisible(false);
+                    profileAccountTabButton.setVisible(false);
+                    profileModsTabButton.setVisible(false);
+                    profileSettingsTabButton.setVisible(false);
+               }
+               
           }
 
      }
@@ -232,7 +359,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      public void setChangesPage(boolean enabled) {
           if (enabled) {
                setAboutPage(false);
-               setProfilePage(false, null);
+               setProfilePage(false, null, "home");
                setAboutPage(false);
 
                tabLabel.setText("Changelogs");
@@ -250,7 +377,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      public void setAboutPage(boolean enabled) {
           if (enabled) {
                setNewsPage(false);
-               setProfilePage(false, null);
+               setProfilePage(false, null, "home");
                setChangesPage(false);
 
                tabLabel.setText("\u00c0 propos");
@@ -277,15 +404,23 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
           } else if (e.getSource() == newsButton) {
                setNewsPage(true);
           } else if (e.getSource() == profile1Button) {
-               setProfilePage(true, "1");
+               setProfilePage(true, "1", "home");
           } else if (e.getSource() == profile2Button) {
-               setProfilePage(true, "2");
+               setProfilePage(true, "2", "home");
           } else if (e.getSource() == profile3Button) {
-               setProfilePage(true, "3");
+               setProfilePage(true, "3", "home");
           } else if (e.getSource() == changesButton) {
                setChangesPage(true);
           } else if (e.getSource() == aboutButton) {
                setAboutPage(true);
+          } else if (e.getSource() == profilePlayTabButton) {
+               setProfilePage(true, "null", "home");
+          } else if (e.getSource() == profileAccountTabButton) {
+               setProfilePage(true, "null", "account");
+          } else if (e.getSource() == profileModsTabButton) {
+               setProfilePage(true, "null", "mods");
+          } else if (e.getSource() == profileSettingsTabButton) {
+               setProfilePage(true, "null", "settings");
           }
 
      }

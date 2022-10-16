@@ -20,15 +20,14 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class Launcher {
 
     static final String separatorChar = System.getProperty("file.separator");
@@ -45,8 +44,8 @@ public class Launcher {
     static final String thirdProfileData = dataFolder + separatorChar + "thirdProfile.properties";
 
     // Version de Minecraft et de Forge utilisée
-    static final String mcVersion = "1.18.2";
-    static final String forgeVerion = "40.1.73";
+    static final String mcVersion = "1.19.2";
+    static final String forgeVersion = "40.1.73";
 
     // Version du launcher
     public static final String version = "BETA2.0.0";
@@ -58,7 +57,7 @@ public class Launcher {
     public static final File AW_DATA_FOLDER = new File(dataFolder);
     public static final File AW_FIRSTPROFILE_DATA = new File(firstProfileData);
     public static final File AW_SECONDPROFILE_DATA = new File(secondProfileData);
-    public static final File AW_THIRDPROFILE_DATA = new File(thirdProfileData);
+    public static final File AW_THIRDPROFILE_DATA= new File(thirdProfileData);
 
     // Path dont on a besoin
     public static final Path awFilesFolder = Paths.get(filesFolder);
@@ -70,14 +69,14 @@ public class Launcher {
     public static final Path awSecondProfileData = Paths.get(secondProfileData);
     public static final Path awThirdProfileData = Paths.get(thirdProfileData);
 
-    public static final GameInfos AW_INFOS = new GameInfos("Astrauworld", awGameFilesFolder, new GameVersion(mcVersion, GameType.V1_13_HIGHER_FORGE.setNFVD(new NewForgeVersionDiscriminator(forgeVerion, mcVersion, "20211210.034407"))), new GameTweak[] {GameTweak.FORGE});
+    public static final GameInfos AW_INFOS = new GameInfos("Astrauworld", awGameFilesFolder, new GameVersion(mcVersion, GameType.V1_13_HIGHER_FORGE.setNFVD(new NewForgeVersionDiscriminator(forgeVersion, mcVersion, "20211210.034407"))), new GameTweak[] {GameTweak.FORGE});
 
     private static AuthInfos authInfos;
     private static Thread updateThread;
 
-    static boolean maximumSetted = false;
+    static boolean maximumSet = false;
 
-    private static CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", awCrashFolder);
+    private static final CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", awCrashFolder);
 
     public static void microsoftAuth(String username, String password) throws MicrosoftAuthenticationException {
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
@@ -93,7 +92,7 @@ public class Launcher {
 
         LauncherFrame.getInstance().setVisible(false);
 
-        noFramework.launch(mcVersion, forgeVerion, NoFramework.ModLoader.FORGE);
+        noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
         System.exit(0);
 
     }
@@ -113,7 +112,7 @@ public class Launcher {
         POST_EXECUTIONS("Running post executions..."),
         END("Terminé!");
 
-        String details;
+        final String details;
 
         StepInfo(String details) {
             this.details = details;
@@ -166,7 +165,7 @@ public class Launcher {
         final List<Mod> mods = new ArrayList<>();
 
         final AbstractForgeVersion forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-                .withForgeVersion(mcVersion + "-" + forgeVerion)
+                .withForgeVersion(mcVersion + "-" + forgeVersion)
                 .withCurseMods(modInfos)
                 .withMods(mods)
                 .withFileDeleter(new ModFileDeleter(true))
@@ -193,11 +192,6 @@ public class Launcher {
 
     public static CrashReporter getCrashReporter() {
         return crashReporter;
-    }
-
-    public static BufferedImage getResource(String resource) {
-        BufferedImage imageUrl = getResource(separatorChar + "");
-        return null;
     }
 
 }
