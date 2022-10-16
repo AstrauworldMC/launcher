@@ -30,7 +30,7 @@ public class LauncherFrame extends JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setUndecorated(true);
-        this.setIconImage(Swinger.getResourceIgnorePath("/logo.png"));
+        this.setIconImage(Swinger.getResourceIgnorePath("/logoV3Petit.png"));
         this.setContentPane(launcherPanel = new LauncherPanel());
 
         WindowMover mover = new WindowMover(this);
