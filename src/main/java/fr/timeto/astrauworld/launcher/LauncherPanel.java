@@ -16,7 +16,7 @@ import static fr.theshark34.swinger.Swinger.*;
 @SuppressWarnings("unused")
 public class LauncherPanel extends JPanel implements SwingerEventListener {
 
-     private final Image background = getResourceIgnorePath("/baseGUI.png");
+     private Image background = getResourceIgnorePath("/baseGUI.png");
 
      private static LauncherPanel launcherPanel;
 
@@ -101,6 +101,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      private final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/profilesPage/up/Compte-selected.png"));
      private final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/profilesPage/up/Mods-selected.png"));
      private final STexturedButton profileSettingsTabButton= new STexturedButton(getResourceIgnorePath("/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/profilesPage/up/Reglages-selected.png"));
+
+     // Profiles components - compte
+     private final STexturedButton profileAccountConnectionButton = new STexturedButton(getResourceIgnorePath("/profilesPage/compte/connectionButton-normal.png"), getResourceIgnorePath("/profilesPage/compte/connectionButton-hover.png"));
+     private final STexturedButton profileAccountConnectionMicrosoftButton = new STexturedButton(getResourceIgnorePath("/profilesPage/compte/connectionWithMicrosoftButton-normal.png"), getResourceIgnorePath("/profilesPage/compte/connectionWithMicrosoftButton-hover.png"));
 
      /**
       * Initialise le panel de la frame (boutons, textes, images...)
@@ -193,6 +197,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
           this.add(profileSettingsTabButton);
           profileSettingsTabButton.setVisible(false);
 
+          // Profiles components - compte
+          profileAccountConnectionButton.setBounds(301, 359);
+          profileAccountConnectionButton.addEventListener(this);
+          this.add(profileAccountConnectionButton);
+          profileAccountConnectionButton.setVisible(false);
+
+          profileAccountConnectionMicrosoftButton.setBounds(690, 233);
+          profileAccountConnectionMicrosoftButton.addEventListener(this);
+          this.add(profileAccountConnectionMicrosoftButton);
+          profileAccountConnectionMicrosoftButton.setVisible(false);
+
           setNewsPage(true);
 
      }
@@ -203,7 +218,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
       */
      public void setNewsPage(boolean enabled) {
           if (enabled) {
-               setProfilePage(false, null, "home");
+               setProfilePage(false, null, "all");
                setChangesPage(false);
                setAboutPage(false);
 
@@ -219,7 +234,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
       * Change la page pour la page d'un profil
       * @param enabled Si true, affiche la page et tous ces composants. Si false, fait disparaitre tous ces composants
       * @param profileNumber Le numéro du profil sélectionné
-      * @param tab Quelle 'sous-page' est selectionnée. Si null -> changement de page, si "null" -> aucun changement de profil
+      * @param tab Quelle 'sous-page' est selectionnée. Si null -> changement de page, si "null" -> aucun changement de profil, si "all" -> fait toute les pages
       */
      @SuppressWarnings("all")
      public void setProfilePage(boolean enabled, String profileNumber, String tab) {
@@ -242,14 +257,15 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     profileNotSelected2 = profile1Button;
                     tabLabel.setText("Profil 3");
                } else if (Objects.equals(profileNumber, "null")) {
-                    if(!profile1Button.isEnabled()) {
+                    if(tabLabel.getText() != "Profil 3") {
                          profileSelected = profile1Button;
                          profileNotSelected1 = profile2Button;
                          profileNotSelected2 = profile3Button;
-                    } else if (!profile2Button.isEnabled()) {
+                    } else if (tabLabel.getText() != "Profil 3") {
                          profileSelected = profile2Button;
+                         profileNotSelected1 = profile1Button;
                          profileNotSelected2 = profile3Button;
-                    } else if (!profile3Button.isEnabled()) {
+                    } else if (tabLabel.getText() != "Profil 3") {
                          profileSelected = profile3Button;
                          profileNotSelected1 = profile2Button;
                          profileNotSelected2 = profile1Button;
@@ -257,13 +273,18 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                }
 
                if (enabled) {
+                    setProfilePage(false, "null", "all");
+
                     setNewsPage(false);
                     setChangesPage(false);
                     setAboutPage(false);
 
-                    profileSelected.setEnabled(false);
-                    profileNotSelected1.setEnabled(true);
-                    profileNotSelected2.setEnabled(true);
+                    if(tab == "all") {
+                    } else {
+                         profileSelected.setEnabled(false);
+                         profileNotSelected1.setEnabled(true);
+                         profileNotSelected2.setEnabled(true);
+                    }
 
                     profilePlayTabButton.setEnabled(false);
                     profileAccountTabButton.setEnabled(true);
@@ -276,6 +297,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     profileSettingsTabButton.setVisible(true);
 
                     tabSecondLabel.setText("Jouer");
+                    background = getResourceIgnorePath("/baseGUI.png");
                } else {
                     profileNotSelected1.setEnabled(true);
                     profileNotSelected2.setEnabled(true);
@@ -290,6 +312,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                }
           } else if (tab == "account") {
                if (enabled) {
+                    setProfilePage(false, "null", "all");
+
                     profilePlayTabButton.setEnabled(true);
                     profileAccountTabButton.setEnabled(false);
                     profileModsTabButton.setEnabled(true);
@@ -301,15 +325,24 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     profileSettingsTabButton.setVisible(true);
 
                     tabSecondLabel.setText("Compte");
+                    background = getResourceIgnorePath("/profilesPage/compte/profilePage-compte.png");
+
+                    profileAccountConnectionButton.setVisible(true);
+                    profileAccountConnectionMicrosoftButton.setVisible(true);
                } else {
                     profilePlayTabButton.setVisible(false);
                     profileAccountTabButton.setVisible(false);
                     profileModsTabButton.setVisible(false);
                     profileSettingsTabButton.setVisible(false);
+                    profileAccountConnectionButton.setVisible(false);
+                    profileAccountConnectionMicrosoftButton.setVisible(false);
+                    background = getResourceIgnorePath("/baseGUI.png");
                }
                
           } else if (tab == "mods") {
                if (enabled) {
+                    setProfilePage(false, "null", "all");
+
                     profilePlayTabButton.setEnabled(true);
                     profileAccountTabButton.setEnabled(true);
                     profileModsTabButton.setEnabled(false);
@@ -330,6 +363,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                
           } else if (tab == "settings") {
                if (enabled) {
+                    setProfilePage(false, "null", "all");
+
                     profilePlayTabButton.setEnabled(true);
                     profileAccountTabButton.setEnabled(true);
                     profileModsTabButton.setEnabled(true);
@@ -348,6 +383,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     profileSettingsTabButton.setVisible(false);
                }
                
+          } else if (tab == "all") {
+               setProfilePage(enabled, null, "home");
+               setProfilePage(enabled, null, "account");
+               setProfilePage(enabled, null, "mods");
+               setProfilePage(enabled, null, "settings");
           }
 
      }
@@ -359,7 +399,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      public void setChangesPage(boolean enabled) {
           if (enabled) {
                setAboutPage(false);
-               setProfilePage(false, null, "home");
+               setProfilePage(false, null, "all");
                setAboutPage(false);
 
                tabLabel.setText("Changelogs");
@@ -377,7 +417,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      public void setAboutPage(boolean enabled) {
           if (enabled) {
                setNewsPage(false);
-               setProfilePage(false, null, "home");
+               setProfilePage(false, null, "all");
                setChangesPage(false);
 
                tabLabel.setText("\u00c0 propos");
@@ -388,7 +428,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 
      }
 
-
+     @Override
      public void paintComponent(Graphics g) {
           super.paintComponent(g);
           g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), this);
