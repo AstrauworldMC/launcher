@@ -1,5 +1,6 @@
 package fr.timeto.astrauworld.launcher;
 
+import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.colored.SColoredBar;
 import fr.theshark34.swinger.event.SwingerEvent;
@@ -9,10 +10,11 @@ import fr.theshark34.swinger.textured.STexturedButton;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.InputStream;
 import java.util.Objects;
 
-import static fr.theshark34.swinger.Swinger.*;
+import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
+import static fr.theshark34.swinger.Swinger.getTransparentWhite;
 
 @SuppressWarnings("unused")
 public class LauncherPanel extends JPanel implements SwingerEventListener {
@@ -92,7 +94,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      private final STexturedButton profile3Button = new STexturedButton(getProfileButton("profile3", "normal"), getProfileButton("profile3", "hover"), getProfileButton("profile3", "selected"));
      private final STexturedButton changesButton = new STexturedButton(getResourceIgnorePath("/commonButtons/changesButton-normal.png"), getResourceIgnorePath("/commonButtons/changesButton-hover.png"), getResourceIgnorePath("/commonButtons/changesButton-selected.png"));
      private final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/commonButtons/aboutButton-selected.png"));
-     private final JLabel tabLabel = new JLabel("", SwingConstants.LEFT);
+     public static final JLabel tabLabel = new JLabel("", SwingConstants.LEFT);
      private final JLabel tabSecondLabel = new JLabel("none", SwingConstants.LEFT);
      public SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED);
      public JLabel barLabel = new JLabel("", SwingConstants.LEFT);
@@ -119,8 +121,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      // Profiles components - compte
      private final STexturedButton profileAccountConnectionButton = new STexturedButton(getResourceIgnorePath("/profilesPage/compte/connectionButton-normal.png"), getResourceIgnorePath("/profilesPage/compte/connectionButton-hover.png"));
      private final STexturedButton profileAccountConnectionMicrosoftButton = new STexturedButton(getResourceIgnorePath("/profilesPage/compte/connectionWithMicrosoftButton-normal.png"), getResourceIgnorePath("/profilesPage/compte/connectionWithMicrosoftButton-hover.png"));
-     private final JTextField profileAccountTextField = new JTextField("text");
-     private final JPasswordField profileAccountPasswordField = new JPasswordField();
+     public static final JTextField profileAccountTextField = new JTextField("");
+     public static final JPasswordField profileAccountPasswordField = new JPasswordField();
 
      /**
       * Initialise le panel de la frame (boutons, textes, images...)
@@ -475,6 +477,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     upRightCorner.setVisible(true);
                     downLeftCorner.setVisible(true);
                     downRightCorner.setVisible(true);
+
+                    profileAccountConnectionMicrosoftButton.setEnabled(false); //TODO la webview marche pas
                } else {
                     profilePlayTabButton.setVisible(false);
                     profileAccountTabButton.setVisible(false);
@@ -667,8 +671,55 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                setProfilePage(true, "null", "mods");
           } else if (e.getSource() == profileSettingsTabButton) {
                setProfilePage(true, "null", "settings");
-          } //TODO ajouter les fonctions des boutons du profilePage - home
-          // TODO ajouter les fonctions des boutons du profilePage - compte
+          } else if (e.getSource() == profileAccountConnectionButton) {
+               if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
+                    JOptionPane.showMessageDialog(this, "Erreur, veuillez entrer un mail et un mot de passe valides", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
+                    return;
+               }
 
+               Thread connect = new Thread(() -> {
+                    try {
+                         System.out.println("Connexion...");
+                         Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()));
+                    } catch (MicrosoftAuthenticationException e1) {
+                         JOptionPane.showMessageDialog(LauncherPanel.this, "Erreur, impossible de se connecter", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
+                         System.out.println("Erreur, impossible de se connecter");
+                    }
+               });
+               connect.start();
+
+
+          } else if (e.getSource() == profileAccountConnectionMicrosoftButton) {
+               System.out.println("Thread?");
+
+               Thread connect = new Thread(() -> {
+                    System.out.println("Thread");
+                    try {
+                         System.out.println("Connexion...");
+                         Launcher.microsoftAuthWebview();
+                    } catch (MicrosoftAuthenticationException e12) {
+                         JOptionPane.showMessageDialog(LauncherPanel.this, "Erreur, impossible de se connecter", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
+                         System.out.println("Erreur, impossible de se connecter");
+                    }
+               });
+               connect.start();
+
+
+          } else if (e.getSource() == profilePlayButton) {
+               if(Objects.equals(tabLabel.getText(), "Profil 1")) { //TODO remplacer tout les trucs qui regardent quel profil est sélectionné par qqchose avec un fichier de data
+                    Launcher.connect(1);
+               } else if (Objects.equals(tabLabel.getText(), "Profil 2")) {
+                    Launcher.connect(2);
+               } else if (Objects.equals(tabLabel.getText(), "Profil 3")) {
+                    Launcher.connect(3);
+               }
+          } else if (e.getSource() == profileNewsButton) {
+               setNewsPage(true);
+          } else if (e.getSource() == profileLaunchToMenuButton) {
+
+          } else if (e.getSource() == profileDownloadButton) {
+
+          }
+          //TODO ajouter les fonctions des boutons du profilePage - home
      }
 }

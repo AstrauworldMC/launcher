@@ -26,6 +26,9 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static fr.timeto.astrauworld.launcher.LauncherPanel.*;
 
 @SuppressWarnings("unused")
 public class Launcher {
@@ -78,12 +81,79 @@ public class Launcher {
 
     private static final CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", awCrashFolder);
 
-    public static void microsoftAuth(String username, String password) throws MicrosoftAuthenticationException {
+    public static void microsoftAuth(String email, String password) throws MicrosoftAuthenticationException {
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
-        MicrosoftAuthResult result = authenticator.loginWithCredentials(username, password);
+        MicrosoftAuthResult result = authenticator.loginWithCredentials(email, password);
 
-        System.out.println("Connecté avec: " + result.getProfile().getName() + " (compte Microsoft)");
+        if (Objects.equals(LauncherPanel.tabLabel.getText(), "Profil 1")) {
+            firstProfileSaver.set("email", LauncherPanel.profileAccountTextField.getText());
+            firstProfileSaver.set("password", new String(LauncherPanel.profileAccountPasswordField.getPassword()));
+            firstProfileSaver.set("name", result.getProfile().getName());
+            firstProfileSaver.set("accessToken", result.getAccessToken());
+            firstProfileSaver.set("refreshToken", result.getRefreshToken());
+            firstProfileSaver.set("UUID", result.getProfile().getId());
+        } else if (Objects.equals(tabLabel.getText(), "Profil 2")) {
+            secondProfileSaver.set("email", LauncherPanel.profileAccountTextField.getText());
+            secondProfileSaver.set("password", new String(LauncherPanel.profileAccountPasswordField.getPassword()));
+            secondProfileSaver.set("name", result.getProfile().getName());
+            secondProfileSaver.set("accessToken", result.getAccessToken());
+            secondProfileSaver.set("refreshToken", result.getRefreshToken());
+            secondProfileSaver.set("UUID", result.getProfile().getId());
+        } else if (Objects.equals(tabLabel.getText(), "Profil 3")) {
+            thirdProfileSaver.set("email", LauncherPanel.profileAccountTextField.getText());
+            thirdProfileSaver.set("password", new String(LauncherPanel.profileAccountPasswordField.getPassword()));
+            thirdProfileSaver.set("name", result.getProfile().getName());
+            thirdProfileSaver.set("accessToken", result.getAccessToken());
+            thirdProfileSaver.set("refreshToken", result.getRefreshToken());
+            thirdProfileSaver.set("UUID", result.getProfile().getId());
+        }
+
+        System.out.println("Compte enregistré" + result.getProfile().getName() + " (compte Microsoft)");
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), "", "");
+    }
+
+    public static void microsoftAuthWebview() throws MicrosoftAuthenticationException {
+        System.out.println("webview?");
+        MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
+        MicrosoftAuthResult result = authenticator.loginWithWebview();
+        System.out.println("webview");
+
+        if (Objects.equals(LauncherPanel.tabLabel.getText(), "Profil 1")) {
+            firstProfileSaver.set("name", result.getProfile().getName());
+            firstProfileSaver.set("accessToken", result.getAccessToken());
+            firstProfileSaver.set("refreshToken", result.getRefreshToken());
+            firstProfileSaver.set("UUID", result.getProfile().getId());
+        } else if (Objects.equals(tabLabel.getText(), "Profil 2")) {
+            secondProfileSaver.set("name", result.getProfile().getName());
+            secondProfileSaver.set("accessToken", result.getAccessToken());
+            secondProfileSaver.set("refreshToken", result.getRefreshToken());
+            secondProfileSaver.set("UUID", result.getProfile().getId());
+        } else if (Objects.equals(tabLabel.getText(), "Profil 3")) {
+            thirdProfileSaver.set("name", result.getProfile().getName());
+            thirdProfileSaver.set("accessToken", result.getAccessToken());
+            thirdProfileSaver.set("refreshToken", result.getRefreshToken());
+            thirdProfileSaver.set("UUID", result.getProfile().getId());
+        }
+
+        System.out.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
+    }
+
+    /**
+     * À utiliser seulement lorsque le jeu se lance après
+     * @param profile Le numéro du profil sélectionné, de 1 à 3
+     */
+    public static void connect(int profile){
+        //TODO ajouter un vérificateur avec l'authentication Microsoft Openauth
+        if (profile == 1) {
+            authInfos = new AuthInfos(firstProfileSaver.get("name"), firstProfileSaver.get("accessToken"), firstProfileSaver.get("UUID"), "", "");
+            System.out.println("Connecté avec " + firstProfileSaver.get("name"));
+        } else if (profile == 2) {
+            authInfos = new AuthInfos(secondProfileSaver.get("name"), secondProfileSaver.get("accessToken"), secondProfileSaver.get("UUID"), "", "");
+            System.out.println("Connecté avec " + secondProfileSaver.get("name"));
+        } else if (profile == 3) {
+            authInfos = new AuthInfos(thirdProfileSaver.get("name"), thirdProfileSaver.get("accessToken"), thirdProfileSaver.get("UUID"), "", "");
+            System.out.println("Connecté avec " + thirdProfileSaver.get("name"));
+        }
     }
 
     public static void launch() throws Exception{

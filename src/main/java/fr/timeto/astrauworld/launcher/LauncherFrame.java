@@ -54,6 +54,8 @@ public class LauncherFrame extends JFrame {
             firstProfileSaver.set("email", "none");
             firstProfileSaver.set("password", "none");
             firstProfileSaver.set("UUID", "none");
+            firstProfileSaver.set("accessToken", "none");
+            firstProfileSaver.set("refreshToken", "none");
             // Configuration de Minecraft
             firstProfileSaver.set("Optifine", "false");
 
@@ -67,6 +69,8 @@ public class LauncherFrame extends JFrame {
             secondProfileSaver.set("email", "none");
             secondProfileSaver.set("password", "none");
             secondProfileSaver.set("UUID", "none");
+            secondProfileSaver.set("accessToken", "none");
+            secondProfileSaver.set("refreshToken", "none");
             // Configuration de Minecraft
             secondProfileSaver.set("Optifine", "false");
 
@@ -80,6 +84,8 @@ public class LauncherFrame extends JFrame {
             thirdProfileSaver.set("email", "none");
             thirdProfileSaver.set("password", "none");
             thirdProfileSaver.set("UUID", "none");
+            thirdProfileSaver.set("accessToken", "none");
+            thirdProfileSaver.set("refreshToken", "none");
             // Configuration de Minecraft
             thirdProfileSaver.set("Optifine", "false");
 
