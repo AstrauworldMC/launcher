@@ -108,7 +108,7 @@ public class Launcher {
             thirdProfileSaver.set("UUID", result.getProfile().getId());
         }
 
-        System.out.println("Compte enregistré" + result.getProfile().getName() + " (compte Microsoft)");
+        System.out.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), "", "");
     }
 

@@ -31,20 +31,20 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 
      Font verdanaRegular;
 
-     private static Font verdanaFont = null;
+     private static Font kollectifFont = null;
      private static final String FONT_PATH_VERDANA = "../resources/fonts/verdana.ttf";
 
      @SuppressWarnings("all")
      public Font createFont() {
           try {
-               InputStream myStream = getClass().getClassLoader().getResourceAsStream("../resources/fonts/verdana.ttf");
+               InputStream myStream = getClass().getClassLoader().getResourceAsStream("../resources/fonts/Kollectif.ttf");
                Font ttfBase = Font.createFont(Font.TRUETYPE_FONT, myStream);
-               verdanaFont = ttfBase.deriveFont(Font.PLAIN, 24);
+               kollectifFont = ttfBase.deriveFont(Font.PLAIN, 24);
           } catch (Exception ex) {
                ex.printStackTrace();
                System.err.println("Font not loaded.");
           }
-          return verdanaFont;
+          return kollectifFont;
      }
 
      /**
@@ -59,21 +59,21 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
           boolean profile = false;
           BufferedImage button = null;
 
-          if(Objects.equals(base, "profile1")){
+          if(Objects.equals(base, "firstProfile")){
                if(Objects.equals(firstProfileSaver.get("name"), "none")) {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + "None.png");
                }else {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + ".png");
                }
 
-          } else if (Objects.equals(base, "profile2")) {
+          } else if (Objects.equals(base, "secondProfile")) {
                if(Objects.equals(secondProfileSaver.get("name"), "none")) {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + "None.png");
                }else {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + ".png");
                }
 
-          } else if (Objects.equals(base, "profile3")) {
+          } else if (Objects.equals(base, "thirdProfile")) {
                if(Objects.equals(thirdProfileSaver.get("name"), "none")) {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + "None.png");
                }else {
@@ -89,9 +89,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      private final STexturedButton hideButton = new STexturedButton(getResourceIgnorePath("/commonButtons/hideButton.png"), getResourceIgnorePath("/commonButtons/hideButtonHover.png"));
 
      private final STexturedButton newsButton = new STexturedButton(getResourceIgnorePath("/commonButtons/newsButton-normal.png"), getResourceIgnorePath("/commonButtons/newsButton-hover.png"), getResourceIgnorePath("/commonButtons/newsButton-selected.png"));
-     private final STexturedButton profile1Button = new STexturedButton(getProfileButton("profile1", "normal"), getProfileButton("profile1", "hover"), getProfileButton("profile1", "selected"));
-     private final STexturedButton profile2Button = new STexturedButton(getProfileButton("profile2", "normal"), getProfileButton("profile2", "hover"), getProfileButton("profile2", "selected"));
-     private final STexturedButton profile3Button = new STexturedButton(getProfileButton("profile3", "normal"), getProfileButton("profile3", "hover"), getProfileButton("profile3", "selected"));
+     private final STexturedButton firstProfileButton = new STexturedButton(getProfileButton("firstProfile", "normal"), getProfileButton("firstProfile", "hover"), getProfileButton("firstProfile", "selected"));
+     private final STexturedButton secondProfileButton = new STexturedButton(getProfileButton("secondProfile", "normal"), getProfileButton("secondProfile", "hover"), getProfileButton("secondProfile", "selected"));
+     private final STexturedButton thirdProfileButton = new STexturedButton(getProfileButton("thirdProfile", "normal"), getProfileButton("thirdProfile", "hover"), getProfileButton("thirdProfile", "selected"));
      private final STexturedButton changesButton = new STexturedButton(getResourceIgnorePath("/commonButtons/changesButton-normal.png"), getResourceIgnorePath("/commonButtons/changesButton-hover.png"), getResourceIgnorePath("/commonButtons/changesButton-selected.png"));
      private final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/commonButtons/aboutButton-selected.png"));
      public static final JLabel tabLabel = new JLabel("", SwingConstants.LEFT);
@@ -110,6 +110,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      private final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/profilesPage/up/Compte-selected.png"));
      private final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/profilesPage/up/Mods-selected.png"));
      private final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/profilesPage/up/Reglages-selected.png"));
+     public String selectedProfile = "";
 
      // Profiles components - home
      private final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/profilesPage/playButton-normal.png"), getResourceIgnorePath("/profilesPage/playButton-hover.png"), getResourceIgnorePath("/profilesPage/playButton-disabled.png"));
@@ -159,17 +160,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
           newsButton.addEventListener(this);
           this.add(newsButton);
 
-          profile1Button.setBounds(0, 174);
-          profile1Button.addEventListener(this);
-          this.add(profile1Button);
+          firstProfileButton.setBounds(0, 174);
+          firstProfileButton.addEventListener(this);
+          this.add(firstProfileButton);
 
-          profile2Button.setBounds(0, 235);
-          profile2Button.addEventListener(this);
-          this.add(profile2Button);
+          secondProfileButton.setBounds(0, 235);
+          secondProfileButton.addEventListener(this);
+          this.add(secondProfileButton);
 
-          profile3Button.setBounds(0, 296);
-          profile3Button.addEventListener(this);
-          this.add(profile3Button);
+          thirdProfileButton.setBounds(0, 296);
+          thirdProfileButton.addEventListener(this);
+          this.add(thirdProfileButton);
 
           changesButton.setBounds(0, 510);
           changesButton.addEventListener(this);
@@ -342,42 +343,45 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      @SuppressWarnings("all")
      public void setProfilePage(boolean enabled, String profileNumber, String tab) {
           STexturedButton profileSelected = null;
-          STexturedButton profileNotSelected1 = profile1Button;
-          STexturedButton profileNotSelected2 = profile2Button;
+          STexturedButton profileNotSelected1 = firstProfileButton;
+          STexturedButton profileNotSelected2 = secondProfileButton;
           Saver selectedSaver = null;
           if(tab == "home") {
                if (Objects.equals(profileNumber, "1")) {
-                    profileSelected = profile1Button;
-                    profileNotSelected1 = profile2Button;
-                    profileNotSelected2 = profile3Button;
+                    profileSelected = firstProfileButton;
+                    profileNotSelected1 = secondProfileButton;
+                    profileNotSelected2 = thirdProfileButton;
                     tabLabel.setText("Profil 1");
                     selectedSaver = firstProfileSaver;
+                    selectedProfile = "1";
                } else if (Objects.equals(profileNumber, "2")) {
-                    profileSelected = profile2Button;
-                    profileNotSelected2 = profile3Button;
+                    profileSelected = secondProfileButton;
+                    profileNotSelected2 = thirdProfileButton;
                     tabLabel.setText("Profil 2");
                     selectedSaver = secondProfileSaver;
+                    selectedProfile = "2";
                } else if (Objects.equals(profileNumber, "3")) {
-                    profileSelected = profile3Button;
-                    profileNotSelected1 = profile2Button;
-                    profileNotSelected2 = profile1Button;
+                    profileSelected = thirdProfileButton;
+                    profileNotSelected1 = secondProfileButton;
+                    profileNotSelected2 = firstProfileButton;
                     tabLabel.setText("Profil 3");
                     selectedSaver = thirdProfileSaver;
+                    selectedProfile = "3";
                } else if (Objects.equals(profileNumber, "null")) {
                     if(tabLabel.getText() == "Profil 1") {
-                         profileSelected = profile1Button;
-                         profileNotSelected1 = profile2Button;
-                         profileNotSelected2 = profile3Button;
+                         profileSelected = firstProfileButton;
+                         profileNotSelected1 = secondProfileButton;
+                         profileNotSelected2 = thirdProfileButton;
                          selectedSaver=firstProfileSaver;
                     } else if (tabLabel.getText() == "Profil 2") {
-                         profileSelected = profile2Button;
-                         profileNotSelected1 = profile1Button;
-                         profileNotSelected2 = profile3Button;
+                         profileSelected = secondProfileButton;
+                         profileNotSelected1 = firstProfileButton;
+                         profileNotSelected2 = thirdProfileButton;
                          selectedSaver=secondProfileSaver;
                     } else if (tabLabel.getText() == "Profil 3") {
-                         profileSelected = profile3Button;
-                         profileNotSelected1 = profile2Button;
-                         profileNotSelected2 = profile1Button;
+                         profileSelected = thirdProfileButton;
+                         profileNotSelected1 = secondProfileButton;
+                         profileNotSelected2 = firstProfileButton;
                          selectedSaver=thirdProfileSaver;
                     }
                }
@@ -443,7 +447,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     profileDownloadButton.setVisible(false);
                     profileAccountLabel.setVisible(false);
                     if (profileNumber == null) {
-                         profile3Button.setEnabled(true);
+                         thirdProfileButton.setEnabled(true);
                     }
                }
           } else if (tab == "account") {
@@ -464,6 +468,21 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     profileAccountConnectionMicrosoftButton.setVisible(true);
                     profileAccountTextField.setVisible(true);
                     profileAccountPasswordField.setVisible(true);
+                    profileAccountTextField.setText("");
+                    profileAccountPasswordField.setText("");
+                    if (Objects.equals(selectedProfile, "1")) {
+                         if(!Objects.equals(firstProfileSaver.get("email"), "none")) {
+                              profileAccountTextField.setText(firstProfileSaver.get("email"));
+                         }
+                    } else if (Objects.equals(selectedProfile, "2")) {
+                         if(!Objects.equals(secondProfileSaver.get("email"), "none")) {
+                              profileAccountTextField.setText(secondProfileSaver.get("email"));
+                         }
+                    } else if (Objects.equals(selectedProfile, "3")) {
+                         if(!Objects.equals(thirdProfileSaver.get("email"), "none")) {
+                              profileAccountTextField.setText(thirdProfileSaver.get("email"));
+                         }
+                    }
 
                     upLeftCorner.setVisible(false);
                     upRightCorner.setVisible(false);
@@ -653,11 +672,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                LauncherFrame.getInstance().setState(JFrame.ICONIFIED);
           } else if (e.getSource() == newsButton) {
                setNewsPage(true);
-          } else if (e.getSource() == profile1Button) {
+          } else if (e.getSource() == firstProfileButton) {
                setProfilePage(true, "1", "home");
-          } else if (e.getSource() == profile2Button) {
+          } else if (e.getSource() == secondProfileButton) {
                setProfilePage(true, "2", "home");
-          } else if (e.getSource() == profile3Button) {
+          } else if (e.getSource() == thirdProfileButton) {
                setProfilePage(true, "3", "home");
           } else if (e.getSource() == changesButton) {
                setChangesPage(true);
