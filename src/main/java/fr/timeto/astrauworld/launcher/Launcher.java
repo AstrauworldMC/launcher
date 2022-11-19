@@ -85,27 +85,24 @@ public class Launcher {
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithCredentials(email, password);
 
-        if (Objects.equals(LauncherPanel.tabLabel.getText(), "Profil 1")) {
-            firstProfileSaver.set("email", LauncherPanel.profileAccountTextField.getText());
-            firstProfileSaver.set("password", new String(LauncherPanel.profileAccountPasswordField.getPassword()));
-            firstProfileSaver.set("name", result.getProfile().getName());
-            firstProfileSaver.set("accessToken", result.getAccessToken());
-            firstProfileSaver.set("refreshToken", result.getRefreshToken());
-            firstProfileSaver.set("UUID", result.getProfile().getId());
-        } else if (Objects.equals(tabLabel.getText(), "Profil 2")) {
-            secondProfileSaver.set("email", LauncherPanel.profileAccountTextField.getText());
-            secondProfileSaver.set("password", new String(LauncherPanel.profileAccountPasswordField.getPassword()));
-            secondProfileSaver.set("name", result.getProfile().getName());
-            secondProfileSaver.set("accessToken", result.getAccessToken());
-            secondProfileSaver.set("refreshToken", result.getRefreshToken());
-            secondProfileSaver.set("UUID", result.getProfile().getId());
-        } else if (Objects.equals(tabLabel.getText(), "Profil 3")) {
-            thirdProfileSaver.set("email", LauncherPanel.profileAccountTextField.getText());
-            thirdProfileSaver.set("password", new String(LauncherPanel.profileAccountPasswordField.getPassword()));
-            thirdProfileSaver.set("name", result.getProfile().getName());
-            thirdProfileSaver.set("accessToken", result.getAccessToken());
-            thirdProfileSaver.set("refreshToken", result.getRefreshToken());
-            thirdProfileSaver.set("UUID", result.getProfile().getId());
+        if (Objects.equals(selectedProfile, "Profil 1")) { //TODO réunir l´enregistrement des infos en une seule méthode (avec la webview aussi mm si elle marche pas)
+            firstProfileSaver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
+            firstProfileSaver.set("infos|name", result.getProfile().getName());
+            firstProfileSaver.set("infos|accessToken", result.getAccessToken());
+            firstProfileSaver.set("infos|refreshToken", result.getRefreshToken());
+            firstProfileSaver.set("infos|UUID", result.getProfile().getId());
+        } else if (Objects.equals(selectedProfile, "Profil 2")) {
+            secondProfileSaver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
+            secondProfileSaver.set("infos|name", result.getProfile().getName());
+            secondProfileSaver.set("infos|accessToken", result.getAccessToken());
+            secondProfileSaver.set("infos|refreshToken", result.getRefreshToken());
+            secondProfileSaver.set("infos|UUID", result.getProfile().getId());
+        } else if (Objects.equals(selectedProfile, "Profil 3")) {
+            thirdProfileSaver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
+            thirdProfileSaver.set("infos|name", result.getProfile().getName());
+            thirdProfileSaver.set("infos|accessToken", result.getAccessToken());
+            thirdProfileSaver.set("infos|refreshToken", result.getRefreshToken());
+            thirdProfileSaver.set("infos|UUID", result.getProfile().getId());
         }
 
         System.out.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");

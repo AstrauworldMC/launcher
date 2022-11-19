@@ -44,57 +44,28 @@ public class LauncherFrame extends JFrame {
     /**
      * Initialise les fichiers de données situés dans [APPDATA]\Astrauworld Launcher\data
      */
-    @SuppressWarnings("all")
-    public static void initializeDataFiles() {
-        if(Objects.equals(firstProfileSaver.get("fileCreated"), "true"))
-        {// Si le fichier existe, ne rien faire
-        } else {
+    public static void initializeDataFiles(Saver saver) {
+        if(!Objects.equals(saver.get("fileCreated"), "true")) {
             // Informations générales
-            firstProfileSaver.set("name", "none");
-            firstProfileSaver.set("email", "none");
-            firstProfileSaver.set("password", "none");
-            firstProfileSaver.set("UUID", "none");
-            firstProfileSaver.set("accessToken", "none");
-            firstProfileSaver.set("refreshToken", "none");
-            // Configuration de Minecraft
-            firstProfileSaver.set("Optifine", "false");
+            saver.set("infos|name", "none");
+            saver.set("infos|email", "none");
+            saver.set("infos|UUID", "none");
+            saver.set("infos|accessToken", "none");
+            saver.set("infos|refreshToken", "none");
+            // Configuration de Minecraft, si la key commence par 'mod' -> mod client
+            saver.set("mod|Optifine", "false");
+            saver.set("mod|FirstPersonModel", "false");
+            saver.set("mod|BetterThirdPerson", "false");
+            saver.set("mod|FallingLeaves", "false");
+            saver.set("mod|AppleSkin", "false");
+            saver.set("mod|SoundPhysicsRemastered", "false");
 
-            firstProfileSaver.set("fileCreated", "true");
+            saver.set("fileCreated", "true");
         }
-        if(Objects.equals(secondProfileSaver.get("fileCreated"), "true"))
-        {// Si le fichier existe, ne rien faire
-        } else {
-            // Informations générales
-            secondProfileSaver.set("name", "none");
-            secondProfileSaver.set("email", "none");
-            secondProfileSaver.set("password", "none");
-            secondProfileSaver.set("UUID", "none");
-            secondProfileSaver.set("accessToken", "none");
-            secondProfileSaver.set("refreshToken", "none");
-            // Configuration de Minecraft
-            secondProfileSaver.set("Optifine", "false");
-
-            secondProfileSaver.set("fileCreated", "true");
-        }
-        if(Objects.equals(thirdProfileSaver.get("fileCreated"), "true"))
-        {// Si le fichier existe, ne rien faire
-        } else {
-            // Informations générales
-            thirdProfileSaver.set("name", "none");
-            thirdProfileSaver.set("email", "none");
-            thirdProfileSaver.set("password", "none");
-            thirdProfileSaver.set("UUID", "none");
-            thirdProfileSaver.set("accessToken", "none");
-            thirdProfileSaver.set("refreshToken", "none");
-            // Configuration de Minecraft
-            thirdProfileSaver.set("Optifine", "false");
-
-            thirdProfileSaver.set("fileCreated", "true");
-        }
-
     }
 
     public static void main(String[] args) {
+    //    System.out.println("Var: " + System.getenv("JAVAFX_HOME"));
 
         String OS = System.getProperty("os.name");
 
@@ -111,7 +82,9 @@ public class LauncherFrame extends JFrame {
         Launcher.AW_GAMEFILES_FOLDER.mkdir();
         Launcher.AW_CRASH_FOLDER.mkdir();
 
-        initializeDataFiles();
+        initializeDataFiles(firstProfileSaver);
+        initializeDataFiles(secondProfileSaver);
+        initializeDataFiles(thirdProfileSaver);
 
         crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
 

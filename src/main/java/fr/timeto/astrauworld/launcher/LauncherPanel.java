@@ -110,7 +110,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      private final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/profilesPage/up/Compte-selected.png"));
      private final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/profilesPage/up/Mods-selected.png"));
      private final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/profilesPage/up/Reglages-selected.png"));
-     public String selectedProfile = "";
+     public static String selectedProfile = "";
 
      // Profiles components - home
      private final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/profilesPage/playButton-normal.png"), getResourceIgnorePath("/profilesPage/playButton-hover.png"), getResourceIgnorePath("/profilesPage/playButton-disabled.png"));
@@ -466,6 +466,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 
                     profileAccountConnectionButton.setVisible(true);
                     profileAccountConnectionMicrosoftButton.setVisible(true);
+                    profileAccountConnectionMicrosoftButton.setEnabled(false);
                     profileAccountTextField.setVisible(true);
                     profileAccountPasswordField.setVisible(true);
                     profileAccountTextField.setText("");
@@ -497,7 +498,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     downLeftCorner.setVisible(true);
                     downRightCorner.setVisible(true);
 
-                    profileAccountConnectionMicrosoftButton.setEnabled(false); //TODO la webview marche pas
                } else {
                     profilePlayTabButton.setVisible(false);
                     profileAccountTabButton.setVisible(false);
