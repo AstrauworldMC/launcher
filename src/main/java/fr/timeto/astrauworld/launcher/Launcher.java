@@ -19,6 +19,7 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
+import fr.theshark34.openlauncherlib.util.Saver;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -81,29 +82,30 @@ public class Launcher {
 
     private static final CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", awCrashFolder);
 
-    public static void microsoftAuth(String email, String password) throws MicrosoftAuthenticationException {
+    public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result){
+        saver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
+        saver.set("infos|name", result.getProfile().getName());
+        saver.set("infos|accessToken", result.getAccessToken());
+        saver.set("infos|refreshToken", result.getRefreshToken());
+        saver.set("infos|UUID", result.getProfile().getId());
+    }
+
+    public static void saveInfosWhenConnect(MicrosoftAuthResult result){
+        if (Objects.equals(selectedProfile, "1")) {
+            saveInfosWhenConnect(firstProfileSaver, result);
+        } else if (Objects.equals(selectedProfile, "2")) {
+            saveInfosWhenConnect(secondProfileSaver, result);
+        } else if (Objects.equals(selectedProfile, "3")) {
+            saveInfosWhenConnect(thirdProfileSaver, result);
+        }
+    }
+
+
+        public static void microsoftAuth(String email, String password) throws MicrosoftAuthenticationException {
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithCredentials(email, password);
 
-        if (Objects.equals(selectedProfile, "Profil 1")) { //TODO réunir l´enregistrement des infos en une seule méthode (avec la webview aussi mm si elle marche pas)
-            firstProfileSaver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
-            firstProfileSaver.set("infos|name", result.getProfile().getName());
-            firstProfileSaver.set("infos|accessToken", result.getAccessToken());
-            firstProfileSaver.set("infos|refreshToken", result.getRefreshToken());
-            firstProfileSaver.set("infos|UUID", result.getProfile().getId());
-        } else if (Objects.equals(selectedProfile, "Profil 2")) {
-            secondProfileSaver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
-            secondProfileSaver.set("infos|name", result.getProfile().getName());
-            secondProfileSaver.set("infos|accessToken", result.getAccessToken());
-            secondProfileSaver.set("infos|refreshToken", result.getRefreshToken());
-            secondProfileSaver.set("infos|UUID", result.getProfile().getId());
-        } else if (Objects.equals(selectedProfile, "Profil 3")) {
-            thirdProfileSaver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
-            thirdProfileSaver.set("infos|name", result.getProfile().getName());
-            thirdProfileSaver.set("infos|accessToken", result.getAccessToken());
-            thirdProfileSaver.set("infos|refreshToken", result.getRefreshToken());
-            thirdProfileSaver.set("infos|UUID", result.getProfile().getId());
-        }
+        saveInfosWhenConnect(result);
 
         System.out.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), "", "");
@@ -115,22 +117,7 @@ public class Launcher {
         MicrosoftAuthResult result = authenticator.loginWithWebview();
         System.out.println("webview");
 
-        if (Objects.equals(LauncherPanel.tabLabel.getText(), "Profil 1")) {
-            firstProfileSaver.set("name", result.getProfile().getName());
-            firstProfileSaver.set("accessToken", result.getAccessToken());
-            firstProfileSaver.set("refreshToken", result.getRefreshToken());
-            firstProfileSaver.set("UUID", result.getProfile().getId());
-        } else if (Objects.equals(tabLabel.getText(), "Profil 2")) {
-            secondProfileSaver.set("name", result.getProfile().getName());
-            secondProfileSaver.set("accessToken", result.getAccessToken());
-            secondProfileSaver.set("refreshToken", result.getRefreshToken());
-            secondProfileSaver.set("UUID", result.getProfile().getId());
-        } else if (Objects.equals(tabLabel.getText(), "Profil 3")) {
-            thirdProfileSaver.set("name", result.getProfile().getName());
-            thirdProfileSaver.set("accessToken", result.getAccessToken());
-            thirdProfileSaver.set("refreshToken", result.getRefreshToken());
-            thirdProfileSaver.set("UUID", result.getProfile().getId());
-        }
+        saveInfosWhenConnect(result);
 
         System.out.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
     }
