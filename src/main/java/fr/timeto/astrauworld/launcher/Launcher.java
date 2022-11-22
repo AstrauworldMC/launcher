@@ -114,15 +114,16 @@ public class Launcher {
 
     /**
      * À utiliser seulement lorsque le jeu se lance après
+     * @throws MicrosoftAuthenticationException quand la connection échoue
      */
     public static void connect() throws MicrosoftAuthenticationException {
         initSelectedSaver();
 
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
-        MicrosoftAuthResult result = authenticator.loginWithRefreshToken(selectedSaver.get("refreshToken"));
+        MicrosoftAuthResult result = authenticator.loginWithRefreshToken(selectedSaver.get("infos|refreshToken"));
 
-        authInfos = new AuthInfos(selectedSaver.get("name"), selectedSaver.get("accessToken"), selectedSaver.get("UUID"), "", "");
-        System.out.println("Connecté avec " + selectedSaver.get("name"));
+        authInfos = new AuthInfos(selectedSaver.get("infos|name"), selectedSaver.get("infos|accessToken"), selectedSaver.get("infos|UUID"), "", "");
+        System.out.println("Connecté avec " + selectedSaver.get("infos|name"));
 
     }
 

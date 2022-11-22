@@ -17,7 +17,7 @@ import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.theshark34.swinger.Swinger.getTransparentWhite;
 
 @SuppressWarnings("unused")
-public class LauncherPanel extends JPanel implements SwingerEventListener {
+public class LauncherPanel extends JPanel implements SwingerEventListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
 
      private Image background = getResourceIgnorePath("/baseGUI.png");
 
@@ -60,21 +60,21 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
           BufferedImage button = null;
 
           if(Objects.equals(base, "firstProfile")){
-               if(Objects.equals(firstProfileSaver.get("name"), "none")) {
+               if(Objects.equals(firstProfileSaver.get("infos|name"), "none")) {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + "None.png");
                }else {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + ".png");
                }
 
           } else if (Objects.equals(base, "secondProfile")) {
-               if(Objects.equals(secondProfileSaver.get("name"), "none")) {
+               if(Objects.equals(secondProfileSaver.get("infos|name"), "none")) {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + "None.png");
                }else {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + ".png");
                }
 
           } else if (Objects.equals(base, "thirdProfile")) {
-               if(Objects.equals(thirdProfileSaver.get("name"), "none")) {
+               if(Objects.equals(thirdProfileSaver.get("infos|name"), "none")) {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + "None.png");
                }else {
                     button = getResourceIgnorePath("/commonButtons/" + base + "Button-" + state + ".png");
@@ -430,8 +430,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     profileLaunchToMenuButton.setVisible(true);
                     profileDownloadButton.setVisible(true);
                     profileAccountLabel.setVisible(true);
-                    if (!Objects.equals(selectedSaver.get("name"), "none")){
-                         profileAccountLabel.setText(selectedSaver.get("name"));
+                    if (!Objects.equals(selectedSaver.get("infos|name"), "none")){
+                         profileAccountLabel.setText(selectedSaver.get("infos|name"));
                     }
 
                     upLeftCorner.setVisible(false);
@@ -487,16 +487,16 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     profileAccountTextField.setText("");
                     profileAccountPasswordField.setText("");
                     if (Objects.equals(selectedProfile, "1")) {
-                         if(!Objects.equals(firstProfileSaver.get("email"), "none")) {
-                              profileAccountTextField.setText(firstProfileSaver.get("email"));
+                         if(!Objects.equals(firstProfileSaver.get("infos|emaile"), "none")) {
+                              profileAccountTextField.setText(firstProfileSaver.get("infos|emaile"));
                          }
                     } else if (Objects.equals(selectedProfile, "2")) {
-                         if(!Objects.equals(secondProfileSaver.get("email"), "none")) {
-                              profileAccountTextField.setText(secondProfileSaver.get("email"));
+                         if(!Objects.equals(secondProfileSaver.get("infos|emaile"), "none")) {
+                              profileAccountTextField.setText(secondProfileSaver.get("infos|emaile"));
                          }
                     } else if (Objects.equals(selectedProfile, "3")) {
-                         if(!Objects.equals(thirdProfileSaver.get("email"), "none")) {
-                              profileAccountTextField.setText(thirdProfileSaver.get("email"));
+                         if(!Objects.equals(thirdProfileSaver.get("infos|emaile"), "none")) {
+                              profileAccountTextField.setText(thirdProfileSaver.get("infos|emaile"));
                          }
                     }
 
@@ -717,7 +717,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 
           // Actions des boutons de la profilePage - Home
           else if (e.getSource() == profilePlayButton) {
-
+               // TODO Tout mettre dans un thread
                try {
                     Launcher.connect();
                } catch (MicrosoftAuthenticationException m) {
@@ -740,6 +740,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                setNewsPage(true);
           } else if (e.getSource() == profileLaunchToMenuButton) {
 
+               // TODO Tout mettre dans un thread
           /*     try {
                     Launcher.update();
                } catch (Exception ex) {
@@ -754,6 +755,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 
           } else if (e.getSource() == profileDownloadButton) {
 
+               // TODO Tout mettre dans un thread
           /*     try {
                     Launcher.update();
                } catch (Exception ex) {

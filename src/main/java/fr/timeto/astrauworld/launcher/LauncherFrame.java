@@ -43,6 +43,7 @@ public class LauncherFrame extends JFrame {
 
     /**
      * Initialise les fichiers de données situés dans [APPDATA]\Astrauworld Launcher\data
+     * @param saver Le saver qui se fera initialiser
      */
     public static void initializeDataFiles(Saver saver) {
         if(!Objects.equals(saver.get("fileCreated"), "true")) {
@@ -64,6 +65,12 @@ public class LauncherFrame extends JFrame {
         }
     }
 
+    public static void initializeDataFiles() {
+        initializeDataFiles(firstProfileSaver);
+        initializeDataFiles(secondProfileSaver);
+        initializeDataFiles(thirdProfileSaver);
+    }
+
     public static void main(String[] args) {
     //    System.out.println("Var: " + System.getenv("JAVAFX_HOME"));
 
@@ -82,9 +89,7 @@ public class LauncherFrame extends JFrame {
         Launcher.AW_GAMEFILES_FOLDER.mkdir();
         Launcher.AW_CRASH_FOLDER.mkdir();
 
-        initializeDataFiles(firstProfileSaver);
-        initializeDataFiles(secondProfileSaver);
-        initializeDataFiles(thirdProfileSaver);
+        initializeDataFiles();
 
         crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
 
