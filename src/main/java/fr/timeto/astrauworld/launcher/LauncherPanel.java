@@ -111,6 +111,16 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      private final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/profilesPage/up/Mods-selected.png"));
      private final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/profilesPage/up/Reglages-selected.png"));
      public static String selectedProfile = "";
+     public static Saver selectedSaver;
+     public static void initSelectedSaver() {
+          if (Objects.equals(selectedProfile, "1")) {
+               selectedSaver = firstProfileSaver;
+          } else if (Objects.equals(selectedProfile, "2")) {
+               selectedSaver = secondProfileSaver;
+          } else if (Objects.equals(selectedProfile, "3")) {
+               selectedSaver = thirdProfileSaver;
+          }
+     }
 
      // Profiles components - home
      private final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/profilesPage/playButton-normal.png"), getResourceIgnorePath("/profilesPage/playButton-hover.png"), getResourceIgnorePath("/profilesPage/playButton-disabled.png"));
@@ -124,6 +134,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
      private final STexturedButton profileAccountConnectionMicrosoftButton = new STexturedButton(getResourceIgnorePath("/profilesPage/compte/connectionWithMicrosoftButton-normal.png"), getResourceIgnorePath("/profilesPage/compte/connectionWithMicrosoftButton-hover.png"));
      public static final JTextField profileAccountTextField = new JTextField("");
      public static final JPasswordField profileAccountPasswordField = new JPasswordField();
+
+     public void errorMessage(String title, String msg){
+          JOptionPane.showMessageDialog(LauncherPanel.this, msg, title, JOptionPane.ERROR_MESSAGE);
+          System.out.println(msg);
+     }
 
      /**
       * Initialise le panel de la frame (boutons, textes, images...)
@@ -700,9 +715,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     try {
                          System.out.println("Connexion...");
                          Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()));
-                    } catch (MicrosoftAuthenticationException e1) {
-                         JOptionPane.showMessageDialog(LauncherPanel.this, "Erreur, impossible de se connecter", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
-                         System.out.println("Erreur, impossible de se connecter");
+                    } catch (MicrosoftAuthenticationException m) {
+                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                     }
                });
                connect.start();
@@ -716,21 +730,18 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     try {
                          System.out.println("Connexion...");
                          Launcher.microsoftAuthWebview();
-                    } catch (MicrosoftAuthenticationException e12) {
-                         JOptionPane.showMessageDialog(LauncherPanel.this, "Erreur, impossible de se connecter", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
-                         System.out.println("Erreur, impossible de se connecter");
+                    } catch (MicrosoftAuthenticationException m) {
+                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                     }
                });
                connect.start();
 
 
           } else if (e.getSource() == profilePlayButton) {
-               if(Objects.equals(tabLabel.getText(), "Profil 1")) { //TODO remplacer tout les trucs qui regardent quel profil est sélectionné par qqchose avec un fichier de data
-                    Launcher.connect(1);
-               } else if (Objects.equals(tabLabel.getText(), "Profil 2")) {
-                    Launcher.connect(2);
-               } else if (Objects.equals(tabLabel.getText(), "Profil 3")) {
-                    Launcher.connect(3);
+               try {
+                    Launcher.connect();
+               } catch (MicrosoftAuthenticationException m) {
+                    errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                }
           } else if (e.getSource() == profileNewsButton) {
                setNewsPage(true);

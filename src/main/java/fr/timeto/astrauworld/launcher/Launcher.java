@@ -19,7 +19,6 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
-import fr.theshark34.openlauncherlib.util.Saver;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -27,7 +26,6 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.LauncherPanel.*;
 
@@ -82,22 +80,13 @@ public class Launcher {
 
     private static final CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", awCrashFolder);
 
-    public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result){
-        saver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
-        saver.set("infos|name", result.getProfile().getName());
-        saver.set("infos|accessToken", result.getAccessToken());
-        saver.set("infos|refreshToken", result.getRefreshToken());
-        saver.set("infos|UUID", result.getProfile().getId());
-    }
-
     public static void saveInfosWhenConnect(MicrosoftAuthResult result){
-        if (Objects.equals(selectedProfile, "1")) {
-            saveInfosWhenConnect(firstProfileSaver, result);
-        } else if (Objects.equals(selectedProfile, "2")) {
-            saveInfosWhenConnect(secondProfileSaver, result);
-        } else if (Objects.equals(selectedProfile, "3")) {
-            saveInfosWhenConnect(thirdProfileSaver, result);
-        }
+        initSelectedSaver();
+        selectedSaver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
+        selectedSaver.set("infos|name", result.getProfile().getName());
+        selectedSaver.set("infos|accessToken", result.getAccessToken());
+        selectedSaver.set("infos|refreshToken", result.getRefreshToken());
+        selectedSaver.set("infos|UUID", result.getProfile().getId());
     }
 
 
@@ -124,20 +113,16 @@ public class Launcher {
 
     /**
      * À utiliser seulement lorsque le jeu se lance après
-     * @param profile Le numéro du profil sélectionné, de 1 à 3
      */
-    public static void connect(int profile){
-        //TODO ajouter un vérificateur avec l'authentication Microsoft Openauth
-        if (profile == 1) {
-            authInfos = new AuthInfos(firstProfileSaver.get("name"), firstProfileSaver.get("accessToken"), firstProfileSaver.get("UUID"), "", "");
-            System.out.println("Connecté avec " + firstProfileSaver.get("name"));
-        } else if (profile == 2) {
-            authInfos = new AuthInfos(secondProfileSaver.get("name"), secondProfileSaver.get("accessToken"), secondProfileSaver.get("UUID"), "", "");
-            System.out.println("Connecté avec " + secondProfileSaver.get("name"));
-        } else if (profile == 3) {
-            authInfos = new AuthInfos(thirdProfileSaver.get("name"), thirdProfileSaver.get("accessToken"), thirdProfileSaver.get("UUID"), "", "");
-            System.out.println("Connecté avec " + thirdProfileSaver.get("name"));
-        }
+    public static void connect() throws MicrosoftAuthenticationException {
+        initSelectedSaver();
+
+        MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
+        MicrosoftAuthResult result = authenticator.loginWithRefreshToken(selectedSaver.get("refreshToken"));
+
+        authInfos = new AuthInfos(selectedSaver.get("name"), selectedSaver.get("accessToken"), selectedSaver.get("UUID"), "", "");
+        System.out.println("Connecté avec " + selectedSaver.get("name"));
+
     }
 
     public static void launch() throws Exception{
