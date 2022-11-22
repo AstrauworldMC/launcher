@@ -681,11 +681,16 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
       */
      @Override
      public void onEvent(SwingerEvent e) {
+
+          // Actions des boutons de la barre d'infos de la fenêtre
           if(e.getSource() == quitButton){
                System.exit(0);
           } else if (e.getSource() == hideButton) {
                LauncherFrame.getInstance().setState(JFrame.ICONIFIED);
-          } else if (e.getSource() == newsButton) {
+          }
+
+          // Actions des boutons du menu de gauche
+          else if (e.getSource() == newsButton) {
                setNewsPage(true);
           } else if (e.getSource() == firstProfileButton) {
                setProfilePage(true, "1", "home");
@@ -697,7 +702,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                setChangesPage(true);
           } else if (e.getSource() == aboutButton) {
                setAboutPage(true);
-          } else if (e.getSource() == profilePlayTabButton) {
+          }
+
+          // Actions des boutons du haut des profilePage
+          else if (e.getSource() == profilePlayTabButton) {
                setProfilePage(true, "null", "home");
           } else if (e.getSource() == profileAccountTabButton) {
                setProfilePage(true, "null", "account");
@@ -705,7 +713,57 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                setProfilePage(true, "null", "mods");
           } else if (e.getSource() == profileSettingsTabButton) {
                setProfilePage(true, "null", "settings");
-          } else if (e.getSource() == profileAccountConnectionButton) {
+          }
+
+          // Actions des boutons de la profilePage - Home
+          else if (e.getSource() == profilePlayButton) {
+
+               try {
+                    Launcher.connect();
+               } catch (MicrosoftAuthenticationException m) {
+                    errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+               }
+
+          /*     try {
+                    Launcher.update();
+               } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+               } */ //TODO enlever le comment qd l'update sera opérationnel
+
+          /*     try {
+                    Launcher.launch();
+               } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+               } */ //TODO enlever le comment qd le launch sera opérationnel
+
+          } else if (e.getSource() == profileNewsButton) {
+               setNewsPage(true);
+          } else if (e.getSource() == profileLaunchToMenuButton) {
+
+          /*     try {
+                    Launcher.update();
+               } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+               } */ //TODO enlever le comment qd l'update sera opérationnel
+
+          /*     try {
+                    Launcher.launch();
+               } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+               } */ //TODO enlever le comment qd le launch sera opérationnel
+
+          } else if (e.getSource() == profileDownloadButton) {
+
+          /*     try {
+                    Launcher.update();
+               } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+               }*/ //TODO enlever le comment qd l'update sera opérationnel
+
+          }
+
+          // Actions des boutons de la profilePage - Account
+          else if (e.getSource() == profileAccountConnectionButton) {
                if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
                     JOptionPane.showMessageDialog(this, "Erreur, veuillez entrer un mail et un mot de passe valides", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -735,21 +793,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
                     }
                });
                connect.start();
-
-
-          } else if (e.getSource() == profilePlayButton) {
-               try {
-                    Launcher.connect();
-               } catch (MicrosoftAuthenticationException m) {
-                    errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-               }
-          } else if (e.getSource() == profileNewsButton) {
-               setNewsPage(true);
-          } else if (e.getSource() == profileLaunchToMenuButton) {
-
-          } else if (e.getSource() == profileDownloadButton) {
-
           }
-          //TODO ajouter les fonctions des boutons du profilePage - home
      }
 }
