@@ -776,12 +776,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     }
                     updatePostExecutions();
 
-          /*     try {
+               try {
                     Launcher.launch();
                } catch (Exception ex) {
                     throw new RuntimeException(ex);
-               } */
-                    //TODO enlever le comment qd le launch sera opérationnel
+               }
+
                });
                launch.start();
 
@@ -797,12 +797,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                }
                updatePostExecutions();
 
-          /*     try {
+               try {
                     Launcher.launch();
                } catch (Exception ex) {
                     throw new RuntimeException(ex);
-               } */
-                    //TODO enlever le comment qd le launch sera opérationnel
+               }
+
                });
                launch.start();
 

@@ -49,7 +49,7 @@ public class Launcher {
 
     // Version de Minecraft et de Forge utilisée
     static final String mcVersion = "1.19.2";
-    static final String forgeVersion = "43.1.33";
+    static final String forgeVersion = "43.1.53";
 
     // Version du launcher
     public static final String version = "BETA2.0.0";
@@ -279,7 +279,7 @@ public class Launcher {
                 .withForgeVersion(mcVersion + "-" + forgeVersion)
                 .withCurseMods(modInfos)
                 .withMods(mods)
-                .withFileDeleter(new ModFileDeleter(false))
+                .withFileDeleter(new ModFileDeleter(true))
                 .build();
 
         final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
