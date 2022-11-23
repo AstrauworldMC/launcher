@@ -47,7 +47,7 @@ public class Launcher {
 
     // Version de Minecraft et de Forge utilisée
     static final String mcVersion = "1.19.2";
-    static final String forgeVersion = "40.1.73";
+    static final String forgeVersion = "43.1.33";
 
     // Version du launcher
     public static final String version = "BETA2.0.0";
@@ -114,7 +114,7 @@ public class Launcher {
 
     /**
      * À utiliser seulement lorsque le jeu se lance après
-     * @throws MicrosoftAuthenticationException quand la connection échoue
+     * @throws MicrosoftAuthenticationException quand la connexion échoue
      */
     public static void connect() throws MicrosoftAuthenticationException {
         initSelectedSaver();
@@ -138,7 +138,7 @@ public class Launcher {
 
     }
 
-    public enum StepInfo {
+    public enum StepInfo { //TODO mettre les lettres à accents en unicode
 
         INTEGRATION("Chargement de l'intégration..."),
         MOD_PACK("Téléchargement du pack de mods..."),
@@ -146,8 +146,7 @@ public class Launcher {
         DL_LIBS("Téléchargement des librairies..."),
         DL_ASSETS("Téléchargement des assets..."),
         EXTRACT_NATIVES("Extraction des natives..."),
-        FORGE("Installation de Forge..."),
-        FABRIC("Installation de Fabric..."),
+        MOD_LOADER("Téléchargement du mod loader..."),
         MODS("Téléchargement des mods..."),
         EXTERNAL_FILES("Téléchargement des fichiers externes..."),
         POST_EXECUTIONS("Running post executions..."),
@@ -165,7 +164,7 @@ public class Launcher {
 
     }
 
-    public static void update() throws Exception {
+    public static void update() throws Exception { // TODO reset la barre et les labels à la fin du dl
         Logger logger = new Logger("[Astrauworld Launcher]", awLogsFile);
 
         IProgressCallback callback = new IProgressCallback() {
@@ -177,12 +176,12 @@ public class Launcher {
 
             @Override
             public void step(Step step) {
-            //    LauncherPanel.infoLabel.setText(StepInfo.valueOf(step.name()).getDetails());
+                LauncherPanel.barLabel.setText(StepInfo.valueOf(step.name()).getDetails()); //TODO faire apparaitre ca sur un autre label au milieu de la barre
 
             }
 
             public void onFileDownloaded(Path path) {
-            //    LauncherPanel.fileLabel.setText(path.getFileName().toString());
+                LauncherPanel.barLabel.setText(path.getFileName().toString());
             }
 
             @Override
@@ -191,17 +190,68 @@ public class Launcher {
                 int progress = (int) info.getDownloadedBytes();
                 int maximum = (int) info.getTotalToDownloadBytes();
 
-            //    LauncherPanel.percentLabel.setText(decimalFormat.format((progress / maximum) * 100) + "%");
-            //    LauncherPanel.progressBar.setValue(progress);
-            //    LauncherPanel.progressBar.setMaximum(maximum);
+                LauncherPanel.percentLabel.setText(decimalFormat.format((progress / maximum) * 100) + "%"); //TODO faire marcher le %
+                LauncherPanel.loadingBar.setValue(progress);
+                LauncherPanel.loadingBar.setMaximum(maximum);
             }
         };
 
         final VanillaVersion vanillaVersion = new VanillaVersion.VanillaVersionBuilder()
-                .withName("1.18.2")
+                .withName(mcVersion)
                 .build();
 
         final List<CurseFileInfo> modInfos = new ArrayList<>();
+
+        // Liste des mods serveurs
+        if(true) {
+            modInfos.add(new CurseFileInfo(352835, 3923045)); // Backpacked 2.1.10
+            modInfos.add(new CurseFileInfo(416811, 4032100)); // Medieval Craft 1.19.2 weapons only pre-pre-alpha
+            modInfos.add(new CurseFileInfo(509041, 4019310)); // Epic Knights [...] v6.7
+            modInfos.add(new CurseFileInfo(237307, 4016732)); // Cosmetic Armor Reworked 1.19.2-v1a
+            modInfos.add(new CurseFileInfo(238222, 4087658)); // JEI forge 11.4.0.286
+            modInfos.add(new CurseFileInfo(416089, 4104024)); // Simple Voice Chat [FORGE] 1.19.2-2.3.16
+            modInfos.add(new CurseFileInfo(274259, 3885508)); // Carry On 1.19-1.18.1.2
+            modInfos.add(new CurseFileInfo(426558, 4071154)); // Alex's Mobs 1.21.0
+            modInfos.add(new CurseFileInfo(331936, 4087465)); //    |_> Citadel 2.1.0-1.19
+            modInfos.add(new CurseFileInfo(421377, 3907904)); // HT's TreeChop 1.19.1-0.15.8
+            modInfos.add(new CurseFileInfo(316582, 3920717)); // Corpse 1.19.2-1.0.0
+            modInfos.add(new CurseFileInfo(225738, 3913301)); // MmmMmmMmmMmm (Target Dummy) 1.19.2-1.5.5
+            modInfos.add(new CurseFileInfo(350727, 3947216)); // Joy of Painting (xerapaint) 1.19.2-1.0.0
+            modInfos.add(new CurseFileInfo(341448, 3947219)); // Music Maker Mod (xeramusic) 1.19.2-1.0.0
+            modInfos.add(new CurseFileInfo(328085, 4011414)); // Create v0.5.0f
+            modInfos.add(new CurseFileInfo(360203, 3970122)); // Guard Villagers 1.15.2
+            modInfos.add(new CurseFileInfo(581854, 3905172)); // InvMove v0.8.1
+            modInfos.add(new CurseFileInfo(348521, 3972423)); //    |_> Cloth Config API v8.2.88
+            modInfos.add(new CurseFileInfo(441647, 4094414)); // FramedBlocks 6.6.2
+            modInfos.add(new CurseFileInfo(558126, 4064323)); // This Rocks! 1.19.2-1.2.2
+            modInfos.add(new CurseFileInfo(377051, 3943018)); // Bed Benefits 1.19.2-9.1.2
+            modInfos.add(new CurseFileInfo(228525, 4052856)); //    |_> Bookshelf 1.19.2-16.1.11
+            modInfos.add(new CurseFileInfo(608235, 3919439)); // YDM's Weapon Master 1.19.x-v3.0.3
+            modInfos.add(new CurseFileInfo(260262, 3872707)); // ToolBelt 1.19-1.19.6
+            modInfos.add(new CurseFileInfo(634062, 4082456)); // No Chat Reports FORGE-1.19.2-v1.5.1
+            modInfos.add(new CurseFileInfo(570319, 4036347)); // Human Companions 1.19.2-1.5.1
+            modInfos.add(new CurseFileInfo(450659, 3926824)); // Small Ships 1.19.2-2.0.0-Alpha-0.4
+            modInfos.add(new CurseFileInfo(223852, 3884263)); // Storage Drawers 1.19-11.1.2
+            modInfos.add(new CurseFileInfo(542110, 3877554)); // Jumpy Boats 1.19.2-0.1.0.5
+            modInfos.add(new CurseFileInfo(64760, 3921272)); // SecurityCraft v1.9.3.1
+            modInfos.add(new CurseFileInfo(398521, 3999157)); // Farmer's Delight 1.2
+            modInfos.add(new CurseFileInfo(55438, 3907425)); // MrCrayfish's Furniture Mod 7.0.0-pre34
+            modInfos.add(new CurseFileInfo(482378, 3969415)); // ParCool! 1.19.2-1.0.0.2-R
+            modInfos.add(new CurseFileInfo(60028, 4074684)); // Aquaculture2 1.19.2-2.4.8
+            modInfos.add(new CurseFileInfo(243121, 4102873)); // Quark 3.3-373
+            modInfos.add(new CurseFileInfo(250363, 4100299)); //   |_> AutoRegLib 1.8.2-55
+            modInfos.add(new CurseFileInfo(351725, 4018295)); // Macaw's Bridges v2.0.5
+            modInfos.add(new CurseFileInfo(359540, 4018184)); //   "     Furniture v3.0.2
+            modInfos.add(new CurseFileInfo(352039, 4028405)); //   "     Roofs v2.2.1
+            modInfos.add(new CurseFileInfo(378646, 3930976)); //   "     Doors v1.0.7
+            modInfos.add(new CurseFileInfo(629153, 3923436)); //   "     Path and Pavings v1.0.1
+            modInfos.add(new CurseFileInfo(502372, 3923131)); //   "     Lights and Lamps v1.0.4
+            modInfos.add(new CurseFileInfo(453925, 3923128)); //   "     Fences and Walls v1.0.6
+            modInfos.add(new CurseFileInfo(400933, 3923124)); //   "     Trapdoors v1.0.7
+            modInfos.add(new CurseFileInfo(438116, 3922999)); //   "     Paintings v1.0.4
+            modInfos.add(new CurseFileInfo(363569, 3830460)); //   "     Windows v2.0.3
+            modInfos.add(new CurseFileInfo(373774, 3909206)); // Rare Ice v0.5.1
+        }
 
         final List<Mod> mods = new ArrayList<>();
 
@@ -209,7 +259,7 @@ public class Launcher {
                 .withForgeVersion(mcVersion + "-" + forgeVersion)
                 .withCurseMods(modInfos)
                 .withMods(mods)
-                .withFileDeleter(new ModFileDeleter(true))
+                .withFileDeleter(new ModFileDeleter(false))
                 .build();
 
         final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()

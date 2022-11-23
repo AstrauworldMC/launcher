@@ -96,9 +96,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      private final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/commonButtons/aboutButton-selected.png"));
      public static final JLabel tabLabel = new JLabel("", SwingConstants.LEFT);
      private final JLabel tabSecondLabel = new JLabel("none", SwingConstants.LEFT);
-     public SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED);
-     public JLabel barLabel = new JLabel("", SwingConstants.LEFT);
-     public JLabel percentLabel = new JLabel("", SwingConstants.RIGHT);
+     public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED);
+     public static JLabel barLabel = new JLabel("", SwingConstants.LEFT);
+     public static JLabel percentLabel = new JLabel("", SwingConstants.RIGHT);
 
      private final STexturedButton upLeftCorner = new STexturedButton(getResourceIgnorePath("/corner.png"), getResourceIgnorePath("/corner.png"), getResourceIgnorePath("/corner.png"));
      private final STexturedButton upRightCorner = new STexturedButton(getResourceIgnorePath("/corner.png"), getResourceIgnorePath("/corner.png"), getResourceIgnorePath("/corner.png"));
@@ -717,50 +717,59 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           // Actions des boutons de la profilePage - Home
           else if (e.getSource() == profilePlayButton) {
-               // TODO Tout mettre dans un thread
-               try {
-                    Launcher.connect();
-               } catch (MicrosoftAuthenticationException m) {
-                    errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-               }
 
-          /*     try {
-                    Launcher.update();
-               } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-               } */ //TODO enlever le comment qd l'update sera opérationnel
+               Thread launch = new Thread(() -> {
+                    try {
+                         Launcher.connect();
+                    } catch (MicrosoftAuthenticationException m) {
+                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                    }
+
+                    try {
+                         Launcher.update();
+                    } catch (Exception ex) {
+                         throw new RuntimeException(ex);
+                    }
 
           /*     try {
                     Launcher.launch();
                } catch (Exception ex) {
                     throw new RuntimeException(ex);
-               } */ //TODO enlever le comment qd le launch sera opérationnel
+               } */
+                    //TODO enlever le comment qd le launch sera opérationnel
+               });
+               launch.start();
 
           } else if (e.getSource() == profileNewsButton) {
                setNewsPage(true);
           } else if (e.getSource() == profileLaunchToMenuButton) {
 
-               // TODO Tout mettre dans un thread
-          /*     try {
+               Thread launch = new Thread(() -> {
+               try {
                     Launcher.update();
                } catch (Exception ex) {
                     throw new RuntimeException(ex);
-               } */ //TODO enlever le comment qd l'update sera opérationnel
+               }
 
           /*     try {
                     Launcher.launch();
                } catch (Exception ex) {
                     throw new RuntimeException(ex);
-               } */ //TODO enlever le comment qd le launch sera opérationnel
+               } */
+                    //TODO enlever le comment qd le launch sera opérationnel
+               });
+               launch.start();
 
           } else if (e.getSource() == profileDownloadButton) {
 
-               // TODO Tout mettre dans un thread
-          /*     try {
+               Thread update = new Thread(() -> {
+               try {
                     Launcher.update();
                } catch (Exception ex) {
                     throw new RuntimeException(ex);
-               }*/ //TODO enlever le comment qd l'update sera opérationnel
+               }
+               });
+               update.start();
 
           }
 
