@@ -179,7 +179,7 @@ public class Launcher {
     };
 
 
-    public static void update() throws Exception { // TODO reset la barre et les labels à la fin du dl
+    public static void update() throws Exception {
         Logger logger = new Logger("[Astrauworld Launcher]", awLogsFile);
         loadingBar.setVisible(true);
 
@@ -192,7 +192,7 @@ public class Launcher {
 
             @Override
             public void step(Step step) {
-                infosLabel.setText(StepInfo.valueOf(step.name()).getDetails()); //TODO faire apparaitre ca sur un autre label au milieu de la barre
+                infosLabel.setText(StepInfo.valueOf(step.name()).getDetails());
 
             }
 
@@ -210,7 +210,7 @@ public class Launcher {
                 int progress = (int) info.getDownloadedBytes();
                 int maximum = (int) info.getTotalToDownloadBytes();
 
-                percentLabel.setText(result + "%"); //TODO faire marcher le %
+                percentLabel.setText(result + "%");
                 loadingBar.setValue(progress);
                 loadingBar.setMaximum(maximum);
             }
@@ -253,11 +253,11 @@ public class Launcher {
             modInfos.add(new CurseFileInfo(450659, 3926824)); // Small Ships 1.19.2-2.0.0-Alpha-0.4
             modInfos.add(new CurseFileInfo(223852, 3884263)); // Storage Drawers 1.19-11.1.2
             modInfos.add(new CurseFileInfo(542110, 3877554)); // Jumpy Boats 1.19.2-0.1.0.5
-            modInfos.add(new CurseFileInfo(64760, 3921272)); // SecurityCraft v1.9.3.1
+            modInfos.add(new CurseFileInfo(64760 , 3921272)); // SecurityCraft v1.9.3.1
             modInfos.add(new CurseFileInfo(398521, 3999157)); // Farmer's Delight 1.2
-            modInfos.add(new CurseFileInfo(55438, 3907425)); // MrCrayfish's Furniture Mod 7.0.0-pre34
+            modInfos.add(new CurseFileInfo(55438 , 3907425)); // MrCrayfish's Furniture Mod 7.0.0-pre34
             modInfos.add(new CurseFileInfo(482378, 3969415)); // ParCool! 1.19.2-1.0.0.2-R
-            modInfos.add(new CurseFileInfo(60028, 4074684)); // Aquaculture2 1.19.2-2.4.8
+            modInfos.add(new CurseFileInfo(60028 , 4074684)); // Aquaculture2 1.19.2-2.4.8
             modInfos.add(new CurseFileInfo(243121, 4102873)); // Quark 3.3-373
             modInfos.add(new CurseFileInfo(250363, 4100299)); //   |_> AutoRegLib 1.8.2-55
             modInfos.add(new CurseFileInfo(351725, 4018295)); // Macaw's Bridges v2.0.5
