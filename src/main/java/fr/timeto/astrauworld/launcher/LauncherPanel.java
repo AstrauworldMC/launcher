@@ -303,7 +303,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(profileDownloadButton);
           profileDownloadButton.setVisible(false);
 
-          profileAccountLabel.setBounds(411, 466, 251, 31);
+          profileAccountLabel.setBounds(386, 466, 276, 31);
           profileAccountLabel.setForeground(Color.WHITE);
           profileAccountLabel.setFont(tabLabel.getFont().deriveFont(17f));
           this.add(profileAccountLabel);
@@ -709,6 +709,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           infosLabel.setText("");
      }
 
+     private void setButtonsEnabled(boolean enabled) {
+          profilePlayButton.setEnabled(enabled);
+          profileDownloadButton.setEnabled(enabled);
+          profileLaunchToMenuButton.setEnabled(enabled);
+     }
 
      /**
       * Fais une action quand un bouton est appuyé (doit avoir intégré un {@link fr.theshark34.swinger.event.SwingerEventListener})
@@ -754,12 +759,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           else if (e.getSource() == profilePlayButton) {
 
                Thread launch = new Thread(() -> {
+                    setButtonsEnabled(false);
                     loadingBar.setVisible(true);
                     infosLabel.setVisible(true);
                     infosLabel.setText("Connexion...");
                     try {
                          Launcher.connect();
                     } catch (MicrosoftAuthenticationException m) {
+                         setButtonsEnabled(true);
                          errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          infosLabel.setText("Connexion \u00e9chou\u00e9e");
                          loadingBar.setVisible(false);
@@ -772,15 +779,18 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     try {
                          Launcher.update();
                     } catch (Exception ex) {
+                         setButtonsEnabled(true);
                          throw new RuntimeException(ex);
                     }
                     updatePostExecutions();
 
-               try {
-                    Launcher.launch();
-               } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-               }
+                    try {
+                         Launcher.launch();
+                    } catch (Exception ex) {
+                         setButtonsEnabled(true);
+                         throw new RuntimeException(ex);
+                    }
+                    setButtonsEnabled(true);
 
                });
                launch.start();
@@ -790,18 +800,34 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           } else if (e.getSource() == profileLaunchToMenuButton) {
 
                Thread launch = new Thread(() -> {
-               try {
-                    Launcher.update();
-               } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-               }
-               updatePostExecutions();
+                    setButtonsEnabled(false);
 
-               try {
-                    Launcher.launch();
-               } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-               }
+                    try {
+                         Launcher.connect();
+                    } catch (MicrosoftAuthenticationException m) {
+                         setButtonsEnabled(true);
+                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                         infosLabel.setText("Connexion \u00e9chou\u00e9e");
+                         loadingBar.setVisible(false);
+                         infosLabel.setVisible(false);
+                         return;
+                    }
+
+                    try {
+                         Launcher.update();
+                    } catch (Exception ex) {
+                         setButtonsEnabled(true);
+                         throw new RuntimeException(ex);
+                    }
+                    updatePostExecutions();
+
+                    try {
+                         Launcher.launch();
+                    } catch (Exception ex) {
+                         setButtonsEnabled(true);
+                         throw new RuntimeException(ex);
+                    }
+                    setButtonsEnabled(true);
 
                });
                launch.start();
@@ -809,12 +835,16 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           } else if (e.getSource() == profileDownloadButton) {
 
                Thread update = new Thread(() -> {
-               try {
-                    Launcher.update();
-               } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-               }
-               updatePostExecutions();
+                    setButtonsEnabled(false);
+                    try {
+                         Launcher.update();
+                    } catch (Exception ex) {
+                         setButtonsEnabled(true);
+                         throw new RuntimeException(ex);
+                    }
+                    setButtonsEnabled(true);
+                    updatePostExecutions();
+                    normalMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
                });
                update.start();
 
@@ -835,8 +865,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          return;
                     }
-                    normalMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
-                    initProfileButtons();
+                         normalMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                         initProfileButtons();
                });
                connect.start();
 
@@ -851,8 +881,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          return;
                     }
-                    normalMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
-                    initProfileButtons();
+                         normalMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                         initProfileButtons();
                });
                connect.start();
           }

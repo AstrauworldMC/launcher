@@ -144,6 +144,19 @@ public class Launcher {
 
     }
 
+    /*
+     * TODO Marche pas encore
+     */
+    public static void localLaunch() throws Exception {
+
+        NoFramework noFramework= new NoFramework(awGameFilesFolder, null, GameFolder.FLOW_UPDATER);
+
+        LauncherFrame.getInstance().setVisible(false);
+
+        noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+        System.exit(0);
+    }
+
     public enum StepInfo {
 
         INTEGRATION("Chargement de l'int\u00e9gration..."),
