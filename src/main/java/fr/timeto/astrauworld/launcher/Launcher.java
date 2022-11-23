@@ -25,7 +25,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.LauncherPanel.*;
 
@@ -120,7 +122,11 @@ public class Launcher {
         initSelectedSaver();
 
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
-        MicrosoftAuthResult result = authenticator.loginWithRefreshToken(selectedSaver.get("infos|refreshToken"));
+        if (Objects.equals(selectedSaver.get("infos|refreshToken"), null)) {
+            throw new MicrosoftAuthenticationException("Aucun compte connecté");
+        } else {
+            MicrosoftAuthResult result = authenticator.loginWithRefreshToken(selectedSaver.get("infos|refreshToken"));
+        }
 
         authInfos = new AuthInfos(selectedSaver.get("infos|name"), selectedSaver.get("infos|accessToken"), selectedSaver.get("infos|UUID"), "", "");
         System.out.println("Connecté avec " + selectedSaver.get("infos|name"));
@@ -140,17 +146,17 @@ public class Launcher {
 
     public enum StepInfo {
 
-        INTEGRATION("Chargement de l'int\u00e8gration..."),
-        MOD_PACK("T\u00e8l\u00e8chargement du pack de mods..."),
+        INTEGRATION("Chargement de l'int\u00e9gration..."),
+        MOD_PACK("T\u00e9l\u00e9chargement du pack de mods..."),
         READ("Lecture du json..."),
-        DL_LIBS("T\u00e8l\u00e8chargement des librairies..."),
-        DL_ASSETS("T\u00e8l\u00e8chargement des assets..."),
+        DL_LIBS("T\u00e9l\u00e9chargement des librairies..."),
+        DL_ASSETS("T\u00e9l\u00e9chargement des assets..."),
         EXTRACT_NATIVES("Extraction des natives..."),
-        MOD_LOADER("T\u00e8l\u00e8chargement du mod loader..."),
-        MODS("T\u00e8l\u00e8chargement des mods..."),
-        EXTERNAL_FILES("T\u00e8l\u00e8chargement des fichiers externes..."),
+        MOD_LOADER("T\u00e9l\u00e9chargement du mod loader..."),
+        MODS("T\u00e9l\u00e9chargement des mods..."),
+        EXTERNAL_FILES("T\u00e9l\u00e9chargement des fichiers externes..."),
         POST_EXECUTIONS("Running post executions..."),
-        END("Termin\u00e8!");
+        END("Termin\u00e9!");
 
         final String details;
 
@@ -164,12 +170,18 @@ public class Launcher {
 
     }
 
-  /*  public static List<Runnable> postExecutions = new List<>();
-        postExecutions.add(() ->  /* Ce que vous voulez exécuter. ); */
+    public static Runnable postExecutions = () -> {
+        loadingBar.setValue(0);
+        loadingBar.setVisible(false);
+        barLabel.setText("");
+        percentLabel.setText("");
+        infosLabel.setText("");
+    };
 
 
     public static void update() throws Exception { // TODO reset la barre et les labels à la fin du dl
         Logger logger = new Logger("[Astrauworld Launcher]", awLogsFile);
+        loadingBar.setVisible(true);
 
         IProgressCallback callback = new IProgressCallback() {
             private final DecimalFormat decimalFormat = new DecimalFormat("#.#");
@@ -180,23 +192,27 @@ public class Launcher {
 
             @Override
             public void step(Step step) {
-                LauncherPanel.barLabel.setText(StepInfo.valueOf(step.name()).getDetails()); //TODO faire apparaitre ca sur un autre label au milieu de la barre
+                infosLabel.setText(StepInfo.valueOf(step.name()).getDetails()); //TODO faire apparaitre ca sur un autre label au milieu de la barre
 
             }
 
             public void onFileDownloaded(Path path) {
-                LauncherPanel.barLabel.setText(path.getFileName().toString());
+                barLabel.setText(path.getFileName().toString());
             }
 
             @Override
             public void update(DownloadList.DownloadInfo info) {
 
+                long progressLong = info.getDownloadedBytes();
+                long maximumLong = info.getTotalToDownloadBytes();
+                long result = (progressLong * 100) / maximumLong;
+
                 int progress = (int) info.getDownloadedBytes();
                 int maximum = (int) info.getTotalToDownloadBytes();
 
-                LauncherPanel.percentLabel.setText(decimalFormat.format((progress / maximum) * 100L) + "%"); //TODO faire marcher le %
-                LauncherPanel.loadingBar.setValue(progress);
-                LauncherPanel.loadingBar.setMaximum(maximum);
+                percentLabel.setText(result + "%"); //TODO faire marcher le %
+                loadingBar.setValue(progress);
+                loadingBar.setMaximum(maximum);
             }
         };
 
@@ -271,7 +287,7 @@ public class Launcher {
                 .withLogger(logger)
                 .withProgressCallback(callback)
                 .withModLoaderVersion(forge)
-        //        .withPostExecutions(postExecutions)
+                .withPostExecutions(Collections.singletonList(postExecutions))
                 .build();
         updater.update(awGameFilesFolder);
     }

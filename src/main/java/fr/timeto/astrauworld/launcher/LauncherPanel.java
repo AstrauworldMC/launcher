@@ -84,6 +84,20 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           return button;
      }
 
+     public void initProfileButtons() {
+          firstProfileButton.setTexture(getProfileButton("firstProfile", "normal"));
+          firstProfileButton.setTextureHover(getProfileButton("firstProfile", "hover"));
+          firstProfileButton.setTextureDisabled(getProfileButton("firstProfile", "selected"));
+
+          secondProfileButton.setTexture(getProfileButton("secondProfile", "normal"));
+          secondProfileButton.setTextureHover(getProfileButton("secondProfile", "hover"));
+          secondProfileButton.setTextureDisabled(getProfileButton("secondProfile", "selected"));
+
+          thirdProfileButton.setTexture(getProfileButton("thirdProfile", "normal"));
+          thirdProfileButton.setTextureHover(getProfileButton("thirdProfile", "hover"));
+          thirdProfileButton.setTextureDisabled(getProfileButton("thirdProfile", "selected"));
+     }
+
      // Common components
      private final STexturedButton quitButton = new STexturedButton(getResourceIgnorePath("/commonButtons/quitButton.png"), getResourceIgnorePath("/commonButtons/quitButtonHover.png"));
      private final STexturedButton hideButton = new STexturedButton(getResourceIgnorePath("/commonButtons/hideButton.png"), getResourceIgnorePath("/commonButtons/hideButtonHover.png"));
@@ -99,6 +113,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED);
      public static JLabel barLabel = new JLabel("", SwingConstants.LEFT);
      public static JLabel percentLabel = new JLabel("", SwingConstants.RIGHT);
+     public static JLabel infosLabel = new JLabel("", SwingConstants.CENTER);
 
      private final STexturedButton upLeftCorner = new STexturedButton(getResourceIgnorePath("/corner.png"), getResourceIgnorePath("/corner.png"), getResourceIgnorePath("/corner.png"));
      private final STexturedButton upRightCorner = new STexturedButton(getResourceIgnorePath("/corner.png"), getResourceIgnorePath("/corner.png"), getResourceIgnorePath("/corner.png"));
@@ -138,6 +153,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public void errorMessage(String title, String msg){
           JOptionPane.showMessageDialog(LauncherPanel.this, msg, title, JOptionPane.ERROR_MESSAGE);
           System.out.println(msg);
+     }
+
+     public void normalMessage(String title, String msg) {
+          JOptionPane.showMessageDialog(LauncherPanel.this, msg, title, JOptionPane.INFORMATION_MESSAGE);
      }
 
      /**
@@ -206,18 +225,24 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           tabSecondLabel.setFont(tabLabel.getFont().deriveFont(15f));
           this.add(tabSecondLabel);
 
-          barLabel.setBounds(181, 612, 657, 16);
+          barLabel.setBounds(181, 612, 269, 16);
           barLabel.setForeground(Color.WHITE);
           barLabel.setFont(tabLabel.getFont().deriveFont(10f));
           this.add(barLabel);
 
-          percentLabel.setBounds(842, 612, 155, 16);
+          percentLabel.setBounds(920, 612, 70, 16);
           percentLabel.setForeground(Color.WHITE);
           percentLabel.setFont(barLabel.getFont());
           this.add(percentLabel);
 
+          infosLabel.setBounds(460, 612, 255, 16);
+          infosLabel.setForeground(Color.WHITE);
+          infosLabel.setFont(barLabel.getFont());
+          this.add(infosLabel);
+
           loadingBar.setBounds(178, 610, 821, 20);
           this.add(loadingBar);
+          loadingBar.setVisible(false);
 
 
           upLeftCorner.setBounds(0, 0);
@@ -432,6 +457,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileAccountLabel.setVisible(true);
                     if (!Objects.equals(selectedSaver.get("infos|name"), "none")){
                          profileAccountLabel.setText(selectedSaver.get("infos|name"));
+                    } else {
+                         profileAccountLabel.setText("");
                     }
 
                     upLeftCorner.setVisible(false);
@@ -487,16 +514,16 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileAccountTextField.setText("");
                     profileAccountPasswordField.setText("");
                     if (Objects.equals(selectedProfile, "1")) {
-                         if(!Objects.equals(firstProfileSaver.get("infos|emaile"), "none")) {
-                              profileAccountTextField.setText(firstProfileSaver.get("infos|emaile"));
+                         if(!Objects.equals(firstProfileSaver.get("infos|email"), "none")) {
+                              profileAccountTextField.setText(firstProfileSaver.get("infos|email"));
                          }
                     } else if (Objects.equals(selectedProfile, "2")) {
-                         if(!Objects.equals(secondProfileSaver.get("infos|emaile"), "none")) {
-                              profileAccountTextField.setText(secondProfileSaver.get("infos|emaile"));
+                         if(!Objects.equals(secondProfileSaver.get("infos|email"), "none")) {
+                              profileAccountTextField.setText(secondProfileSaver.get("infos|email"));
                          }
                     } else if (Objects.equals(selectedProfile, "3")) {
-                         if(!Objects.equals(thirdProfileSaver.get("infos|emaile"), "none")) {
-                              profileAccountTextField.setText(thirdProfileSaver.get("infos|emaile"));
+                         if(!Objects.equals(thirdProfileSaver.get("infos|email"), "none")) {
+                              profileAccountTextField.setText(thirdProfileSaver.get("infos|email"));
                          }
                     }
 
@@ -674,6 +701,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
      }
 
+     private void updatePostExecutions() {
+          loadingBar.setValue(0);
+          loadingBar.setVisible(false);
+          barLabel.setText("");
+          percentLabel.setText("");
+          infosLabel.setText("");
+     }
+
 
      /**
       * Fais une action quand un bouton est appuyé (doit avoir intégré un {@link fr.theshark34.swinger.event.SwingerEventListener})
@@ -719,17 +754,27 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           else if (e.getSource() == profilePlayButton) {
 
                Thread launch = new Thread(() -> {
+                    loadingBar.setVisible(true);
+                    infosLabel.setVisible(true);
+                    infosLabel.setText("Connexion...");
                     try {
                          Launcher.connect();
                     } catch (MicrosoftAuthenticationException m) {
                          errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                         infosLabel.setText("Connexion \u00e9chou\u00e9e");
+                         loadingBar.setVisible(false);
+                         infosLabel.setVisible(false);
+                         return;
                     }
+                    initSelectedSaver();
+                    infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get("infos|name"));
 
                     try {
                          Launcher.update();
                     } catch (Exception ex) {
                          throw new RuntimeException(ex);
                     }
+                    updatePostExecutions();
 
           /*     try {
                     Launcher.launch();
@@ -750,6 +795,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                } catch (Exception ex) {
                     throw new RuntimeException(ex);
                }
+               updatePostExecutions();
 
           /*     try {
                     Launcher.launch();
@@ -768,6 +814,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                } catch (Exception ex) {
                     throw new RuntimeException(ex);
                }
+               updatePostExecutions();
                });
                update.start();
 
@@ -786,22 +833,26 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()));
                     } catch (MicrosoftAuthenticationException m) {
                          errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                         return;
                     }
+                    normalMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                    initProfileButtons();
                });
                connect.start();
 
 
           } else if (e.getSource() == profileAccountConnectionMicrosoftButton) {
-               System.out.println("Thread?");
 
                Thread connect = new Thread(() -> {
-                    System.out.println("Thread");
                     try {
                          System.out.println("Connexion...");
                          Launcher.microsoftAuthWebview();
                     } catch (MicrosoftAuthenticationException m) {
                          errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                         return;
                     }
+                    normalMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                    initProfileButtons();
                });
                connect.start();
           }
