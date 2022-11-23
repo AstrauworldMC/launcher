@@ -138,19 +138,19 @@ public class Launcher {
 
     }
 
-    public enum StepInfo { //TODO mettre les lettres à accents en unicode
+    public enum StepInfo {
 
-        INTEGRATION("Chargement de l'intégration..."),
-        MOD_PACK("Téléchargement du pack de mods..."),
+        INTEGRATION("Chargement de l'int\u00e8gration..."),
+        MOD_PACK("T\u00e8l\u00e8chargement du pack de mods..."),
         READ("Lecture du json..."),
-        DL_LIBS("Téléchargement des librairies..."),
-        DL_ASSETS("Téléchargement des assets..."),
+        DL_LIBS("T\u00e8l\u00e8chargement des librairies..."),
+        DL_ASSETS("T\u00e8l\u00e8chargement des assets..."),
         EXTRACT_NATIVES("Extraction des natives..."),
-        MOD_LOADER("Téléchargement du mod loader..."),
-        MODS("Téléchargement des mods..."),
-        EXTERNAL_FILES("Téléchargement des fichiers externes..."),
+        MOD_LOADER("T\u00e8l\u00e8chargement du mod loader..."),
+        MODS("T\u00e8l\u00e8chargement des mods..."),
+        EXTERNAL_FILES("T\u00e8l\u00e8chargement des fichiers externes..."),
         POST_EXECUTIONS("Running post executions..."),
-        END("Terminé!");
+        END("Termin\u00e8!");
 
         final String details;
 
@@ -163,6 +163,10 @@ public class Launcher {
         }
 
     }
+
+  /*  public static List<Runnable> postExecutions = new List<>();
+        postExecutions.add(() ->  /* Ce que vous voulez exécuter. ); */
+
 
     public static void update() throws Exception { // TODO reset la barre et les labels à la fin du dl
         Logger logger = new Logger("[Astrauworld Launcher]", awLogsFile);
@@ -190,7 +194,7 @@ public class Launcher {
                 int progress = (int) info.getDownloadedBytes();
                 int maximum = (int) info.getTotalToDownloadBytes();
 
-                LauncherPanel.percentLabel.setText(decimalFormat.format((progress / maximum) * 100) + "%"); //TODO faire marcher le %
+                LauncherPanel.percentLabel.setText(decimalFormat.format((progress / maximum) * 100L) + "%"); //TODO faire marcher le %
                 LauncherPanel.loadingBar.setValue(progress);
                 LauncherPanel.loadingBar.setMaximum(maximum);
             }
@@ -267,6 +271,7 @@ public class Launcher {
                 .withLogger(logger)
                 .withProgressCallback(callback)
                 .withModLoaderVersion(forge)
+        //        .withPostExecutions(postExecutions)
                 .build();
         updater.update(awGameFilesFolder);
     }
