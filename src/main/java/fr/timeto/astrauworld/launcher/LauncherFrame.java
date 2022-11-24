@@ -6,6 +6,7 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.util.WindowMover;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
@@ -46,22 +47,22 @@ public class LauncherFrame extends JFrame {
      * @param saver Le saver qui se fera initialiser
      */
     public static void initializeDataFiles(Saver saver) {
-        if(!Objects.equals(saver.get("fileCreated"), "true")) {
+        if(!Objects.equals(saver.get(ProfileSaver.KEY.FILECREATED), "true")) {
             // Informations générales
-            saver.set("infos|name", "none");
-            saver.set("infos|email", "none");
-            saver.set("infos|UUID", "none");
-            saver.set("infos|accessToken", "none");
-            saver.set("infos|refreshToken", "none");
+            saver.set(ProfileSaver.KEY.INFOS_NAME, "none");
+            saver.set(ProfileSaver.KEY.INFOS_EMAIL, "none");
+            saver.set(ProfileSaver.KEY.INFOS_UUID, "none");
+            saver.set(ProfileSaver.KEY.INFOS_ACCESSTOKEN, "none");
+            saver.set(ProfileSaver.KEY.INFOS_REFRESHTOKEN, "none");
             // Configuration de Minecraft, si la key commence par 'mod' -> mod client
-            saver.set("mod|Optifine", "false");
-            saver.set("mod|FirstPersonModel", "false");
-            saver.set("mod|BetterThirdPerson", "false");
-            saver.set("mod|FallingLeaves", "false");
-            saver.set("mod|AppleSkin", "false");
-            saver.set("mod|SoundPhysicsRemastered", "false");
+            saver.set(ProfileSaver.KEY.MOD_OPTIFINE, "false");
+            saver.set(ProfileSaver.KEY.MOD_FPSMODEL, "false");
+            saver.set(ProfileSaver.KEY.MOD_BETTERTPS, "false");
+            saver.set(ProfileSaver.KEY.MOD_FALLINGLEAVES, "false");
+            saver.set(ProfileSaver.KEY.MOD_APPLESKIN, "false");
+            saver.set(ProfileSaver.KEY.MOD_SOUNDPHYSICS, "false");
 
-            saver.set("fileCreated", "true");
+            saver.set(ProfileSaver.KEY.FILECREATED, "true");
         }
     }
 
@@ -88,6 +89,22 @@ public class LauncherFrame extends JFrame {
         Launcher.AW_DATA_FOLDER.mkdir();
         Launcher.AW_GAMEFILES_FOLDER.mkdir();
         Launcher.AW_CRASH_FOLDER.mkdir();
+
+        try {
+            Launcher.AW_FIRSTPROFILE_ICON.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            Launcher.AW_SECONDPROFILE_ICON.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            Launcher.AW_THIRDPROFILE_ICON.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         initializeDataFiles();
 

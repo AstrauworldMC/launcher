@@ -46,6 +46,9 @@ public class Launcher {
     static final String firstProfileData = dataFolder + separatorChar + "firstProfile.properties";
     static final String secondProfileData = dataFolder + separatorChar + "secondProfile.properties";
     static final String thirdProfileData = dataFolder + separatorChar + "thirdProfile.properties";
+    static final String firstProfileIcon = dataFolder + separatorChar + "firstProfile.png";
+    static final String secondProfileIcon = dataFolder + separatorChar + "secondProfile.png";
+    static final String thirdProfileIcon = dataFolder + separatorChar + "thirdProfile.png";
 
     // Version de Minecraft et de Forge utilisée
     static final String mcVersion = "1.19.2";
@@ -62,6 +65,9 @@ public class Launcher {
     public static final File AW_FIRSTPROFILE_DATA = new File(firstProfileData);
     public static final File AW_SECONDPROFILE_DATA = new File(secondProfileData);
     public static final File AW_THIRDPROFILE_DATA= new File(thirdProfileData);
+    public static final File AW_FIRSTPROFILE_ICON = new File(firstProfileIcon);
+    public static final File AW_SECONDPROFILE_ICON = new File(secondProfileIcon);
+    public static final File AW_THIRDPROFILE_ICON = new File(thirdProfileIcon);
 
     // Path dont on a besoin
     public static final Path awFilesFolder = Paths.get(filesFolder);
@@ -72,6 +78,9 @@ public class Launcher {
     public static final Path awFirstProfileData = Paths.get(firstProfileData);
     public static final Path awSecondProfileData = Paths.get(secondProfileData);
     public static final Path awThirdProfileData = Paths.get(thirdProfileData);
+    public static final Path awFirstProfileIcon = Paths.get(firstProfileIcon);
+    public static final Path awSecondProfileIcon = Paths.get(secondProfileIcon);
+    public static final Path awThirdProfileIcon = Paths.get(thirdProfileIcon);
 
     public static final GameInfos AW_INFOS = new GameInfos("Astrauworld", awGameFilesFolder, new GameVersion(mcVersion, GameType.V1_13_HIGHER_FORGE.setNFVD(new NewForgeVersionDiscriminator(forgeVersion, mcVersion, "20211210.034407"))), new GameTweak[] {GameTweak.FORGE});
 
@@ -84,11 +93,11 @@ public class Launcher {
 
     public static void saveInfosWhenConnect(MicrosoftAuthResult result){
         initSelectedSaver();
-        selectedSaver.set("infos|email", LauncherPanel.profileAccountTextField.getText());
-        selectedSaver.set("infos|name", result.getProfile().getName());
-        selectedSaver.set("infos|accessToken", result.getAccessToken());
-        selectedSaver.set("infos|refreshToken", result.getRefreshToken());
-        selectedSaver.set("infos|UUID", result.getProfile().getId());
+        selectedSaver.set(ProfileSaver.KEY.INFOS_EMAIL, LauncherPanel.profileAccountTextField.getText());
+        selectedSaver.set(ProfileSaver.KEY.INFOS_NAME, result.getProfile().getName());
+        selectedSaver.set(ProfileSaver.KEY.INFOS_ACCESSTOKEN, result.getAccessToken());
+        selectedSaver.set(ProfileSaver.KEY.INFOS_REFRESHTOKEN, result.getRefreshToken());
+        selectedSaver.set(ProfileSaver.KEY.INFOS_UUID, result.getProfile().getId());
     }
 
 
@@ -122,14 +131,14 @@ public class Launcher {
         initSelectedSaver();
 
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
-        if (Objects.equals(selectedSaver.get("infos|refreshToken"), null)) {
+        if (Objects.equals(selectedSaver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN), null)) {
             throw new MicrosoftAuthenticationException("Aucun compte connecté");
         } else {
-            MicrosoftAuthResult result = authenticator.loginWithRefreshToken(selectedSaver.get("infos|refreshToken"));
+            MicrosoftAuthResult result = authenticator.loginWithRefreshToken(selectedSaver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
         }
 
-        authInfos = new AuthInfos(selectedSaver.get("infos|name"), selectedSaver.get("infos|accessToken"), selectedSaver.get("infos|UUID"), "", "");
-        System.out.println("Connecté avec " + selectedSaver.get("infos|name"));
+        authInfos = new AuthInfos(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), selectedSaver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), selectedSaver.get(ProfileSaver.KEY.INFOS_UUID), "", "");
+        System.out.println("Connecté avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
     }
 
