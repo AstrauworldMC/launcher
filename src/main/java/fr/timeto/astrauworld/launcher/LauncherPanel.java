@@ -113,7 +113,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
       * Récupère la version du bouton de profil voulu d'après le fichier de données
       * @param base réfère à 'profile1/2/3' contenu dans le nom de l'image
       * @param state la version de l'image demandée
-      * @return Si le 'name' est égal à 'none' dans le fichier de données, l'image retournée est la version avec un bloc d'herbe Minecraft et la mention 'Vide' au dessus de 'Profil [1/2/3]' de l'état demandé.
+      * @return Si le 'name' est égal à 'none' dans le fichier de données, l'image retournée est la version avec un bloc d'herbe Minecraft et la mention 'Vide' au-dessus de 'Profil [1/2/3]' de l'état demandé.
       * <p>
       * Sinon, retourne la version avec seulement 'Profil [1/2/3]' de l'état demandé
       */
@@ -155,7 +155,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           firstProfileButton.setTexture(getProfileButton("firstProfile", "normal"));
           firstProfileButton.setTextureHover(getProfileButton("firstProfile", "hover"));
           firstProfileButton.setTextureDisabled(getProfileButton("firstProfile", "selected"));
-          firstProfileIcon.setIcon(new ImageIcon(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON)));
+          firstProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON))));
           firstProfileIcon.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
           firstProfileNameLabel.setText(firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
           firstProfileNameLabel.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
@@ -163,18 +163,18 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           secondProfileButton.setTexture(getProfileButton("secondProfile", "normal"));
           secondProfileButton.setTextureHover(getProfileButton("secondProfile", "hover"));
           secondProfileButton.setTextureDisabled(getProfileButton("secondProfile", "selected"));
-          secondProfileIcon.setIcon(new ImageIcon(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON)));
+          secondProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON))));
           secondProfileIcon.setVisible(!(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
           secondProfileNameLabel.setText(secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          secondProfileNameLabel.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          secondProfileNameLabel.setVisible(!(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
 
           thirdProfileButton.setTexture(getProfileButton("thirdProfile", "normal"));
           thirdProfileButton.setTextureHover(getProfileButton("thirdProfile", "hover"));
           thirdProfileButton.setTextureDisabled(getProfileButton("thirdProfile", "selected"));
-          thirdProfileIcon.setIcon(new ImageIcon(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON)));
+          thirdProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON))));
           thirdProfileIcon.setVisible(!(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
           thirdProfileNameLabel.setText(thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          thirdProfileNameLabel.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          thirdProfileNameLabel.setVisible(!(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
 
      }
 
@@ -186,9 +186,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      private final STexturedButton firstProfileButton = new STexturedButton(getProfileButton("firstProfile", "normal"), getProfileButton("firstProfile", "hover"), getProfileButton("firstProfile", "selected"));
      private final STexturedButton secondProfileButton = new STexturedButton(getProfileButton("secondProfile", "normal"), getProfileButton("secondProfile", "hover"), getProfileButton("secondProfile", "selected"));
      private final STexturedButton thirdProfileButton = new STexturedButton(getProfileButton("thirdProfile", "normal"), getProfileButton("thirdProfile", "hover"), getProfileButton("thirdProfile", "selected"));
-     private JLabel firstProfileIcon = new JLabel(new ImageIcon(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON)));
-     private JLabel secondProfileIcon = new JLabel(new ImageIcon(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON)));
-     private JLabel thirdProfileIcon = new JLabel(new ImageIcon(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON)));
+     private JLabel firstProfileIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON))));
+     private JLabel secondProfileIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON))));
+     private JLabel thirdProfileIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON))));
      private JLabel firstProfileNameLabel = new JLabel(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
      private JLabel secondProfileNameLabel = new JLabel(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
      private JLabel thirdProfileNameLabel = new JLabel(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
@@ -234,6 +234,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      // Profiles components - compte
      private final STexturedButton profileAccountConnectionButton = new STexturedButton(getResourceIgnorePath("/profilesPage/compte/connectionButton-normal.png"), getResourceIgnorePath("/profilesPage/compte/connectionButton-hover.png"));
      private final STexturedButton profileAccountConnectionMicrosoftButton = new STexturedButton(getResourceIgnorePath("/profilesPage/compte/connectionWithMicrosoftButton-normal.png"), getResourceIgnorePath("/profilesPage/compte/connectionWithMicrosoftButton-hover.png"));
+     private final STexturedButton profileAccountResetButton = new STexturedButton(getResourceIgnorePath("/profilesPage/compte/resetButton-normal.png"), getResourceIgnorePath("/profilesPage/compte/resetButton-hover.png"));
      public static final JTextField profileAccountTextField = new JTextField("");
      public static final JPasswordField profileAccountPasswordField = new JPasswordField();
 
@@ -287,9 +288,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                throw new RuntimeException(e);
           }
 
-          firstProfileButton.setBounds(0, 174);
-          firstProfileButton.addEventListener(this);
-          this.add(firstProfileButton);
           firstProfileIcon.setBounds(15, 187, 35, 35);
           this.add(firstProfileIcon);
           firstProfileIcon.setVisible(false);
@@ -298,10 +296,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           firstProfileNameLabel.setFont(firstProfileNameLabel.getFont().deriveFont(12f));
           this.add(firstProfileNameLabel);
           firstProfileNameLabel.setVisible(false);
+          firstProfileButton.setBounds(0, 174);
+          firstProfileButton.addEventListener(this);
+          this.add(firstProfileButton);
 
-          secondProfileButton.setBounds(0, 235);
-          secondProfileButton.addEventListener(this);
-          this.add(secondProfileButton);
           secondProfileIcon.setBounds(15, 248, 35, 35);
           this.add(secondProfileIcon);
           secondProfileIcon.setVisible(false);
@@ -310,10 +308,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           secondProfileNameLabel.setFont(firstProfileNameLabel.getFont());
           this.add(secondProfileNameLabel);
           secondProfileNameLabel.setVisible(false);
+          secondProfileButton.setBounds(0, 235);
+          secondProfileButton.addEventListener(this);
+          this.add(secondProfileButton);
 
-          thirdProfileButton.setBounds(0, 296);
-          thirdProfileButton.addEventListener(this);
-          this.add(thirdProfileButton);
           thirdProfileIcon.setBounds(15, 309, 35, 35);
           this.add(thirdProfileIcon);
           thirdProfileIcon.setVisible(false);
@@ -322,6 +320,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           thirdProfileNameLabel.setFont(firstProfileNameLabel.getFont());
           this.add(thirdProfileNameLabel);
           thirdProfileNameLabel.setVisible(false);
+          thirdProfileButton.setBounds(0, 296);
+          thirdProfileButton.addEventListener(this);
+          this.add(thirdProfileButton);
 
           initProfileButtons();
 
@@ -438,6 +439,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileAccountConnectionMicrosoftButton.addEventListener(this);
           this.add(profileAccountConnectionMicrosoftButton);
           profileAccountConnectionMicrosoftButton.setVisible(false);
+
+          profileAccountResetButton.setBounds(853, 500);
+          profileAccountResetButton.addEventListener(this);
+          this.add(profileAccountResetButton);
+          profileAccountResetButton.setVisible(false);
 
           profileAccountTextField.setForeground(Color.WHITE);
           profileAccountTextField.setFont(tabLabel.getFont().deriveFont(25f));
@@ -628,6 +634,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileAccountConnectionButton.setVisible(true);
                     profileAccountConnectionMicrosoftButton.setVisible(true);
                     profileAccountConnectionMicrosoftButton.setEnabled(false);
+                    profileAccountResetButton.setVisible(true);
                     profileAccountTextField.setVisible(true);
                     profileAccountPasswordField.setVisible(true);
                     profileAccountTextField.setText("");
@@ -666,6 +673,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileSettingsTabButton.setVisible(false);
                     profileAccountConnectionButton.setVisible(false);
                     profileAccountConnectionMicrosoftButton.setVisible(false);
+                    profileAccountResetButton.setVisible(false);
                     profileAccountTextField.setVisible(false);
                     profileAccountPasswordField.setVisible(false);
                     background = getResourceIgnorePath("/baseGUI.png");
@@ -1004,6 +1012,15 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          initProfileButtons();
                });
                connect.start();
+          } else if (e.getSource() == profileAccountResetButton) {
+               int reply = JOptionPane.showConfirmDialog(LauncherPanel.this, "Voulez vous vraiment r\u00e9initialiser le compte ?", "R\u00e9initialisation du compte", JOptionPane.YES_NO_OPTION);
+               if (reply == JOptionPane.YES_OPTION) {
+                    initSelectedSaver();
+                    selectedSaver.set(ProfileSaver.KEY.FILECREATED, "");
+                    LauncherFrame.initializeDataFiles(selectedSaver);
+                    normalMessage("Compte supprim\u00e9", "Donn\u00e9es du compte r\u00e9initialis\u00e9es");
+                    initProfileButtons();
+               }
           }
      }
 }
