@@ -15,6 +15,9 @@ public class ProfileSaver {
         public static final String MOD_APPLESKIN = "mod|AppleSkin";
         public static final String MOD_SOUNDPHYSICS = "mod|SoundPhysicsRemastered";
 
+        public static final String SETTINGS_PROFILENAME = "settings|ProfileName";
+        public static final String SETTINGS_HELMICON = "settings|HelmIcon";
+
         public static final String FILECREATED = "fileCreated";
     }
 }

@@ -56,7 +56,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      }
 
      public static void initProfileIcon(Saver saver) throws IOException {
-          String url = "https://minotar.net/avatar/" + saver.get(ProfileSaver.KEY.INFOS_UUID) + "/100.png";
+          String url;
+          if (Objects.equals(saver.get(ProfileSaver.KEY.SETTINGS_HELMICON), "true")) {
+               url = "https://minotar.net/helm/" + saver.get(ProfileSaver.KEY.INFOS_UUID) + "/34.png";
+          } else {
+               url = "https://minotar.net/avatar/" + saver.get(ProfileSaver.KEY.INFOS_UUID) + "/34.png";
+          }
+
           if (saver == firstProfileSaver) {
                dlProfileIcon(url, 1);
           } else if (saver == secondProfileSaver) {
@@ -149,31 +155,27 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           firstProfileButton.setTexture(getProfileButton("firstProfile", "normal"));
           firstProfileButton.setTextureHover(getProfileButton("firstProfile", "hover"));
           firstProfileButton.setTextureDisabled(getProfileButton("firstProfile", "selected"));
-          firstProfileIcon.setIcon((Icon) getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON));
-          if(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), ""))) {
-               firstProfileIcon.setVisible(true);
-          } else {
-               firstProfileIcon.setVisible(false);
-          }
+          firstProfileIcon.setIcon(new ImageIcon(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON)));
+          firstProfileIcon.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          firstProfileNameLabel.setText(firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
+          firstProfileNameLabel.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+
           secondProfileButton.setTexture(getProfileButton("secondProfile", "normal"));
           secondProfileButton.setTextureHover(getProfileButton("secondProfile", "hover"));
           secondProfileButton.setTextureDisabled(getProfileButton("secondProfile", "selected"));
-          secondProfileIcon.setIcon((Icon) getProfileIcon(Launcher.AW_SECONDPROFILE_ICON));
-          if(!(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), ""))) {
-               secondProfileIcon.setVisible(true);
-          } else {
-               secondProfileIcon.setVisible(false);
-          }
-          
+          secondProfileIcon.setIcon(new ImageIcon(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON)));
+          secondProfileIcon.setVisible(!(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          secondProfileNameLabel.setText(secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
+          secondProfileNameLabel.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+
           thirdProfileButton.setTexture(getProfileButton("thirdProfile", "normal"));
           thirdProfileButton.setTextureHover(getProfileButton("thirdProfile", "hover"));
           thirdProfileButton.setTextureDisabled(getProfileButton("thirdProfile", "selected"));
-          thirdProfileIcon.setIcon((Icon) getProfileIcon(Launcher.AW_THIRDPROFILE_ICON));
-          if(!(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), ""))) {
-              thirdProfileIcon.setVisible(true); 
-          } else {
-               thirdProfileIcon.setVisible(false);
-          }
+          thirdProfileIcon.setIcon(new ImageIcon(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON)));
+          thirdProfileIcon.setVisible(!(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          thirdProfileNameLabel.setText(thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
+          thirdProfileNameLabel.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "none") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+
      }
 
      // Common components
@@ -184,9 +186,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      private final STexturedButton firstProfileButton = new STexturedButton(getProfileButton("firstProfile", "normal"), getProfileButton("firstProfile", "hover"), getProfileButton("firstProfile", "selected"));
      private final STexturedButton secondProfileButton = new STexturedButton(getProfileButton("secondProfile", "normal"), getProfileButton("secondProfile", "hover"), getProfileButton("secondProfile", "selected"));
      private final STexturedButton thirdProfileButton = new STexturedButton(getProfileButton("thirdProfile", "normal"), getProfileButton("thirdProfile", "hover"), getProfileButton("thirdProfile", "selected"));
-     private JLabel firstProfileIcon = new JLabel((Icon) getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON));
-     private JLabel secondProfileIcon = new JLabel((Icon) getProfileIcon(Launcher.AW_SECONDPROFILE_ICON));
-     private JLabel thirdProfileIcon = new JLabel((Icon) getProfileIcon(Launcher.AW_THIRDPROFILE_ICON));
+     private JLabel firstProfileIcon = new JLabel(new ImageIcon(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON)));
+     private JLabel secondProfileIcon = new JLabel(new ImageIcon(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON)));
+     private JLabel thirdProfileIcon = new JLabel(new ImageIcon(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON)));
+     private JLabel firstProfileNameLabel = new JLabel(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
+     private JLabel secondProfileNameLabel = new JLabel(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
+     private JLabel thirdProfileNameLabel = new JLabel(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
      private final STexturedButton changesButton = new STexturedButton(getResourceIgnorePath("/commonButtons/changesButton-normal.png"), getResourceIgnorePath("/commonButtons/changesButton-hover.png"), getResourceIgnorePath("/commonButtons/changesButton-selected.png"));
      private final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/commonButtons/aboutButton-selected.png"));
@@ -276,19 +281,49 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           newsButton.addEventListener(this);
           this.add(newsButton);
 
+          try {
+               initProfileIcon();
+          } catch (IOException e) {
+               throw new RuntimeException(e);
+          }
+
           firstProfileButton.setBounds(0, 174);
           firstProfileButton.addEventListener(this);
           this.add(firstProfileButton);
           firstProfileIcon.setBounds(15, 187, 35, 35);
-
+          this.add(firstProfileIcon);
+          firstProfileIcon.setVisible(false);
+          firstProfileNameLabel.setBounds(61, 188, 78, 12);
+          firstProfileNameLabel.setForeground(Color.WHITE);
+          firstProfileNameLabel.setFont(firstProfileNameLabel.getFont().deriveFont(12f));
+          this.add(firstProfileNameLabel);
+          firstProfileNameLabel.setVisible(false);
 
           secondProfileButton.setBounds(0, 235);
           secondProfileButton.addEventListener(this);
           this.add(secondProfileButton);
+          secondProfileIcon.setBounds(15, 248, 35, 35);
+          this.add(secondProfileIcon);
+          secondProfileIcon.setVisible(false);
+          secondProfileNameLabel.setBounds(61, 249, 78, 12);
+          secondProfileNameLabel.setForeground(Color.WHITE);
+          secondProfileNameLabel.setFont(firstProfileNameLabel.getFont());
+          this.add(secondProfileNameLabel);
+          secondProfileNameLabel.setVisible(false);
 
           thirdProfileButton.setBounds(0, 296);
           thirdProfileButton.addEventListener(this);
           this.add(thirdProfileButton);
+          thirdProfileIcon.setBounds(15, 309, 35, 35);
+          this.add(thirdProfileIcon);
+          thirdProfileIcon.setVisible(false);
+          thirdProfileNameLabel.setBounds(61, 310, 78, 12);
+          thirdProfileNameLabel.setForeground(Color.WHITE);
+          thirdProfileNameLabel.setFont(firstProfileNameLabel.getFont());
+          this.add(thirdProfileNameLabel);
+          thirdProfileNameLabel.setVisible(false);
+
+          initProfileButtons();
 
           changesButton.setBounds(0, 510);
           changesButton.addEventListener(this);

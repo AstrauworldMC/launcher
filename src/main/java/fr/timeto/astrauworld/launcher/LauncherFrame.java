@@ -62,6 +62,9 @@ public class LauncherFrame extends JFrame {
             saver.set(ProfileSaver.KEY.MOD_APPLESKIN, "false");
             saver.set(ProfileSaver.KEY.MOD_SOUNDPHYSICS, "false");
 
+            saver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, "none");
+            saver.set(ProfileSaver.KEY.SETTINGS_HELMICON, "true");
+
             saver.set(ProfileSaver.KEY.FILECREATED, "true");
         }
     }
