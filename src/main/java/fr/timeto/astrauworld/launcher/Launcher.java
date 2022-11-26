@@ -20,14 +20,11 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static fr.timeto.astrauworld.launcher.LauncherPanel.*;
 
@@ -98,10 +95,10 @@ public class Launcher {
         selectedSaver.set(ProfileSaver.KEY.INFOS_ACCESSTOKEN, result.getAccessToken());
         selectedSaver.set(ProfileSaver.KEY.INFOS_REFRESHTOKEN, result.getRefreshToken());
         selectedSaver.set(ProfileSaver.KEY.INFOS_UUID, result.getProfile().getId());
+        selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
     }
 
-
-        public static void microsoftAuth(String email, String password) throws MicrosoftAuthenticationException {
+    public static void microsoftAuth(String email, String password) throws MicrosoftAuthenticationException {
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithCredentials(email, password);
 
@@ -143,8 +140,10 @@ public class Launcher {
     }
 
     public static void launch() throws Exception{
+        initSelectedSaver();
+
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        // noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", "207.180.196.61", "--port", "33542"));
+        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "Go", "--server", "207.180.196.61", "--port", "33542"));
 
         LauncherFrame.getInstance().setVisible(false);
 
@@ -157,8 +156,10 @@ public class Launcher {
      * TODO Marche pas encore
      */
     public static void localLaunch() throws Exception {
+        initSelectedSaver();
 
-        NoFramework noFramework= new NoFramework(awGameFilesFolder, null, GameFolder.FLOW_UPDATER);
+        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
+        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "Go"));
 
         LauncherFrame.getInstance().setVisible(false);
 

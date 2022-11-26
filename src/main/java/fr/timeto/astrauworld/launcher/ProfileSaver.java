@@ -17,6 +17,7 @@ public class ProfileSaver {
 
         public static final String SETTINGS_PROFILENAME = "settings|ProfileName";
         public static final String SETTINGS_HELMICON = "settings|HelmIcon";
+        public static final String SETTINGS_RAM = "settings|AllowedRam";
 
         public static final String FILECREATED = "fileCreated";
     }

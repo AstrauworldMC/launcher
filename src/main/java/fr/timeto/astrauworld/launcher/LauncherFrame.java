@@ -64,6 +64,7 @@ public class LauncherFrame extends JFrame {
 
             saver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, "none");
             saver.set(ProfileSaver.KEY.SETTINGS_HELMICON, "true");
+            saver.set(ProfileSaver.KEY.SETTINGS_RAM, "2");
 
             saver.set(ProfileSaver.KEY.FILECREATED, "true");
         }

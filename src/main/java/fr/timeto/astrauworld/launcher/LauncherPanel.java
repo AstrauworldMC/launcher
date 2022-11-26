@@ -17,6 +17,7 @@ import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.theshark34.swinger.Swinger.getTransparentWhite;
+import static java.lang.Float.parseFloat;
 
 @SuppressWarnings("unused")
 public class LauncherPanel extends JPanel implements SwingerEventListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
@@ -293,6 +294,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public static STexturedButton profileSettingsSaveProfileNameButton = new STexturedButton(getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton-hover.png"));
      private final STexturedToggleButton profileSettingsHelmIconToggleButton = new STexturedToggleButton(ProfileSaver.KEY.SETTINGS_HELMICON, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"), getResourceIgnorePath("/commonButtons/toggleButton-hover_off.png"), getResourceIgnorePath("/commonButtons/toggleButton-disabled_off.png"));
 
+     private static final double ramNumberSpinnerModelMin = 0.10;
+     private static final double ramNumberSpinnerModelMax = 256.00;
+     private static final double ramNumberSpinnerModelStep = 0.10;
+     private static final SpinnerNumberModel ramNumberSpinnerModel = new SpinnerNumberModel(2, ramNumberSpinnerModelMin, ramNumberSpinnerModelMax, ramNumberSpinnerModelStep);
+     public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(ramNumberSpinnerModel);
+     public static STexturedButton profileSettingsSaveAllowedRamButton = new STexturedButton(getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton-hover.png"));
+
+
      public void errorMessage(String title, String msg){
           JOptionPane.showMessageDialog(LauncherPanel.this, msg, title, JOptionPane.ERROR_MESSAGE);
           System.out.println(msg);
@@ -308,20 +317,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public LauncherPanel() {
           this.setLayout(null);
 
-          // TODO Arriver à ajouter des fonts
-         /* File file = new File("/fonts/verdana.ttf");
-          try{
-
-               verdanaRegular = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("..../resources/fonts/verdana.ttf"));;
-
-               GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-               ge.registerFont(verdanaRegular);
-
-          } catch(IOException | FontFormatException e) {
-               System.out.println("Font creation failed");
-               e.printStackTrace();
-
-          }*/
           initFonts();
 
           // Common components
@@ -536,6 +531,19 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileSettingsHelmIconToggleButton.addEventListener(this);
           this.add(profileSettingsHelmIconToggleButton);
           profileSettingsHelmIconToggleButton.setVisible(false);
+
+          profileSettingsAllowedRamSpinner.setForeground(Color.WHITE);
+          profileSettingsAllowedRamSpinner.setFont(tabLabel.getFont().deriveFont(25f));
+          profileSettingsAllowedRamSpinner.setOpaque(false);
+          profileSettingsAllowedRamSpinner.setBorder(null);
+          profileSettingsAllowedRamSpinner.setBounds(491, 306, 93, 58);
+          this.add(profileSettingsAllowedRamSpinner);
+          profileSettingsAllowedRamSpinner.setVisible(false);
+
+          profileSettingsSaveAllowedRamButton.setBounds(824, 306);
+          profileSettingsSaveAllowedRamButton.addEventListener(this);
+          this.add(profileSettingsSaveAllowedRamButton);
+          profileSettingsSaveAllowedRamButton.setVisible(false);
 
           setProfilePage(true, "1", "home");
 
@@ -806,6 +814,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileSettingsProfileNameTextField.setText(this.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
                     profileSettingsSaveProfileNameButton.setVisible(true);
                     profileSettingsHelmIconToggleButton.setVisible(true);
+                    profileSettingsAllowedRamSpinner.setVisible(true);
+                    profileSettingsAllowedRamSpinner.setValue(parseFloat(this.selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM)));
+                    profileSettingsSaveAllowedRamButton.setVisible(true);
 
                     upLeftCorner.setVisible(false);
                     upRightCorner.setVisible(false);
@@ -829,6 +840,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileSettingsProfileNameTextField.setVisible(false);
                     profileSettingsSaveProfileNameButton.setVisible(false);
                     profileSettingsHelmIconToggleButton.setVisible(false);
+                    profileSettingsAllowedRamSpinner.setVisible(false);
+                    profileSettingsSaveAllowedRamButton.setVisible(false);
                }
                
           } else if (tab == "all") {
@@ -1033,7 +1046,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     updatePostExecutions();
 
                     try {
-                         Launcher.launch();
+                         Launcher.localLaunch();
                     } catch (Exception ex) {
                          setButtonsEnabled(true);
                          throw new RuntimeException(ex);
@@ -1117,6 +1130,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           } else if (e.getSource() == profileSettingsHelmIconToggleButton) {
                profileSettingsHelmIconToggleButton.toggleButton();
                initProfileButtons();
+          } else if (e.getSource() == profileSettingsSaveAllowedRamButton) {
+               initSelectedSaver();
+               selectedSaver.set(ProfileSaver.KEY.SETTINGS_RAM, profileSettingsAllowedRamSpinner.getValue().toString());
+               normalMessage("Enregistr\u00e9 !", "Ram allou\u00e9e enregistr\u00e9e");
           }
      }
 }
