@@ -12,12 +12,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.theshark34.swinger.Swinger.getTransparentWhite;
 import static java.lang.Float.parseFloat;
+import static fr.timeto.astrauworld.launcher.ProfileSaver.*;
 
 @SuppressWarnings("unused")
 public class LauncherPanel extends JPanel implements SwingerEventListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
@@ -26,58 +26,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
      private static LauncherPanel launcherPanel;
 
-     public static Saver firstProfileSaver = LauncherFrame.firstProfileSaver;
-     public static Saver secondProfileSaver = LauncherFrame.secondProfileSaver;
-     public static Saver thirdProfileSaver = LauncherFrame.thirdProfileSaver;
-
      String lineSeparator = System.getProperty("line.separator");
-
-     public static void dlProfileIcon(String imageURL, int profile) throws IOException {
-          String destinationFile = "";
-          if(profile == 1){
-               destinationFile = Launcher.firstProfileIcon;
-          } else if(profile == 2){
-               destinationFile = Launcher.secondProfileIcon;
-          }else if(profile == 3){
-               destinationFile = Launcher.thirdProfileIcon;
-          }
-          URL url = new URL(imageURL);
-          InputStream is = url.openStream();
-          OutputStream os = new FileOutputStream(destinationFile);
-
-          byte[] b = new byte[2048];
-          int length;
-
-          while ((length = is.read(b)) != -1) {
-               os.write(b, 0, length);
-          }
-
-          is.close();
-          os.close();
-     }
-
-     public static void initProfileIcon(Saver saver) throws IOException {
-          String url;
-          if (saver.get(ProfileSaver.KEY.SETTINGS_HELMICON).contains("true")) {
-               url = "https://minotar.net/helm/" + saver.get(ProfileSaver.KEY.INFOS_UUID) + "/34.png";
-          } else {
-               url = "https://minotar.net/avatar/" + saver.get(ProfileSaver.KEY.INFOS_UUID) + "/34.png";
-          }
-
-          if (saver == firstProfileSaver) {
-               dlProfileIcon(url, 1);
-          } else if (saver == secondProfileSaver) {
-               dlProfileIcon(url, 2);
-          } else if (saver == thirdProfileSaver) {
-               dlProfileIcon(url, 3);
-          }
-     }
-     
-     public static void initProfileIcon() throws IOException {
-          initProfileIcon(firstProfileSaver);
-          initProfileIcon(secondProfileSaver);
-          initProfileIcon(thirdProfileSaver);
-     }
 
      private BufferedImage getProfileIcon(File file) {
           // This time, you can use an InputStream to load
@@ -250,30 +199,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      private final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/profilesPage/up/Compte-selected.png"));
      private final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/profilesPage/up/Mods-selected.png"));
      private final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/profilesPage/up/Reglages-selected.png"));
-     public static String selectedProfile = "";
-     public static Saver selectedSaver;
-
-     public static void initSelectedProfile() {
-          if (tabLabel.toString().contains("1")) {
-               selectedProfile = "1";
-          } else if (tabLabel.toString().contains("2")) {
-               selectedProfile = "2";
-          } else if (tabLabel.toString().contains("3")) {
-               selectedProfile = "3";
-          }
-     }
-     public static void initSelectedSaver() {
-          if (Objects.equals(selectedProfile, "1")) {
-               selectedSaver = firstProfileSaver;
-          } else if (Objects.equals(selectedProfile, "2")) {
-               selectedSaver = secondProfileSaver;
-          } else if (Objects.equals(selectedProfile, "3")) {
-               selectedSaver = thirdProfileSaver;
-          } else {
-               initSelectedProfile();
-               initSelectedSaver();
-          }
-     }
 
      // Profiles components - home
      private final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/profilesPage/playButton-normal.png"), getResourceIgnorePath("/profilesPage/playButton-hover.png"), getResourceIgnorePath("/profilesPage/playButton-disabled.png"));
@@ -811,11 +736,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
                     initSelectedSaver();
                     profileSettingsProfileNameTextField.setVisible(true);
-                    profileSettingsProfileNameTextField.setText(this.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
+                    profileSettingsProfileNameTextField.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
                     profileSettingsSaveProfileNameButton.setVisible(true);
                     profileSettingsHelmIconToggleButton.setVisible(true);
                     profileSettingsAllowedRamSpinner.setVisible(true);
-                    profileSettingsAllowedRamSpinner.setValue(parseFloat(this.selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM)));
+                    profileSettingsAllowedRamSpinner.setValue(parseFloat(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM)));
                     profileSettingsSaveAllowedRamButton.setVisible(true);
 
                     upLeftCorner.setVisible(false);
@@ -1114,7 +1039,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                if (reply == JOptionPane.YES_OPTION) {
                     initSelectedSaver();
                     selectedSaver.set(ProfileSaver.KEY.FILECREATED, "");
-                    LauncherFrame.initializeDataFiles(selectedSaver);
+                    initializeDataFiles(selectedSaver);
                     normalMessage("Compte supprim\u00e9", "Donn\u00e9es du compte r\u00e9initialis\u00e9es");
                     initProfileButtons();
                }

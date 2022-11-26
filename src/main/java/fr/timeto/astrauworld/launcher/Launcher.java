@@ -27,6 +27,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 import static fr.timeto.astrauworld.launcher.LauncherPanel.*;
+import static fr.timeto.astrauworld.launcher.ProfileSaver.*;
 
 @SuppressWarnings("unused")
 public class Launcher {

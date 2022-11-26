@@ -1,13 +1,13 @@
 package fr.timeto.astrauworld.launcher;
 
 import fr.theshark34.openlauncherlib.util.CrashReporter;
-import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.util.WindowMover;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.Objects;
+
+import static fr.timeto.astrauworld.launcher.ProfileSaver.*;
 
 @SuppressWarnings("unused")
 public class LauncherFrame extends JFrame {
@@ -16,10 +16,6 @@ public class LauncherFrame extends JFrame {
     private final LauncherPanel launcherPanel;
     private JScrollPane scrollPane;
     private static CrashReporter crashReporter;
-
-    public static Saver firstProfileSaver = new Saver(Launcher.awFirstProfileData);
-    public static Saver secondProfileSaver = new Saver(Launcher.awSecondProfileData);
-    public static Saver thirdProfileSaver = new Saver(Launcher.awThirdProfileData);
 
     /**
      * Défini comment s'affichera la frame du launcher, son contenu, puis l'affiche
@@ -40,40 +36,6 @@ public class LauncherFrame extends JFrame {
 
         this.setVisible(true);
 
-    }
-
-    /**
-     * Initialise les fichiers de données situés dans [APPDATA]\Astrauworld Launcher\data
-     * @param saver Le saver qui se fera initialiser
-     */
-    public static void initializeDataFiles(Saver saver) {
-        if(!Objects.equals(saver.get(ProfileSaver.KEY.FILECREATED), "true")) {
-            // Informations générales
-            saver.set(ProfileSaver.KEY.INFOS_NAME, "none");
-            saver.set(ProfileSaver.KEY.INFOS_EMAIL, "none");
-            saver.set(ProfileSaver.KEY.INFOS_UUID, "none");
-            saver.set(ProfileSaver.KEY.INFOS_ACCESSTOKEN, "none");
-            saver.set(ProfileSaver.KEY.INFOS_REFRESHTOKEN, "none");
-            // Configuration de Minecraft, si la key commence par 'mod' -> mod client
-            saver.set(ProfileSaver.KEY.MOD_OPTIFINE, "false");
-            saver.set(ProfileSaver.KEY.MOD_FPSMODEL, "false");
-            saver.set(ProfileSaver.KEY.MOD_BETTERTPS, "false");
-            saver.set(ProfileSaver.KEY.MOD_FALLINGLEAVES, "false");
-            saver.set(ProfileSaver.KEY.MOD_APPLESKIN, "false");
-            saver.set(ProfileSaver.KEY.MOD_SOUNDPHYSICS, "false");
-
-            saver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, "none");
-            saver.set(ProfileSaver.KEY.SETTINGS_HELMICON, "true");
-            saver.set(ProfileSaver.KEY.SETTINGS_RAM, "2");
-
-            saver.set(ProfileSaver.KEY.FILECREATED, "true");
-        }
-    }
-
-    public static void initializeDataFiles() {
-        initializeDataFiles(firstProfileSaver);
-        initializeDataFiles(secondProfileSaver);
-        initializeDataFiles(thirdProfileSaver);
     }
 
     public static void main(String[] args) {

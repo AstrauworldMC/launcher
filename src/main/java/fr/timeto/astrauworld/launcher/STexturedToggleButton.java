@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
-import static fr.timeto.astrauworld.launcher.LauncherPanel.selectedSaver;
+import static fr.timeto.astrauworld.launcher.ProfileSaver.*;
 
 public class STexturedToggleButton extends STexturedButton {
     private final BufferedImage textureOff = getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png");
@@ -57,13 +57,13 @@ public class STexturedToggleButton extends STexturedButton {
     public STexturedToggleButton(String saverKey, BufferedImage texture, BufferedImage textureHover, BufferedImage textureDisabled) {
         super(texture, textureHover, textureDisabled);
         this.saverKey = saverKey;
-        LauncherPanel.initSelectedSaver();
+        initSelectedSaver();
 
     }
 
     public void setVisible(boolean aFlag) {
         if(aFlag) {
-            LauncherPanel.initSelectedSaver();
+            initSelectedSaver();
             defineTextures();
             super.setVisible(aFlag);
         } else {
@@ -72,7 +72,7 @@ public class STexturedToggleButton extends STexturedButton {
     }
 
     public void setEnabled(boolean aFlag) {
-        LauncherPanel.initSelectedSaver();
+        initSelectedSaver();
         String value = selectedSaver.get(saverKey);
 
         if(aFlag) {
@@ -93,7 +93,7 @@ public class STexturedToggleButton extends STexturedButton {
     }
 
     public void toggleButton() {
-        LauncherPanel.initSelectedSaver();
+        initSelectedSaver();
         String value = selectedSaver.get(saverKey);
 
         if (Objects.equals(value, "true")) {
