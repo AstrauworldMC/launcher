@@ -93,20 +93,57 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           return null;
      }
 
-     private static Font kollectifFont = null;
-     private static final String FONT_PATH_VERDANA = "../resources/fonts/verdana.ttf";
+     private static InputStream getFileFromResourceAsStream(String fileName) {
 
-     @SuppressWarnings("all")
-     public Font createFont() {
-          try {
-               InputStream myStream = getClass().getClassLoader().getResourceAsStream("../resources/fonts/Kollectif.ttf");
-               Font ttfBase = Font.createFont(Font.TRUETYPE_FONT, myStream);
-               kollectifFont = ttfBase.deriveFont(Font.PLAIN, 24);
-          } catch (Exception ex) {
-               ex.printStackTrace();
-               System.err.println("Font not loaded.");
+          // The class loader that loaded the class
+          ClassLoader classLoader = LauncherPanel.class.getClassLoader();
+          InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+          // the stream holding the file content
+          if (inputStream == null) {
+               throw new IllegalArgumentException("file not found! " + fileName);
+          } else {
+               return inputStream;
           }
-          return kollectifFont;
+
+     }
+
+     public static Font CustomFont(String path) {
+          Font customFont = loadFont(path, 24f);
+          GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+          ge.registerFont(customFont);
+          return customFont;
+
+     }
+     public static Font loadFont(String path, float size){
+          try {
+               Font myFont = Font.createFont(Font.TRUETYPE_FONT, getFileFromResourceAsStream(path));
+               return myFont.deriveFont(Font.PLAIN, size);
+          } catch (FontFormatException | IOException e) {
+               e.printStackTrace();
+               System.exit(1);
+          }
+          return null;
+     }
+
+     private static Font kollektifFont;
+     private static Font kollektifBoldFont;
+     private static Font kollektifBoldItalicFont;
+     private static Font kollektifItalicFont;
+     private static Font minecraftiaFont;
+     private static final String FONT_PATH_KOLLEKTIF = "fonts/Kollektif.ttf";
+     private static final String FONT_PATH_KOLLEKTIFBOLD = "fonts/Kollektif.ttf";
+     private static final String FONT_PATH_KOLLEKTIFBOLDITALIC = "fonts/Kollektif.ttf";
+     private static final String FONT_PATH_KOLLEKTIFITALIC = "fonts/Kollektif.ttf";
+     private static final String FONT_PATH_MINECRAFTIA = "fonts/Kollektif.ttf";
+
+     public void initFonts() {
+          kollektifFont = CustomFont(FONT_PATH_KOLLEKTIF);
+          kollektifBoldFont = CustomFont(FONT_PATH_KOLLEKTIFBOLD);
+          kollektifBoldItalicFont = CustomFont(FONT_PATH_KOLLEKTIFBOLDITALIC);
+          kollektifItalicFont = CustomFont(FONT_PATH_KOLLEKTIFITALIC);
+          minecraftiaFont = CustomFont(FONT_PATH_MINECRAFTIA);
+
      }
 
      /**
@@ -285,7 +322,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                e.printStackTrace();
 
           }*/
-         // createFont();
+          initFonts();
 
           // Common components
           quitButton.setBounds(962, 1);
@@ -311,7 +348,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           firstProfileIcon.setVisible(false);
           firstProfileNameLabel.setBounds(61, 188, 78, 12);
           firstProfileNameLabel.setForeground(Color.WHITE);
-          firstProfileNameLabel.setFont(firstProfileNameLabel.getFont().deriveFont(12f));
+          firstProfileNameLabel.setFont(kollektifFont.deriveFont(16f));
           this.add(firstProfileNameLabel);
           firstProfileNameLabel.setVisible(false);
           firstProfileButton.setBounds(0, 174);
@@ -354,18 +391,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           tabLabel.setBounds(190, 58, 809, 23);
           tabLabel.setForeground(Color.WHITE);
-     //     tabLabel.setFont(verdanaRegular.deriveFont(20f));
-          tabLabel.setFont(tabLabel.getFont().deriveFont(20f));
+          tabLabel.setFont(kollektifBoldFont.deriveFont(25f));
           this.add(tabLabel);
 
           tabSecondLabel.setBounds(190, 35, 809, 23);
           tabSecondLabel.setForeground(Color.WHITE);
-          tabSecondLabel.setFont(tabLabel.getFont().deriveFont(15f));
+          tabSecondLabel.setFont(tabLabel.getFont().deriveFont(18f));
           this.add(tabSecondLabel);
 
           barLabel.setBounds(181, 612, 269, 16);
           barLabel.setForeground(Color.WHITE);
-          barLabel.setFont(tabLabel.getFont().deriveFont(10f));
+          barLabel.setFont(kollektifFont.deriveFont(10f));
           this.add(barLabel);
 
           percentLabel.setBounds(920, 612, 70, 16);
@@ -502,7 +538,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileSettingsHelmIconToggleButton.setVisible(false);
 
           setProfilePage(true, "1", "home");
-          System.out.println(profileSettingsHelmIconToggleButton.getSaverKey());
 
      }
 
