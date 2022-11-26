@@ -132,10 +132,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      private static Font kollektifItalicFont;
      private static Font minecraftiaFont;
      private static final String FONT_PATH_KOLLEKTIF = "fonts/Kollektif.ttf";
-     private static final String FONT_PATH_KOLLEKTIFBOLD = "fonts/Kollektif.ttf";
-     private static final String FONT_PATH_KOLLEKTIFBOLDITALIC = "fonts/Kollektif.ttf";
-     private static final String FONT_PATH_KOLLEKTIFITALIC = "fonts/Kollektif.ttf";
-     private static final String FONT_PATH_MINECRAFTIA = "fonts/Kollektif.ttf";
+     private static final String FONT_PATH_KOLLEKTIFBOLD = "fonts/Kollektif-Bold.ttf";
+     private static final String FONT_PATH_KOLLEKTIFBOLDITALIC = "fonts/Kollektif-BoldItalic.ttf";
+     private static final String FONT_PATH_KOLLEKTIFITALIC = "fonts/Kollektif-Italic.ttf";
+     private static final String FONT_PATH_MINECRAFTIA = "fonts/Minecraftia-Regular.ttf";
 
      public void initFonts() {
           kollektifFont = CustomFont(FONT_PATH_KOLLEKTIF);
@@ -348,7 +348,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           firstProfileIcon.setVisible(false);
           firstProfileNameLabel.setBounds(61, 188, 78, 12);
           firstProfileNameLabel.setForeground(Color.WHITE);
-          firstProfileNameLabel.setFont(kollektifFont.deriveFont(16f));
+          firstProfileNameLabel.setFont(kollektifFont.deriveFont(14f));
           this.add(firstProfileNameLabel);
           firstProfileNameLabel.setVisible(false);
           firstProfileButton.setBounds(0, 174);
@@ -389,14 +389,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           aboutButton.addEventListener(this);
           this.add(aboutButton);
 
-          tabLabel.setBounds(190, 58, 809, 23);
+          tabLabel.setBounds(190, 60, 809, 23);
           tabLabel.setForeground(Color.WHITE);
-          tabLabel.setFont(kollektifBoldFont.deriveFont(25f));
+          tabLabel.setFont(kollektifBoldFont.deriveFont(20f));
           this.add(tabLabel);
 
-          tabSecondLabel.setBounds(190, 35, 809, 23);
+          tabSecondLabel.setBounds(190, 37, 809, 23);
           tabSecondLabel.setForeground(Color.WHITE);
-          tabSecondLabel.setFont(tabLabel.getFont().deriveFont(18f));
+          tabSecondLabel.setFont(tabLabel.getFont().deriveFont(16f));
           this.add(tabSecondLabel);
 
           barLabel.setBounds(181, 612, 269, 16);
@@ -477,7 +477,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(profileDownloadButton);
           profileDownloadButton.setVisible(false);
 
-          profileAccountLabel.setBounds(386, 466, 276, 31);
+          profileAccountLabel.setBounds(386, 468, 276, 31);
           profileAccountLabel.setForeground(Color.WHITE);
           profileAccountLabel.setFont(tabLabel.getFont().deriveFont(17f));
           this.add(profileAccountLabel);
@@ -504,7 +504,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileAccountTextField.setCaretColor(Color.RED);
           profileAccountTextField.setOpaque(false);
           profileAccountTextField.setBorder(null);
-          profileAccountTextField.setBounds(222, 168, 386, 55);
+          profileAccountTextField.setBounds(222, 168, 386, 60);
           this.add(profileAccountTextField);
           profileAccountTextField.setVisible(false);
 
@@ -513,7 +513,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileAccountPasswordField.setCaretColor(Color.RED);
           profileAccountPasswordField.setOpaque(false);
           profileAccountPasswordField.setBorder(null);
-          profileAccountPasswordField.setBounds(222, 262, 386, 55);
+          profileAccountPasswordField.setBounds(222, 262, 386, 60);
           this.add(profileAccountPasswordField);
           profileAccountPasswordField.setVisible(false);
 
@@ -523,7 +523,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileSettingsProfileNameTextField.setCaretColor(Color.RED);
           profileSettingsProfileNameTextField.setOpaque(false);
           profileSettingsProfileNameTextField.setBorder(null);
-          profileSettingsProfileNameTextField.setBounds(496, 138, 310, 58);
+          profileSettingsProfileNameTextField.setBounds(496, 138, 310, 63);
           this.add(profileSettingsProfileNameTextField);
           profileSettingsProfileNameTextField.setVisible(false);
 
