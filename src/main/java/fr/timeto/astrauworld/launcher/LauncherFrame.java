@@ -56,6 +56,10 @@ public class LauncherFrame extends JFrame {
         Launcher.AW_GAMEFILES_FOLDER.mkdir();
         Launcher.AW_CRASH_FOLDER.mkdir();
 
+        Launcher.AW_FIRSTPROFILE_CUSTOMFILES_FOLDER.mkdir();
+        Launcher.AW_SECONDPROFILE_CUSTOMFILES_FOLDER.mkdir();
+        Launcher.AW_THIRDPROFILE_CUSTOMFILES_FOLDER.mkdir();
+
         try {
             Launcher.AW_FIRSTPROFILE_ICON.createNewFile();
         } catch (IOException e) {

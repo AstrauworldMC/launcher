@@ -41,12 +41,18 @@ public class Launcher {
     static final String gameFilesFolder = filesFolder + separatorChar + "GameFiles";
     static final String dataFolder = filesFolder + separatorChar + "data";
     static final String logsFile = filesFolder + separatorChar + "logs.txt";
+
     static final String firstProfileData = dataFolder + separatorChar + "firstProfile.properties";
-    static final String secondProfileData = dataFolder + separatorChar + "secondProfile.properties";
-    static final String thirdProfileData = dataFolder + separatorChar + "thirdProfile.properties";
     static final String firstProfileIcon = dataFolder + separatorChar + "firstProfile.png";
+    static final String firstProfileCustomFilesFolder = dataFolder + separatorChar + "firstProfileCustomFiles";
+
+    static final String secondProfileData = dataFolder + separatorChar + "secondProfile.properties";
     static final String secondProfileIcon = dataFolder + separatorChar + "secondProfile.png";
+    static final String secondProfileCustomFilesFolder = dataFolder + separatorChar + "secondProfileCustomFiles";
+
+    static final String thirdProfileData = dataFolder + separatorChar + "thirdProfile.properties";
     static final String thirdProfileIcon = dataFolder + separatorChar + "thirdProfile.png";
+    static final String thirdProfileCustomFilesFolder = dataFolder + separatorChar + "thirdProfileCustomFiles";
 
     // Version de Minecraft et de Forge utilisée
     static final String mcVersion = "1.19.2";
@@ -60,12 +66,18 @@ public class Launcher {
     public static final File AW_CRASH_FOLDER = new File(crashFolder);
     public static final File AW_GAMEFILES_FOLDER = new File(gameFilesFolder);
     public static final File AW_DATA_FOLDER = new File(dataFolder);
+
     public static final File AW_FIRSTPROFILE_DATA = new File(firstProfileData);
-    public static final File AW_SECONDPROFILE_DATA = new File(secondProfileData);
-    public static final File AW_THIRDPROFILE_DATA= new File(thirdProfileData);
     public static final File AW_FIRSTPROFILE_ICON = new File(firstProfileIcon);
+    public static final File AW_FIRSTPROFILE_CUSTOMFILES_FOLDER = new File(firstProfileCustomFilesFolder);
+
+    public static final File AW_SECONDPROFILE_DATA = new File(secondProfileData);
     public static final File AW_SECONDPROFILE_ICON = new File(secondProfileIcon);
+    public static final File AW_SECONDPROFILE_CUSTOMFILES_FOLDER = new File(secondProfileCustomFilesFolder);
+
+    public static final File AW_THIRDPROFILE_DATA= new File(thirdProfileData);
     public static final File AW_THIRDPROFILE_ICON = new File(thirdProfileIcon);
+    public static final File AW_THIRDPROFILE_CUSTOMFILES_FOLDER = new File(thirdProfileCustomFilesFolder);
 
     // Path dont on a besoin
     public static final Path awFilesFolder = Paths.get(filesFolder);
@@ -73,12 +85,18 @@ public class Launcher {
     public static final Path awGameFilesFolder = Paths.get(gameFilesFolder);
     public static final Path awDataFolder = Paths.get(dataFolder);
     public static final Path awLogsFile = Paths.get(logsFile);
+
     public static final Path awFirstProfileData = Paths.get(firstProfileData);
-    public static final Path awSecondProfileData = Paths.get(secondProfileData);
-    public static final Path awThirdProfileData = Paths.get(thirdProfileData);
     public static final Path awFirstProfileIcon = Paths.get(firstProfileIcon);
+    public static final Path awFirstProfileCustomFilesFolder = Paths.get(firstProfileCustomFilesFolder);
+
+    public static final Path awSecondProfileData = Paths.get(secondProfileData);
     public static final Path awSecondProfileIcon = Paths.get(secondProfileIcon);
+    public static final Path awSecondProfileCustomFilesFolder = Paths.get(secondProfileCustomFilesFolder);
+
+    public static final Path awThirdProfileData = Paths.get(thirdProfileData);
     public static final Path awThirdProfileIcon = Paths.get(thirdProfileIcon);
+    public static final Path awThirdProfileCustomFilesFolder = Paths.get(thirdProfileCustomFilesFolder);
 
     public static final GameInfos AW_INFOS = new GameInfos("Astrauworld", awGameFilesFolder, new GameVersion(mcVersion, GameType.V1_13_HIGHER_FORGE.setNFVD(new NewForgeVersionDiscriminator(forgeVersion, mcVersion, "20211210.034407"))), new GameTweak[] {GameTweak.FORGE});
 
