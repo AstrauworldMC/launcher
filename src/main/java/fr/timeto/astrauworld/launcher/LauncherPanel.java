@@ -76,11 +76,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           return null;
      }
 
-     private static Font kollektifFont;
-     private static Font kollektifBoldFont;
-     private static Font kollektifBoldItalicFont;
-     private static Font kollektifItalicFont;
-     private static Font minecraftiaFont;
+     public static Font kollektifFont;
+     public static Font kollektifBoldFont;
+     public static Font kollektifBoldItalicFont;
+     public static Font kollektifItalicFont;
+     public static Font minecraftiaFont;
      private static final String FONT_PATH_KOLLEKTIF = "fonts/Kollektif.ttf";
      private static final String FONT_PATH_KOLLEKTIFBOLD = "fonts/Kollektif-Bold.ttf";
      private static final String FONT_PATH_KOLLEKTIFBOLDITALIC = "fonts/Kollektif-BoldItalic.ttf";
@@ -225,16 +225,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      private static final SpinnerNumberModel ramNumberSpinnerModel = new SpinnerNumberModel(2, ramNumberSpinnerModelMin, ramNumberSpinnerModelMax, ramNumberSpinnerModelStep);
      public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(ramNumberSpinnerModel);
      public static STexturedButton profileSettingsSaveAllowedRamButton = new STexturedButton(getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton-hover.png"));
-
-
-     public void errorMessage(String title, String msg){
-          JOptionPane.showMessageDialog(LauncherPanel.this, msg, title, JOptionPane.ERROR_MESSAGE);
-          System.out.println(msg);
-     }
-
-     public void normalMessage(String title, String msg) {
-          JOptionPane.showMessageDialog(LauncherPanel.this, msg, title, JOptionPane.INFORMATION_MESSAGE);
-     }
 
      /**
       * Initialise le panel de la frame (boutons, textes, images...)
@@ -923,20 +913,15 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                setAboutPage(false);
                setProfilePage(false, null, "all");
                setAboutPage(false);
-
                tabLabel.setText("Changelogs");
                changesButton.setEnabled(false);
-
                upLeftCorner.setVisible(false);
                upRightCorner.setVisible(false);
                downLeftCorner.setVisible(false);
                downRightCorner.setVisible(false);
-
                tabSecondLabel.setText(" ");
                tabLabel.setText("Changelogs");
-
                background = getResourceIgnorePath("/baseGUI.png");
-
                upLeftCorner.setVisible(true);
                upRightCorner.setVisible(true);
                downLeftCorner.setVisible(true);
@@ -944,7 +929,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           }else {
                changesButton.setEnabled(true);
           }
-
      }
 
      /**
@@ -1052,7 +1036,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          Launcher.connect();
                     } catch (MicrosoftAuthenticationException m) {
                          setButtonsEnabled(true);
-                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                         PopUpMessages.errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          infosLabel.setText("Connexion \u00e9chou\u00e9e");
                          loadingBar.setVisible(false);
                          infosLabel.setVisible(false);
@@ -1091,7 +1075,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          Launcher.connect();
                     } catch (MicrosoftAuthenticationException m) {
                          setButtonsEnabled(true);
-                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                         PopUpMessages.errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          infosLabel.setText("Connexion \u00e9chou\u00e9e");
                          loadingBar.setVisible(false);
                          infosLabel.setVisible(false);
@@ -1129,7 +1113,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     }
                     setButtonsEnabled(true);
                     updatePostExecutions();
-                    normalMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
+                    PopUpMessages.doneMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
                });
                update.start();
 
@@ -1138,7 +1122,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           // Actions des boutons de la profilePage - Account
           else if (e.getSource() == profileAccountConnectionButton) {
                if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
-                    JOptionPane.showMessageDialog(this, "Erreur, veuillez entrer un mail et un mot de passe valides", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
+                    PopUpMessages.errorMessage("Erreur de connexion", "Erreur, veuillez entrer un    email et un mot de passe      valides");
                     return;
                }
 
@@ -1147,10 +1131,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          System.out.println("Connexion...");
                          Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()));
                     } catch (MicrosoftAuthenticationException m) {
-                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                         PopUpMessages.errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          return;
                     }
-                         normalMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                         PopUpMessages.doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
                          initProfileButtons();
                });
                connect.start();
@@ -1163,29 +1147,34 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          System.out.println("Connexion...");
                          Launcher.microsoftAuthWebview();
                     } catch (MicrosoftAuthenticationException m) {
-                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                         PopUpMessages.errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          return;
                     }
-                         normalMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                         PopUpMessages.doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
                          initProfileButtons();
                });
                connect.start();
           } else if (e.getSource() == profileAccountResetButton) {
-               int reply = JOptionPane.showConfirmDialog(LauncherPanel.this, "Voulez vous vraiment r\u00e9initialiser le compte ?", "R\u00e9initialisation du compte", JOptionPane.YES_NO_OPTION);
-               if (reply == JOptionPane.YES_OPTION) {
+               Thread ifYes = new Thread(() -> {
                     initSelectedSaver();
                     selectedSaver.set(ProfileSaver.KEY.FILECREATED, "");
                     initializeDataFiles(selectedSaver);
-                    normalMessage("Compte supprim\u00e9", "Donn\u00e9es du compte r\u00e9initialis\u00e9es");
+                    profileAccountTextField.setText("");
+                    PopUpMessages.doneMessage("Compte supprim\u00e9", "Donn\u00e9es du compte r\u00e9initialis\u00e9es");
                     initProfileButtons();
-               }
+               });
+
+               Thread ifNo = new Thread();
+
+               PopUpMessages.yesNoMessage("R\u00e9initialisation du compte", "Voulez vous vraiment r\u00e9initialiser le compte ?", ifYes, ifNo);
+
           }
 
           // Actions des boutons de la profilePage - Reglages
           else if (e.getSource() == profileSettingsSaveProfileNameButton) {
                initSelectedSaver();
                selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());
-               normalMessage("Enregistr\u00e9 !", "Nom du profil enregistr\u00e9");
+               PopUpMessages.doneMessage("Enregistr\u00e9 !", "Nom du profil enregistr\u00e9");
                initProfileButtons();
 
           } else if (e.getSource() == profileSettingsHelmIconToggleButton) {
@@ -1194,7 +1183,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           } else if (e.getSource() == profileSettingsSaveAllowedRamButton) {
                initSelectedSaver();
                selectedSaver.set(ProfileSaver.KEY.SETTINGS_RAM, profileSettingsAllowedRamSpinner.getValue().toString());
-               normalMessage("Enregistr\u00e9 !", "Ram allou\u00e9e enregistr\u00e9e");
+               PopUpMessages.doneMessage("Enregistr\u00e9 !", "Ram allou\u00e9e enregistr\u00e9e");
           }
      }
 }
