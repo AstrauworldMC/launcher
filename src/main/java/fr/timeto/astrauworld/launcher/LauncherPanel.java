@@ -214,10 +214,19 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public static final JTextField profileAccountTextField = new JTextField("");
      public static final JPasswordField profileAccountPasswordField = new JPasswordField();
 
+     // Profiles components - mods
+     public static STexturedButton profileModsShadersButton = new STexturedButton(getResourceIgnorePath("/profilesPage/mods/shadersButton-normal.png"), getResourceIgnorePath("/profilesPage/mods/shadersButton-hover.png"));
+     public static STexturedButton profileModsResourcePacksButton = new STexturedButton(getResourceIgnorePath("/profilesPage/mods/resourcePacksButton-normal.png"), getResourceIgnorePath("/profilesPage/mods/resourcePacksButton-hover.png"));
+     public static final STexturedToggleButton profileModsFpsmodelToggleButton = new STexturedToggleButton(KEY.MOD_FPSMODEL, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"));
+     public static final STexturedToggleButton profileModsBettertpsToggleButton = new STexturedToggleButton(KEY.MOD_BETTERTPS, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"));
+     public static final STexturedToggleButton profileModsFallingleavesToggleButton = new STexturedToggleButton(KEY.MOD_FALLINGLEAVES, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"));
+     public static final STexturedToggleButton profileModsAppleskinToggleButton = new STexturedToggleButton(KEY.MOD_APPLESKIN, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"));
+     public static final STexturedToggleButton profileModsSoundphysicsToggleButton = new STexturedToggleButton(KEY.MOD_SOUNDPHYSICS, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"));
+
      // Profiles components - reglages
      public static JTextField profileSettingsProfileNameTextField = new JTextField();
      public static STexturedButton profileSettingsSaveProfileNameButton = new STexturedButton(getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton-hover.png"));
-     private final STexturedToggleButton profileSettingsHelmIconToggleButton = new STexturedToggleButton(ProfileSaver.KEY.SETTINGS_HELMICON, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"), getResourceIgnorePath("/commonButtons/toggleButton-hover_off.png"), getResourceIgnorePath("/commonButtons/toggleButton-disabled_off.png"));
+     private final STexturedToggleButton profileSettingsHelmIconToggleButton = new STexturedToggleButton(ProfileSaver.KEY.SETTINGS_HELMICON, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"));
 
      private static final double ramNumberSpinnerModelMin = 0.10;
      private static final double ramNumberSpinnerModelMax = 256.00;
@@ -426,6 +435,42 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileAccountPasswordField.setBounds(222, 262, 386, 60);
           this.add(profileAccountPasswordField);
           profileAccountPasswordField.setVisible(false);
+
+          // Profile components - mods
+          profileModsShadersButton.setBounds(566, 128);
+          profileModsShadersButton.addEventListener(this);
+          this.add(profileModsShadersButton);
+          profileModsShadersButton.setVisible(false);
+
+          profileModsResourcePacksButton.setBounds(735, 128);
+          profileModsResourcePacksButton.addEventListener(this);
+          this.add(profileModsResourcePacksButton);
+          profileModsResourcePacksButton.setVisible(false);
+
+          profileModsFpsmodelToggleButton.setBounds(402, 120);
+          profileModsFpsmodelToggleButton.addEventListener(this);
+          this.add(profileModsFpsmodelToggleButton);
+          profileModsFpsmodelToggleButton.setVisible(false);
+
+          profileModsBettertpsToggleButton.setBounds(402, 120);
+          profileModsBettertpsToggleButton.addEventListener(this);
+          this.add(profileModsBettertpsToggleButton);
+          profileModsBettertpsToggleButton.setVisible(false);
+
+          profileModsFallingleavesToggleButton.setBounds(402, 120);
+          profileModsFallingleavesToggleButton.addEventListener(this);
+          this.add(profileModsFallingleavesToggleButton);
+          profileModsFallingleavesToggleButton.setVisible(false);
+
+          profileModsAppleskinToggleButton.setBounds(402, 120);
+          profileModsAppleskinToggleButton.addEventListener(this);
+          this.add(profileModsAppleskinToggleButton);
+          profileModsAppleskinToggleButton.setVisible(false);
+
+          profileModsSoundphysicsToggleButton.setBounds(402, 120);
+          profileModsSoundphysicsToggleButton.addEventListener(this);
+          this.add(profileModsSoundphysicsToggleButton);
+          profileModsSoundphysicsToggleButton.setVisible(false);
 
           // Profile components - reglages
           profileSettingsProfileNameTextField.setForeground(Color.WHITE);
@@ -781,6 +826,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileModsTabButton.setVisible(true);
                     profileSettingsTabButton.setVisible(true);
 
+               /*     profileModsShadersButton.setVisible(true);
+                    profileModsResourcePacksButton.setVisible(true);
+                    profileModsFpsmodelToggleButton.setVisible(true);
+                    profileModsBettertpsToggleButton.setVisible(true);
+                    profileModsFallingleavesToggleButton.setVisible(true);
+                    profileModsAppleskinToggleButton.setVisible(true);
+                    profileModsSoundphysicsToggleButton.setVisible(true); */
+
                     upLeftCorner.setVisible(false);
                     upRightCorner.setVisible(false);
                     downLeftCorner.setVisible(false);
@@ -788,6 +841,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
                     tabSecondLabel.setText("Mods");
 
+               //     background = getResourceIgnorePath("/profilesPage/mods/profilePage-mods.png");
                     background = getResourceIgnorePath("/baseGUI.png");
 
                     upLeftCorner.setVisible(true);
@@ -799,6 +853,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileAccountTabButton.setVisible(false);
                     profileModsTabButton.setVisible(false);
                     profileSettingsTabButton.setVisible(false);
+
+                    profileModsShadersButton.setVisible(false);
+                    profileModsResourcePacksButton.setVisible(false);
+                    profileModsFpsmodelToggleButton.setVisible(false);
+                    profileModsBettertpsToggleButton.setVisible(false);
+                    profileModsFallingleavesToggleButton.setVisible(false);
+                    profileModsAppleskinToggleButton.setVisible(false);
+                    profileModsSoundphysicsToggleButton.setVisible(false);
                }
                
           } else if (tab == "settings") {

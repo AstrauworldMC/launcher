@@ -54,8 +54,8 @@ public class STexturedToggleButton extends STexturedButton {
         return saverKey;
     }
 
-    public STexturedToggleButton(String saverKey, BufferedImage texture, BufferedImage textureHover, BufferedImage textureDisabled) {
-        super(texture, textureHover, textureDisabled);
+    public STexturedToggleButton(String saverKey, BufferedImage texture) {
+        super(texture);
         this.saverKey = saverKey;
         initSelectedSaver();
 
