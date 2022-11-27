@@ -518,6 +518,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           STexturedButton profileNotSelected1 = firstProfileButton;
           STexturedButton profileNotSelected2 = secondProfileButton;
           Saver selectedSaver = null;
+
           if(tab == "home") {
                if (Objects.equals(profileNumber, "1")) {
                     profileSelected = firstProfileButton;
@@ -625,8 +626,53 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     }
                }
           } else if (tab == "account") {
+               if (Objects.equals(profileNumber, "1")) {
+                    profileSelected = firstProfileButton;
+                    profileNotSelected1 = secondProfileButton;
+                    profileNotSelected2 = thirdProfileButton;
+                    tabLabel.setText("Profil 1");
+                    selectedSaver = firstProfileSaver;
+                    selectedProfile = "1";
+               } else if (Objects.equals(profileNumber, "2")) {
+                    profileSelected = secondProfileButton;
+                    profileNotSelected2 = thirdProfileButton;
+                    tabLabel.setText("Profil 2");
+                    selectedSaver = secondProfileSaver;
+                    selectedProfile = "2";
+               } else if (Objects.equals(profileNumber, "3")) {
+                    profileSelected = thirdProfileButton;
+                    profileNotSelected1 = secondProfileButton;
+                    profileNotSelected2 = firstProfileButton;
+                    tabLabel.setText("Profil 3");
+                    selectedSaver = thirdProfileSaver;
+                    selectedProfile = "3";
+               } else if (Objects.equals(profileNumber, "null")) {
+                    if(tabLabel.getText() == "Profil 1") {
+                         profileSelected = firstProfileButton;
+                         profileNotSelected1 = secondProfileButton;
+                         profileNotSelected2 = thirdProfileButton;
+                         selectedSaver=firstProfileSaver;
+                    } else if (tabLabel.getText() == "Profil 2") {
+                         profileSelected = secondProfileButton;
+                         profileNotSelected1 = firstProfileButton;
+                         profileNotSelected2 = thirdProfileButton;
+                         selectedSaver=secondProfileSaver;
+                    } else if (tabLabel.getText() == "Profil 3") {
+                         profileSelected = thirdProfileButton;
+                         profileNotSelected1 = secondProfileButton;
+                         profileNotSelected2 = firstProfileButton;
+                         selectedSaver=thirdProfileSaver;
+                    }
+               }
                if (enabled) {
                     setProfilePage(false, "null", "all");
+
+                    if(tab == "all") {
+                    } else {
+                         profileSelected.setEnabled(false);
+                         profileNotSelected1.setEnabled(true);
+                         profileNotSelected2.setEnabled(true);
+                    }
 
                     profilePlayTabButton.setEnabled(true);
                     profileAccountTabButton.setEnabled(false);
@@ -687,8 +733,53 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                }
                
           } else if (tab == "mods") {
+               if (Objects.equals(profileNumber, "1")) {
+                    profileSelected = firstProfileButton;
+                    profileNotSelected1 = secondProfileButton;
+                    profileNotSelected2 = thirdProfileButton;
+                    tabLabel.setText("Profil 1");
+                    selectedSaver = firstProfileSaver;
+                    selectedProfile = "1";
+               } else if (Objects.equals(profileNumber, "2")) {
+                    profileSelected = secondProfileButton;
+                    profileNotSelected2 = thirdProfileButton;
+                    tabLabel.setText("Profil 2");
+                    selectedSaver = secondProfileSaver;
+                    selectedProfile = "2";
+               } else if (Objects.equals(profileNumber, "3")) {
+                    profileSelected = thirdProfileButton;
+                    profileNotSelected1 = secondProfileButton;
+                    profileNotSelected2 = firstProfileButton;
+                    tabLabel.setText("Profil 3");
+                    selectedSaver = thirdProfileSaver;
+                    selectedProfile = "3";
+               } else if (Objects.equals(profileNumber, "null")) {
+                    if(tabLabel.getText() == "Profil 1") {
+                         profileSelected = firstProfileButton;
+                         profileNotSelected1 = secondProfileButton;
+                         profileNotSelected2 = thirdProfileButton;
+                         selectedSaver=firstProfileSaver;
+                    } else if (tabLabel.getText() == "Profil 2") {
+                         profileSelected = secondProfileButton;
+                         profileNotSelected1 = firstProfileButton;
+                         profileNotSelected2 = thirdProfileButton;
+                         selectedSaver=secondProfileSaver;
+                    } else if (tabLabel.getText() == "Profil 3") {
+                         profileSelected = thirdProfileButton;
+                         profileNotSelected1 = secondProfileButton;
+                         profileNotSelected2 = firstProfileButton;
+                         selectedSaver=thirdProfileSaver;
+                    }
+               }
                if (enabled) {
                     setProfilePage(false, "null", "all");
+
+                    if(tab == "all") {
+                    } else {
+                         profileSelected.setEnabled(false);
+                         profileNotSelected1.setEnabled(true);
+                         profileNotSelected2.setEnabled(true);
+                    }
 
                     profilePlayTabButton.setEnabled(true);
                     profileAccountTabButton.setEnabled(true);
@@ -721,8 +812,53 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                }
                
           } else if (tab == "settings") {
+               if (Objects.equals(profileNumber, "1")) {
+                    profileSelected = firstProfileButton;
+                    profileNotSelected1 = secondProfileButton;
+                    profileNotSelected2 = thirdProfileButton;
+                    tabLabel.setText("Profil 1");
+                    selectedSaver = firstProfileSaver;
+                    selectedProfile = "1";
+               } else if (Objects.equals(profileNumber, "2")) {
+                    profileSelected = secondProfileButton;
+                    profileNotSelected2 = thirdProfileButton;
+                    tabLabel.setText("Profil 2");
+                    selectedSaver = secondProfileSaver;
+                    selectedProfile = "2";
+               } else if (Objects.equals(profileNumber, "3")) {
+                    profileSelected = thirdProfileButton;
+                    profileNotSelected1 = secondProfileButton;
+                    profileNotSelected2 = firstProfileButton;
+                    tabLabel.setText("Profil 3");
+                    selectedSaver = thirdProfileSaver;
+                    selectedProfile = "3";
+               } else if (Objects.equals(profileNumber, "null")) {
+                    if(tabLabel.getText() == "Profil 1") {
+                         profileSelected = firstProfileButton;
+                         profileNotSelected1 = secondProfileButton;
+                         profileNotSelected2 = thirdProfileButton;
+                         selectedSaver=firstProfileSaver;
+                    } else if (tabLabel.getText() == "Profil 2") {
+                         profileSelected = secondProfileButton;
+                         profileNotSelected1 = firstProfileButton;
+                         profileNotSelected2 = thirdProfileButton;
+                         selectedSaver=secondProfileSaver;
+                    } else if (tabLabel.getText() == "Profil 3") {
+                         profileSelected = thirdProfileButton;
+                         profileNotSelected1 = secondProfileButton;
+                         profileNotSelected2 = firstProfileButton;
+                         selectedSaver=thirdProfileSaver;
+                    }
+               }
                if (enabled) {
                     setProfilePage(false, "null", "all");
+
+                    if(tab == "all") {
+                    } else {
+                         profileSelected.setEnabled(false);
+                         profileNotSelected1.setEnabled(true);
+                         profileNotSelected2.setEnabled(true);
+                    }
 
                     profilePlayTabButton.setEnabled(true);
                     profileAccountTabButton.setEnabled(true);
