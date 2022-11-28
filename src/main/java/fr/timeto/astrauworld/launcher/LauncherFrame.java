@@ -77,6 +77,11 @@ public class LauncherFrame extends JFrame {
         }
 
         initializeDataFiles();
+        try {
+            initProfileIcon();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
 
