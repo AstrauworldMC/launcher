@@ -1,12 +1,16 @@
 package fr.timeto.astrauworld.launcher;
 
+import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.theshark34.openlauncherlib.util.Saver;
 
+import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.LauncherPanel.*;
@@ -116,6 +120,64 @@ public class ProfileSaver {
         initProfileIcon(firstProfileSaver);
         initProfileIcon(secondProfileSaver);
         initProfileIcon(thirdProfileSaver);
+    }
+
+    public static void initClientMods(Saver selectedSaver, List modList) {
+
+        if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL), "true")) {
+            modList.add(new CurseFileInfo(333287, 4018928)); // First Peron Model 2.2.0 - Forge
+        }
+
+        if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS), "true")) {
+            modList.add(new CurseFileInfo(435044, 3834422)); // Better Third Person 1.8.1
+        }
+
+        if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES), "true")) {
+            modList.add(new CurseFileInfo(463155, 3965374)); // Falling Leaves 1.3.1
+        }
+
+        if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN), "true")) {
+            modList.add(new CurseFileInfo(248787, 3872808)); // Apple Skin 2.4.2
+        }
+
+        if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS), "true")) {
+            modList.add(new CurseFileInfo(535489, 4064927)); // Sound Physics Remastered v0.5.1
+        }
+
+    }
+
+    public static void openMoreInfosUrl(String key) {
+        if (Objects.equals(key, KEY.MOD_FPSMODEL)) {
+            try {
+                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/first-person-model").toURI());
+            } catch (IOException | URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (Objects.equals(key, KEY.MOD_BETTERTPS)) {
+            try {
+                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/better-third-person").toURI());
+            } catch (IOException | URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (Objects.equals(key, KEY.MOD_FALLINGLEAVES)) {
+            try {
+                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/falling-leaves-forge").toURI());
+            } catch (IOException | URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (Objects.equals(key, KEY.MOD_APPLESKIN)) {
+            try {
+                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/appleskin").toURI());
+            } catch (IOException | URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (Objects.equals(key, KEY.MOD_SOUNDPHYSICS)) {
+            try {
+                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/sound-physics-remastered").toURI());
+            } catch (IOException | URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public static class KEY {
