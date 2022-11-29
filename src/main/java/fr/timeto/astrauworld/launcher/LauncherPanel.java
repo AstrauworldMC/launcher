@@ -1255,8 +1255,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          System.out.println("Connexion...");
                          Launcher.microsoftAuthWebview();
                     } catch (MicrosoftAuthenticationException m) {
-                         PopUpMessages.errorMessage("Webview non disponible", "D\u00e9sol\u00e9, la webview   n'est pas disponible");
-                    //     PopUpMessages.errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                         PopUpMessages.errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          return;
                     }
                          PopUpMessages.doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");

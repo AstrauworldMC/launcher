@@ -130,15 +130,14 @@ public class Launcher {
     }
 
     public static void microsoftAuthWebview() throws MicrosoftAuthenticationException {
-        throw new MicrosoftAuthenticationException("Webview non disponible");
-    /*    System.out.println("webview?");
+        System.out.println("webview?");
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithWebview();
         System.out.println("webview");
 
         saveInfosWhenConnect(result);
 
-        System.out.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview"); */
+        System.out.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
     }
 
     /**
