@@ -33,7 +33,7 @@ import static fr.timeto.astrauworld.launcher.ProfileSaver.*;
 @SuppressWarnings("unused")
 public class Launcher {
 
-    static final String separatorChar = System.getProperty("file.separator");
+    public static final String separatorChar = System.getProperty("file.separator");
     static final String userAppDataDir = System.getenv("APPDATA");
 
     // String des les path dont on a besoin
@@ -61,7 +61,7 @@ public class Launcher {
     static final String optifineVersion = "1.19.2_HD_U_H9";
 
     // Version du launcher
-    public static final String version = "BETA2.0.0";
+    public static final String version = "Beta2.1.0";
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -103,7 +103,6 @@ public class Launcher {
     public static final GameInfos AW_INFOS = new GameInfos("Astrauworld", awGameFilesFolder, new GameVersion(mcVersion, GameType.V1_13_HIGHER_FORGE.setNFVD(new NewForgeVersionDiscriminator(forgeVersion, mcVersion, "20211210.034407"))), new GameTweak[] {GameTweak.FORGE});
 
     private static AuthInfos authInfos;
-    private static Thread updateThread;
 
     static boolean maximumSet = false;
 
@@ -163,18 +162,17 @@ public class Launcher {
         initSelectedSaver();
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "Go", "--server", "207.180.196.61", "--port", "33542"));
+        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G", "--server", "207.180.196.61", "--port", "33542"));
 
         LauncherFrame.getInstance().setVisible(false);
 
         noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+
+        ProfileSaver.saveCustomFiles(selectedSaver);
         System.exit(0);
 
     }
 
-    /*
-     * TODO Marche pas encore
-     */
     public static void localLaunch() throws Exception {
         initSelectedSaver();
 
@@ -184,6 +182,8 @@ public class Launcher {
         LauncherFrame.getInstance().setVisible(false);
 
         noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+
+        ProfileSaver.saveCustomFiles(selectedSaver);
         System.exit(0);
     }
 
@@ -347,16 +347,8 @@ public class Launcher {
                 .withPostExecutions(Collections.singletonList(postExecutions))
                 .build();
         updater.update(awGameFilesFolder);
-    }
 
-    public static void installOtherFiles(String wantedResources){
-        final FlowUpdater installer = new FlowUpdater.FlowUpdaterBuilder()
-                .build();
-        // installer.update();
-    }
-
-    public static void interruptThread() {
-        updateThread.interrupt();
+        ProfileSaver.loadCustomFiles(saver);
     }
 
     public static CrashReporter getCrashReporter() {

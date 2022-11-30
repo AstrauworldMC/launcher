@@ -4,10 +4,7 @@ import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.theshark34.openlauncherlib.util.Saver;
 
 import java.awt.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
@@ -178,6 +175,210 @@ public class ProfileSaver {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    /*  Liste des fichiers custom à sauvegarder dans GameFiles
+     *
+     * ./saves
+     * ./resourcepacks (hors ceux du launcher) TODO <-
+     * ./shaderpacks (hors ceux du launcher) TODO <-
+     * ./music_sheets
+     * ./shematics
+     * ./config
+     * options.txt
+     *
+     */
+
+    private static final File savesFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "saves");
+    private static final File resourcespacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "resourcepacks");
+    private static final File shaderspacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "shaderpacks");
+    private static final File musicsheetsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "music_sheets");
+    private static final File shematicsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "schematics");
+    private static final File configFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "config");
+    private static final File optionsTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "options.txt");
+
+    public static final File lastSavedProfileFilesText = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "lastSavedProfile.txt");
+    private static String lastSavedProfile = null;
+
+    private static File savesProfileFolder = null;
+    private static File resourcespacksProfileFolder = null;
+    private static File shaderspacksProfileFolder = null;
+    private static File musicsheetsProfileFolder = null;
+    private static File shematicsProfileFolder = null;
+    private static File configProfileFolder = null;
+    private static File optionsProfileTextfile = null;
+
+    private static void initCustomFilesFolder(Saver saver) {
+        File customFilesFolder = null;
+        if (saver == firstProfileSaver) {
+            customFilesFolder = Launcher.AW_FIRSTPROFILE_CUSTOMFILES_FOLDER;
+            lastSavedProfile = "1";
+        } else if (saver == secondProfileSaver) {
+            customFilesFolder = Launcher.AW_SECONDPROFILE_CUSTOMFILES_FOLDER;
+            lastSavedProfile = "2";
+        } else if (saver == thirdProfileSaver) {
+            customFilesFolder = Launcher.AW_THIRDPROFILE_CUSTOMFILES_FOLDER;
+            lastSavedProfile = "3";
+        }
+
+        savesProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "saves");
+        resourcespacksProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "resourcepacks");
+        shaderspacksProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "shaderpacks");
+        musicsheetsProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "music_sheets");
+        shematicsProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "schematics");
+        configProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "config");
+        optionsProfileTextfile = new File(customFilesFolder + Launcher.separatorChar + "options.txt");
+    }
+
+    private static void deleteDirectory(File directory) throws NullPointerException {
+        for (File file: Objects.requireNonNull(directory.listFiles())) {
+            if (file.isDirectory()) {
+                deleteDirectory(file);
+                System.out.println("Deleted '" + file + "' directory");
+            } else {
+                file.delete();
+                System.out.println("Deleted '" + file + "' file");
+            }
+        }
+    }
+
+    private static void copyFiles(File src, File dest) throws IOException {
+        if (dest.toString().contains(Launcher.gameFilesFolder)) {
+            if (!dest.toString().contains("resourcepacks") || !src.toString().contains("shaderpacks")) {
+                try {
+                    deleteDirectory(dest);
+                } catch (NullPointerException ignored) {}
+            }
+        }
+
+        if(src.isDirectory()){
+            //si le répertoire n'existe pas, créez-le
+            if(!dest.exists()){
+                dest.mkdir();
+                System.out.println("Dossier "+ src + "  > " + dest);
+            }
+            //lister le contenu du répertoire
+            String[] files = src.list();
+
+            for (String f : files) {
+                //construire la structure des fichiers src et dest
+                File srcF = new File(src, f);
+                File destF = new File(dest, f);
+                //copie récursive
+                copyFiles(srcF, destF);
+            }
+        }else{
+            //si src est un fichier, copiez-le.
+            InputStream in = new FileInputStream(src);
+            OutputStream out = new FileOutputStream(dest);
+
+            byte[] buffer = new byte[1024];
+            int length;
+            //copier le contenu du fichier
+            while ((length = in.read(buffer)) > 0){
+                out.write(buffer, 0, length);
+            }
+
+            in.close();
+            out.close();
+            System.out.println("Fichier " + src + " > " + dest);
+        }
+
+    }
+
+    private static void copyFile(File src, File dest) throws IOException {
+        // Créer l'objet File Reader
+        FileReader fr = new FileReader(src);
+        // Créer l'objet BufferedReader
+        BufferedReader br = new BufferedReader(fr);
+        // Créer l'objet File Writer
+        FileWriter fw = new FileWriter(dest);
+        String str;
+        // Copie le contenu dans le nouveau fichier
+        while((str = br.readLine()) != null)
+        {
+            fw.write(str);
+            fw.write(System.lineSeparator());
+            fw.flush();
+        }
+        fw.close();
+    }
+
+    public static void saveCustomFiles(Saver saver) throws IOException {
+        initCustomFilesFolder(saver);
+
+        if (saver != null) {
+            copyFiles(savesFolder, savesProfileFolder);
+            copyFiles(resourcespacksFolder, resourcespacksProfileFolder);
+            copyFiles(shaderspacksFolder, shaderspacksProfileFolder);
+            copyFiles(musicsheetsFolder, musicsheetsProfileFolder);
+            copyFiles(shematicsFolder, shematicsProfileFolder);
+            copyFiles(configFolder, configProfileFolder);
+        }
+
+        try {
+            PrintWriter printwriter = new PrintWriter(new FileOutputStream(optionsProfileTextfile));
+            printwriter.println("");
+
+            printwriter.close();
+
+            copyFile(optionsTextfile, optionsProfileTextfile);
+        } catch (Exception ex) {
+            System.out.println("Error clear file "+ optionsProfileTextfile);
+        }
+
+        try {
+            PrintWriter printWriter = new PrintWriter(new FileOutputStream(lastSavedProfileFilesText));
+            printWriter.println(lastSavedProfile);
+
+            printWriter.close();
+        } catch (Exception ignored) {
+
+        }
+
+    }
+
+    public static void loadCustomFiles(Saver saver) {
+        initCustomFilesFolder(saver);
+
+        try {
+            copyFiles(savesProfileFolder, savesFolder);
+            copyFiles(resourcespacksProfileFolder, resourcespacksFolder);
+            copyFiles(shaderspacksProfileFolder, shaderspacksFolder);
+            copyFiles(musicsheetsProfileFolder, musicsheetsFolder);
+            copyFiles(shematicsProfileFolder, shematicsFolder);
+            copyFiles(configProfileFolder, configFolder);
+        } catch (IOException ignored) {}
+
+        try {
+            PrintWriter printwriter = new PrintWriter(new FileOutputStream(lastSavedProfileFilesText));
+            printwriter.println("");
+
+            printwriter.close();
+
+            copyFile(optionsProfileTextfile, optionsTextfile);
+        } catch (Exception ex) {
+            System.out.println("Error clear file "+ optionsTextfile);
+        }
+
+    }
+
+    public static Saver getLastSavedProfileSaver() throws IOException {
+        Saver saver = null;
+
+        FileReader fileReader = new FileReader(lastSavedProfileFilesText);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String strSaver = bufferedReader.readLine();
+
+        if (Objects.equals(strSaver, "1")) {
+            saver = firstProfileSaver;
+        } else if (Objects.equals(strSaver, "2")) {
+            saver = secondProfileSaver;
+        } else if (Objects.equals(strSaver, "3")) {
+            saver = thirdProfileSaver;
+        }
+
+        return saver;
     }
 
     public static class KEY {
