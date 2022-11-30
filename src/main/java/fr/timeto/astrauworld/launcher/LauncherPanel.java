@@ -1280,9 +1280,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           
           // Actions des boutons de la profilePage - Mods
           else if (e.getSource() == profileModsShadersButton) {
-               PopUpMessages.errorMessage("Page non disponible", "Page non disponible  pour le moment");
+               try {
+                    Desktop.getDesktop().open((shaderspacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
+               } catch (IOException ignored) {}
           } else if (e.getSource() == profileModsResourcePacksButton) {
-               PopUpMessages.errorMessage("Page non disponible", "Page non disponible  pour le moment");
+               try {
+                    Desktop.getDesktop().open((resourcespacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
+               } catch (IOException ignored) {}
           } else if (e.getSource() == profileModsOptifineToggleButton) {
                profileModsOptifineToggleButton.toggleButton();
           } else if (e.getSource() == profileModsFpsmodelToggleButton) {

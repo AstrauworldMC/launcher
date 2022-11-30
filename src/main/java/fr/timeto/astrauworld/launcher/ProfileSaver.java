@@ -190,8 +190,8 @@ public class ProfileSaver {
      */
 
     private static final File savesFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "saves");
-    private static final File resourcespacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "resourcepacks");
-    private static final File shaderspacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "shaderpacks");
+    public static final File resourcespacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "resourcepacks");
+    public static final File shaderspacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "shaderpacks");
     private static final File musicsheetsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "music_sheets");
     private static final File shematicsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "schematics");
     private static final File configFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "config");
