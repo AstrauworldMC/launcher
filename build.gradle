@@ -1,13 +1,14 @@
 plugins {
-    id 'java'
+    id 'idea'
+    id 'java-library'
     id 'application'
-//    id 'maven'
-//    id 'maven-publish'
-//    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+apply plugin: 'org.openjfx.javafxplugin'
+
+group 'fr.timeto.astrauworld'
+version 'Beta2.1.0'
 
 repositories {
     mavenCentral()
@@ -16,13 +17,9 @@ repositories {
     }
     maven {
         url 'https://jitpack.io'
+        name 'Jitpack'
     }
 }
-
-def openjfxGroup = 'org.openjfx'
-def openjfxVersion = '19'
-def osName = System.properties['os.name'].toLowerCase()
-def openjfxPlatform = osName.contains('mac') ? 'mac' : osName.contains('win') ? 'win' : osName.contains('linux') ? 'linux' : null
 
 dependencies {
     implementation 'fr.flowarg:flowupdater:1.7.2'
@@ -33,38 +30,24 @@ dependencies {
     implementation 'org.apache.commons:commons-compress:1.21'
     implementation 'fr.litarvan:openauth:1.1.4'
     implementation 'com.github.Litarvan:Swinger:master-SNAPSHOT'
-    implementation 'com.github.dcsch:typecast:master'
-/*    api(group: openjfxGroup, name: 'javafx-base', version: openjfxVersion, classifier: openjfxPlatform)
-    api(group: openjfxGroup, name: 'javafx-graphics', version: openjfxVersion, classifier: openjfxPlatform)
-    api(group: openjfxGroup, name: 'javafx-controls', version: openjfxVersion, classifier: openjfxPlatform)
-    api(group: openjfxGroup, name: 'javafx-fxml', version: openjfxVersion, classifier: openjfxPlatform)
-    api(group: openjfxGroup, name: 'javafx-swing', version: openjfxVersion, classifier: openjfxPlatform)
-    api(group: openjfxGroup, name: 'javafx-media', version: openjfxVersion, classifier: openjfxPlatform)*/
+}
+
+javafx {
+    version = 19
+    modules = ['javafx.controls' , 'javafx.swing' , 'javafx.web']
+}
+
+application {
+    mainClassName = 'fr.timeto.astrauworld.launcher.LauncherFrame'
 }
 
 jar {
     manifest {
-        attributes(
-                'Main-Class': 'fr.timeto.astrauworld.launcher.LauncherFrame'
-        )
+        attributes 'Main-Class': 'fr.timeto.astrauworld.launcher.LauncherFrame'
+    }
+    from {
+        configurations.compileClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
     }
 }
-
-/*javafx {
-    version = '19'
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.swing', 'javafx.media', 'javafx.graphics' ]
-//    sdk = System.getenv('JAVAFX_HOME')
-    sdk = 'C:/Program Files/Java/javafx-jdk-19'
-    println(sdk)
-    if (sdk == null || sdk.isBlank()) {
-        throw new InvalidUserDataException("JAVAFX_HOME environment variable is not set. It mist be set to root folder where JAVAFX SDK is located")
-    }
-    application {
-        def javafxHome = System.getenv('JAVAFX_HOME')
-        mainClassName = 'com.foo.FooApp'
-        applicationName = 'foo-app'
-        applicationDefaultJvmArgs = [
-                "--module-path=${javafxHome}" + File.separator + 'lib', '--add-modules=javafx.controls,javafx.swing,javafx.media,javafx.graphics']
-        println("applicationDefaultJvmArgs:" + applicationDefaultJvmArgs)
-    }
-}*/

@@ -7,7 +7,7 @@ import fr.flowarg.flowupdater.download.DownloadList;
 import fr.flowarg.flowupdater.download.IProgressCallback;
 import fr.flowarg.flowupdater.download.Step;
 import fr.flowarg.flowupdater.download.json.CurseFileInfo;
-import fr.flowarg.flowupdater.download.json.Mod;
+import fr.flowarg.flowupdater.download.json.OptiFineInfo;
 import fr.flowarg.flowupdater.utils.ModFileDeleter;
 import fr.flowarg.flowupdater.versions.AbstractForgeVersion;
 import fr.flowarg.flowupdater.versions.ForgeVersionBuilder;
@@ -19,6 +19,7 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
+import fr.theshark34.openlauncherlib.util.Saver;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -32,7 +33,7 @@ import static fr.timeto.astrauworld.launcher.ProfileSaver.*;
 @SuppressWarnings("unused")
 public class Launcher {
 
-    static final String separatorChar = System.getProperty("file.separator");
+    public static final String separatorChar = System.getProperty("file.separator");
     static final String userAppDataDir = System.getenv("APPDATA");
 
     // String des les path dont on a besoin
@@ -57,9 +58,10 @@ public class Launcher {
     // Version de Minecraft et de Forge utilisée
     static final String mcVersion = "1.19.2";
     static final String forgeVersion = "43.1.53";
+    static final String optifineVersion = "1.19.2_HD_U_H9";
 
     // Version du launcher
-    public static final String version = "BETA2.0.0";
+    public static final String version = "Beta2.1.0";
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -101,7 +103,6 @@ public class Launcher {
     public static final GameInfos AW_INFOS = new GameInfos("Astrauworld", awGameFilesFolder, new GameVersion(mcVersion, GameType.V1_13_HIGHER_FORGE.setNFVD(new NewForgeVersionDiscriminator(forgeVersion, mcVersion, "20211210.034407"))), new GameTweak[] {GameTweak.FORGE});
 
     private static AuthInfos authInfos;
-    private static Thread updateThread;
 
     static boolean maximumSet = false;
 
@@ -128,15 +129,14 @@ public class Launcher {
     }
 
     public static void microsoftAuthWebview() throws MicrosoftAuthenticationException {
-        throw new MicrosoftAuthenticationException("Webview non disponible");
-    /*    System.out.println("webview?");
+        System.out.println("webview?");
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithWebview();
         System.out.println("webview");
 
         saveInfosWhenConnect(result);
 
-        System.out.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview"); */
+        System.out.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
     }
 
     /**
@@ -162,27 +162,28 @@ public class Launcher {
         initSelectedSaver();
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "Go", "--server", "207.180.196.61", "--port", "33542"));
+        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G", "--server", "207.180.196.61", "--port", "33542"));
 
         LauncherFrame.getInstance().setVisible(false);
 
         noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+
+        ProfileSaver.saveCustomFiles(selectedSaver);
         System.exit(0);
 
     }
 
-    /*
-     * TODO Marche pas encore
-     */
     public static void localLaunch() throws Exception {
         initSelectedSaver();
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "Go"));
+        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
 
         LauncherFrame.getInstance().setVisible(false);
 
         noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+
+        ProfileSaver.saveCustomFiles(selectedSaver);
         System.exit(0);
     }
 
@@ -222,6 +223,10 @@ public class Launcher {
 
 
     public static void update() throws Exception {
+
+        initSelectedSaver();
+        Saver saver = selectedSaver;
+
         Logger logger = new Logger("[Astrauworld Launcher]", awLogsFile);
         loadingBar.setVisible(true);
 
@@ -313,16 +318,26 @@ public class Launcher {
             modInfos.add(new CurseFileInfo(438116, 3922999)); //   "     Paintings v1.0.4
             modInfos.add(new CurseFileInfo(363569, 3830460)); //   "     Windows v2.0.3
             modInfos.add(new CurseFileInfo(373774, 3909206)); // Rare Ice v0.5.1
+
+            initClientMods(saver, modInfos);
         }
 
-        final List<Mod> mods = new ArrayList<>();
+        AbstractForgeVersion forge;
 
-        final AbstractForgeVersion forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-                .withForgeVersion(mcVersion + "-" + forgeVersion)
-                .withCurseMods(modInfos)
-                .withMods(mods)
-                .withFileDeleter(new ModFileDeleter(true))
-                .build();
+        if (Objects.equals(saver.get(KEY.MOD_OPTIFINE), "true")) {
+            forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
+                    .withForgeVersion(mcVersion + "-" + forgeVersion)
+                    .withOptiFine(new OptiFineInfo(optifineVersion))
+                    .withCurseMods(modInfos)
+                    .withFileDeleter(new ModFileDeleter(true))
+                    .build();
+        } else {
+            forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
+                    .withForgeVersion(mcVersion + "-" + forgeVersion)
+                    .withCurseMods(modInfos)
+                    .withFileDeleter(new ModFileDeleter(true))
+                    .build();
+        }
 
         final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
                 .withVanillaVersion(vanillaVersion)
@@ -332,16 +347,8 @@ public class Launcher {
                 .withPostExecutions(Collections.singletonList(postExecutions))
                 .build();
         updater.update(awGameFilesFolder);
-    }
 
-    public static void installOtherFiles(String wantedResources){
-        final FlowUpdater installer = new FlowUpdater.FlowUpdaterBuilder()
-                .build();
-        // installer.update();
-    }
-
-    public static void interruptThread() {
-        updateThread.interrupt();
+        ProfileSaver.loadCustomFiles(saver);
     }
 
     public static CrashReporter getCrashReporter() {

@@ -1,6 +1,7 @@
 package fr.timeto.astrauworld.launcher;
 
 import fr.theshark34.openlauncherlib.util.CrashReporter;
+import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.util.WindowMover;
 
@@ -39,7 +40,6 @@ public class LauncherFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-    //    System.out.println("Var: " + System.getenv("JAVAFX_HOME"));
 
         String OS = System.getProperty("os.name");
 
@@ -84,6 +84,19 @@ public class LauncherFrame extends JFrame {
         }
 
         crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
+
+        try {
+            ProfileSaver.lastSavedProfileFilesText.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Saver lastSavedProfile = ProfileSaver.getLastSavedProfileSaver();
+            ProfileSaver.saveCustomFiles(lastSavedProfile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         instance = new LauncherFrame();
 
