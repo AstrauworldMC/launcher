@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.LauncherPanel.*;
-import static fr.timeto.timutilslib.PopUpMessages.*;
-import static fr.timeto.timutilslib.CustomFonts.*;
 import static fr.timeto.timutilslib.TimFilesUtils.*;
 
 public class ProfileSaver {
@@ -48,7 +46,7 @@ public class ProfileSaver {
     public static void initializeDataFiles(Saver saver) {
         if(!Objects.equals(saver.get(KEY.FILECREATED), "true")) {
             // Informations générales
-            saver.set(KEY.INFOS_NAME, "none");
+            saver.set(KEY.INFOS_NAME, "no");
             saver.set(KEY.INFOS_EMAIL, "none");
             saver.set(KEY.INFOS_UUID, "none");
             saver.set(KEY.INFOS_ACCESSTOKEN, "none");
