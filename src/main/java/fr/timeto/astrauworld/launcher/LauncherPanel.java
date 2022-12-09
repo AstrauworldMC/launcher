@@ -129,6 +129,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      private final JLabel secondProfileNameLabel = new JLabel(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
      private final JLabel thirdProfileNameLabel = new JLabel(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
+     private final JTextArea launcherVersionLabel = new JTextArea("Version du launcher:" + lineSeparator + Launcher.version);
+
      private final STexturedButton changesButton = new STexturedButton(getResourceIgnorePath("/commonButtons/changesButton-normal.png"), getResourceIgnorePath("/commonButtons/changesButton-hover.png"), getResourceIgnorePath("/commonButtons/changesButton-selected.png"));
      private final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/commonButtons/aboutButton-selected.png"));
      public static final JLabel tabLabel = new JLabel("", SwingConstants.LEFT);
@@ -219,9 +221,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           firstProfileIcon.setBounds(15, 187, 35, 35);
           this.add(firstProfileIcon);
           firstProfileIcon.setVisible(false);
-          firstProfileNameLabel.setBounds(61, 188, 78, 12);
+          firstProfileNameLabel.setBounds(61, 188, 80, 12);
           firstProfileNameLabel.setForeground(Color.WHITE);
-          firstProfileNameLabel.setFont(kollektifFont.deriveFont(14f));
+          firstProfileNameLabel.setFont(kollektifBoldFont.deriveFont(13f));
           this.add(firstProfileNameLabel);
           firstProfileNameLabel.setVisible(false);
           firstProfileButton.setBounds(0, 174);
@@ -231,7 +233,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           secondProfileIcon.setBounds(15, 248, 35, 35);
           this.add(secondProfileIcon);
           secondProfileIcon.setVisible(false);
-          secondProfileNameLabel.setBounds(61, 249, 78, 12);
+          secondProfileNameLabel.setBounds(61, 249, 80, 12);
           secondProfileNameLabel.setForeground(Color.WHITE);
           secondProfileNameLabel.setFont(firstProfileNameLabel.getFont());
           this.add(secondProfileNameLabel);
@@ -243,7 +245,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           thirdProfileIcon.setBounds(15, 309, 35, 35);
           this.add(thirdProfileIcon);
           thirdProfileIcon.setVisible(false);
-          thirdProfileNameLabel.setBounds(61, 310, 78, 12);
+          thirdProfileNameLabel.setBounds(61, 310, 80, 12);
           thirdProfileNameLabel.setForeground(Color.WHITE);
           thirdProfileNameLabel.setFont(firstProfileNameLabel.getFont());
           this.add(thirdProfileNameLabel);
@@ -290,6 +292,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           loadingBar.setBounds(178, 610, 821, 20);
           this.add(loadingBar);
           loadingBar.setVisible(false);
+
+          launcherVersionLabel.setBounds(4, 39, 160, 50);
+          launcherVersionLabel.setForeground(new Color(128, 128, 128));
+          launcherVersionLabel.setFont(kollektifBoldFont.deriveFont(14f));
+          launcherVersionLabel.setEditable(false);
+          launcherVersionLabel.setOpaque(false);
+          this.add(launcherVersionLabel);
 
 
           upLeftCorner.setBounds(0, 0);
