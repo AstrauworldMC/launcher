@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.LauncherPanel.*;
+import static fr.timeto.timutilslib.TimFilesUtils.*;
 
 public class ProfileSaver {
     public static Saver firstProfileSaver = new Saver(Launcher.awFirstProfileData);
@@ -45,7 +46,7 @@ public class ProfileSaver {
     public static void initializeDataFiles(Saver saver) {
         if(!Objects.equals(saver.get(KEY.FILECREATED), "true")) {
             // Informations générales
-            saver.set(KEY.INFOS_NAME, "none");
+            saver.set(KEY.INFOS_NAME, "no");
             saver.set(KEY.INFOS_EMAIL, "none");
             saver.set(KEY.INFOS_UUID, "none");
             saver.set(KEY.INFOS_ACCESSTOKEN, "none");
@@ -230,91 +231,19 @@ public class ProfileSaver {
         optionsProfileTextfile = new File(customFilesFolder + Launcher.separatorChar + "options.txt");
     }
 
-    private static void deleteDirectory(File directory) throws NullPointerException {
-        for (File file: Objects.requireNonNull(directory.listFiles())) {
-            if (file.isDirectory()) {
-                deleteDirectory(file);
-                System.out.println("Deleted '" + file + "' directory");
-            } else {
-                file.delete();
-                System.out.println("Deleted '" + file + "' file");
-            }
-        }
-    }
-
-    private static void copyFiles(File src, File dest) throws IOException {
-        if (dest.toString().contains(Launcher.gameFilesFolder)) {
-            if (!dest.toString().contains("resourcepacks") || !src.toString().contains("shaderpacks")) {
-                try {
-                    deleteDirectory(dest);
-                } catch (NullPointerException ignored) {}
-            }
-        }
-
-        if(src.isDirectory()){
-            //si le répertoire n'existe pas, créez-le
-            if(!dest.exists()){
-                dest.mkdir();
-                System.out.println("Dossier "+ src + "  > " + dest);
-            }
-            //lister le contenu du répertoire
-            String[] files = src.list();
-
-            for (String f : files) {
-                //construire la structure des fichiers src et dest
-                File srcF = new File(src, f);
-                File destF = new File(dest, f);
-                //copie récursive
-                copyFiles(srcF, destF);
-            }
-        }else{
-            //si src est un fichier, copiez-le.
-            InputStream in = new FileInputStream(src);
-            OutputStream out = new FileOutputStream(dest);
-
-            byte[] buffer = new byte[1024];
-            int length;
-            //copier le contenu du fichier
-            while ((length = in.read(buffer)) > 0){
-                out.write(buffer, 0, length);
-            }
-
-            in.close();
-            out.close();
-            System.out.println("Fichier " + src + " > " + dest);
-        }
-
-    }
-
-    private static void copyFile(File src, File dest) throws IOException {
-        // Créer l'objet File Reader
-        FileReader fr = new FileReader(src);
-        // Créer l'objet BufferedReader
-        BufferedReader br = new BufferedReader(fr);
-        // Créer l'objet File Writer
-        FileWriter fw = new FileWriter(dest);
-        String str;
-        // Copie le contenu dans le nouveau fichier
-        while((str = br.readLine()) != null)
-        {
-            fw.write(str);
-            fw.write(System.lineSeparator());
-            fw.flush();
-        }
-        fw.close();
-    }
-
-    public static void saveCustomFiles(Saver saver) throws IOException {
+    public static void saveCustomFiles(Saver saver)  {
         initCustomFilesFolder(saver);
 
-        if (saver != null) {
-            copyFiles(savesFolder, savesProfileFolder);
-            copyFiles(resourcespacksFolder, resourcespacksProfileFolder);
-            copyFiles(shaderspacksFolder, shaderspacksProfileFolder);
-            copyFiles(musicsheetsFolder, musicsheetsProfileFolder);
-            copyFiles(shematicsFolder, shematicsProfileFolder);
-            copyFiles(configFolder, configProfileFolder);
-        }
+        try {
+            if (saver != null) {
+                copyFiles(savesFolder, savesProfileFolder);
+                copyFiles(resourcespacksFolder, resourcespacksProfileFolder);
+                copyFiles(shaderspacksFolder, shaderspacksProfileFolder);
+                copyFiles(musicsheetsFolder, musicsheetsProfileFolder);
+                copyFiles(shematicsFolder, shematicsProfileFolder);
+                copyFiles(configFolder, configProfileFolder);
+            }
+        } catch (IOException ignored) {}
 
         try {
             PrintWriter printwriter = new PrintWriter(new FileOutputStream(optionsProfileTextfile));

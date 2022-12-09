@@ -57,11 +57,11 @@ public class Launcher {
 
     // Version de Minecraft et de Forge utilisée
     static final String mcVersion = "1.19.2";
-    static final String forgeVersion = "43.1.53";
+    static final String forgeVersion = "43.1.1";
     static final String optifineVersion = "1.19.2_HD_U_H9";
 
     // Version du launcher
-    public static final String version = "Beta2.1.0";
+    public static final String version = "Beta2.1.1"; // TODO CHANGER LA VERSION A CHAQUE FOIS
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -219,6 +219,11 @@ public class Launcher {
         barLabel.setText("");
         percentLabel.setText("");
         infosLabel.setText("");
+
+        initSelectedSaver();
+        Saver saver = selectedSaver;
+        ProfileSaver.loadCustomFiles(saver);
+        ProfileSaver.saveCustomFiles(saver);
     };
 
 
@@ -289,7 +294,7 @@ public class Launcher {
             modInfos.add(new CurseFileInfo(360203, 3970122)); // Guard Villagers 1.15.2
             modInfos.add(new CurseFileInfo(581854, 3905172)); // InvMove v0.8.1
             modInfos.add(new CurseFileInfo(348521, 3972423)); //    |_> Cloth Config API v8.2.88
-            modInfos.add(new CurseFileInfo(441647, 4094414)); // FramedBlocks 6.6.2
+            modInfos.add(new CurseFileInfo(441647, 3919861)); // FramedBlocks 6.6.2
             modInfos.add(new CurseFileInfo(558126, 4064323)); // This Rocks! 1.19.2-1.2.2
             modInfos.add(new CurseFileInfo(377051, 3943018)); // Bed Benefits 1.19.2-9.1.2
             modInfos.add(new CurseFileInfo(228525, 4052856)); //    |_> Bookshelf 1.19.2-16.1.11
@@ -347,8 +352,6 @@ public class Launcher {
                 .withPostExecutions(Collections.singletonList(postExecutions))
                 .build();
         updater.update(awGameFilesFolder);
-
-        ProfileSaver.loadCustomFiles(saver);
     }
 
     public static CrashReporter getCrashReporter() {
