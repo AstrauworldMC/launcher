@@ -1,9 +1,10 @@
-<img src="https://avatars.githubusercontent.com/u/97165763?v=4" alt="LogoAstrauworld" width="200"></img>
+<img src="https://user-images.githubusercontent.com/97166376/205764978-144aaf28-93a6-4a22-a923-2688470761d0.png" alt="LogoAstrauworld" width="600"></img>
 # Astrauworld Launcher
-Bienvenue sur la page de téléchargement du launcher !
-Vous pouvez trouver les différentes versions publiques dans "Releases".
-Chaque version sera accompagnée d'un installateur Windows et d'un .zip ou .jar contenant le code.
-L'onglet "Issues" est réservé au launcher en lui-même. Pour le serveur, allez plutôt sur le [Discord](https://discord.gg/JTWPq3Eyne).
+Bienvenue sur la page du launcher !
+<br>Si vous voulez le télécharger, je vous redirige vers la page du [Bootstrap](https://github.com/AstrauworldMC/bootstrap), le .exe téléchargera la dernière version du launcher automatiquement puis le lancera après son execution.
+<br><br>Vous pouvez trouver les différentes versions dans l'onglet "Releases".
+<br>Chaque version est accompagnée d'un .jar executable et d'un .zip (créé automatiquement par GitHub) contenant le code.
+<br><br>Si vous avez des problèmes, des questions ou des suggestions, venez sur le [Discord](https://discord.gg/JTWPq3Eyne) !
 ### Librairies utilisées
 - [Litarvan/OpenAuth](https://github.com/Litarvan/OpenAuth)
 - [Litarvan/Swinger](https://github.com/Litarvan/Swinger)
@@ -13,3 +14,4 @@ L'onglet "Issues" est réservé au launcher en lui-même. Pour le serveur, allez
 - [FlowArg/FlowMultitools](https://github.com/FlowArg/FlowMultitools)
 - Commons Compress
 - json
+- [TimEtOff/TimUtilsLib](https://github.com/TimEtOff/TimUtilsLib) *(c'est la mienne)*

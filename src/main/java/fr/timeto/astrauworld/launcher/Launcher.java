@@ -61,7 +61,7 @@ public class Launcher {
     static final String optifineVersion = "1.19.2_HD_U_H9";
 
     // Version du launcher
-    public static final String version = "Beta2.1.0";
+    public static final String version = "Beta2.1.1"; // TODO CHANGER LA VERSION A CHAQUE FOIS
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
