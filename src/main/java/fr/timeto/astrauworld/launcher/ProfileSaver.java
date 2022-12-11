@@ -187,6 +187,7 @@ public class ProfileSaver {
      * ./shematics
      * ./config
      * options.txt
+     * optionsof.txt
      *
      */
 
@@ -197,9 +198,7 @@ public class ProfileSaver {
     private static final File shematicsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "schematics");
     private static final File configFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "config");
     private static final File optionsTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "options.txt");
-
-    public static final File lastSavedProfileFilesText = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "lastSavedProfile.txt");
-    private static String lastSavedProfile = null;
+    private static final File optionsOFTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsof.txt");
 
     private static File savesProfileFolder = null;
     private static File resourcespacksProfileFolder = null;
@@ -208,18 +207,16 @@ public class ProfileSaver {
     private static File shematicsProfileFolder = null;
     private static File configProfileFolder = null;
     private static File optionsProfileTextfile = null;
+    private static File optionsOFProfileTextfile = null;
 
     private static void initCustomFilesFolder(Saver saver) {
         File customFilesFolder = null;
         if (saver == firstProfileSaver) {
             customFilesFolder = Launcher.AW_FIRSTPROFILE_CUSTOMFILES_FOLDER;
-            lastSavedProfile = "1";
         } else if (saver == secondProfileSaver) {
             customFilesFolder = Launcher.AW_SECONDPROFILE_CUSTOMFILES_FOLDER;
-            lastSavedProfile = "2";
         } else if (saver == thirdProfileSaver) {
             customFilesFolder = Launcher.AW_THIRDPROFILE_CUSTOMFILES_FOLDER;
-            lastSavedProfile = "3";
         }
 
         savesProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "saves");
@@ -229,6 +226,7 @@ public class ProfileSaver {
         shematicsProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "schematics");
         configProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "config");
         optionsProfileTextfile = new File(customFilesFolder + Launcher.separatorChar + "options.txt");
+        optionsOFProfileTextfile = new File(customFilesFolder + Launcher.separatorChar + "optionsof.txt");
     }
 
     public static void saveCustomFiles(Saver saver)  {
@@ -246,23 +244,10 @@ public class ProfileSaver {
         } catch (IOException ignored) {}
 
         try {
-            PrintWriter printwriter = new PrintWriter(new FileOutputStream(optionsProfileTextfile));
-            printwriter.println("");
-
-            printwriter.close();
-
             copyFile(optionsTextfile, optionsProfileTextfile);
-        } catch (Exception ex) {
-            System.out.println("Error clear file "+ optionsProfileTextfile);
-        }
-
-        try {
-            PrintWriter printWriter = new PrintWriter(new FileOutputStream(lastSavedProfileFilesText));
-            printWriter.println(lastSavedProfile);
-
-            printWriter.close();
-        } catch (Exception ignored) {
-
+            copyFile(optionsOFTextfile, optionsOFProfileTextfile);
+        } catch (IOException e) {
+            System.out.println("Failed copy options files");
         }
 
     }
@@ -280,34 +265,12 @@ public class ProfileSaver {
         } catch (IOException ignored) {}
 
         try {
-            PrintWriter printwriter = new PrintWriter(new FileOutputStream(lastSavedProfileFilesText));
-            printwriter.println("");
-
-            printwriter.close();
-
             copyFile(optionsProfileTextfile, optionsTextfile);
-        } catch (Exception ex) {
-            System.out.println("Error clear file "+ optionsTextfile);
+            copyFile(optionsOFProfileTextfile, optionsOFTextfile);
+        } catch (IOException e) {
+            System.out.println("Failed copy options files");
         }
 
-    }
-
-    public static Saver getLastSavedProfileSaver() throws IOException {
-        Saver saver = null;
-
-        FileReader fileReader = new FileReader(lastSavedProfileFilesText);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String strSaver = bufferedReader.readLine();
-
-        if (Objects.equals(strSaver, "1")) {
-            saver = firstProfileSaver;
-        } else if (Objects.equals(strSaver, "2")) {
-            saver = secondProfileSaver;
-        } else if (Objects.equals(strSaver, "3")) {
-            saver = thirdProfileSaver;
-        }
-
-        return saver;
     }
 
     public static class KEY {

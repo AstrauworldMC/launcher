@@ -620,8 +620,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileAccountLabel.setBounds(386, 468, 276, 31);
                     profileAccountLabel.setVisible(true);
                     if (!Objects.equals(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")){
-                         profileAccountLabel.setText(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-                         enablePlayButtons(true);
+                         if (Objects.equals(infosLabel.getText(), "")) {
+                              profileAccountLabel.setText(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                              enablePlayButtons(true);
+                         } else {
+                              enablePlayButtons(false);
+                         }
                     } else {
                          profileAccountLabel.setText("");
                          enablePlayButtons(false);
