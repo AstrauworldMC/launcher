@@ -3,9 +3,9 @@ package fr.timeto.astrauworld.launcher;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
-import fr.theshark34.swinger.util.WindowMover;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -18,6 +18,8 @@ public class LauncherFrame extends JFrame {
     private final LauncherPanel launcherPanel;
     private JScrollPane scrollPane;
     private static CrashReporter crashReporter;
+
+    private static final Rectangle movableZone = new Rectangle(0, 0, 1000, 33);
 
     /**
      * Défini comment s'affichera la frame du launcher, son contenu, puis l'affiche
@@ -32,7 +34,7 @@ public class LauncherFrame extends JFrame {
         this.setIconImage(Swinger.getResourceIgnorePath("/logo.png"));
         this.setContentPane(launcherPanel = new LauncherPanel());
 
-        WindowMover mover = new WindowMover(this);
+        CustomWindowMover mover = new CustomWindowMover(this, movableZone);
         this.addMouseListener(mover);
         this.addMouseMotionListener(mover);
 
