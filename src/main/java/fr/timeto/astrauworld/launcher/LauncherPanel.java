@@ -1154,7 +1154,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     updatePostExecutions();
 
                     try {
-                         Launcher.launch();
+                         Launcher.launch(true);
                     } catch (Exception ex) {
                          setButtonsEnabled(true);
                          throw new RuntimeException(ex);
@@ -1191,7 +1191,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     updatePostExecutions();
 
                     try {
-                         Launcher.localLaunch();
+                         Launcher.launch(false);
                     } catch (Exception ex) {
                          setButtonsEnabled(true);
                          throw new RuntimeException(ex);

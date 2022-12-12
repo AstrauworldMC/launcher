@@ -163,18 +163,29 @@ public class Launcher {
 
     }
 
-    public static void launch() throws Exception{
+    public static void launch(boolean connectToServer) throws Exception{
         initSelectedSaver();
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G", "--server", "207.180.196.61", "--port", "33542"));
+        if (connectToServer) {
+            noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G", "--server", "207.180.196.61", "--port", "33542"));
+        } else {
+            noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
+        }
 
         LauncherFrame.getInstance().setVisible(false);
 
-        noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+        Process process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
 
-        ProfileSaver.saveCustomFiles(selectedSaver);
-        System.exit(0);
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+        String s;
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+
+        String[] args = new String[] {afterMcExitArg, selectedProfile};
+        LauncherFrame.main(args);
 
     }
 
