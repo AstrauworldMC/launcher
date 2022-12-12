@@ -152,6 +152,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      private final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/profilesPage/up/Reglages-selected.png"));
 
      // Profiles components - home
+     private static boolean profilePlayButtonIsPlayStatus = true;
+     private static boolean isUpdating = false;
      private static final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/profilesPage/playButton-normal.png"), getResourceIgnorePath("/profilesPage/playButton-hover.png"), getResourceIgnorePath("/profilesPage/playButton-disabled.png"));
      private final STexturedButton profileNewsButton = new STexturedButton(getResourceIgnorePath("/profilesPage/newsButton-normal.png"), getResourceIgnorePath("/profilesPage/newsButton-hover.png"));
      private static final STexturedButton profileLaunchToMenuButton = new STexturedButton(getResourceIgnorePath("/profilesPage/launchToMenuButton-normal.png"), getResourceIgnorePath("/profilesPage/launchToMenuButton-hover.png"), getResourceIgnorePath("/profilesPage/launchToMenuButton-disabled.png"));
@@ -497,10 +499,42 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
      }
 
-     public static void enablePlayButtons(boolean e) {
-          profilePlayButton.setEnabled(e);
-          profileLaunchToMenuButton.setEnabled(e);
-          profileDownloadButton.setEnabled(e);
+     public static void enablePlayButtons(boolean e, boolean allButtons) {
+          boolean notE;
+          if (e){notE=false;}else{notE=true;}
+
+          if (allButtons) {
+               profilePlayButton.setEnabled(e);
+               profileLaunchToMenuButton.setEnabled(e);
+               profileDownloadButton.setEnabled(e);
+          } else {
+               enablePlayButtons(notE, true);
+               profileLaunchToMenuButton.setEnabled(e);
+               profileDownloadButton.setEnabled(e);
+          }
+     }
+
+     public static void togglePlayButtonStatus(boolean toPlayStatus) {
+          if (toPlayStatus) {
+               profilePlayButton.setTexture(getResourceIgnorePath("/profilesPage/playButton-normal.png"));
+               profilePlayButton.setTextureHover(getResourceIgnorePath("/profilesPage/playButton-hover.png"));
+               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/profilesPage/playButton-disabled.png"));
+
+               enablePlayButtons(true, true);
+
+               profilePlayButtonIsPlayStatus = toPlayStatus;
+               isUpdating = false;
+          } else {
+               profilePlayButton.setTexture(getResourceIgnorePath("/profilesPage/stopButton-normal.png"));
+               profilePlayButton.setTextureHover(getResourceIgnorePath("/profilesPage/stopButton-hover.png"));
+               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/profilesPage/stopButton-disabled.png"));
+
+               enablePlayButtons(false, false);
+
+               profilePlayButtonIsPlayStatus = toPlayStatus;
+               isUpdating = true;
+          }
+
      }
 
      /**
@@ -622,14 +656,16 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     if (!Objects.equals(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")){
                          if (Objects.equals(infosLabel.getText(), "")) {
                               profileAccountLabel.setText(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-                              enablePlayButtons(true);
+                              enablePlayButtons(true, true);
                          } else {
-                              enablePlayButtons(false);
+                              enablePlayButtons(false, true);
                          }
                     } else {
                          profileAccountLabel.setText("");
-                         enablePlayButtons(false);
+                         enablePlayButtons(false, true);
                     }
+
+          //          togglePlayButtonStatus(profilePlayButtonIsPlayStatus);
 
                     upLeftCorner.setVisible(false);
                     upRightCorner.setVisible(false);
@@ -1070,18 +1106,24 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
      }
 
-     private void updatePostExecutions() {
+     private static void updatePostExecutions() {
           loadingBar.setValue(0);
           loadingBar.setVisible(false);
           barLabel.setText("");
           percentLabel.setText("");
           infosLabel.setText("");
+          togglePlayButtonStatus(true);
      }
 
-     private void setButtonsEnabled(boolean enabled) {
-          profilePlayButton.setEnabled(enabled);
-          profileDownloadButton.setEnabled(enabled);
-          profileLaunchToMenuButton.setEnabled(enabled);
+     private static Thread launchThread = new Thread();
+     private static Thread updateThread = new Thread();
+
+     private static void stopUpdate() {
+          launchThread.interrupt();
+          updateThread.interrupt();
+
+          togglePlayButtonStatus(true);
+          updatePostExecutions();
      }
 
      /**
@@ -1126,55 +1168,64 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           // Actions des boutons de la profilePage - Home
           else if (e.getSource() == profilePlayButton) {
+          //     if (profilePlayButtonIsPlayStatus) {
+                    launchThread = new Thread(() -> {
+                         enablePlayButtons(false, true);
+          //               togglePlayButtonStatus(false);
+                         loadingBar.setVisible(true);
+                         infosLabel.setVisible(true);
+                         infosLabel.setText("Connexion...");
+                         try {
+                              Launcher.connect();
+                         } catch (MicrosoftAuthenticationException m) {
+                              enablePlayButtons(true, true);
+                              errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                              infosLabel.setText("Connexion \u00e9chou\u00e9e");
+                              loadingBar.setVisible(false);
+                              infosLabel.setVisible(false);
+                              return;
+                         }
+                         initSelectedSaver();
+                         infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
-               Thread launch = new Thread(() -> {
-                    setButtonsEnabled(false);
-                    loadingBar.setVisible(true);
-                    infosLabel.setVisible(true);
-                    infosLabel.setText("Connexion...");
-                    try {
-                         Launcher.connect();
-                    } catch (MicrosoftAuthenticationException m) {
-                         setButtonsEnabled(true);
-                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                         infosLabel.setText("Connexion \u00e9chou\u00e9e");
-                         loadingBar.setVisible(false);
-                         infosLabel.setVisible(false);
-                         return;
-                    }
-                    initSelectedSaver();
-                    infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                         try {
+                              Launcher.update();
+                         } catch (Exception ex) {
+                              enablePlayButtons(true, true);
+                              throw new RuntimeException(ex);
+                         }
+                         updatePostExecutions();
 
-                    try {
-                         Launcher.update();
-                    } catch (Exception ex) {
-                         setButtonsEnabled(true);
-                         throw new RuntimeException(ex);
-                    }
-                    updatePostExecutions();
+                         try {
+                              Launcher.launch(true);
+                         } catch (Exception ex) {
+                              enablePlayButtons(true, true);
+                              throw new RuntimeException(ex);
+                         }
+                         enablePlayButtons(true, true);
 
-                    try {
-                         Launcher.launch(true);
-                    } catch (Exception ex) {
-                         setButtonsEnabled(true);
-                         throw new RuntimeException(ex);
-                    }
-                    setButtonsEnabled(true);
+                    });
+                    launchThread.start();
 
-               });
-               launch.start();
+          //          togglePlayButtonStatus(false);
+          //     } else {
+               //     stopUpdate();
+
+          //          togglePlayButtonStatus(true);
+          //     }
 
           } else if (e.getSource() == profileNewsButton) {
                setNewsPage(true);
           } else if (e.getSource() == profileLaunchToMenuButton) {
 
-               Thread launch = new Thread(() -> {
-                    setButtonsEnabled(false);
+               launchThread = new Thread(() -> {
+                    enablePlayButtons(false, true);
+          //          togglePlayButtonStatus(false);
 
                     try {
                          Launcher.connect();
                     } catch (MicrosoftAuthenticationException m) {
-                         setButtonsEnabled(true);
+                         enablePlayButtons(true, true);
                          errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          infosLabel.setText("Connexion \u00e9chou\u00e9e");
                          loadingBar.setVisible(false);
@@ -1185,7 +1236,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     try {
                          Launcher.update();
                     } catch (Exception ex) {
-                         setButtonsEnabled(true);
+                         enablePlayButtons(true, true);
                          throw new RuntimeException(ex);
                     }
                     updatePostExecutions();
@@ -1193,29 +1244,35 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     try {
                          Launcher.launch(false);
                     } catch (Exception ex) {
-                         setButtonsEnabled(true);
+                         enablePlayButtons(true, true);
                          throw new RuntimeException(ex);
                     }
-                    setButtonsEnabled(true);
+                    enablePlayButtons(true, true);
 
                });
-               launch.start();
+               launchThread.start();
 
           } else if (e.getSource() == profileDownloadButton) {
 
-               Thread update = new Thread(() -> {
-                    setButtonsEnabled(false);
+               updateThread = new Thread(() -> {
+                    enablePlayButtons(false, true);
+          //          togglePlayButtonStatus(false);
                     try {
                          Launcher.update();
+                    } catch (InterruptedException e1) {
+                         enablePlayButtons(true, false);
+                         updatePostExecutions();
                     } catch (Exception ex) {
-                         setButtonsEnabled(true);
+                         enablePlayButtons(true, false);
                          throw new RuntimeException(ex);
                     }
-                    setButtonsEnabled(true);
+                    enablePlayButtons(true, false);
                     updatePostExecutions();
                     doneMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
+
                });
-               update.start();
+
+               updateThread.start();
 
           }
 
@@ -1237,6 +1294,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
                          initProfileButtons();
                });
+
                connect.start();
 
 
