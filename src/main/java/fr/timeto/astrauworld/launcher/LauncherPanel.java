@@ -487,6 +487,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileSettingsAllowedRamSpinner.setOpaque(false);
           profileSettingsAllowedRamSpinner.setBorder(null);
           profileSettingsAllowedRamSpinner.setBounds(491, 306, 93, 58);
+          profileSettingsAllowedRamSpinner.setOpaque(false);
+          profileSettingsAllowedRamSpinner.getEditor().setOpaque(false);
+          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setOpaque(false);
+          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setForeground(Color.WHITE);
           this.add(profileSettingsAllowedRamSpinner);
           profileSettingsAllowedRamSpinner.setVisible(false);
 
