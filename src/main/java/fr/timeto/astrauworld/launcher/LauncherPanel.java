@@ -10,8 +10,11 @@ import fr.theshark34.swinger.textured.STexturedButton;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
@@ -22,7 +25,7 @@ import static fr.timeto.timutilslib.PopUpMessages.*;
 import static fr.timeto.timutilslib.CustomFonts.*;
 
 @SuppressWarnings("unused")
-public class LauncherPanel extends JPanel implements SwingerEventListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
+public class LauncherPanel extends JPanel implements SwingerEventListener, ActionListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
 
      private Image background = getResourceIgnorePath("/baseGUI.png");
 
@@ -186,12 +189,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public static JTextField profileSettingsProfileNameTextField = new JTextField();
      private final STexturedToggleButton profileSettingsHelmIconToggleButton = new STexturedToggleButton(ProfileSaver.KEY.SETTINGS_HELMICON, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"));
 
-     private static final double ramNumberSpinnerModelMin = 0.10;
-     private static final double ramNumberSpinnerModelMax = 256.00;
-     private static final double ramNumberSpinnerModelStep = 0.10;
-     private static final SpinnerNumberModel ramNumberSpinnerModel = new SpinnerNumberModel(2, ramNumberSpinnerModelMin, ramNumberSpinnerModelMax, ramNumberSpinnerModelStep);
-     public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(ramNumberSpinnerModel);
+     public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(2, 0.10, 256.00, 0.10));
      public static STexturedButton profileSettingsSaveSettings = new STexturedButton(getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton-hover.png"));
+
+     // Changelogs
+     private static final ArrayList<Changelogs> changelogsArrayList = Changelogs.returnChangelogsList();
+     private static final ArrayList<String> changelogsVersionsArrayList = Changelogs.returnChangelogsVersionsList();
+     public static JComboBox<Object> changelogsVersionComboBox = new JComboBox<>(changelogsVersionsArrayList.toArray());
+     public static JTextArea changelogsTextArea = new JTextArea();
 
      /**
       * Initialise le panel de la frame (boutons, textes, images...)
@@ -499,20 +504,46 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(profileSettingsSaveSettings);
           profileSettingsSaveSettings.setVisible(false);
 
+          // Changelogs components
+          changelogsVersionComboBox.setBounds(189, 84, 150, 24);
+          changelogsVersionComboBox.setFont(kollektifFont.deriveFont(14f));
+          changelogsVersionComboBox.addActionListener(this);
+          changelogsVersionComboBox.setForeground(Color.WHITE);
+
+          changelogsVersionComboBox.setOpaque(false);
+          changelogsVersionComboBox.setBorder(null);
+          changelogsVersionComboBox.setRenderer(new DefaultListCellRenderer(){
+               @Override
+               public Component getListCellRendererComponent(JList list, Object value,
+                                                             int index, boolean isSelected, boolean cellHasFocus) {
+                    JComponent result = (JComponent)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    list.setForeground(Color.BLACK);
+                    result.setOpaque(false);
+                    return result;
+               }});
+          this.add(changelogsVersionComboBox);
+          changelogsVersionComboBox.setVisible(false);
+
+          changelogsTextArea.setBounds(199, 133, 787, 484);
+          changelogsTextArea.setForeground(Color.WHITE);
+          changelogsTextArea.setFont(kollektifBoldFont.deriveFont(14f));
+          changelogsTextArea.setEditable(false);
+          changelogsTextArea.setOpaque(false);
+          this.add(changelogsTextArea);
+          changelogsTextArea.setVisible(false);
+
           setProfilePage(true, "1", "home");
 
      }
 
      public static void enablePlayButtons(boolean e, boolean allButtons) {
-          boolean notE;
-          if (e){notE=false;}else{notE=true;}
 
           if (allButtons) {
                profilePlayButton.setEnabled(e);
                profileLaunchToMenuButton.setEnabled(e);
                profileDownloadButton.setEnabled(e);
           } else {
-               enablePlayButtons(notE, true);
+               enablePlayButtons(!e, true);
                profileLaunchToMenuButton.setEnabled(e);
                profileDownloadButton.setEnabled(e);
           }
@@ -1053,20 +1084,32 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                setAboutPage(false);
                setProfilePage(false, null, "all");
                setAboutPage(false);
-               tabLabel.setText("Changelogs");
                changesButton.setEnabled(false);
+
+               changelogsVersionComboBox.setVisible(true);
+               changelogsTextArea.setVisible(true);
+
                upLeftCorner.setVisible(false);
                upRightCorner.setVisible(false);
                downLeftCorner.setVisible(false);
                downRightCorner.setVisible(false);
+
                tabSecondLabel.setText(" ");
                tabLabel.setText("Changelogs");
-               background = getResourceIgnorePath("/baseGUI.png");
+
+               int i = verifyVersionChangelog();
+               changelogsTextArea.setText(Changelogs.returnChangelogsTextsList().toArray()[i].toString());
+
+               background = getResourceIgnorePath("/changelogsPage/changelogsPage.png");
+
                upLeftCorner.setVisible(true);
                upRightCorner.setVisible(true);
                downLeftCorner.setVisible(true);
                downRightCorner.setVisible(true);
           }else {
+               changelogsVersionComboBox.setVisible(false);
+               changelogsTextArea.setVisible(false);
+
                changesButton.setEnabled(true);
           }
      }
@@ -1376,6 +1419,26 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());
                initProfileButtons();
                doneMessage("Enregistr\u00e9 !", "Param\u00e8tres enregistr\u00e9s");
+          }
+     }
+
+     private int verifyVersionChangelog() {
+          int i = 0;
+          while (changelogsVersionComboBox.getSelectedItem().toString() != changelogsVersionsArrayList.toArray()[i]) {
+               i += 1;
+          }
+          return i;
+     }
+
+     @Override
+     public void actionPerformed(ActionEvent e) {
+          JComboBox cb = (JComboBox)e.getSource();
+          String petName = (String)cb.getSelectedItem();
+
+          if (e.getSource() == changelogsVersionComboBox) {
+               int i = verifyVersionChangelog();
+               changelogsTextArea.setText(Changelogs.returnChangelogsTextsList().toArray()[i].toString());
+
           }
      }
 }
