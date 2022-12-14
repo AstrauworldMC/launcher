@@ -12,7 +12,8 @@ public class Changelogs {
                                                 "- Le launcher se relance quand Minecraft se ferme" + lineSep +
                                                 "- Fen\u00eatre bougeable seulement depuis la barre d'infos de la fen\u00eatre" + lineSep +
                                                 "- Visuel du s\u00e9lecteur de RAM dans Profil - R\u00e9glages am\u00e9lior\u00e9" + lineSep +
-                                                "- Ajout de la page des changelogs";
+                                                "- Ajout de la page des changelogs" + lineSep +
+                                                "- Ajout de la page \u00c0 propos - Infos";
 
     }
 
