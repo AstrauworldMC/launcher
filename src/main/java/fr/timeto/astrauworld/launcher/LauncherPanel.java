@@ -213,7 +213,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
      private final STexturedButton aboutMailButton = new STexturedButton(getResourceIgnorePath("/aboutPage/mail-normal.png"), getResourceIgnorePath("/aboutPage/mail-hover.png"));
      private final STexturedButton aboutDiscordButton = new STexturedButton(getResourceIgnorePath("/aboutPage/discord-normal.png"), getResourceIgnorePath("/aboutPage/discord-hover.png"));
      private final STexturedButton aboutTwitterButton = new STexturedButton(getResourceIgnorePath("/aboutPage/twitter-normal.png"), getResourceIgnorePath("/aboutPage/twitter-hover.png"));
-     public static JLabel aboutEastereggsLabel = new JLabel();
+     public static JLabel aboutEastereggsLabel = new JLabel("", SwingConstants.LEFT);
 
      /**
       * Initialise le panel de la frame (boutons, textes, images...)
@@ -599,6 +599,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           aboutTwitterButton.addEventListener(this);
           this.add(aboutTwitterButton);
           aboutTwitterButton.setVisible(false);
+
+          aboutEastereggsLabel.setBounds(286, 605, 91, 16);
+          aboutEastereggsLabel.setForeground(new Color(151, 151, 151));
+          aboutEastereggsLabel.setFont(kollektifBoldFont.deriveFont(16f));
+          aboutEastereggsLabel.setOpaque(false);
+          this.add(aboutEastereggsLabel);
+          aboutEastereggsLabel.setVisible(false);
 
           setProfilePage(true, "1", "home");
 
@@ -1208,6 +1215,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
                     aboutDiscordButton.setVisible(true);
                     aboutTwitterButton.setVisible(true);
 
+                    aboutEastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
+                    aboutEastereggsLabel.setVisible(true);
+
                     upLeftCorner.setVisible(false);
                     upRightCorner.setVisible(false);
                     downLeftCorner.setVisible(false);
@@ -1235,6 +1245,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
                     aboutMailButton.setVisible(false);
                     aboutDiscordButton.setVisible(false);
                     aboutTwitterButton.setVisible(false);
+
+                    aboutEastereggsLabel.setVisible(false);
 
                     aboutButton.setEnabled(true);
                     aboutInfosTabButton.setEnabled(true);
@@ -1573,14 +1585,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
                try {
                     Desktop.getDesktop().browse(new URL("https://youtu.be/rRPQs_kM_nw").toURI());
                } catch (IOException | URISyntaxException ignored) {}
+               EasterEggs.easterEggsSaver.set(EasterEggs.polishCow, "true");
           } else if (src == aboutCapitenzoLogo) {
                try {
                     Desktop.getDesktop().browse(new URL("https://youtu.be/vyPjz2QbFT4").toURI());
                } catch (IOException | URISyntaxException ignored) {}
+               EasterEggs.easterEggsSaver.set(EasterEggs.frogWalking, "true");
           } else if (src == aboutTimEtOLogo) {
                try {
                     Desktop.getDesktop().browse(new URL("https://youtu.be/dQw4w9WgXcQ").toURI());
                } catch (IOException | URISyntaxException ignored) {}
+               EasterEggs.easterEggsSaver.set(EasterEggs.rickroll, "true");
           } else if (src == aboutGithubButton) {
                try {
                     Desktop.getDesktop().browse(new URL("https://github.com/AstrauworldMC").toURI());

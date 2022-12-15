@@ -103,6 +103,8 @@ public class LauncherFrame extends JFrame {
             }
         } catch (Exception ignored) {}
 
+        EasterEggs.initEastereggs();
+
         instance = new LauncherFrame();
 
     }
