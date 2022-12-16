@@ -14,7 +14,7 @@ public class EasterEggs {
 
     private static final String easterEggsData = Launcher.dataFolder + "eastereggs.properties";
     private static final Path easterEggsDataPath = Paths.get(easterEggsData);
-    public static Saver easterEggsSaver = new Saver(easterEggsDataPath);
+    public static final Saver easterEggsSaver = new Saver(easterEggsDataPath);
 
     private static ArrayList<String> initEasterEggsList() {
         ArrayList<String> list = new ArrayList<>();
@@ -34,6 +34,8 @@ public class EasterEggs {
         while (i != l) {
             if (!Objects.equals(easterEggsSaver.get(list[i].toString()), "true")) {
                 easterEggsSaver.set(list[i].toString(), "false");
+                i += 1;
+            } else {
                 i += 1;
             }
         }
@@ -60,5 +62,10 @@ public class EasterEggs {
 
     public static int getNumberTotalEasterEggs() {
         return initEasterEggsList().toArray().length;
+    }
+
+    public static void fondedEateregg(String easterEggs) {
+        easterEggsSaver.set(easterEggs, "true");
+        LauncherPanel.aboutEastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
     }
 }

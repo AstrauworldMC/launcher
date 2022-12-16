@@ -1585,17 +1585,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
                try {
                     Desktop.getDesktop().browse(new URL("https://youtu.be/rRPQs_kM_nw").toURI());
                } catch (IOException | URISyntaxException ignored) {}
-               EasterEggs.easterEggsSaver.set(EasterEggs.polishCow, "true");
+               EasterEggs.fondedEateregg(EasterEggs.polishCow);
           } else if (src == aboutCapitenzoLogo) {
                try {
                     Desktop.getDesktop().browse(new URL("https://youtu.be/vyPjz2QbFT4").toURI());
                } catch (IOException | URISyntaxException ignored) {}
-               EasterEggs.easterEggsSaver.set(EasterEggs.frogWalking, "true");
+               EasterEggs.fondedEateregg(EasterEggs.frogWalking);
           } else if (src == aboutTimEtOLogo) {
                try {
                     Desktop.getDesktop().browse(new URL("https://youtu.be/dQw4w9WgXcQ").toURI());
                } catch (IOException | URISyntaxException ignored) {}
-               EasterEggs.easterEggsSaver.set(EasterEggs.rickroll, "true");
+               EasterEggs.fondedEateregg(EasterEggs.rickroll);
           } else if (src == aboutGithubButton) {
                try {
                     Desktop.getDesktop().browse(new URL("https://github.com/AstrauworldMC").toURI());
