@@ -3,10 +3,11 @@ package fr.timeto.astrauworld.launcher;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
-import fr.theshark34.swinger.util.WindowMover;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
+import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.ProfileSaver.*;
 
@@ -18,6 +19,8 @@ public class LauncherFrame extends JFrame {
     private JScrollPane scrollPane;
     private static CrashReporter crashReporter;
 
+    private static final Rectangle movableZone = new Rectangle(0, 0, 1000, 33);
+
     /**
      * Défini comment s'affichera la frame du launcher, son contenu, puis l'affiche
      */
@@ -25,13 +28,13 @@ public class LauncherFrame extends JFrame {
         this.setTitle("Astrauworld Launcher");
         this.setSize(1000, 630);
         this.setResizable(false);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setUndecorated(true);
         this.setIconImage(Swinger.getResourceIgnorePath("/logo.png"));
         this.setContentPane(launcherPanel = new LauncherPanel());
 
-        WindowMover mover = new WindowMover(this);
+        CustomWindowMover mover = new CustomWindowMover(this, movableZone);
         this.addMouseListener(mover);
         this.addMouseMotionListener(mover);
 
@@ -86,17 +89,21 @@ public class LauncherFrame extends JFrame {
         crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
 
         try {
-            ProfileSaver.lastSavedProfileFilesText.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            if (Objects.equals(args[0], Launcher.afterMcExitArg)) {
+                Saver saver = null;
+                if (Objects.equals(args[1], "1")) {
+                    saver = firstProfileSaver;
+                } else if (Objects.equals(args[1], "2")) {
+                    saver = secondProfileSaver;
+                } else if (Objects.equals(args[1], "3")) {
+                    saver = thirdProfileSaver;
+                }
 
-        try {
-            Saver lastSavedProfile = ProfileSaver.getLastSavedProfileSaver();
-            ProfileSaver.saveCustomFiles(lastSavedProfile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                ProfileSaver.saveCustomFiles(saver);
+            }
+        } catch (Exception ignored) {}
+
+        EasterEggs.initEastereggs();
 
         instance = new LauncherFrame();
 

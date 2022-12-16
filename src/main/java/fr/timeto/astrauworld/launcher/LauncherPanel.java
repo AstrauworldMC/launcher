@@ -10,8 +10,13 @@ import fr.theshark34.swinger.textured.STexturedButton;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
@@ -22,7 +27,7 @@ import static fr.timeto.timutilslib.PopUpMessages.*;
 import static fr.timeto.timutilslib.CustomFonts.*;
 
 @SuppressWarnings("unused")
-public class LauncherPanel extends JPanel implements SwingerEventListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
+public class LauncherPanel extends JPanel implements SwingerEventListener, ActionListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
 
      private Image background = getResourceIgnorePath("/baseGUI.png");
 
@@ -152,6 +157,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      private final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/profilesPage/up/Reglages-selected.png"));
 
      // Profiles components - home
+     private static boolean profilePlayButtonIsPlayStatus = true;
+     private static boolean isUpdating = false;
      private static final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/profilesPage/playButton-normal.png"), getResourceIgnorePath("/profilesPage/playButton-hover.png"), getResourceIgnorePath("/profilesPage/playButton-disabled.png"));
      private final STexturedButton profileNewsButton = new STexturedButton(getResourceIgnorePath("/profilesPage/newsButton-normal.png"), getResourceIgnorePath("/profilesPage/newsButton-hover.png"));
      private static final STexturedButton profileLaunchToMenuButton = new STexturedButton(getResourceIgnorePath("/profilesPage/launchToMenuButton-normal.png"), getResourceIgnorePath("/profilesPage/launchToMenuButton-hover.png"), getResourceIgnorePath("/profilesPage/launchToMenuButton-disabled.png"));
@@ -184,12 +191,29 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public static JTextField profileSettingsProfileNameTextField = new JTextField();
      private final STexturedToggleButton profileSettingsHelmIconToggleButton = new STexturedToggleButton(ProfileSaver.KEY.SETTINGS_HELMICON, getResourceIgnorePath("/commonButtons/toggleButton-normal_off.png"));
 
-     private static final double ramNumberSpinnerModelMin = 0.10;
-     private static final double ramNumberSpinnerModelMax = 256.00;
-     private static final double ramNumberSpinnerModelStep = 0.10;
-     private static final SpinnerNumberModel ramNumberSpinnerModel = new SpinnerNumberModel(2, ramNumberSpinnerModelMin, ramNumberSpinnerModelMax, ramNumberSpinnerModelStep);
-     public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(ramNumberSpinnerModel);
+     public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(2, 0.10, 256.00, 0.10));
      public static STexturedButton profileSettingsSaveSettings = new STexturedButton(getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/profilesPage/reglages/saveProfileNameButton-hover.png"));
+
+     // Changelogs components
+     private static final ArrayList<Changelogs> changelogsArrayList = Changelogs.returnChangelogsList();
+     private static final ArrayList<String> changelogsVersionsArrayList = Changelogs.returnChangelogsVersionsList();
+     public static JComboBox<Object> changelogsVersionComboBox = new JComboBox<>(changelogsVersionsArrayList.toArray());
+     public static JTextArea changelogsTextArea = new JTextArea();
+
+     // About components - up
+     private final STexturedButton aboutInfosTabButton = new STexturedButton(getResourceIgnorePath("/aboutPage/up/infosTab-normal.png"), getResourceIgnorePath("/aboutPage/up/infosTab-hover.png"), getResourceIgnorePath("/aboutPage/up/infosTab-selected.png"));
+     private final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/aboutPage/up/modsTab-selected.png"));
+
+     // About components - infos
+     private final STexturedButton aboutTextLogo = new STexturedButton(getResourceIgnorePath("/aboutPage/logo-texte.png"), getResourceIgnorePath("/aboutPage/logo-texte.png"));
+     private final STexturedButton aboutAstrauwolfLogo = new STexturedButton(getResourceIgnorePath("/aboutPage/aboutLogoAstrau.png"), getResourceIgnorePath("/aboutPage/aboutLogoAstrau.png"));
+     private final STexturedButton aboutCapitenzoLogo = new STexturedButton(getResourceIgnorePath("/aboutPage/capitenzoPfp.png"), getResourceIgnorePath("/aboutPage/capitenzoPfp.png"));
+     private final STexturedButton aboutTimEtOLogo = new STexturedButton(getResourceIgnorePath("/aboutPage/aboutLogoTim.png"), getResourceIgnorePath("/aboutPage/aboutLogoTim.png"));
+     private final STexturedButton aboutGithubButton = new STexturedButton(getResourceIgnorePath("/aboutPage/github-normal.png"), getResourceIgnorePath("/aboutPage/github-hover.png"));
+     private final STexturedButton aboutMailButton = new STexturedButton(getResourceIgnorePath("/aboutPage/mail-normal.png"), getResourceIgnorePath("/aboutPage/mail-hover.png"));
+     private final STexturedButton aboutDiscordButton = new STexturedButton(getResourceIgnorePath("/aboutPage/discord-normal.png"), getResourceIgnorePath("/aboutPage/discord-hover.png"));
+     private final STexturedButton aboutTwitterButton = new STexturedButton(getResourceIgnorePath("/aboutPage/twitter-normal.png"), getResourceIgnorePath("/aboutPage/twitter-hover.png"));
+     public static JLabel aboutEastereggsLabel = new JLabel("", SwingConstants.LEFT);
 
      /**
       * Initialise le panel de la frame (boutons, textes, images...)
@@ -485,6 +509,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileSettingsAllowedRamSpinner.setOpaque(false);
           profileSettingsAllowedRamSpinner.setBorder(null);
           profileSettingsAllowedRamSpinner.setBounds(491, 306, 93, 58);
+          profileSettingsAllowedRamSpinner.setOpaque(false);
+          profileSettingsAllowedRamSpinner.getEditor().setOpaque(false);
+          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setOpaque(false);
+          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setForeground(Color.WHITE);
           this.add(profileSettingsAllowedRamSpinner);
           profileSettingsAllowedRamSpinner.setVisible(false);
 
@@ -493,14 +521,128 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(profileSettingsSaveSettings);
           profileSettingsSaveSettings.setVisible(false);
 
+          // Changelogs components
+          changelogsVersionComboBox.setBounds(189, 84, 150, 24);
+          changelogsVersionComboBox.setFont(kollektifFont.deriveFont(14f));
+          changelogsVersionComboBox.addActionListener(this);
+          changelogsVersionComboBox.setForeground(Color.WHITE);
+
+          changelogsVersionComboBox.setOpaque(false);
+          changelogsVersionComboBox.setBorder(null);
+          changelogsVersionComboBox.setRenderer(new DefaultListCellRenderer(){
+               @Override
+               public Component getListCellRendererComponent(JList list, Object value,
+                                                             int index, boolean isSelected, boolean cellHasFocus) {
+                    JComponent result = (JComponent)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    list.setForeground(Color.BLACK);
+                    result.setOpaque(false);
+                    return result;
+               }});
+          this.add(changelogsVersionComboBox);
+          changelogsVersionComboBox.setVisible(false);
+
+          changelogsTextArea.setBounds(199, 133, 787, 484);
+          changelogsTextArea.setForeground(Color.WHITE);
+          changelogsTextArea.setFont(kollektifBoldFont.deriveFont(14f));
+          changelogsTextArea.setEditable(false);
+          changelogsTextArea.setOpaque(false);
+          this.add(changelogsTextArea);
+          changelogsTextArea.setVisible(false);
+
+          // About components - up
+          aboutInfosTabButton.setBounds(178, 89);
+          aboutInfosTabButton.addEventListener(this);
+          this.add(aboutInfosTabButton);
+          aboutInfosTabButton.setVisible(false);
+
+          aboutModsTabButton.setBounds(298, 89);
+          aboutModsTabButton.addEventListener(this);
+          this.add(aboutModsTabButton);
+          aboutModsTabButton.setVisible(false);
+
+          aboutTextLogo.setBounds(190, 123);
+          aboutTextLogo.addEventListener(this);
+          this.add(aboutTextLogo);
+          aboutTextLogo.setVisible(false);
+
+          aboutAstrauwolfLogo.setBounds(488, 234);
+          aboutAstrauwolfLogo.addEventListener(this);
+          this.add(aboutAstrauwolfLogo);
+          aboutAstrauwolfLogo.setVisible(false);
+
+          aboutCapitenzoLogo.setBounds(639, 235);
+          aboutCapitenzoLogo.addEventListener(this);
+          this.add(aboutCapitenzoLogo);
+          aboutCapitenzoLogo.setVisible(false);
+
+          aboutTimEtOLogo.setBounds(742, 235);
+          aboutTimEtOLogo.addEventListener(this);
+          this.add(aboutTimEtOLogo);
+          aboutTimEtOLogo.setVisible(false);
+
+          aboutGithubButton.setBounds(338, 462);
+          aboutGithubButton.addEventListener(this);
+          this.add(aboutGithubButton);
+          aboutGithubButton.setVisible(false);
+
+          aboutMailButton.setBounds(398, 465);
+          aboutMailButton.addEventListener(this);
+          this.add(aboutMailButton);
+          aboutMailButton.setVisible(false);
+
+          aboutDiscordButton.setBounds(457, 465);
+          aboutDiscordButton.addEventListener(this);
+          this.add(aboutDiscordButton);
+          aboutDiscordButton.setVisible(false);
+
+          aboutTwitterButton.setBounds(518, 466);
+          aboutTwitterButton.addEventListener(this);
+          this.add(aboutTwitterButton);
+          aboutTwitterButton.setVisible(false);
+
+          aboutEastereggsLabel.setBounds(286, 605, 91, 16);
+          aboutEastereggsLabel.setForeground(new Color(151, 151, 151));
+          aboutEastereggsLabel.setFont(kollektifBoldFont.deriveFont(16f));
+          aboutEastereggsLabel.setOpaque(false);
+          this.add(aboutEastereggsLabel);
+          aboutEastereggsLabel.setVisible(false);
+
           setProfilePage(true, "1", "home");
 
      }
 
-     public static void enablePlayButtons(boolean e) {
-          profilePlayButton.setEnabled(e);
+     public static void enablePlayButtons(boolean e, boolean allButtons) {
+
+          if (allButtons) {
+               profilePlayButton.setEnabled(e);
+          } else {
+               enablePlayButtons(!e, true);
+          }
           profileLaunchToMenuButton.setEnabled(e);
           profileDownloadButton.setEnabled(e);
+     }
+
+     public static void togglePlayButtonStatus(boolean toPlayStatus) {
+          if (toPlayStatus) {
+               profilePlayButton.setTexture(getResourceIgnorePath("/profilesPage/playButton-normal.png"));
+               profilePlayButton.setTextureHover(getResourceIgnorePath("/profilesPage/playButton-hover.png"));
+               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/profilesPage/playButton-disabled.png"));
+
+               enablePlayButtons(true, true);
+
+               profilePlayButtonIsPlayStatus = true;
+               isUpdating = false;
+          } else {
+               profilePlayButton.setTexture(getResourceIgnorePath("/profilesPage/stopButton-normal.png"));
+               profilePlayButton.setTextureHover(getResourceIgnorePath("/profilesPage/stopButton-hover.png"));
+               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/profilesPage/stopButton-disabled.png"));
+
+               enablePlayButtons(false, false);
+
+               profilePlayButtonIsPlayStatus = false;
+               isUpdating = true;
+          }
+
      }
 
      /**
@@ -511,7 +653,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           if (enabled) {
                setProfilePage(false, null, "all");
                setChangesPage(false);
-               setAboutPage(false);
+               setAboutPage(null, false);
 
                newsButton.setEnabled(false);
 
@@ -593,7 +735,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
                     setNewsPage(false);
                     setChangesPage(false);
-                    setAboutPage(false);
+                    setAboutPage(null, false);
 
                     if(tab == "all") {
                     } else {
@@ -620,12 +762,18 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     profileAccountLabel.setBounds(386, 468, 276, 31);
                     profileAccountLabel.setVisible(true);
                     if (!Objects.equals(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")){
-                         profileAccountLabel.setText(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-                         enablePlayButtons(true);
+                         if (Objects.equals(infosLabel.getText(), "")) {
+                              profileAccountLabel.setText(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                              enablePlayButtons(true, true);
+                         } else {
+                              enablePlayButtons(false, true);
+                         }
                     } else {
                          profileAccountLabel.setText("");
-                         enablePlayButtons(false);
+                         enablePlayButtons(false, true);
                     }
+
+          //          togglePlayButtonStatus(profilePlayButtonIsPlayStatus);
 
                     upLeftCorner.setVisible(false);
                     upRightCorner.setVisible(false);
@@ -1006,23 +1154,35 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
       */
      public void setChangesPage(boolean enabled) {
           if (enabled) {
-               setAboutPage(false);
+               setAboutPage(null, false);
                setProfilePage(false, null, "all");
-               setAboutPage(false);
-               tabLabel.setText("Changelogs");
+               setAboutPage(null, false);
                changesButton.setEnabled(false);
+
+               changelogsVersionComboBox.setVisible(true);
+               changelogsTextArea.setVisible(true);
+
                upLeftCorner.setVisible(false);
                upRightCorner.setVisible(false);
                downLeftCorner.setVisible(false);
                downRightCorner.setVisible(false);
+
                tabSecondLabel.setText(" ");
                tabLabel.setText("Changelogs");
-               background = getResourceIgnorePath("/baseGUI.png");
+
+               int i = verifyVersionChangelog();
+               changelogsTextArea.setText(Changelogs.returnChangelogsTextsList().toArray()[i].toString());
+
+               background = getResourceIgnorePath("/changelogsPage/changelogsPage.png");
+
                upLeftCorner.setVisible(true);
                upRightCorner.setVisible(true);
                downLeftCorner.setVisible(true);
                downRightCorner.setVisible(true);
           }else {
+               changelogsVersionComboBox.setVisible(false);
+               changelogsTextArea.setVisible(false);
+
                changesButton.setEnabled(true);
           }
      }
@@ -1031,30 +1191,104 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
       * Change la page pour la page principale des contacts
       * @param enabled Si true, affiche la page et tous ces composants. Si false, fait disparaitre tous ces composants
       */
-     public void setAboutPage(boolean enabled) {
-          if (enabled) {
-               setNewsPage(false);
-               setProfilePage(false, null, "all");
-               setChangesPage(false);
+     public void setAboutPage(String page, boolean enabled) {
+          if (Objects.equals(page, "infos")) {
+               if (enabled) {
+                    setNewsPage(false);
+                    setProfilePage(false, null, "all");
+                    setChangesPage(false);
+                    setAboutPage("mods", false);
 
-               aboutButton.setEnabled(false);
+                    aboutButton.setEnabled(false);
+                    aboutInfosTabButton.setEnabled(false);
 
-               upLeftCorner.setVisible(false);
-               upRightCorner.setVisible(false);
-               downLeftCorner.setVisible(false);
-               downRightCorner.setVisible(false);
+                    aboutInfosTabButton.setVisible(true);
+                    aboutModsTabButton.setVisible(true);
 
-               tabSecondLabel.setText(" ");
-               tabLabel.setText("\u00c0 propos");
+                    aboutTextLogo.setVisible(true);
+                    aboutAstrauwolfLogo.setVisible(true);
+                    aboutCapitenzoLogo.setVisible(true);
+                    aboutTimEtOLogo.setVisible(true);
 
-               background = getResourceIgnorePath("/baseGUI.png");
+                    aboutGithubButton.setVisible(true);
+                    aboutMailButton.setVisible(true);
+                    aboutDiscordButton.setVisible(true);
+                    aboutTwitterButton.setVisible(true);
 
-               upLeftCorner.setVisible(true);
-               upRightCorner.setVisible(true);
-               downLeftCorner.setVisible(true);
-               downRightCorner.setVisible(true);
-          }else {
-               aboutButton.setEnabled(true);
+                    aboutEastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
+                    aboutEastereggsLabel.setVisible(true);
+
+                    upLeftCorner.setVisible(false);
+                    upRightCorner.setVisible(false);
+                    downLeftCorner.setVisible(false);
+                    downRightCorner.setVisible(false);
+
+                    tabSecondLabel.setText("Infos");
+                    tabLabel.setText("\u00c0 propos");
+
+                    background = getResourceIgnorePath("/aboutPage/aboutPage-infos.png");
+
+                    upLeftCorner.setVisible(true);
+                    upRightCorner.setVisible(true);
+                    downLeftCorner.setVisible(true);
+                    downRightCorner.setVisible(true);
+               } else {
+                    aboutInfosTabButton.setVisible(false);
+                    aboutModsTabButton.setVisible(false);
+
+                    aboutTextLogo.setVisible(false);
+                    aboutAstrauwolfLogo.setVisible(false);
+                    aboutCapitenzoLogo.setVisible(false);
+                    aboutTimEtOLogo.setVisible(false);
+
+                    aboutGithubButton.setVisible(false);
+                    aboutMailButton.setVisible(false);
+                    aboutDiscordButton.setVisible(false);
+                    aboutTwitterButton.setVisible(false);
+
+                    aboutEastereggsLabel.setVisible(false);
+
+                    aboutButton.setEnabled(true);
+                    aboutInfosTabButton.setEnabled(true);
+               }
+          } else if (Objects.equals(page, "mods")) {
+               if (enabled) {
+                    setNewsPage(false);
+                    setProfilePage(false, null, "all");
+                    setChangesPage(false);
+                    setAboutPage("infos", false);
+
+                    aboutButton.setEnabled(false);
+                    aboutModsTabButton.setEnabled(false);
+
+                    aboutInfosTabButton.setVisible(true);
+                    aboutModsTabButton.setVisible(true);
+
+                    upLeftCorner.setVisible(false);
+                    upRightCorner.setVisible(false);
+                    downLeftCorner.setVisible(false);
+                    downRightCorner.setVisible(false);
+
+                    tabSecondLabel.setText("Mods");
+                    tabLabel.setText("\u00c0 propos");
+
+                    background = getResourceIgnorePath("/baseGUI.png");
+
+                    upLeftCorner.setVisible(true);
+                    upRightCorner.setVisible(true);
+                    downLeftCorner.setVisible(true);
+
+               } else {
+                    aboutInfosTabButton.setVisible(false);
+                    aboutModsTabButton.setVisible(false);
+
+                    aboutButton.setEnabled(true);
+                    aboutModsTabButton.setEnabled(true);
+               }
+
+          } else {
+               setAboutPage("infos", false);
+               setAboutPage("mods", false);
           }
 
      }
@@ -1066,18 +1300,24 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
      }
 
-     private void updatePostExecutions() {
+     private static void updatePostExecutions() {
           loadingBar.setValue(0);
           loadingBar.setVisible(false);
           barLabel.setText("");
           percentLabel.setText("");
           infosLabel.setText("");
+          togglePlayButtonStatus(true);
      }
 
-     private void setButtonsEnabled(boolean enabled) {
-          profilePlayButton.setEnabled(enabled);
-          profileDownloadButton.setEnabled(enabled);
-          profileLaunchToMenuButton.setEnabled(enabled);
+     private static Thread launchThread = new Thread();
+     private static Thread updateThread = new Thread();
+
+     private static void stopUpdate() {
+          launchThread.interrupt();
+          updateThread.interrupt();
+
+          togglePlayButtonStatus(true);
+          updatePostExecutions();
      }
 
      /**
@@ -1086,91 +1326,101 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
       */
      @Override
      public void onEvent(SwingerEvent e) {
+          Object src = e.getSource();
 
           // Actions des boutons de la barre d'infos de la fenêtre
-          if(e.getSource() == quitButton){
+          if(src == quitButton){
                System.exit(0);
-          } else if (e.getSource() == hideButton) {
+          } else if (src == hideButton) {
                LauncherFrame.getInstance().setState(JFrame.ICONIFIED);
           }
 
           // Actions des boutons du menu de gauche
-          else if (e.getSource() == newsButton) {
+          else if (src == newsButton) {
                setNewsPage(true);
-          } else if (e.getSource() == firstProfileButton) {
+          } else if (src == firstProfileButton) {
                setProfilePage(true, "1", "home");
-          } else if (e.getSource() == secondProfileButton) {
+          } else if (src == secondProfileButton) {
                setProfilePage(true, "2", "home");
-          } else if (e.getSource() == thirdProfileButton) {
+          } else if (src == thirdProfileButton) {
                setProfilePage(true, "3", "home");
-          } else if (e.getSource() == changesButton) {
+          } else if (src == changesButton) {
                setChangesPage(true);
-          } else if (e.getSource() == aboutButton) {
-               setAboutPage(true);
+          } else if (src == aboutButton) {
+               setAboutPage("infos", true);
           }
 
           // Actions des boutons du haut des profilePage
-          else if (e.getSource() == profilePlayTabButton) {
+          else if (src == profilePlayTabButton) {
                setProfilePage(true, "null", "home");
-          } else if (e.getSource() == profileAccountTabButton) {
+          } else if (src == profileAccountTabButton) {
                setProfilePage(true, "null", "account");
-          } else if (e.getSource() == profileModsTabButton) {
+          } else if (src == profileModsTabButton) {
                setProfilePage(true, "null", "mods");
-          } else if (e.getSource() == profileSettingsTabButton) {
+          } else if (src == profileSettingsTabButton) {
                setProfilePage(true, "null", "settings");
           }
 
           // Actions des boutons de la profilePage - Home
-          else if (e.getSource() == profilePlayButton) {
+          else if (src == profilePlayButton) {
+          //     if (profilePlayButtonIsPlayStatus) {
+                    launchThread = new Thread(() -> {
+                         enablePlayButtons(false, true);
+          //               togglePlayButtonStatus(false);
+                         loadingBar.setVisible(true);
+                         infosLabel.setVisible(true);
+                         infosLabel.setText("Connexion...");
+                         try {
+                              Launcher.connect();
+                         } catch (MicrosoftAuthenticationException m) {
+                              enablePlayButtons(true, true);
+                              errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                              infosLabel.setText("Connexion \u00e9chou\u00e9e");
+                              loadingBar.setVisible(false);
+                              infosLabel.setVisible(false);
+                              return;
+                         }
+                         initSelectedSaver();
+                         infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
-               Thread launch = new Thread(() -> {
-                    setButtonsEnabled(false);
-                    loadingBar.setVisible(true);
-                    infosLabel.setVisible(true);
-                    infosLabel.setText("Connexion...");
-                    try {
-                         Launcher.connect();
-                    } catch (MicrosoftAuthenticationException m) {
-                         setButtonsEnabled(true);
-                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                         infosLabel.setText("Connexion \u00e9chou\u00e9e");
-                         loadingBar.setVisible(false);
-                         infosLabel.setVisible(false);
-                         return;
-                    }
-                    initSelectedSaver();
-                    infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                         try {
+                              Launcher.update();
+                         } catch (Exception ex) {
+                              enablePlayButtons(true, true);
+                              throw new RuntimeException(ex);
+                         }
+                         updatePostExecutions();
 
-                    try {
-                         Launcher.update();
-                    } catch (Exception ex) {
-                         setButtonsEnabled(true);
-                         throw new RuntimeException(ex);
-                    }
-                    updatePostExecutions();
+                         try {
+                              Launcher.launch(true);
+                         } catch (Exception ex) {
+                              enablePlayButtons(true, true);
+                              throw new RuntimeException(ex);
+                         }
+                         enablePlayButtons(true, true);
 
-                    try {
-                         Launcher.launch();
-                    } catch (Exception ex) {
-                         setButtonsEnabled(true);
-                         throw new RuntimeException(ex);
-                    }
-                    setButtonsEnabled(true);
+                    });
+                    launchThread.start();
 
-               });
-               launch.start();
+          //          togglePlayButtonStatus(false);
+          //     } else {
+               //     stopUpdate();
 
-          } else if (e.getSource() == profileNewsButton) {
+          //          togglePlayButtonStatus(true);
+          //     }
+
+          } else if (src == profileNewsButton) {
                setNewsPage(true);
-          } else if (e.getSource() == profileLaunchToMenuButton) {
+          } else if (src == profileLaunchToMenuButton) {
 
-               Thread launch = new Thread(() -> {
-                    setButtonsEnabled(false);
+               launchThread = new Thread(() -> {
+                    enablePlayButtons(false, true);
+          //          togglePlayButtonStatus(false);
 
                     try {
                          Launcher.connect();
                     } catch (MicrosoftAuthenticationException m) {
-                         setButtonsEnabled(true);
+                         enablePlayButtons(true, true);
                          errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                          infosLabel.setText("Connexion \u00e9chou\u00e9e");
                          loadingBar.setVisible(false);
@@ -1181,42 +1431,48 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                     try {
                          Launcher.update();
                     } catch (Exception ex) {
-                         setButtonsEnabled(true);
+                         enablePlayButtons(true, true);
                          throw new RuntimeException(ex);
                     }
                     updatePostExecutions();
 
                     try {
-                         Launcher.localLaunch();
+                         Launcher.launch(false);
                     } catch (Exception ex) {
-                         setButtonsEnabled(true);
+                         enablePlayButtons(true, true);
                          throw new RuntimeException(ex);
                     }
-                    setButtonsEnabled(true);
+                    enablePlayButtons(true, true);
 
                });
-               launch.start();
+               launchThread.start();
 
-          } else if (e.getSource() == profileDownloadButton) {
+          } else if (src == profileDownloadButton) {
 
-               Thread update = new Thread(() -> {
-                    setButtonsEnabled(false);
+               updateThread = new Thread(() -> {
+                    enablePlayButtons(false, true);
+          //          togglePlayButtonStatus(false);
                     try {
                          Launcher.update();
+                    } catch (InterruptedException e1) {
+                         enablePlayButtons(true, false);
+                         updatePostExecutions();
                     } catch (Exception ex) {
-                         setButtonsEnabled(true);
+                         enablePlayButtons(true, false);
                          throw new RuntimeException(ex);
                     }
-                    setButtonsEnabled(true);
+                    enablePlayButtons(true, false);
                     updatePostExecutions();
                     doneMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
+
                });
-               update.start();
+
+               updateThread.start();
 
           }
 
           // Actions des boutons de la profilePage - Account
-          else if (e.getSource() == profileAccountConnectionButton) {
+          else if (src == profileAccountConnectionButton) {
                if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
                     errorMessage("Erreur de connexion", "Erreur, veuillez entrer un    email et un mot de passe      valides");
                     return;
@@ -1233,10 +1489,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
                          initProfileButtons();
                });
+
                connect.start();
 
 
-          } else if (e.getSource() == profileAccountConnectionMicrosoftButton) {
+          } else if (src == profileAccountConnectionMicrosoftButton) {
 
                Thread connect = new Thread(() -> {
                     try {
@@ -1250,7 +1507,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                          initProfileButtons();
                });
                connect.start();
-          } else if (e.getSource() == profileAccountResetButton) {
+          } else if (src == profileAccountResetButton) {
                Thread ifYes = new Thread(() -> {
                     initSelectedSaver();
                     selectedSaver.set(ProfileSaver.KEY.FILECREATED, "");
@@ -1267,49 +1524,114 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           }
           
           // Actions des boutons de la profilePage - Mods
-          else if (e.getSource() == profileModsShadersButton) {
+          else if (src == profileModsShadersButton) {
                shaderspacksFolder.mkdir();
                try {
                     Desktop.getDesktop().open((shaderspacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
                } catch (IOException ignored) {}
-          } else if (e.getSource() == profileModsResourcePacksButton) {
+          } else if (src == profileModsResourcePacksButton) {
                try {
                     Desktop.getDesktop().open((resourcespacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
                } catch (IOException ignored) {}
-          } else if (e.getSource() == profileModsOptifineToggleButton) {
+          } else if (src == profileModsOptifineToggleButton) {
                profileModsOptifineToggleButton.toggleButton();
-          } else if (e.getSource() == profileModsFpsmodelToggleButton) {
+          } else if (src == profileModsFpsmodelToggleButton) {
                profileModsFpsmodelToggleButton.toggleButton();
-          } else if (e.getSource() == profileModsFpsmodelMoreInfosButton) {
+          } else if (src == profileModsFpsmodelMoreInfosButton) {
                openMoreInfosUrl(KEY.MOD_FPSMODEL);
-          } else if (e.getSource() == profileModsBettertpsToggleButton) {
+          } else if (src == profileModsBettertpsToggleButton) {
                profileModsBettertpsToggleButton.toggleButton();
-          } else if (e.getSource() == profileModsBettertpsMoreInfosButton) {
+          } else if (src == profileModsBettertpsMoreInfosButton) {
                openMoreInfosUrl(KEY.MOD_BETTERTPS);
-          } else if (e.getSource() == profileModsFallingleavesToggleButton) {
+          } else if (src == profileModsFallingleavesToggleButton) {
                profileModsFallingleavesToggleButton.toggleButton();
-          } else if (e.getSource() == profileModsFallingleavesMoreInfosButton) {
+          } else if (src == profileModsFallingleavesMoreInfosButton) {
                openMoreInfosUrl(KEY.MOD_FALLINGLEAVES);
-          } else if (e.getSource() == profileModsAppleskinToggleButton) {
+          } else if (src == profileModsAppleskinToggleButton) {
                profileModsAppleskinToggleButton.toggleButton();
-          } else if (e.getSource() == profileModsAppleskinMoreInfosButton) {
+          } else if (src == profileModsAppleskinMoreInfosButton) {
                openMoreInfosUrl(KEY.MOD_APPLESKIN);
-          } else if (e.getSource() == profileModsSoundphysicsToggleButton) {
+          } else if (src == profileModsSoundphysicsToggleButton) {
                profileModsSoundphysicsToggleButton.toggleButton();
-          } else if (e.getSource() == profileModsSoundphysicsMoreInfosButton) {
+          } else if (src == profileModsSoundphysicsMoreInfosButton) {
                openMoreInfosUrl(KEY.MOD_SOUNDPHYSICS);
           }
 
           // Actions des boutons de la profilePage - Reglages
-          else if (e.getSource() == profileSettingsHelmIconToggleButton) {
+          else if (src == profileSettingsHelmIconToggleButton) {
                profileSettingsHelmIconToggleButton.toggleButton();
                initProfileButtons();
-          } else if (e.getSource() == profileSettingsSaveSettings) {
+          } else if (src == profileSettingsSaveSettings) {
                initSelectedSaver();
                selectedSaver.set(ProfileSaver.KEY.SETTINGS_RAM, profileSettingsAllowedRamSpinner.getValue().toString());
                selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());
                initProfileButtons();
                doneMessage("Enregistr\u00e9 !", "Param\u00e8tres enregistr\u00e9s");
+          }
+
+          // Actions des boutons de l'aboutPage - Up
+          else if (src == aboutInfosTabButton) {
+               setAboutPage("infos", true);
+          } else if (src == aboutModsTabButton) {
+               setAboutPage("mods", true);
+          }
+
+          // Actions des boutons de l'aboutPage - Infos
+          else if (src == aboutTextLogo) {
+               try {
+                    Desktop.getDesktop().browse(new URL("http://astrauworld.ovh").toURI());
+               } catch (IOException | URISyntaxException ignored) {}
+          } else if (src == aboutAstrauwolfLogo) {
+               try {
+                    Desktop.getDesktop().browse(new URL("https://youtu.be/rRPQs_kM_nw").toURI());
+               } catch (IOException | URISyntaxException ignored) {}
+               EasterEggs.fondedEateregg(EasterEggs.polishCow);
+          } else if (src == aboutCapitenzoLogo) {
+               try {
+                    Desktop.getDesktop().browse(new URL("https://youtu.be/vyPjz2QbFT4").toURI());
+               } catch (IOException | URISyntaxException ignored) {}
+               EasterEggs.fondedEateregg(EasterEggs.frogWalking);
+          } else if (src == aboutTimEtOLogo) {
+               try {
+                    Desktop.getDesktop().browse(new URL("https://youtu.be/dQw4w9WgXcQ").toURI());
+               } catch (IOException | URISyntaxException ignored) {}
+               EasterEggs.fondedEateregg(EasterEggs.rickroll);
+          } else if (src == aboutGithubButton) {
+               try {
+                    Desktop.getDesktop().browse(new URL("https://github.com/AstrauworldMC").toURI());
+               } catch (IOException | URISyntaxException ignored) {}
+          } else if (src == aboutMailButton) {
+               try {
+                    Desktop.getDesktop().browse(new URL("mailto:astrauworld.minecraft@gmail.com").toURI());
+               } catch (IOException | URISyntaxException ignored) {}
+          } else if (src == aboutDiscordButton) {
+               try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/GpqB5eES5r").toURI());
+               } catch (IOException | URISyntaxException ignored) {}
+          } else if (src == aboutTwitterButton) {
+               try {
+                    Desktop.getDesktop().browse(new URL("https://twitter.com/AstrauworldMC").toURI());
+               } catch (IOException | URISyntaxException ignored) {}
+          }
+     }
+
+     private int verifyVersionChangelog() {
+          int i = 0;
+          while (Objects.requireNonNull(changelogsVersionComboBox.getSelectedItem()).toString() != changelogsVersionsArrayList.toArray()[i]) {
+               i += 1;
+          }
+          return i;
+     }
+
+     @Override
+     public void actionPerformed(ActionEvent e) {
+          JComboBox cb = (JComboBox)e.getSource();
+          String petName = (String)cb.getSelectedItem();
+
+          if (e.getSource() == changelogsVersionComboBox) {
+               int i = verifyVersionChangelog();
+               changelogsTextArea.setText(Changelogs.returnChangelogsTextsList().toArray()[i].toString());
+
           }
      }
 }
