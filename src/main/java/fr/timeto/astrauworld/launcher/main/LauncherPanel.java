@@ -4,11 +4,8 @@ import fr.theshark34.swinger.colored.SColoredBar;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
-import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
-import fr.timeto.astrauworld.launcher.pagesutilities.OnButtonEvent;
+import fr.timeto.astrauworld.launcher.pagesutilities.*;
 import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
-import fr.timeto.astrauworld.launcher.pagesutilities.Changelogs;
-import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -31,15 +28,22 @@ import static fr.timeto.timutilslib.CustomFonts.*;
  * @author <a href="https://github.com/TimEtOff">TimEtO</a>
  * @see LauncherFrame
  */
-@SuppressWarnings("unused")
+@SuppressWarnings("InstantiatingAThreadWithDefaultRunMethod")
 public class LauncherPanel extends JPanel implements SwingerEventListener, ActionListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
 
-     public static Image background = getResourceIgnorePath("/assets.launcher/baseGUI.png");
-
-     static LauncherPanel launcherPanel;
+     /**
+      * La variable du background, change à changement de page
+      * @see ChangePage
+      */
+     public static Image background = getResourceIgnorePath("/assets.launcher/main/baseGUI.png");
 
      static String lineSeparator = System.getProperty("line.separator");
 
+     /**
+      * Récupère une image de profil
+      * @param file le chemin du fichier où est stockée l'image (../AppData/Roaming/Astrauworld Launcher/data)
+      * @return L'image en {@code BufferedImage}
+      */
      public static BufferedImage getProfileIcon(File file) {
           // This time, you can use an InputStream to load
           try {
@@ -64,7 +68,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
       * Sinon, retourne la version avec seulement 'Profil [1/2/3]' de l'état demandé
       */
      public static BufferedImage getProfileButton(String base, String state) {
-          boolean profile = false;
           BufferedImage button = null;
 
           if(Objects.equals(base, "firstProfile")){
@@ -138,79 +141,67 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           // Common components
           /**
            * Le bouton pour fermer la fenêtre et terminer le processus
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton quitButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/quitButton.png"), getResourceIgnorePath("/assets.launcher/commonButtons/quitButtonHover.png"));
           /**
            * Le bouton pour réduire la fenêtre
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton hideButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/hideButton.png"), getResourceIgnorePath("/assets.launcher/commonButtons/hideButtonHover.png"));
 
           /**
            * Le bouton du menu général de gauche pour ouvrir la page principale des actualités
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton newsButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/newsButton-normal.png"), getResourceIgnorePath("/assets.launcher/commonButtons/newsButton-hover.png"), getResourceIgnorePath("/assets.launcher/commonButtons/newsButton-selected.png"));
           /**
            * Le bouton du menu général de gauche pour ouvrir la page principale du premier profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#firstProfileIcon
            * @see Components#firstProfileNameLabel
            */
           public static final STexturedButton firstProfileButton = new STexturedButton(getProfileButton("firstProfile", "normal"), getProfileButton("firstProfile", "hover"), getProfileButton("firstProfile", "selected"));
           /**
            * Le bouton du menu général de gauche pour ouvrir la page principale du second profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#secondProfileIcon
            * @see Components#secondProfileNameLabel
            */
           public static final STexturedButton secondProfileButton = new STexturedButton(getProfileButton("secondProfile", "normal"), getProfileButton("secondProfile", "hover"), getProfileButton("secondProfile", "selected"));
           /**
            * Le bouton du menu général de gauche pour ouvrir la page principale du troisième profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#thirdProfileIcon
            * @see Components#thirdProfileNameLabel
            */
           public static final STexturedButton thirdProfileButton = new STexturedButton(getProfileButton("thirdProfile", "normal"), getProfileButton("thirdProfile", "hover"), getProfileButton("thirdProfile", "selected"));
           /**
            * Icône du bouton du premier profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#firstProfileButton
            * @see Components#firstProfileNameLabel
            */
           public static final JLabel firstProfileIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON))));
           /**
            * Icône du bouton du second profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#secondProfileButton
            * @see Components#secondProfileNameLabel
            */
           public static final JLabel secondProfileIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON))));
           /**
            * Icône du bouton du troisième profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#thirdProfileButton
            * @see Components#thirdProfileNameLabel
            */
           public static final JLabel thirdProfileIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON))));
           /**
            * Label contenant le nom du premier profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#firstProfileButton
            * @see Components#firstProfileIcon
            */
           public static final JLabel firstProfileNameLabel = new JLabel(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
           /**
            * Label contenant le nom du second profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#secondProfileButton
            * @see Components#secondProfileIcon
            */
           public static final JLabel secondProfileNameLabel = new JLabel(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
           /**
            * Label contenant le nom du troisième profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#thirdProfileButton
            * @see Components#thirdProfileIcon
            */
@@ -218,36 +209,30 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
           /**
            * Le texte contenant la version du launcher dans le menu général de gauche
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final JTextArea launcherVersionLabel = new JTextArea("Version du launcher:" + lineSeparator + Launcher.version);
 
           /**
            * Bouton du menu général de gauche pour ouvrir la page des changelogs
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Changelogs
            */
           public static final STexturedButton changesButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/changesButton-normal.png"), getResourceIgnorePath("/assets.launcher/commonButtons/changesButton-hover.png"), getResourceIgnorePath("/assets.launcher/commonButtons/changesButton-selected.png"));
           /**
            * Bouton du menu général de gauche pour ouvrir la page principale à propos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/assets.launcher/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/assets.launcher/commonButtons/aboutButton-selected.png"));
           /**
            * Label contenant le titre de la page, affiché au-dessus du contenu de la page
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#subTitleLabel
            */
           public static final JLabel titleLabel = new JLabel("", SwingConstants.LEFT);
           /**
            * Label contenant le sous-titre de la page, affiché au-dessus du {@link Components#titleLabel}
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#titleLabel
            */
           public static final JLabel subTitleLabel = new JLabel("none", SwingConstants.LEFT);
           /**
            * La barre de chargement, apparait lors d'un téléchargement
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#barLabel
            * @see Components#percentLabel
            * @see Components#infosLabel
@@ -255,7 +240,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED);
           /**
            * Label à gauche dans la {@link Components#loadingBar}, apparait et affiche les noms des fichiers téléchargés lors d'un d'un téléchargement
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#loadingBar
            * @see Components#percentLabel
            * @see Components#infosLabel
@@ -263,7 +247,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static JLabel barLabel = new JLabel("", SwingConstants.LEFT);
           /**
            * Label à droite dans la {@link Components#loadingBar}, apparait et affiche les noms des fichiers téléchargés lors d'un d'un téléchargement
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#loadingBar
            * @see Components#barLabel
            * @see Components#infosLabel
@@ -271,7 +254,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static JLabel percentLabel = new JLabel("", SwingConstants.RIGHT);
           /**
            * Label au centre dans la {@link Components#loadingBar}, apparait et affiche les noms des fichiers téléchargés lors d'un d'un téléchargement
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#loadingBar
            * @see Components#percentLabel
            * @see Components#barLabel
@@ -281,199 +263,166 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton invisible en haut à gauche de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
-          public static final STexturedButton upLeftCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/corner.png"), getResourceIgnorePath("/assets.launcher/corner.png"), getResourceIgnorePath("/assets.launcher/corner.png"));
+          public static final STexturedButton upLeftCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"));
           /**
            * Bouton invisible en haut à droite de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
-          public static final STexturedButton upRightCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/corner.png"), getResourceIgnorePath("/assets.launcher/corner.png"), getResourceIgnorePath("/assets.launcher/corner.png"));
+          public static final STexturedButton upRightCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"));
           /**
            * Bouton invisible en bas à gauche de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
-          public static final STexturedButton downLeftCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/corner.png"), getResourceIgnorePath("/assets.launcher/corner.png"), getResourceIgnorePath("/assets.launcher/corner.png"));
+          public static final STexturedButton downLeftCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"));
           /**
            * Bouton invisible en bas à droite de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
-          public static final STexturedButton downRightCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/corner.png"), getResourceIgnorePath("/assets.launcher/corner.png"), getResourceIgnorePath("/assets.launcher/corner.png"));
+          public static final STexturedButton downRightCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"));
 
           // Profiles components - up
           /**
            * Bouton d'onglet de la page principale des pages de profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton profilePlayTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/up/Jouer-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Jouer-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Jouer-selected.png"));
           /**
            * Bouton d'onglet de la page du compte des pages de profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Compte-selected.png"));
           /**
            * Bouton d'onglet de la page des mods des pages de profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Mods-selected.png"));
           /**
            * Bouton d'onglet de la page des paramètres des pages de profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Reglages-selected.png"));
 
           // Profiles components - home
           /**
            * Booléen de si le bouton de lancement est dans le statut de lancement
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static boolean profilePlayButtonIsPlayStatus = true;
           /**
            * Booléen de si les fichiers du jeu sont en update
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static boolean isUpdating = false;
           /**
            * Bouton pour lancer une update puis le jeu directement vers le serveur
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/playButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/playButton-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/playButton-disabled.png"));
           /**
            * Bouton pour voir les actualités
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton profileNewsButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/newsButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/newsButton-hover.png"));
           /**
            * Bouton pour lancer une update puis le jeu
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton profileLaunchToMenuButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/launchToMenuButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/launchToMenuButton-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/launchToMenuButton-disabled.png"));
           /**
            * Bouton pour lancer une update des fichiers du jeu
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton profileDownloadButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/downloadButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/downloadButton-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/downloadButton-disabled.png"));
           /**
            * Label du nom du compte connecté du profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final JLabel profileAccountLabel = new JLabel("", SwingConstants.LEFT);
 
           // Profiles components - compte
           /**
            * Bouton de connexion classique dans la page des profils - compte
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#profileAccountConnectionMicrosoftButton
            */
           public static final STexturedButton profileAccountConnectionButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/compte/connectionButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/compte/connectionButton-hover.png"));
           /**
            * Bouton de connexion avec une webview de Microsoft dans la page des profils - compte
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see Components#profileAccountConnectionButton
            */
           public static final STexturedButton profileAccountConnectionMicrosoftButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/compte/connectionWithMicrosoftButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/compte/connectionWithMicrosoftButton-hover.png"));
           /**
            * Bouton pour réinitialiser les informations du compte connecté
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final STexturedButton profileAccountResetButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/compte/resetButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/compte/resetButton-hover.png"));
           /**
            * TextField pour entrer l'adresse email pour la connexion
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final JTextField profileAccountTextField = new JTextField("");
 
           /**
            * PasswordField pour entrer le mot de passe pour la connexion
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final JPasswordField profileAccountPasswordField = new JPasswordField();
 
           // Profiles components - mods
           /**
            * Bouton pour les shaders
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static STexturedButton profileModsShadersButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/shadersButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/shadersButton-hover.png"));
           /**
            * Bouton pour les resource packs
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static STexturedButton profileModsResourcePacksButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/resourcePacksButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/resourcePacksButton-hover.png"));
           /**
            * Bouton I/O pour Optfine
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static TexturedSwitchButton profileModsOptifineSwitchButton = new TexturedSwitchButton(KEY.MOD_OPTIFINE, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton I/O pour le mod client 'First Person Model'
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_FPSMODEL
            * @see Components#profileModsFpsmodelMoreInfosButton
            */
           public static final TexturedSwitchButton profileModsFpsmodelSwitchButton = new TexturedSwitchButton(KEY.MOD_FPSMODEL, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'First Person Model', revoie à la page CurseForge
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_FPSMODEL
            * @see Components#profileModsFpsmodelSwitchButton
            */
           public static final STexturedButton profileModsFpsmodelMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'Better Third Person'
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_BETTERTPS
            * @see Components#profileModsBettertpsMoreInfosButton
            */
           public static final TexturedSwitchButton profileModsBettertpsSwitchButton = new TexturedSwitchButton(KEY.MOD_BETTERTPS, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'Better Third Person', revoie à la page CurseForge
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_BETTERTPS
            * @see Components#profileModsBettertpsSwitchButton
            */
           public static final STexturedButton profileModsBettertpsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'Falling Leaves'
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_FALLINGLEAVES
            * @see Components#profileModsFallingleavesMoreInfosButton
            */
           public static final TexturedSwitchButton profileModsFallingleavesSwitchButton = new TexturedSwitchButton(KEY.MOD_FALLINGLEAVES, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'Falling Leaves', revoie à la page CurseForge
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_FALLINGLEAVES
            * @see Components#profileModsFallingleavesSwitchButton
            */
           public static final STexturedButton profileModsFallingleavesMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'AppleSkin'
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_APPLESKIN
            * @see Components#profileModsAppleskinMoreInfosButton
            */
           public static final TexturedSwitchButton profileModsAppleskinSwitchButton = new TexturedSwitchButton(KEY.MOD_APPLESKIN, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'AppleSkin', revoie à la page CurseForge
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_APPLESKIN
            * @see Components#profileModsAppleskinSwitchButton
            */
           public static final STexturedButton profileModsAppleskinMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'Sound Physics Remastered'
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_SOUNDPHYSICS
            * @see Components#profileModsSoundphysicsMoreInfosButton
            */
           public static final TexturedSwitchButton profileModsSoundphysicsSwitchButton = new TexturedSwitchButton(KEY.MOD_SOUNDPHYSICS, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'Sound Physics Remastered', revoie à la page CurseForge
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @see KEY#MOD_SOUNDPHYSICS
            * @see Components#profileModsSoundphysicsSwitchButton
            */
@@ -482,50 +431,36 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           // Profiles components - reglages
           /**
            * Text field pour changer le nom du profil dans la page profil - réglages
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static JTextField profileSettingsProfileNameTextField = new JTextField();
           /**
            * Bouton I/O pour avoir la 2e couche sur l'avatar du profil dans la page profil - réglages
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static final TexturedSwitchButton profileSettingsHelmIconSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.SETTINGS_HELMICON, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Spinner pour sélectionner la ram allouée au jeu au lancement dans la page profil - réglages
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(2, 0.10, 256.00, 0.10));
           /**
            * Bouton pour sauvegarder les paramètres du profil
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            */
           public static STexturedButton profileSettingsSaveSettings = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/assets.launcher/profilesPage/reglages/saveProfileNameButton-hover.png"));
 
           // Changelogs components
           /**
-           * La liste des changelogs
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-           * @since Beta2.1.2
-           * @see Changelogs#getChangelogsList()
-           */
-          public static final ArrayList<Changelogs> changelogsArrayList = Changelogs.getChangelogsList();
-          /**
            * La liste des versions des changelogs
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            * @see Changelogs#getChangelogsVersionsList()
            */
           public static final ArrayList<String> changelogsVersionsArrayList = Changelogs.getChangelogsVersionsList();
           /**
            * La combo-box pour sélectionner la version du changelog voulu
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            * @see Changelogs
            */
           public static JComboBox<Object> changelogsVersionComboBox = new JComboBox<>(changelogsVersionsArrayList.toArray());
           /**
            * La text area non éditable où apparait le texte du changelog
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            * @see Changelogs
            */
@@ -534,13 +469,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           // About components - up
           /**
            * Le bouton de l'onglet de la page à propos - infos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            */
           public static final STexturedButton aboutInfosTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/up/infosTab-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/up/infosTab-hover.png"), getResourceIgnorePath("/assets.launcher/aboutPage/up/infosTab-selected.png"));
           /**
            * Le bouton de l'onglet de la page à propos - mods
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            */
           public static final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/assets.launcher/aboutPage/up/modsTab-selected.png"));
@@ -548,59 +481,50 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           // About components - infos
           /**
            * Bouton du logo Astrauworld avec le texte qui renvoie au site dans la page à propos - infos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            */
           public static final STexturedButton aboutTextLogo = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/logo-texte.png"), getResourceIgnorePath("/assets.launcher/aboutPage/logo-texte.png"));
           /**
            * Bouton du logo d'Astrauwolf dans la page à propos - infos (easter egg) dans la page à propos - infos
            *
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            * @see EasterEggs#polishCow
            */
           public static final STexturedButton aboutAstrauwolfLogo = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/aboutLogoAstrau.png"), getResourceIgnorePath("/assets.launcher/aboutPage/aboutLogoAstrau.png"));
           /**
            * Bouton du logo de Capitenzo974 dans la page à propos - infos (easter egg) dans la page à propos - infos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            * @see EasterEggs#frogWalking
            */
           public static final STexturedButton aboutCapitenzoLogo = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/capitenzoPfp.png"), getResourceIgnorePath("/assets.launcher/aboutPage/capitenzoPfp.png"));
           /**
            * Bouton du logo de TimEtO dans la page à propos - infos (easter egg) dans la page à propos - infos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            * @see EasterEggs#rickroll
            */
           public static final STexturedButton aboutTimEtOLogo = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/aboutLogoTim.png"), getResourceIgnorePath("/assets.launcher/aboutPage/aboutLogoTim.png"));
           /**
            * Bouton qui envoie à la page GitHub de AstrauworldMC dans la page à propos - infos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            */
           public static final STexturedButton aboutGithubButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/github-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/github-hover.png"));
           /**
            * Bouton qui renvoie à un mailto:[l'adresse mail d'Astrauworld] dans la page à propos - infos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            */
           public static final STexturedButton aboutMailButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/mail-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/mail-hover.png"));
           /**
            * Bouton qui envoie à la page d'invitation au serveur Discord d'Astrauworld dans la page à propos - infos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            */
           public static final STexturedButton aboutDiscordButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/discord-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/discord-hover.png"));
           /**
            * Bouton qui envoie à la page du compte Twitter d'@AstrauworldMC dans la page à propos - infos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            */
           public static final STexturedButton aboutTwitterButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/twitter-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/twitter-hover.png"));
           /**
            * Label où est écrit le nombre d'easter eggs trouvés dans la page à propos - infos
-           * @author <a href="https://github.com/TimEtOff">TimEtO</a>
            * @since Beta2.1.2
            */
           public static JLabel aboutEastereggsLabel = new JLabel("", SwingConstants.LEFT);
@@ -1003,24 +927,31 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
      }
 
-     public static void enablePlayButtons(boolean e, boolean allButtons) {
+     /**
+      * Pour activer/désactiver les boutons de la page principale des profils
+      * @param e {@code true} si activation, {@code false} si désactivation
+      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+      */
+     public static void enablePlayButtons(boolean e) {
 
-          if (allButtons) {
-               profilePlayButton.setEnabled(e);
-          } else {
-               enablePlayButtons(!e, true);
-          }
+          profilePlayButton.setEnabled(e);
+
           profileLaunchToMenuButton.setEnabled(e);
           profileDownloadButton.setEnabled(e);
      }
 
+     /**
+      * Pour changer le statut du bouton de lancement
+      * @param toPlayStatus en statut de lancement
+      * @see Components#profilePlayButtonIsPlayStatus
+      */
      public static void togglePlayButtonStatus(boolean toPlayStatus) {
           if (toPlayStatus) {
                profilePlayButton.setTexture(getResourceIgnorePath("/assets.launcher/profilesPage/playButton-normal.png"));
                profilePlayButton.setTextureHover(getResourceIgnorePath("/assets.launcher/profilesPage/playButton-hover.png"));
                profilePlayButton.setTextureDisabled(getResourceIgnorePath("/assets.launcher/profilesPage/playButton-disabled.png"));
 
-               enablePlayButtons(true, true);
+               enablePlayButtons(true);
 
                profilePlayButtonIsPlayStatus = true;
                isUpdating = false;
@@ -1029,7 +960,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
                profilePlayButton.setTextureHover(getResourceIgnorePath("/assets.launcher/profilesPage/stopButton-hover.png"));
                profilePlayButton.setTextureDisabled(getResourceIgnorePath("/assets.launcher/profilesPage/stopButton-disabled.png"));
 
-               enablePlayButtons(false, false);
+               enablePlayButtons(false);
 
                profilePlayButtonIsPlayStatus = false;
                isUpdating = true;
@@ -1037,6 +968,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
      }
 
+     /**
+      * Background
+      * @param g the <code>Graphics</code> object to protect
+      */
      @Override
      public void paintComponent(Graphics g) {
           super.paintComponent(g);
@@ -1044,6 +979,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
      }
 
+     /**
+      * Remet à zéro la barre de chargement et ses composants liés après une update
+      */
      public static void updatePostExecutions() {
           loadingBar.setValue(0);
           loadingBar.setVisible(false);
@@ -1053,7 +991,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           togglePlayButtonStatus(true);
      }
 
+     /**
+      * Le thread de lancement, initialisé plus tard
+      */
      public static Thread launchThread = new Thread();
+     /**
+      * Le thread d'update, initialisé plus tard
+      */
      public static Thread updateThread = new Thread();
 
      /**
@@ -1065,6 +1009,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           OnButtonEvent.onButtonEvent(e);
      }
 
+     /**
+      * Vérifie la version sélectionnée des changelogs
+      * @return le numéro dans la liste
+      * @see Changelogs#changelogsList
+      */
      public static int verifyVersionChangelog() {
           int i = 0;
           while (Objects.requireNonNull(changelogsVersionComboBox.getSelectedItem()).toString() != changelogsVersionsArrayList.toArray()[i]) {
@@ -1075,9 +1024,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
      @Override
      public void actionPerformed(ActionEvent e) {
-          JComboBox cb = (JComboBox)e.getSource();
-          String petName = (String)cb.getSelectedItem();
-
           if (e.getSource() == changelogsVersionComboBox) {
                int i = verifyVersionChangelog();
                changelogsTextArea.setText(Changelogs.getChangelogsTextsList().toArray()[i].toString());

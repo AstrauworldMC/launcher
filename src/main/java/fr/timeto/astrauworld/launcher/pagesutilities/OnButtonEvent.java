@@ -174,7 +174,7 @@ public class OnButtonEvent {
         else if (src == profilePlayButton) {
             //     if (profilePlayButtonIsPlayStatus) {
             launchThread = new Thread(() -> {
-                enablePlayButtons(false, true);
+                enablePlayButtons(false);
                 //               togglePlayButtonStatus(false);
                 loadingBar.setVisible(true);
                 infosLabel.setVisible(true);
@@ -182,7 +182,7 @@ public class OnButtonEvent {
                 try {
                     Launcher.connect();
                 } catch (MicrosoftAuthenticationException m) {
-                    enablePlayButtons(true, true);
+                    enablePlayButtons(true);
                     errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                     infosLabel.setText("Connexion \u00e9chou\u00e9e");
                     loadingBar.setVisible(false);
@@ -195,7 +195,7 @@ public class OnButtonEvent {
                 try {
                     Launcher.update();
                 } catch (Exception ex) {
-                    enablePlayButtons(true, true);
+                    enablePlayButtons(true);
                     throw new RuntimeException(ex);
                 }
                 updatePostExecutions();
@@ -203,10 +203,10 @@ public class OnButtonEvent {
                 try {
                     Launcher.launch(true);
                 } catch (Exception ex) {
-                    enablePlayButtons(true, true);
+                    enablePlayButtons(true);
                     throw new RuntimeException(ex);
                 }
-                enablePlayButtons(true, true);
+                enablePlayButtons(true);
 
             });
             launchThread.start();
@@ -223,13 +223,13 @@ public class OnButtonEvent {
         } else if (src == profileLaunchToMenuButton) {
 
             launchThread = new Thread(() -> {
-                enablePlayButtons(false, true);
+                enablePlayButtons(false);
                 //          togglePlayButtonStatus(false);
 
                 try {
                     Launcher.connect();
                 } catch (MicrosoftAuthenticationException m) {
-                    enablePlayButtons(true, true);
+                    enablePlayButtons(true);
                     errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                     infosLabel.setText("Connexion \u00e9chou\u00e9e");
                     loadingBar.setVisible(false);
@@ -240,7 +240,7 @@ public class OnButtonEvent {
                 try {
                     Launcher.update();
                 } catch (Exception ex) {
-                    enablePlayButtons(true, true);
+                    enablePlayButtons(true);
                     throw new RuntimeException(ex);
                 }
                 updatePostExecutions();
@@ -248,10 +248,10 @@ public class OnButtonEvent {
                 try {
                     Launcher.launch(false);
                 } catch (Exception ex) {
-                    enablePlayButtons(true, true);
+                    enablePlayButtons(true);
                     throw new RuntimeException(ex);
                 }
-                enablePlayButtons(true, true);
+                enablePlayButtons(true);
 
             });
             launchThread.start();
@@ -259,18 +259,18 @@ public class OnButtonEvent {
         } else if (src == profileDownloadButton) {
 
             updateThread = new Thread(() -> {
-                enablePlayButtons(false, true);
+                enablePlayButtons(false);
                 //          togglePlayButtonStatus(false);
                 try {
                     Launcher.update();
                 } catch (InterruptedException e1) {
-                    enablePlayButtons(true, false);
+                    enablePlayButtons(true);
                     updatePostExecutions();
                 } catch (Exception ex) {
-                    enablePlayButtons(true, false);
+                    enablePlayButtons(true);
                     throw new RuntimeException(ex);
                 }
-                enablePlayButtons(true, false);
+                enablePlayButtons(true);
                 updatePostExecutions();
                 doneMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
 
@@ -334,13 +334,13 @@ public class OnButtonEvent {
 
         // Actions des boutons de la profilePage - Mods
         else if (src == profileModsShadersButton) {
-            shaderspacksFolder.mkdir();
+            shaderpacksFolder.mkdir();
             try {
-                Desktop.getDesktop().open((shaderspacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
+                Desktop.getDesktop().open((shaderpacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
             } catch (IOException ignored) {}
         } else if (src == profileModsResourcePacksButton) {
             try {
-                Desktop.getDesktop().open((resourcespacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
+                Desktop.getDesktop().open((resourcepacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
             } catch (IOException ignored) {}
         } else if (src == profileModsOptifineSwitchButton) {
             profileModsOptifineSwitchButton.toggleButton();

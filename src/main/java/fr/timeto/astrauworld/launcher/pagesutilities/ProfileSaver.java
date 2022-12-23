@@ -3,6 +3,7 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.main.Launcher;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 
 import java.awt.*;
 import java.io.*;
@@ -14,14 +15,40 @@ import java.util.Objects;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.timutilslib.TimFilesUtils.*;
 
+/**
+ * La classe qui regroupe tous les éléments en rapport avec les savers des profils
+ * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+ */
 public class ProfileSaver {
+    /**
+     * Le Saver du premier profil
+     */
     public static Saver firstProfileSaver = new Saver(Launcher.awFirstProfileData);
+    /**
+     * Le Saver du deuxième profil
+     */
     public static Saver secondProfileSaver = new Saver(Launcher.awSecondProfileData);
+    /**
+     * Le Saver du troisième profil
+     */
     public static Saver thirdProfileSaver = new Saver(Launcher.awThirdProfileData);
 
+    /**
+     * Le profil sélectionné
+     * @see ProfileSaver#initSelectedProfile()
+     */
     public static String selectedProfile = "";
+    /**
+     * Le Saver sélectionné
+     * @see ProfileSaver#initSelectedSaver()
+     */
     public static Saver selectedSaver;
 
+    /**
+     * Initialise {@link ProfileSaver#selectedProfile} d'après {@link LauncherPanel.Components#titleLabel}
+     * @see ProfileSaver#initSelectedSaver()
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void initSelectedProfile() {
         if (titleLabel.toString().contains("1")) {
             selectedProfile = "1";
@@ -31,6 +58,12 @@ public class ProfileSaver {
             selectedProfile = "3";
         }
     }
+
+    /**
+     * Initialise {@link ProfileSaver#selectedSaver} d'après le {@link ProfileSaver#selectedProfile}
+     * @see ProfileSaver#initSelectedProfile()
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void initSelectedSaver() {
         if (Objects.equals(selectedProfile, "1")) {
             selectedSaver = firstProfileSaver;
@@ -44,6 +77,12 @@ public class ProfileSaver {
         }
     }
 
+    /**
+     * Initialise le fichier de données du profil sélectionné s'il n'a pas déjà été créé
+     * @param saver Le profil sélectionné
+     * @see ProfileSaver#initializeDataFiles()
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void initializeDataFiles(Saver saver) {
         if(!Objects.equals(saver.get(KEY.FILECREATED), "true")) {
             // Informations générales
@@ -68,12 +107,25 @@ public class ProfileSaver {
         }
     }
 
+    /**
+     * Appelle {@link ProfileSaver#initializeDataFiles(Saver)} pour les trois Savers
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void initializeDataFiles() {
         initializeDataFiles(firstProfileSaver);
         initializeDataFiles(secondProfileSaver);
         initializeDataFiles(thirdProfileSaver);
     }
 
+    /**
+     * Télécharge l'image de profil depuis internet puis la stocke (../AppData/Roaming/Astrauworld Launcher/data)
+     * @param imageURL L'URL de l'image
+     * @param profile le numéro du profil
+     * @throws IOException Si l'image n'est pas trouvée
+     * @see ProfileSaver#initProfileIcon(Saver)
+     * @see ProfileSaver#initProfileIcon()
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void dlProfileIcon(String imageURL, int profile) throws IOException {
         String destinationFile = "";
         if(profile == 1){
@@ -98,6 +150,13 @@ public class ProfileSaver {
         os.close();
     }
 
+    /**
+     * Initialise l'image du profil sélectionné en définissant l'URL puis appelle {@link ProfileSaver#dlProfileIcon(String, int)}
+     * @param saver Le Saver sélectionné
+     * @throws IOException Si l'image n'est pas trouvée
+     * @see ProfileSaver#initProfileIcon()
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void initProfileIcon(Saver saver) throws IOException {
         String url;
         if (saver.get(KEY.SETTINGS_HELMICON).contains("true")) {
@@ -115,12 +174,23 @@ public class ProfileSaver {
         }
     }
 
+    /**
+     * Initialise les trois images des profils avec {@link ProfileSaver#initProfileIcon(Saver)}
+     * @throws IOException Si une image n'est pas trouvée
+     * @see ProfileSaver#dlProfileIcon(String, int)
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void initProfileIcon() throws IOException {
         initProfileIcon(firstProfileSaver);
         initProfileIcon(secondProfileSaver);
         initProfileIcon(thirdProfileSaver);
     }
 
+    /**
+     * Ajoute les mods clients à la liste spécifiée d'après le Saver sélectionné
+     * @param selectedSaver Le Saver où les données seront cherchées
+     * @param modList La liste où les mods seront ajoutés
+     */
     public static void initClientMods(Saver selectedSaver, List modList) {
 
         if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL), "true")) {
@@ -145,6 +215,11 @@ public class ProfileSaver {
 
     }
 
+    /**
+     * Les différents URLs pour en savoir plus sur les mods clients puis l'ouvre dans une nouvelle page du navigateur par défault
+     * @param key La key du mod client
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void openMoreInfosUrl(String key) {
         if (Objects.equals(key, KEY.MOD_FPSMODEL)) {
             try {
@@ -181,35 +256,88 @@ public class ProfileSaver {
 
     /*  Liste des fichiers custom à sauvegarder dans GameFiles
      *
-     * ./saves
+     * ./saves // FIXME problème où les mondes sont pas vraiment que pour un profil
      * ./resourcepacks (hors ceux du launcher) TODO <-
      * ./shaderpacks (hors ceux du launcher) TODO <-
      * ./music_sheets
-     * ./shematics
+     * ./schematics
      * ./config
      * options.txt
      * optionsof.txt
      *
      */
 
+    /**
+     * Le dossier des saves général
+     */
     private static final File savesFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "saves");
-    public static final File resourcespacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "resourcepacks");
-    public static final File shaderspacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "shaderpacks");
+    /**
+     * Le dossier des resources packs général
+     */
+    public static final File resourcepacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "resourcepacks");
+    /**
+     * Le dossier des shaders général
+     */
+    public static final File shaderpacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "shaderpacks");
+    /**
+     * Le dossier des music sheets général
+     */
     private static final File musicsheetsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "music_sheets");
-    private static final File shematicsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "schematics");
+    /**
+     * Le dossier des shematics général
+     */
+    private static final File schematicsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "schematics");
+    /**
+     * Le dossier des configs général
+     */
     private static final File configFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "config");
+    /**
+     * Le fichier des options général
+     */
     private static final File optionsTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "options.txt");
+    /**
+     * Le fichier des options Optifine général
+     */
     private static final File optionsOFTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsof.txt");
 
+    /**
+     * Le dossier des saves des profils, initialisé plus tard
+     */
     private static File savesProfileFolder = null;
-    private static File resourcespacksProfileFolder = null;
-    private static File shaderspacksProfileFolder = null;
+    /**
+     * Le dossier des resource packs des profils, initialisé plus tard
+     */
+    private static File resourcepacksProfileFolder = null;
+    /**
+     * Le dossier des shaders des profils, initialisé plus tard
+     */
+    private static File shaderpacksProfileFolder = null;
+    /**
+     * Le dossier des music sheets des profils, initialisé plus tard
+     */
     private static File musicsheetsProfileFolder = null;
-    private static File shematicsProfileFolder = null;
+    /**
+     * Le dossier des schematics des profils, initialisé plus tard
+     */
+    private static File schematicsProfileFolder = null;
+    /**
+     * Le dossier des configs des profils, initialisé plus tard
+     */
     private static File configProfileFolder = null;
+    /**
+     * Le fichier des options des profils, initialisé plus tard
+     */
     private static File optionsProfileTextfile = null;
+    /**
+     * Le fichier des options d'Optifine des profils, initialisé plus tard
+     */
     private static File optionsOFProfileTextfile = null;
 
+    /**
+     * Initialise les dossiers customs
+     * @param saver le Saver concerné
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     private static void initCustomFilesFolder(Saver saver) {
         File customFilesFolder = null;
         if (saver == firstProfileSaver) {
@@ -221,25 +349,30 @@ public class ProfileSaver {
         }
 
         savesProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "saves");
-        resourcespacksProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "resourcepacks");
-        shaderspacksProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "shaderpacks");
+        resourcepacksProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "resourcepacks");
+        shaderpacksProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "shaderpacks");
         musicsheetsProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "music_sheets");
-        shematicsProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "schematics");
+        schematicsProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "schematics");
         configProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "config");
         optionsProfileTextfile = new File(customFilesFolder + Launcher.separatorChar + "options.txt");
         optionsOFProfileTextfile = new File(customFilesFolder + Launcher.separatorChar + "optionsof.txt");
     }
 
+    /**
+     * Sauvegarde les fichiers customs depuis les dossiers généraux aux dossiers des profils
+     * @param saver Le Saver concerné
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void saveCustomFiles(Saver saver)  {
         initCustomFilesFolder(saver);
 
         try {
             if (saver != null) {
                 copyFiles(savesFolder, savesProfileFolder);
-                copyFiles(resourcespacksFolder, resourcespacksProfileFolder);
-                copyFiles(shaderspacksFolder, shaderspacksProfileFolder);
+                copyFiles(resourcepacksFolder, resourcepacksProfileFolder);
+                copyFiles(shaderpacksFolder, shaderpacksProfileFolder);
                 copyFiles(musicsheetsFolder, musicsheetsProfileFolder);
-                copyFiles(shematicsFolder, shematicsProfileFolder);
+                copyFiles(schematicsFolder, schematicsProfileFolder);
                 copyFiles(configFolder, configProfileFolder);
             }
         } catch (IOException ignored) {}
@@ -253,15 +386,20 @@ public class ProfileSaver {
 
     }
 
+    /**
+     * Charge les fichiers customs des dossiers des profils aux dossiers généraux
+     * @param saver Le Saver concerné
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static void loadCustomFiles(Saver saver) {
         initCustomFilesFolder(saver);
 
         try {
             copyFiles(savesProfileFolder, savesFolder);
-            copyFiles(resourcespacksProfileFolder, resourcespacksFolder);
-            copyFiles(shaderspacksProfileFolder, shaderspacksFolder);
+            copyFiles(resourcepacksProfileFolder, resourcepacksFolder);
+            copyFiles(shaderpacksProfileFolder, shaderpacksFolder);
             copyFiles(musicsheetsProfileFolder, musicsheetsFolder);
-            copyFiles(shematicsProfileFolder, shematicsFolder);
+            copyFiles(schematicsProfileFolder, schematicsFolder);
             copyFiles(configProfileFolder, configFolder);
         } catch (IOException ignored) {}
 
@@ -274,24 +412,75 @@ public class ProfileSaver {
 
     }
 
+    /**
+     * La classe qui regroupe les key des savers
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
     public static class KEY {
+        /**
+         * Le pseudo du compte enregistré
+         * <br> A ne pas confondre avec {@link KEY#SETTINGS_PROFILENAME}
+         */
         public static final String INFOS_NAME = "infos|name";
+        /**
+         * L'email du compte enregistré
+         */
         public static final String INFOS_EMAIL = "infos|email";
+        /**
+         * L'UUID du compte enregistré
+         */
         public static final String INFOS_UUID = "infos|UUID";
+        /**
+         * L'access token du compte enregistré
+         */
         public static final String INFOS_ACCESSTOKEN = "infos|accessToken";
+        /**
+         * Le refresh token du compte enregistré
+         */
         public static final String INFOS_REFRESHTOKEN = "infos|refreshToken";
 
+        /**
+         * Optifine
+         */
         public static final String MOD_OPTIFINE = "mod|Optifine";
+        /**
+         * Mod client 'First Person Model'
+         */
         public static final String MOD_FPSMODEL = "mod|FirstPersonModel";
+        /**
+         * Mod client 'Better Third Person'
+         */
         public static final String MOD_BETTERTPS = "mod|BetterThirdPerson";
+        /**
+         * Mod client 'Falling Leaves'
+         */
         public static final String MOD_FALLINGLEAVES = "mod|FallingLeaves";
+        /**
+         * Mod client 'Apple Skin'
+         */
         public static final String MOD_APPLESKIN = "mod|AppleSkin";
+        /**
+         * Mod client 'Sound Physics Remastered'
+         */
         public static final String MOD_SOUNDPHYSICS = "mod|SoundPhysicsRemastered";
 
+        /**
+         * Le nom du profil
+         * <br> A ne pas confondre avec {@link KEY#INFOS_NAME}
+         */
         public static final String SETTINGS_PROFILENAME = "settings|ProfileName";
+        /**
+         * La seconde couche sur l'icône du profil
+         */
         public static final String SETTINGS_HELMICON = "settings|HelmIcon";
+        /**
+         * La RAM allouée
+         */
         public static final String SETTINGS_RAM = "settings|AllowedRam";
 
+        /**
+         * Si le fichier est créé
+         */
         public static final String FILECREATED = "fileCreated";
     }
 }

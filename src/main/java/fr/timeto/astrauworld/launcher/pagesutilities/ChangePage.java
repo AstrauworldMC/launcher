@@ -40,7 +40,7 @@ public class ChangePage {
             titleLabel.setText("Actualit\u00e9s");
             subTitleLabel.setText(" ");
 
-            background = getResourceIgnorePath("/assets.launcher/baseGUI.png");
+            background = getResourceIgnorePath("/assets.launcher/main/baseGUI.png");
 
             upLeftCorner.setVisible(true);
             upRightCorner.setVisible(true);
@@ -139,13 +139,13 @@ public class ChangePage {
                 if (!Objects.equals(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")){
                     if (Objects.equals(infosLabel.getText(), "")) {
                         profileAccountLabel.setText(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-                        enablePlayButtons(true, true);
+                        enablePlayButtons(true);
                     } else {
-                        enablePlayButtons(false, true);
+                        enablePlayButtons(false);
                     }
                 } else {
                     profileAccountLabel.setText("");
-                    enablePlayButtons(false, true);
+                    enablePlayButtons(false);
                 }
 
                 //          togglePlayButtonStatus(profilePlayButtonIsPlayStatus);
@@ -650,7 +650,7 @@ public class ChangePage {
                 subTitleLabel.setText("Mods");
                 titleLabel.setText("\u00c0 propos");
 
-                background = getResourceIgnorePath("/assets.launcher/baseGUI.png");
+                background = getResourceIgnorePath("/assets.launcher/main/baseGUI.png");
 
                 upLeftCorner.setVisible(true);
                 upRightCorner.setVisible(true);
