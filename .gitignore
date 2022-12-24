@@ -1,48 +1,25 @@
-#eclipse
-**/bin
-**/.settings
-**/.classpath
-*.project
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
 
-#In case people make their workspace in the repo
-/eclipse/
-
-#idea
-/.idea
-/out
-/*/out
-/classes
+# idea
+out
+*.ipr
+*.iws
 *.iml
+.idea
 
-#gradle
-/build
-/.gradle
-/*/build
-/*/.gradle
+# gradle
+build
+.gradle
 
-# Projects repo, either ignore it, or ignore patches.
-/projects/mcp/
-/projects/clean/
-/projects/forge/
-/projects/fmlonly/
-#/patches/*
+# other
+eclipse
+run
 
-#occupational hazards
-/projects/**/build/
-/projects/**/out/
-/projects/**/run/
-/projects/**/*.launch
-/repo/
-src/generated/resources/.cache/
-src/generated_test/resources/.cache/
-
-#Patch rejects
-/patches-/
-*.patch.rej
-/projects/*/rejects/
-
-# FML changelog
-changelog.txt
-*.py
-*.7z
-/logs/
+# Files from Forge MDK
+forge*changelog.txt
