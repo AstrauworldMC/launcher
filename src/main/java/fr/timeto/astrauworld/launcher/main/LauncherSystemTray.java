@@ -85,8 +85,22 @@ public class LauncherSystemTray {
         Menu aboutMenu = new Menu("\u00c0 propos");
         MenuItem aboutInfosPageItem = new MenuItem("Infos");
         MenuItem aboutModsPageItem = new MenuItem("Mods");
-        MenuItem aboutEasterEggItem = new MenuItem("");
+        MenuItem aboutEasterEggItem = new MenuItem("D\u00e9tails");
         final int[] numberOfTrolled = {0};
+
+        MenuItem discordItem = new MenuItem("Discord");
+        MenuItem chatItem = new MenuItem("Tchat du serveur");
+        Menu problemMenu = new Menu("Report un bug");
+        MenuItem problemLauncherItem = new MenuItem("Launcher");
+        MenuItem problemServerItem = new MenuItem("Serveur");
+        Menu suggestMenu = new Menu("Suggestion");
+        MenuItem suggestLauncherItem = new MenuItem("Launcher");
+        MenuItem suggestServerItem = new MenuItem("Serveur");
+
+
+        MenuItem githubItem = new MenuItem("GitHub");
+        MenuItem twitterItem = new MenuItem("Twitter");
+        MenuItem mailItem = new MenuItem("Mail");
 
         /* Création du menu Quitter */
         MenuItem exitItem = new MenuItem("Quitter");
@@ -98,36 +112,52 @@ public class LauncherSystemTray {
                 System.exit(0);
             } else if (src == newsPageItem) {
                 ChangePage.setNewsPage(true);
+                LauncherFrame.getInstance().toFront();
             } else if (src == firstProfilePlayPageItem) {
                 ChangePage.setProfilePage(true, "1", "home");
+                LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileAccountPageItem) {
                 ChangePage.setProfilePage(true, "1", "account");
+                LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileModsPageItem) {
                 ChangePage.setProfilePage(true, "1", "mods");
+                LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileSettingsPageItem) {
                 ChangePage.setProfilePage(true, "1", "settings");
+                LauncherFrame.getInstance().toFront();
             } else if (src == secondProfilePlayPageItem) {
                 ChangePage.setProfilePage(true, "2", "home");
+                LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileAccountPageItem) {
                 ChangePage.setProfilePage(true, "2", "account");
+                LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileModsPageItem) {
                 ChangePage.setProfilePage(true, "2", "mods");
+                LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileSettingsPageItem) {
                 ChangePage.setProfilePage(true, "2", "settings");
+                LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfilePlayPageItem) {
                 ChangePage.setProfilePage(true, "3", "home");
+                LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileAccountPageItem) {
                 ChangePage.setProfilePage(true, "3", "account");
+                LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileModsPageItem) {
                 ChangePage.setProfilePage(true, "3", "mods");
+                LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileSettingsPageItem) {
                 ChangePage.setProfilePage(true, "3", "settings");
+                LauncherFrame.getInstance().toFront();
             } else if (src == changelogsPageItem) {
                 ChangePage.setChangesPage(true);
+                LauncherFrame.getInstance().toFront();
             } else if (src == aboutInfosPageItem) {
                 ChangePage.setAboutPage("infos", true);
+                LauncherFrame.getInstance().toFront();
             } else if (src == aboutModsPageItem) {
                 ChangePage.setAboutPage("mods", true);
+                LauncherFrame.getInstance().toFront();
             } else if (src == aboutEasterEggItem) {
                 if (numberOfTrolled[0] < 8) {
                     try {
@@ -144,9 +174,45 @@ public class LauncherSystemTray {
 
                 }
                 numberOfTrolled[0] += 1;
+            } else if (src == discordItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/GpqB5eES5r").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == chatItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/863JZ4yK8Q").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == problemLauncherItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/r3kRQeBQAW").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == problemServerItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/6cbBXU7YDk").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == suggestLauncherItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/AxCF3VaBgT").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == suggestServerItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/rkA9vNRNNJ").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == githubItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://github.com/AstrauworldMC").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == twitterItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://twitter.com/AstrauworldMC").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == mailItem) {
+                try {
+                    Desktop.getDesktop().mail(new URL("mailto:astrauworld.minecraft@gmail.com").toURI());
+                } catch (IOException | URISyntaxException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-
-            LauncherFrame.getInstance().toFront();
         };
 
         newsPageItem.addActionListener(listener);
@@ -171,6 +237,17 @@ public class LauncherSystemTray {
         aboutInfosPageItem.addActionListener(listener);
         aboutModsPageItem.addActionListener(listener);
         aboutEasterEggItem.addActionListener(listener);
+
+        discordItem.addActionListener(listener);
+        chatItem.addActionListener(listener);
+        problemLauncherItem.addActionListener(listener);
+        problemServerItem.addActionListener(listener);
+        suggestLauncherItem.addActionListener(listener);
+        suggestServerItem.addActionListener(listener);
+
+        githubItem.addActionListener(listener);
+        twitterItem.addActionListener(listener);
+        mailItem.addActionListener(listener);
 
         exitItem.addActionListener(listener);
 
@@ -202,6 +279,23 @@ public class LauncherSystemTray {
         aboutMenu.add(aboutModsPageItem);
         aboutMenu.add(aboutEasterEggItem);
 
+        popup.addSeparator();
+        popup.add(discordItem);
+        popup.add(chatItem);
+
+        popup.add(problemMenu);
+        problemMenu.add(problemLauncherItem);
+        problemMenu.add(problemServerItem);
+
+        popup.add(suggestMenu);
+        suggestMenu.add(suggestLauncherItem);
+        suggestMenu.add(suggestServerItem);
+
+        popup.addSeparator();
+        popup.add(githubItem);
+        popup.add(twitterItem);
+        popup.add(mailItem);
+
         popup.addSeparator(); // Séparateur de menu __________
         popup.add(exitItem);
 
@@ -210,7 +304,7 @@ public class LauncherSystemTray {
         trayIcon.setPopupMenu(popup);
 
         try {
-            /* Affiche l'icone dans la zone de notification */
+            /* Affiche l'icône dans la zone de notification */
             tray.add(trayIcon);
         } catch (AWTException e) {
             Launcher.println("TrayIcon could not be added.");
@@ -234,6 +328,19 @@ public class LauncherSystemTray {
         /* Création du menu Quitter */
         MenuItem exitItem = new MenuItem("Quitter");
 
+        MenuItem discordItem = new MenuItem("Discord");
+        MenuItem chatItem = new MenuItem("Tchat du serveur");
+        Menu problemMenu = new Menu("Report un bug");
+        MenuItem problemLauncherItem = new MenuItem("Launcher");
+        MenuItem problemServerItem = new MenuItem("Serveur");
+        Menu suggestMenu = new Menu("Suggestion");
+        MenuItem suggestLauncherItem = new MenuItem("Launcher");
+        MenuItem suggestServerItem = new MenuItem("Serveur");
+
+        MenuItem githubItem = new MenuItem("GitHub");
+        MenuItem twitterItem = new MenuItem("Twitter");
+        MenuItem mailItem = new MenuItem("Mail");
+
         ActionListener listener = e -> {
             Object src = e.getSource();
 
@@ -242,15 +349,80 @@ public class LauncherSystemTray {
                 System.exit(0);
             } else if (src == closeMc) {
                 Launcher.process.destroy();
+            } else if (src == discordItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/GpqB5eES5r").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == chatItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/863JZ4yK8Q").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == problemLauncherItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/r3kRQeBQAW").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == problemServerItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/6cbBXU7YDk").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == suggestLauncherItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/AxCF3VaBgT").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == suggestServerItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://discord.gg/rkA9vNRNNJ").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == githubItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://github.com/AstrauworldMC").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == twitterItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("https://twitter.com/AstrauworldMC").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == mailItem) {
+                try {
+                    Desktop.getDesktop().mail(new URL("mailto:astrauworld.minecraft@gmail.com").toURI());
+                } catch (IOException | URISyntaxException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         };
 
         closeMc.addActionListener(listener);
         exitItem.addActionListener(listener);
 
+        discordItem.addActionListener(listener);
+        chatItem.addActionListener(listener);
+        problemLauncherItem.addActionListener(listener);
+        problemServerItem.addActionListener(listener);
+        suggestLauncherItem.addActionListener(listener);
+        suggestServerItem.addActionListener(listener);
+
+        githubItem.addActionListener(listener);
+        twitterItem.addActionListener(listener);
+        mailItem.addActionListener(listener);
+
+
         /* Ajoute tous les menus principaux au menu popup */
-        popup.add(closeMc);
+        popup.add(discordItem);
+        popup.add(chatItem);
+
+        popup.add(problemMenu);
+        problemMenu.add(problemLauncherItem);
+        problemMenu.add(problemServerItem);
+
+        popup.add(suggestMenu);
+        suggestMenu.add(suggestLauncherItem);
+        suggestMenu.add(suggestServerItem);
+
+        popup.addSeparator();
+        popup.add(githubItem);
+        popup.add(twitterItem);
+        popup.add(mailItem);
         popup.addSeparator(); // Séparateur de menu __________
+        popup.add(closeMc);
         popup.add(exitItem);
 
         ProfileSaver.initSelectedSaver(profile);
@@ -263,7 +435,7 @@ public class LauncherSystemTray {
         /* récupère la zone de notification */
         SystemTray tray = SystemTray.getSystemTray();
         try {
-            /* Affiche l'icone dans la zone de notification */
+            /* Affiche l'icône dans la zone de notification */
             tray.add(trayIcon);
         } catch (AWTException e) {
             Launcher.println("TrayIcon could not be added.");

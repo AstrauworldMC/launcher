@@ -5,7 +5,6 @@ import fr.timeto.astrauworld.launcher.main.Launcher;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
@@ -61,22 +60,10 @@ public class EasterEggs {
     public static final Saver easterEggsSaver = new Saver(easterEggsDataPath);
 
     /**
-     * Initialise une liste des changelogs puis la retourne
-     * @return La liste initialisée
-     * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     * La liste des easters eggs
+     * @since Beta2.2.0
      */
-    private static ArrayList<String> initEasterEggsList() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add(rickroll);
-        list.add(polishCow);
-        list.add(frogWalking);
-        list.add(youveBeenTrolled);
-        list.add(heyyaaeyaaaeyaeyaa);
-
-        return list;
-
-    }
+    public static String[] easterEggsList = {rickroll, polishCow, frogWalking, youveBeenTrolled, heyyaaeyaaaeyaeyaa};
 
     /**
      * Initialise le saver ({@link EasterEggs#easterEggsSaver})
@@ -85,12 +72,11 @@ public class EasterEggs {
      */
     public static void initEastereggs() {
         int i = 0;
-        int l = initEasterEggsList().toArray().length;
-        Object[] list = initEasterEggsList().toArray();
+        int l = easterEggsList.length;
 
         while (i != l) {
-            if (!Objects.equals(easterEggsSaver.get(list[i].toString()), "true")) {
-                easterEggsSaver.set(list[i].toString(), "false");
+            if (!Objects.equals(easterEggsSaver.get(easterEggsList[i]), "true")) {
+                easterEggsSaver.set(easterEggsList[i], "false");
                 i += 1;
             } else {
                 i += 1;
@@ -107,12 +93,11 @@ public class EasterEggs {
      */
     public static int getNumberOfFoundEasterEggs() {
         int i = 0;
-        int l = initEasterEggsList().toArray().length;
-        Object[] list = initEasterEggsList().toArray();
+        int l = easterEggsList.length;
         int numberFound = 0;
 
         while (i != l) {
-            if (Objects.equals(easterEggsSaver.get(list[i].toString()), "true")) {
+            if (Objects.equals(easterEggsSaver.get(easterEggsList[i]), "true")) {
                 numberFound += 1;
                 i += 1;
             } else {
@@ -130,7 +115,7 @@ public class EasterEggs {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static int getNumberTotalEasterEggs() {
-        return initEasterEggsList().toArray().length;
+        return easterEggsList.length;
     }
 
     /**

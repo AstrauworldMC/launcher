@@ -421,7 +421,7 @@ public class OnButtonEvent {
             } catch (IOException | URISyntaxException ignored) {}
         } else if (src == aboutMailButton) {
             try {
-                Desktop.getDesktop().browse(new URL("mailto:astrauworld.minecraft@gmail.com").toURI());
+                Desktop.getDesktop().mail(new URL("mailto:astrauworld.minecraft@gmail.com").toURI());
             } catch (IOException | URISyntaxException ignored) {}
         } else if (src == aboutDiscordButton) {
             try {
