@@ -18,7 +18,7 @@ import static java.lang.Float.parseFloat;
  * @author <a href="https://github.com/TimEtOff">TimEtO</a>
  * @since Beta2.2.0
  */
-public class ChangePage {
+public class PageChange {
 
     /**
      * Change la page pour la page principale des actualités

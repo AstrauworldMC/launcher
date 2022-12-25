@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.*;
-import static fr.timeto.astrauworld.launcher.pagesutilities.ChangePage.*;
+import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 import static fr.timeto.timutilslib.PopUpMessages.*;
 

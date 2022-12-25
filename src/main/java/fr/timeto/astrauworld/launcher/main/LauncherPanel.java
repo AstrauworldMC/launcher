@@ -20,7 +20,7 @@ import java.util.Objects;
 import static fr.theshark34.swinger.Swinger.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
-import static fr.timeto.astrauworld.launcher.pagesutilities.ChangePage.*;
+import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
 import static fr.timeto.timutilslib.CustomFonts.*;
 
 /**
@@ -33,7 +33,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
      /**
       * La variable du background, change à changement de page
-      * @see ChangePage
+      * @see PageChange
       */
      public static Image background = getResourceIgnorePath("/assets.launcher/main/baseGUI.png");
 

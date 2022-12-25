@@ -1,7 +1,7 @@
 package fr.timeto.astrauworld.launcher.main;
 
 import fr.theshark34.openlauncherlib.util.Saver;
-import fr.timeto.astrauworld.launcher.pagesutilities.ChangePage;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 
@@ -111,52 +111,52 @@ public class LauncherSystemTray {
             if (src == exitItem) {
                 System.exit(0);
             } else if (src == newsPageItem) {
-                ChangePage.setNewsPage(true);
+                PageChange.setNewsPage(true);
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfilePlayPageItem) {
-                ChangePage.setProfilePage(true, "1", "home");
+                PageChange.setProfilePage(true, "1", "home");
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileAccountPageItem) {
-                ChangePage.setProfilePage(true, "1", "account");
+                PageChange.setProfilePage(true, "1", "account");
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileModsPageItem) {
-                ChangePage.setProfilePage(true, "1", "mods");
+                PageChange.setProfilePage(true, "1", "mods");
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileSettingsPageItem) {
-                ChangePage.setProfilePage(true, "1", "settings");
+                PageChange.setProfilePage(true, "1", "settings");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfilePlayPageItem) {
-                ChangePage.setProfilePage(true, "2", "home");
+                PageChange.setProfilePage(true, "2", "home");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileAccountPageItem) {
-                ChangePage.setProfilePage(true, "2", "account");
+                PageChange.setProfilePage(true, "2", "account");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileModsPageItem) {
-                ChangePage.setProfilePage(true, "2", "mods");
+                PageChange.setProfilePage(true, "2", "mods");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileSettingsPageItem) {
-                ChangePage.setProfilePage(true, "2", "settings");
+                PageChange.setProfilePage(true, "2", "settings");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfilePlayPageItem) {
-                ChangePage.setProfilePage(true, "3", "home");
+                PageChange.setProfilePage(true, "3", "home");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileAccountPageItem) {
-                ChangePage.setProfilePage(true, "3", "account");
+                PageChange.setProfilePage(true, "3", "account");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileModsPageItem) {
-                ChangePage.setProfilePage(true, "3", "mods");
+                PageChange.setProfilePage(true, "3", "mods");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileSettingsPageItem) {
-                ChangePage.setProfilePage(true, "3", "settings");
+                PageChange.setProfilePage(true, "3", "settings");
                 LauncherFrame.getInstance().toFront();
             } else if (src == changelogsPageItem) {
-                ChangePage.setChangesPage(true);
+                PageChange.setChangesPage(true);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutInfosPageItem) {
-                ChangePage.setAboutPage("infos", true);
+                PageChange.setAboutPage("infos", true);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutModsPageItem) {
-                ChangePage.setAboutPage("mods", true);
+                PageChange.setAboutPage("mods", true);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutEasterEggItem) {
                 if (numberOfTrolled[0] < 8) {
