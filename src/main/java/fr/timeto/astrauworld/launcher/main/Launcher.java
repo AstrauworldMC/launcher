@@ -122,33 +122,32 @@ public class Launcher {
         System.out.println("[" + dtf.format(now) + "] [Astrauworld Launcher] " + str);
     }
 
-    public static void saveInfosWhenConnect(MicrosoftAuthResult result){
-        initSelectedSaver();
-        selectedSaver.set(ProfileSaver.KEY.INFOS_EMAIL, profileAccountTextField.getText());
-        selectedSaver.set(ProfileSaver.KEY.INFOS_NAME, result.getProfile().getName());
-        selectedSaver.set(ProfileSaver.KEY.INFOS_ACCESSTOKEN, result.getAccessToken());
-        selectedSaver.set(ProfileSaver.KEY.INFOS_REFRESHTOKEN, result.getRefreshToken());
-        selectedSaver.set(ProfileSaver.KEY.INFOS_UUID, result.getProfile().getId());
-        selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
+    public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result){
+        saver.set(KEY.INFOS_EMAIL, profileAccountTextField.getText());
+        saver.set(KEY.INFOS_NAME, result.getProfile().getName());
+        saver.set(KEY.INFOS_ACCESSTOKEN, result.getAccessToken());
+        saver.set(KEY.INFOS_REFRESHTOKEN, result.getRefreshToken());
+        saver.set(KEY.INFOS_UUID, result.getProfile().getId());
+        saver.set(KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
     }
 
-    public static void microsoftAuth(String email, String password) throws MicrosoftAuthenticationException {
+    public static void microsoftAuth(String email, String password, Saver saver) throws MicrosoftAuthenticationException {
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithCredentials(email, password);
 
-        saveInfosWhenConnect(result);
+        saveInfosWhenConnect(saver, result);
 
         Launcher.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), "", "");
     }
 
-    public static void microsoftAuthWebview() throws MicrosoftAuthenticationException {
+    public static void microsoftAuthWebview(Saver saver) throws MicrosoftAuthenticationException {
         Launcher.println("webview?");
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithWebview();
         Launcher.println("webview");
 
-        saveInfosWhenConnect(result);
+        saveInfosWhenConnect(saver, result);
 
         Launcher.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
     }
@@ -157,26 +156,23 @@ public class Launcher {
      * À utiliser seulement lorsque le jeu se lance après
      * @throws MicrosoftAuthenticationException quand la connexion échoue
      */
-    public static void connect() throws MicrosoftAuthenticationException {
+    public static void connect(Saver saver) throws MicrosoftAuthenticationException {
         infosLabel.setText("Connexion...");
 
-        initSelectedSaver();
-
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
-        if (Objects.equals(selectedSaver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN), null)) {
+        if (Objects.equals(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN), null)) {
             throw new MicrosoftAuthenticationException("Aucun compte connecté");
         } else {
-            MicrosoftAuthResult result = authenticator.loginWithRefreshToken(selectedSaver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
+            MicrosoftAuthResult result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
         }
 
-        authInfos = new AuthInfos(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), selectedSaver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), selectedSaver.get(ProfileSaver.KEY.INFOS_UUID), "", "");
-        Launcher.println("Connecté avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-        infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID), "", "");
+        Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
+        infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
 
     }
 
-    public static void launch(boolean connectToServer) throws Exception{
-        initSelectedSaver();
+    public static void launch(boolean connectToServer, Saver saver) throws Exception{
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
         if (connectToServer) {
@@ -188,41 +184,40 @@ public class Launcher {
         LauncherFrame.getInstance().setVisible(false);
 
         process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
-        LauncherSystemTray.initGameSystemTray(selectedProfile);
+        LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
         String s;
         while ((s = stdInput.readLine()) != null) {
-            Launcher.println(s);
+            System.out.println(s);
         }
 
-        String[] args = new String[] {afterMcExitArg, selectedProfile};
+        String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
         LauncherFrame.main(args);
 
     }
 
-    public static void localLaunch() throws Exception {
-        initSelectedSaver();
+    public static void localLaunch(Saver saver) throws Exception {
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
+        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", saver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
 
         LauncherFrame.getInstance().setVisible(false);
 
-        ProfileSaver.saveCustomFiles(selectedSaver);
+        ProfileSaver.saveCustomFiles(saver);
 
         process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
-        LauncherSystemTray.initGameSystemTray(selectedProfile);
+        LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
         String s;
         while ((s = stdInput.readLine()) != null) {
-            Launcher.println(s);
+            System.out.println(s);
         }
 
-        String[] args = new String[] {afterMcExitArg, selectedProfile};
+        String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
         LauncherFrame.main(args);
 
     }
@@ -253,6 +248,8 @@ public class Launcher {
 
     }
 
+    private static Saver updateSaver;
+
     public static Runnable postExecutions = () -> {
         loadingBar.setValue(0);
         loadingBar.setVisible(false);
@@ -260,17 +257,14 @@ public class Launcher {
         percentLabel.setText("");
         infosLabel.setText("");
 
-        initSelectedSaver();
-        Saver saver = selectedSaver;
+        Saver saver = updateSaver;
         ProfileSaver.loadCustomFiles(saver);
         ProfileSaver.saveCustomFiles(saver);
     };
 
 
-    public static void update() throws Exception {
-
-        initSelectedSaver();
-        Saver saver = selectedSaver;
+    public static void update(Saver saver) throws Exception {
+        updateSaver = saver;
 
         Logger logger = new Logger("[Astrauworld Launcher]", awLogsFile);
         loadingBar.setVisible(true);

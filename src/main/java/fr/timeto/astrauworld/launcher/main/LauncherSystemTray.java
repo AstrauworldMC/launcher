@@ -425,8 +425,8 @@ public class LauncherSystemTray {
         popup.add(closeMc);
         popup.add(exitItem);
 
-        ProfileSaver.initSelectedSaver(profile);
-        Saver saver = ProfileSaver.getSelectedSaver();
+        ProfileSaver.initSelectedProfile(profile);
+        Saver saver = ProfileSaver.selectedSaver;
 
         /* Création de l'icône */
         trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH), "Astrauworld - Profil " + saver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + " (" + saver.get(ProfileSaver.KEY.INFOS_NAME) + ")");
@@ -446,7 +446,6 @@ public class LauncherSystemTray {
         if (Objects.equals(LauncherPanel.Components.subTitleLabel.getText(), "") || Objects.equals(LauncherPanel.Components.subTitleLabel.getText(), " ")) {
             trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText());
         } else if (LauncherPanel.Components.titleLabel.getText().contains("Profil")) {
-            ProfileSaver.initSelectedSaver();
             trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText() + " [" + ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + "] (" + LauncherPanel.Components.subTitleLabel.getText() + ")");
         } else {
             trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText() + " (" + LauncherPanel.Components.subTitleLabel.getText() + ")");

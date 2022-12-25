@@ -1,6 +1,7 @@
 package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
+import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
@@ -172,15 +173,17 @@ public class OnButtonEvent {
 
         // Actions des boutons de la profilePage - Home
         else if (src == profilePlayButton) {
+            Saver saver = selectedSaver;
+            enablePlayButtons(false);
+
             //     if (profilePlayButtonIsPlayStatus) {
             launchThread = new Thread(() -> {
-                enablePlayButtons(false);
                 //               togglePlayButtonStatus(false);
                 loadingBar.setVisible(true);
                 infosLabel.setVisible(true);
                 infosLabel.setText("Connexion...");
                 try {
-                    Launcher.connect();
+                    Launcher.connect(saver);
                 } catch (MicrosoftAuthenticationException m) {
                     enablePlayButtons(true);
                     errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
@@ -189,11 +192,10 @@ public class OnButtonEvent {
                     infosLabel.setVisible(false);
                     return;
                 }
-                initSelectedSaver();
                 infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
                 try {
-                    Launcher.update();
+                    Launcher.update(saver);
                 } catch (Exception ex) {
                     enablePlayButtons(true);
                     throw new RuntimeException(ex);
@@ -201,7 +203,7 @@ public class OnButtonEvent {
                 updatePostExecutions();
 
                 try {
-                    Launcher.launch(true);
+                    Launcher.launch(true, saver);
                 } catch (Exception ex) {
                     enablePlayButtons(true);
                     throw new RuntimeException(ex);
@@ -221,13 +223,14 @@ public class OnButtonEvent {
         } else if (src == profileNewsButton) {
             setNewsPage(true);
         } else if (src == profileLaunchToMenuButton) {
+            Saver saver = selectedSaver;
+            enablePlayButtons(false);
 
             launchThread = new Thread(() -> {
-                enablePlayButtons(false);
                 //          togglePlayButtonStatus(false);
 
                 try {
-                    Launcher.connect();
+                    Launcher.connect(saver);
                 } catch (MicrosoftAuthenticationException m) {
                     enablePlayButtons(true);
                     errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
@@ -238,7 +241,7 @@ public class OnButtonEvent {
                 }
 
                 try {
-                    Launcher.update();
+                    Launcher.update(saver);
                 } catch (Exception ex) {
                     enablePlayButtons(true);
                     throw new RuntimeException(ex);
@@ -246,7 +249,7 @@ public class OnButtonEvent {
                 updatePostExecutions();
 
                 try {
-                    Launcher.launch(false);
+                    Launcher.launch(false, saver);
                 } catch (Exception ex) {
                     enablePlayButtons(true);
                     throw new RuntimeException(ex);
@@ -257,12 +260,13 @@ public class OnButtonEvent {
             launchThread.start();
 
         } else if (src == profileDownloadButton) {
+            Saver saver = selectedSaver;
+            enablePlayButtons(false);
 
             updateThread = new Thread(() -> {
-                enablePlayButtons(false);
                 //          togglePlayButtonStatus(false);
                 try {
-                    Launcher.update();
+                    Launcher.update(saver);
                 } catch (InterruptedException e1) {
                     enablePlayButtons(true);
                     updatePostExecutions();
@@ -282,6 +286,8 @@ public class OnButtonEvent {
 
         // Actions des boutons de la profilePage - Account
         else if (src == profileAccountConnectionButton) {
+            Saver saver = selectedSaver;
+
             if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
                 errorMessage("Erreur de connexion", "Erreur, veuillez entrer un    email et un mot de passe      valides");
                 return;
@@ -290,7 +296,7 @@ public class OnButtonEvent {
             Thread connect = new Thread(() -> {
                 try {
                     Launcher.println("Connexion...");
-                    Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()));
+                    Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()), saver);
                 } catch (MicrosoftAuthenticationException m) {
                     errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                     return;
@@ -303,11 +309,12 @@ public class OnButtonEvent {
 
 
         } else if (src == profileAccountConnectionMicrosoftButton) {
+            Saver saver = selectedSaver;
 
             Thread connect = new Thread(() -> {
                 try {
                     Launcher.println("Connexion...");
-                    Launcher.microsoftAuthWebview();
+                    Launcher.microsoftAuthWebview(saver);
                 } catch (MicrosoftAuthenticationException m) {
                     errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                     return;
@@ -318,7 +325,6 @@ public class OnButtonEvent {
             connect.start();
         } else if (src == profileAccountResetButton) {
             Thread ifYes = new Thread(() -> {
-                initSelectedSaver();
                 selectedSaver.set(ProfileSaver.KEY.FILECREATED, "");
                 initializeDataFiles(selectedSaver);
                 profileAccountTextField.setText("");
@@ -371,7 +377,6 @@ public class OnButtonEvent {
             profileSettingsHelmIconSwitchButton.toggleButton();
             initProfileButtons();
         } else if (src == profileSettingsSaveSettings) {
-            initSelectedSaver();
             selectedSaver.set(ProfileSaver.KEY.SETTINGS_RAM, profileSettingsAllowedRamSpinner.getValue().toString());
             selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());
             initProfileButtons();

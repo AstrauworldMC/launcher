@@ -57,13 +57,11 @@ public class TexturedSwitchButton extends STexturedButton {
     public TexturedSwitchButton(String saverKey, BufferedImage texture) {
         super(texture);
         this.saverKey = saverKey;
-        initSelectedSaver();
 
     }
 
     public void setVisible(boolean aFlag) {
         if(aFlag) {
-            initSelectedSaver();
             defineTextures();
             super.setVisible(aFlag);
         } else {
@@ -72,7 +70,6 @@ public class TexturedSwitchButton extends STexturedButton {
     }
 
     public void setEnabled(boolean aFlag) {
-        initSelectedSaver();
         String value = selectedSaver.get(saverKey);
 
         if(aFlag) {
@@ -93,7 +90,6 @@ public class TexturedSwitchButton extends STexturedButton {
     }
 
     public void toggleButton() {
-        initSelectedSaver();
         String value = selectedSaver.get(saverKey);
 
         if (Objects.equals(value, "true")) {

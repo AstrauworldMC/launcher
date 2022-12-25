@@ -20,7 +20,8 @@ public class Changelogs {
     private static class TEXTS {
         public static final String BETA2_2_0 =  "- Rangement du code et documentation dans les sources" + lineSep +
                                                 "- Ajout de la license GPLv3" + lineSep +
-                                                "- Ajout du system tray icon";
+                                                "- Ajout du system tray icon" + lineSep +
+                                                "- Réglages de bugs avec les fichiers customs";
         public static final String BETA2_1_2 =  "- Options d'Optifine enregistr\u00e9es par profils" + lineSep +
                                                 "- Console de Minecraft affich\u00e9e dans la console du launcher" + lineSep +
                                                 "- Le launcher se relance quand Minecraft se ferme" + lineSep +

@@ -67,6 +67,8 @@ public class PageChange {
         STexturedButton profileNotSelected2 = secondProfileButton;
         Saver selectedSaver = null;
 
+        ProfileSaver.initSelectedProfile(profileNumber);
+
         if(Objects.equals(tab, "home")) {
             if (Objects.equals(profileNumber, "1")) {
                 profileSelected = firstProfileButton;
@@ -487,7 +489,7 @@ public class PageChange {
                 profileModsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
-                initSelectedSaver();
+
                 profileSettingsProfileNameTextField.setVisible(true);
                 profileSettingsProfileNameTextField.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
                 profileSettingsHelmIconSwitchButton.setVisible(true);

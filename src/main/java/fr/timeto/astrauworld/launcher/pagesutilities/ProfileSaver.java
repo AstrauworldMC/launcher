@@ -3,7 +3,6 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.main.Launcher;
-import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 
 import java.awt.*;
 import java.io.*;
@@ -12,7 +11,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
-import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.timutilslib.TimFilesUtils.*;
 
 /**
@@ -35,56 +33,21 @@ public class ProfileSaver {
 
     /**
      * Le profil sélectionné
-     * @see ProfileSaver#initSelectedProfile()
      */
     public static String selectedProfile = "";
     /**
      * Le Saver sélectionné
-     * @see ProfileSaver#initSelectedSaver()
      */
     public static Saver selectedSaver;
 
     /**
-     * Initialise {@link ProfileSaver#selectedProfile} d'après {@link LauncherPanel.Components#titleLabel}
-     * @see ProfileSaver#initSelectedSaver()
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-     */
-    public static void initSelectedProfile() {
-        if (titleLabel.toString().contains("1")) {
-            selectedProfile = "1";
-        } else if (titleLabel.toString().contains("2")) {
-            selectedProfile = "2";
-        } else if (titleLabel.toString().contains("3")) {
-            selectedProfile = "3";
-        }
-    }
-
-    /**
-     * Initialise {@link ProfileSaver#selectedSaver} d'après le {@link ProfileSaver#selectedProfile}
-     * @see ProfileSaver#initSelectedProfile()
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-     */
-    public static void initSelectedSaver() {
-        if (Objects.equals(selectedProfile, "1")) {
-            selectedSaver = firstProfileSaver;
-        } else if (Objects.equals(selectedProfile, "2")) {
-            selectedSaver = secondProfileSaver;
-        } else if (Objects.equals(selectedProfile, "3")) {
-            selectedSaver = thirdProfileSaver;
-        } else {
-            initSelectedProfile();
-            initSelectedSaver();
-        }
-    }
-
-    /**
      * Initialise {@link ProfileSaver#selectedSaver} d'après le numéro de profil spécifié
      * @param profile Le numéro du profil spécifié en String
-     * @see ProfileSaver#initSelectedProfile()
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      * @since Beta2.2.0
      */
-    public static void initSelectedSaver(String profile) {
+    public static void initSelectedProfile(String profile) {
+        selectedProfile = profile;
         if (Objects.equals(profile, "1")) {
             selectedSaver = firstProfileSaver;
         } else if (Objects.equals(profile, "2")) {
@@ -97,11 +60,11 @@ public class ProfileSaver {
     /**
      * Initialise {@link ProfileSaver#selectedSaver} d'après le numéro de profil spécifié
      * @param profile Le numéro du profil spécifié en int
-     * @see ProfileSaver#initSelectedProfile()
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      * @since Beta2.2.0
      */
-    public static void initSelectedSaver(int profile) {
+    public static void initSelectedProfile(int profile) {
+        selectedProfile = String.valueOf(profile);
         if (profile == 1) {
             selectedSaver = firstProfileSaver;
         } else if (profile == 2) {
@@ -117,8 +80,16 @@ public class ProfileSaver {
      * @since Beta2.2.0
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static Saver getSelectedSaver() {
-        return selectedSaver;
+    public static String getSelectedProfile(Saver saver) {
+        if (saver == firstProfileSaver) {
+            return "1";
+        } else if (saver == secondProfileSaver) {
+            return "2";
+        } else if (saver == thirdProfileSaver) {
+            return "3";
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -452,6 +423,19 @@ public class ProfileSaver {
      */
     public static void loadCustomFiles(Saver saver) {
         initCustomFilesFolder(saver);
+
+        deleteDirectory(savesFolder);
+        savesFolder.mkdir();
+        deleteDirectory(resourcepacksFolder);
+        resourcepacksFolder.mkdir();
+        deleteDirectory(shaderpacksFolder);
+        shaderpacksFolder.mkdir();
+        deleteDirectory(musicsheetsFolder);
+        musicsheetsFolder.mkdir();
+        deleteDirectory(schematicsFolder);
+        schematicsFolder.mkdir();
+        deleteDirectory(configFolder);
+        configFolder.mkdir();
 
         try {
             copyFiles(savesProfileFolder, savesFolder);
