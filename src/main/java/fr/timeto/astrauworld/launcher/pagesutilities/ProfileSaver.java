@@ -203,7 +203,22 @@ public class ProfileSaver {
      */
     public static void initProfileIcon(Saver saver) throws IOException {
         String url;
-        if (saver.get(KEY.SETTINGS_HELMICON).contains("true")) {
+        if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("frisk")){
+            url = "https://user-images.githubusercontent.com/97166376/209479948-9077d6d4-1254-4423-914b-d8b7ecf895d0.png";
+            EasterEggs.setEatereggAsFound(EasterEggs.friskName);
+        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("chara")) {
+            url = "https://user-images.githubusercontent.com/97166376/209479945-0b181aaa-f3bd-436c-8274-83f68302c93e.png";
+            EasterEggs.setEatereggAsFound(EasterEggs.charaName);
+        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("asriel")) {
+            url = "https://user-images.githubusercontent.com/97166376/209479946-e10c816c-6665-4347-9c8b-dd5165f42089.png";
+            EasterEggs.setEatereggAsFound(EasterEggs.asrielName);
+        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("flowey")) {
+            url = "https://user-images.githubusercontent.com/97166376/209479944-e76fbf8f-6aba-462f-afc5-08829af3f9c8.png";
+            EasterEggs.setEatereggAsFound(EasterEggs.floweyName);
+        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("cursedflowey")) {
+            url = "https://user-images.githubusercontent.com/97166376/209480184-79318022-8ba0-46c9-9773-504a63c2ee47.png";
+            EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
+        } else if (saver.get(KEY.SETTINGS_HELMICON).contains("true")) {
             url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID) + "/34.png";
         } else {
             url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID) + "/34.png";

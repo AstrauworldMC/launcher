@@ -44,6 +44,36 @@ public class EasterEggs {
     public static final String heyyaaeyaaaeyaeyaa = "HEYYEYAAEYAAAEYAEYAA";
 
     /**
+     * String général pour le nom de l'easter egg 'FriskProfileName'
+     * @since Beta2.2.0
+     */
+    public static final String friskName = "FriskProfileName";
+
+    /**
+     * String général pour le nom de l'easter egg 'CharaProfileName'
+     * @since Beta2.2.0
+     */
+    public static final String charaName = "CharaProfileName";
+
+    /**
+     * String général pour le nom de l'easter egg 'AsrielProfileName'
+     * @since Beta2.2.0
+     */
+    public static final String asrielName = "AsrielProfileName";
+
+    /**
+     * String général pour le nom de l'easter egg 'FloweyProfileName'
+     * @since Beta2.2.0
+     */
+    public static final String floweyName = "FloweyProfileName";
+
+    /**
+     * String général pour le nom de l'easter egg 'CursedFloweyProfileName'
+     * @since Beta2.2.0
+     */
+    public static final String cursedFloweyName = "CursedFloweyProfileName";
+
+    /**
      * @see Launcher#dataFolder
      * @since Beta2.1.2
      */
@@ -63,7 +93,18 @@ public class EasterEggs {
      * La liste des easters eggs
      * @since Beta2.2.0
      */
-    public static String[] easterEggsList = {rickroll, polishCow, frogWalking, youveBeenTrolled, heyyaaeyaaaeyaeyaa};
+    public static String[] easterEggsList = {
+            rickroll,
+            polishCow,
+            frogWalking,
+            youveBeenTrolled,
+            heyyaaeyaaaeyaeyaa,
+            friskName,
+            charaName,
+            asrielName,
+            floweyName,
+            cursedFloweyName
+    };
 
     /**
      * Initialise le saver ({@link EasterEggs#easterEggsSaver})
