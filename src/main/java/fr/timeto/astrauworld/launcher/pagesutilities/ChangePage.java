@@ -3,6 +3,7 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
+import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 
 import java.util.Objects;
 
@@ -38,7 +39,8 @@ public class ChangePage {
             downRightCorner.setVisible(false);
 
             titleLabel.setText("Actualit\u00e9s");
-            subTitleLabel.setText(" ");
+            subTitleLabel.setText("");
+            LauncherSystemTray.changeTrayTooltip();
 
             background = getResourceIgnorePath("/assets.launcher/main/baseGUI.png");
 
@@ -65,7 +67,7 @@ public class ChangePage {
         STexturedButton profileNotSelected2 = secondProfileButton;
         Saver selectedSaver = null;
 
-        if(tab == "home") {
+        if(Objects.equals(tab, "home")) {
             if (Objects.equals(profileNumber, "1")) {
                 profileSelected = firstProfileButton;
                 profileNotSelected1 = secondProfileButton;
@@ -87,17 +89,17 @@ public class ChangePage {
                 selectedSaver = thirdProfileSaver;
                 selectedProfile = "3";
             } else if (Objects.equals(profileNumber, "null")) {
-                if(titleLabel.getText() == "Profil 1") {
+                if(Objects.equals(titleLabel.getText(), "Profil 1")) {
                     profileSelected = firstProfileButton;
                     profileNotSelected1 = secondProfileButton;
                     profileNotSelected2 = thirdProfileButton;
                     selectedSaver=firstProfileSaver;
-                } else if (titleLabel.getText() == "Profil 2") {
+                } else if (Objects.equals(titleLabel.getText(), "Profil 2")) {
                     profileSelected = secondProfileButton;
                     profileNotSelected1 = firstProfileButton;
                     profileNotSelected2 = thirdProfileButton;
                     selectedSaver=secondProfileSaver;
-                } else if (titleLabel.getText() == "Profil 3") {
+                } else if (Objects.equals(titleLabel.getText(), "Profil 3")) {
                     profileSelected = thirdProfileButton;
                     profileNotSelected1 = secondProfileButton;
                     profileNotSelected2 = firstProfileButton;
@@ -112,7 +114,7 @@ public class ChangePage {
                 setChangesPage(false);
                 setAboutPage(null, false);
 
-                if(tab == "all") {
+                if(tab.equals("all")) {
                 } else {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -156,6 +158,8 @@ public class ChangePage {
                 downRightCorner.setVisible(false);
 
                 subTitleLabel.setText("Jouer");
+                LauncherSystemTray.changeTrayTooltip();
+
                 background = getResourceIgnorePath("/assets.launcher/profilesPage/profilePage.png");
 
                 upLeftCorner.setVisible(true);
@@ -181,7 +185,7 @@ public class ChangePage {
                     thirdProfileButton.setEnabled(true);
                 }
             }
-        } else if (tab == "account") {
+        } else if (Objects.equals(tab, "account")) {
             if (Objects.equals(profileNumber, "1")) {
                 profileSelected = firstProfileButton;
                 profileNotSelected1 = secondProfileButton;
@@ -203,17 +207,17 @@ public class ChangePage {
                 selectedSaver = thirdProfileSaver;
                 selectedProfile = "3";
             } else if (Objects.equals(profileNumber, "null")) {
-                if(titleLabel.getText() == "Profil 1") {
+                if(Objects.equals(titleLabel.getText(), "Profil 1")) {
                     profileSelected = firstProfileButton;
                     profileNotSelected1 = secondProfileButton;
                     profileNotSelected2 = thirdProfileButton;
                     selectedSaver=firstProfileSaver;
-                } else if (titleLabel.getText() == "Profil 2") {
+                } else if (Objects.equals(titleLabel.getText(), "Profil 2")) {
                     profileSelected = secondProfileButton;
                     profileNotSelected1 = firstProfileButton;
                     profileNotSelected2 = thirdProfileButton;
                     selectedSaver=secondProfileSaver;
-                } else if (titleLabel.getText() == "Profil 3") {
+                } else if (Objects.equals(titleLabel.getText(), "Profil 3")) {
                     profileSelected = thirdProfileButton;
                     profileNotSelected1 = secondProfileButton;
                     profileNotSelected2 = firstProfileButton;
@@ -222,8 +226,11 @@ public class ChangePage {
             }
             if (enabled) {
                 setProfilePage(false, "null", "all");
+                setNewsPage(false);
+                setChangesPage(false);
+                setAboutPage(null, false);
 
-                if(tab == "all") {
+                if(tab.equals("all")) {
                 } else {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -275,6 +282,8 @@ public class ChangePage {
                 downRightCorner.setVisible(false);
 
                 subTitleLabel.setText("Compte");
+                LauncherSystemTray.changeTrayTooltip();
+
                 background = getResourceIgnorePath("/assets.launcher/profilesPage/compte/profilePage-compte.png");
 
                 upLeftCorner.setVisible(true);
@@ -295,7 +304,7 @@ public class ChangePage {
                 profileAccountLabel.setVisible(false);
             }
 
-        } else if (tab == "mods") {
+        } else if (Objects.equals(tab, "mods")) {
             if (Objects.equals(profileNumber, "1")) {
                 profileSelected = firstProfileButton;
                 profileNotSelected1 = secondProfileButton;
@@ -317,17 +326,17 @@ public class ChangePage {
                 selectedSaver = thirdProfileSaver;
                 selectedProfile = "3";
             } else if (Objects.equals(profileNumber, "null")) {
-                if(titleLabel.getText() == "Profil 1") {
+                if(Objects.equals(titleLabel.getText(), "Profil 1")) {
                     profileSelected = firstProfileButton;
                     profileNotSelected1 = secondProfileButton;
                     profileNotSelected2 = thirdProfileButton;
                     selectedSaver=firstProfileSaver;
-                } else if (titleLabel.getText() == "Profil 2") {
+                } else if (Objects.equals(titleLabel.getText(), "Profil 2")) {
                     profileSelected = secondProfileButton;
                     profileNotSelected1 = firstProfileButton;
                     profileNotSelected2 = thirdProfileButton;
                     selectedSaver=secondProfileSaver;
-                } else if (titleLabel.getText() == "Profil 3") {
+                } else if (Objects.equals(titleLabel.getText(), "Profil 3")) {
                     profileSelected = thirdProfileButton;
                     profileNotSelected1 = secondProfileButton;
                     profileNotSelected2 = firstProfileButton;
@@ -336,8 +345,11 @@ public class ChangePage {
             }
             if (enabled) {
                 setProfilePage(false, "null", "all");
+                setNewsPage(false);
+                setChangesPage(false);
+                setAboutPage(null, false);
 
-                if(tab == "all") {
+                if(tab.equals("all")) {
                 } else {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -382,6 +394,7 @@ public class ChangePage {
                 downRightCorner.setVisible(false);
 
                 subTitleLabel.setText("Mods");
+                LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets.launcher/profilesPage/mods/profilePage-mods.png");
 
@@ -412,7 +425,7 @@ public class ChangePage {
                 profileAccountLabel.setVisible(false);
             }
 
-        } else if (tab == "settings") {
+        } else if (Objects.equals(tab, "settings")) {
             if (Objects.equals(profileNumber, "1")) {
                 profileSelected = firstProfileButton;
                 profileNotSelected1 = secondProfileButton;
@@ -434,17 +447,17 @@ public class ChangePage {
                 selectedSaver = thirdProfileSaver;
                 selectedProfile = "3";
             } else if (Objects.equals(profileNumber, "null")) {
-                if(titleLabel.getText() == "Profil 1") {
+                if(Objects.equals(titleLabel.getText(), "Profil 1")) {
                     profileSelected = firstProfileButton;
                     profileNotSelected1 = secondProfileButton;
                     profileNotSelected2 = thirdProfileButton;
                     selectedSaver=firstProfileSaver;
-                } else if (titleLabel.getText() == "Profil 2") {
+                } else if (Objects.equals(titleLabel.getText(), "Profil 2")) {
                     profileSelected = secondProfileButton;
                     profileNotSelected1 = firstProfileButton;
                     profileNotSelected2 = thirdProfileButton;
                     selectedSaver=secondProfileSaver;
-                } else if (titleLabel.getText() == "Profil 3") {
+                } else if (Objects.equals(titleLabel.getText(), "Profil 3")) {
                     profileSelected = thirdProfileButton;
                     profileNotSelected1 = secondProfileButton;
                     profileNotSelected2 = firstProfileButton;
@@ -453,8 +466,11 @@ public class ChangePage {
             }
             if (enabled) {
                 setProfilePage(false, "null", "all");
+                setNewsPage(false);
+                setChangesPage(false);
+                setAboutPage(null, false);
 
-                if(tab == "all") {
+                if(tab.equals("all")) {
                 } else {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -493,6 +509,7 @@ public class ChangePage {
                 downRightCorner.setVisible(false);
 
                 subTitleLabel.setText("R\u00e9glages");
+                LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets.launcher/profilesPage/reglages/profilePage-reglages.png");
 
@@ -514,7 +531,7 @@ public class ChangePage {
                 profileAccountLabel.setVisible(false);
             }
 
-        } else if (tab == "all") {
+        } else if (Objects.equals(tab, "all")) {
             setProfilePage(enabled, null, "home");
             setProfilePage(enabled, null, "account");
             setProfilePage(enabled, null, "mods");
@@ -545,6 +562,7 @@ public class ChangePage {
 
             subTitleLabel.setText(" ");
             titleLabel.setText("Changelogs");
+            LauncherSystemTray.changeTrayTooltip();
 
             int i = LauncherPanel.verifyVersionChangelog();
             changelogsTextArea.setText(Changelogs.getChangelogsTextsList().toArray()[i].toString());
@@ -603,6 +621,7 @@ public class ChangePage {
 
                 subTitleLabel.setText("Infos");
                 titleLabel.setText("\u00c0 propos");
+                LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets.launcher/aboutPage/aboutPage-infos.png");
 
@@ -649,6 +668,7 @@ public class ChangePage {
 
                 subTitleLabel.setText("Mods");
                 titleLabel.setText("\u00c0 propos");
+                LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets.launcher/main/baseGUI.png");
 

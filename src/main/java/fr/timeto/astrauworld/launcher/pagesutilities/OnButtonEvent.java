@@ -289,7 +289,7 @@ public class OnButtonEvent {
 
             Thread connect = new Thread(() -> {
                 try {
-                    System.out.println("Connexion...");
+                    Launcher.println("Connexion...");
                     Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()));
                 } catch (MicrosoftAuthenticationException m) {
                     errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
@@ -306,7 +306,7 @@ public class OnButtonEvent {
 
             Thread connect = new Thread(() -> {
                 try {
-                    System.out.println("Connexion...");
+                    Launcher.println("Connexion...");
                     Launcher.microsoftAuthWebview();
                 } catch (MicrosoftAuthenticationException m) {
                     errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");

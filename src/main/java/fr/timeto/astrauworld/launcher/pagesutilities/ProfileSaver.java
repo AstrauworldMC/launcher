@@ -78,6 +78,50 @@ public class ProfileSaver {
     }
 
     /**
+     * Initialise {@link ProfileSaver#selectedSaver} d'après le numéro de profil spécifié
+     * @param profile Le numéro du profil spécifié en String
+     * @see ProfileSaver#initSelectedProfile()
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     * @since Beta2.2.0
+     */
+    public static void initSelectedSaver(String profile) {
+        if (Objects.equals(profile, "1")) {
+            selectedSaver = firstProfileSaver;
+        } else if (Objects.equals(profile, "2")) {
+            selectedSaver = secondProfileSaver;
+        } else if (Objects.equals(profile, "3")) {
+            selectedSaver = thirdProfileSaver;
+        }
+    }
+
+    /**
+     * Initialise {@link ProfileSaver#selectedSaver} d'après le numéro de profil spécifié
+     * @param profile Le numéro du profil spécifié en int
+     * @see ProfileSaver#initSelectedProfile()
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     * @since Beta2.2.0
+     */
+    public static void initSelectedSaver(int profile) {
+        if (profile == 1) {
+            selectedSaver = firstProfileSaver;
+        } else if (profile == 2) {
+            selectedSaver = secondProfileSaver;
+        } else if (profile == 3) {
+            selectedSaver = thirdProfileSaver;
+        }
+    }
+
+    /**
+     * Récupérer le Saver sélectionné (doit être initialisé d'abord)
+     * @return Le Saver sélectionné
+     * @since Beta2.2.0
+     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
+     */
+    public static Saver getSelectedSaver() {
+        return selectedSaver;
+    }
+
+    /**
      * Initialise le fichier de données du profil sélectionné s'il n'a pas déjà été créé
      * @param saver Le profil sélectionné
      * @see ProfileSaver#initializeDataFiles()
@@ -381,7 +425,7 @@ public class ProfileSaver {
             copyFile(optionsTextfile, optionsProfileTextfile);
             copyFile(optionsOFTextfile, optionsOFProfileTextfile);
         } catch (IOException e) {
-            System.out.println("Failed copy options files");
+            Launcher.println("Failed copy options files");
         }
 
     }
@@ -407,7 +451,7 @@ public class ProfileSaver {
             copyFile(optionsProfileTextfile, optionsTextfile);
             copyFile(optionsOFProfileTextfile, optionsOFTextfile);
         } catch (IOException e) {
-            System.out.println("Failed copy options files");
+            Launcher.println("Failed copy options files");
         }
 
     }

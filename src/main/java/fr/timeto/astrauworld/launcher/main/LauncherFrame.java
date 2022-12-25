@@ -9,9 +9,11 @@ import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.initLauncherSystemTray;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 /**
@@ -22,9 +24,6 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 public class LauncherFrame extends JFrame {
 
     private static LauncherFrame instance;
-    private final LauncherPanel launcherPanel;
-    private JScrollPane scrollPane;
-    private static CrashReporter crashReporter;
 
     private static final Rectangle movableZone = new Rectangle(0, 0, 1000, 33);
 
@@ -39,7 +38,7 @@ public class LauncherFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setUndecorated(true);
         this.setIconImage(Swinger.getResourceIgnorePath("/assets.launcher/main/logo.png"));
-        this.setContentPane(launcherPanel = new LauncherPanel());
+        this.setContentPane(new LauncherPanel());
 
         ZoneWindowMover mover = new ZoneWindowMover(this, movableZone);
         this.addMouseListener(mover);
@@ -59,10 +58,10 @@ public class LauncherFrame extends JFrame {
         String OS = System.getProperty("os.name");
 
         if (OS.contains("Win") || OS.contains("win")) {
-            System.out.println("Windows OK");
+            Launcher.println("Windows OK");
         }else {
             JOptionPane.showMessageDialog(null, "Désolé, votre système d'exploitation (" + OS + ") n´est pas encore compatible", "Erreur de compatibilité", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Sorry nope");
+            Launcher.println("Sorry nope");
             System.exit(0);
         }
 
@@ -98,7 +97,7 @@ public class LauncherFrame extends JFrame {
             throw new RuntimeException(e);
         }
 
-        crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
+        CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
 
         try {
             if (Objects.equals(args[0], Launcher.afterMcExitArg)) {
@@ -116,7 +115,9 @@ public class LauncherFrame extends JFrame {
         } catch (Exception ignored) {}
 
         EasterEggs.initEastereggs();
+        new File(Launcher.dataFolder + "eastereggs.properties").delete();
 
+        initLauncherSystemTray();
         instance = new LauncherFrame();
 
     }

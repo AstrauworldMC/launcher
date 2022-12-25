@@ -19,7 +19,8 @@ public class Changelogs {
      */
     private static class TEXTS {
         public static final String BETA2_2_0 =  "- Rangement du code et documentation dans les sources" + lineSep +
-                                                "- Ajout de la license GPLv3";
+                                                "- Ajout de la license GPLv3" + lineSep +
+                                                "- Ajout du system tray icon";
         public static final String BETA2_1_2 =  "- Options d'Optifine enregistr\u00e9es par profils" + lineSep +
                                                 "- Console de Minecraft affich\u00e9e dans la console du launcher" + lineSep +
                                                 "- Le launcher se relance quand Minecraft se ferme" + lineSep +
@@ -33,20 +34,17 @@ public class Changelogs {
     /**
      * Le string de la version du changelog
      * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public String version;
     /**
      * Le string du texte du changelog (toutes les modifications depuis la dernière version
      * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      * @see TEXTS
      */
     public String text;
     /**
      * La liste des changelogs
      * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      * @see Changelogs#initChangelogs()
      * @see Changelogs#getChangelogsList()
      */

@@ -53,7 +53,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
                // Then read it.
                return ImageIO.read(in);
           } catch (IOException e) {
-               System.out.println("The image was not loaded.");
+               Launcher.println("The image was not loaded.");
           }
 
           return null;

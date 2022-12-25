@@ -26,9 +26,10 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static fr.timeto.astrauworld.launcher.main.LauncherPanel.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
@@ -112,6 +113,15 @@ public class Launcher {
 
     private static final CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", awCrashFolder);
 
+    public static Process process = null;
+
+    public static void println(String str) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        
+        System.out.println("[" + dtf.format(now) + "] [Astrauworld Launcher] " + str);
+    }
+
     public static void saveInfosWhenConnect(MicrosoftAuthResult result){
         initSelectedSaver();
         selectedSaver.set(ProfileSaver.KEY.INFOS_EMAIL, profileAccountTextField.getText());
@@ -128,19 +138,19 @@ public class Launcher {
 
         saveInfosWhenConnect(result);
 
-        System.out.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");
+        Launcher.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), "", "");
     }
 
     public static void microsoftAuthWebview() throws MicrosoftAuthenticationException {
-        System.out.println("webview?");
+        Launcher.println("webview?");
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithWebview();
-        System.out.println("webview");
+        Launcher.println("webview");
 
         saveInfosWhenConnect(result);
 
-        System.out.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
+        Launcher.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
     }
 
     /**
@@ -160,7 +170,7 @@ public class Launcher {
         }
 
         authInfos = new AuthInfos(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), selectedSaver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), selectedSaver.get(ProfileSaver.KEY.INFOS_UUID), "", "");
-        System.out.println("Connecté avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+        Launcher.println("Connecté avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
         infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
     }
@@ -177,13 +187,14 @@ public class Launcher {
 
         LauncherFrame.getInstance().setVisible(false);
 
-        Process process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+        process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+        LauncherSystemTray.initGameSystemTray(selectedProfile);
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
         String s;
         while ((s = stdInput.readLine()) != null) {
-            System.out.println(s);
+            Launcher.println(s);
         }
 
         String[] args = new String[] {afterMcExitArg, selectedProfile};
@@ -201,13 +212,14 @@ public class Launcher {
 
         ProfileSaver.saveCustomFiles(selectedSaver);
 
-        Process process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+        process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
+        LauncherSystemTray.initGameSystemTray(selectedProfile);
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
         String s;
         while ((s = stdInput.readLine()) != null) {
-            System.out.println(s);
+            Launcher.println(s);
         }
 
         String[] args = new String[] {afterMcExitArg, selectedProfile};

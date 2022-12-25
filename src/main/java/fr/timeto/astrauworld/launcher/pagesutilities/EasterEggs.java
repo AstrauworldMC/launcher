@@ -19,38 +19,44 @@ public class EasterEggs {
     /**
      * String général pour le nom de l'easter egg 'Rickroll'
      * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static final String rickroll = "Rickroll";
     /**
      * String général pour le nom de l'easter egg 'PolishCow'
      * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static final String polishCow = "PolishCow";
     /**
      * String général pour le nom de l'easter egg 'FrogWalking'
      * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static final String frogWalking = "FrogWalking";
 
     /**
+     * String général pour le nom de l'easter egg 'You've been trolled'
+     * @since Beta2.2.0
+     */
+    public static final String youveBeenTrolled = "YouveBeenTrolled";
+
+    /**
+     * String général pour le nom de l'easter egg 'HEYYEYAAEYAAAEYAEYAA'
+     * @since Beta2.2.0
+     */
+    public static final String heyyaaeyaaaeyaeyaa = "HEYYEYAAEYAAAEYAEYAA";
+
+    /**
      * @see Launcher#dataFolder
      * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     private static final String easterEggsData = Launcher.dataFolder + System.getProperty("file.separator") + "eastereggs.properties";
     /**
      * Path de {@link EasterEggs#easterEggsData}
      * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     private static final Path easterEggsDataPath = Paths.get(easterEggsData);
     /**
      * Le {@link Saver} lié au fichier des easter eggs ({@link EasterEggs#easterEggsDataPath})
      * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static final Saver easterEggsSaver = new Saver(easterEggsDataPath);
 
@@ -65,6 +71,8 @@ public class EasterEggs {
         list.add(rickroll);
         list.add(polishCow);
         list.add(frogWalking);
+        list.add(youveBeenTrolled);
+        list.add(heyyaaeyaaaeyaeyaa);
 
         return list;
 
