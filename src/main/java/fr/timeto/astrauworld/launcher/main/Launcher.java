@@ -65,7 +65,7 @@ public class Launcher {
     public static final String forgeVersion = "43.1.1";
     public static final String optifineVersion = "1.19.2_HD_U_H9"; // FIXME Bug certaines textures sont unies
 
-    // Version du launcher
+    // Version du assets
     public static final String version = "Beta2.2.0"; // TODO CHANGER LA VERSION A CHAQUE FOIS
 
     // File des dont on a besoin

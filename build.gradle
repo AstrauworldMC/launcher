@@ -39,12 +39,12 @@ javafx {
 }
 
 application {
-    mainClassName = 'fr.timeto.astrauworld.launcher.LauncherFrame'
+    mainClassName = 'fr.timeto.astrauworld.assets.LauncherFrame'
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'fr.timeto.astrauworld.launcher.LauncherFrame'
+        attributes 'Main-Class': 'fr.timeto.astrauworld.assets.LauncherFrame'
     }
     from {
         configurations.compileClasspath.collect {

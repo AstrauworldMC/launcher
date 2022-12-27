@@ -21,10 +21,11 @@ public class Changelogs {
         public static final String BETA2_2_0 =  "- Rangement du code et documentation dans les sources" + lineSep +
                                                 "- Ajout de la license GPLv3" + lineSep +
                                                 "- Ajout du system tray icon" + lineSep +
-                                                "- Réglages de bugs avec les fichiers customs";
+                                                "- R\u00e9glages de bugs avec les fichiers customs" + lineSep +
+                                                "- Ajout de la page profils - addons [shaders]";
         public static final String BETA2_1_2 =  "- Options d'Optifine enregistr\u00e9es par profils" + lineSep +
-                                                "- Console de Minecraft affich\u00e9e dans la console du launcher" + lineSep +
-                                                "- Le launcher se relance quand Minecraft se ferme" + lineSep +
+                                                "- Console de Minecraft affich\u00e9e dans la console du assets" + lineSep +
+                                                "- Le assets se relance quand Minecraft se ferme" + lineSep +
                                                 "- Fen\u00eatre bougeable seulement depuis la barre d'infos de la fen\u00eatre" + lineSep +
                                                 "- Visuel du s\u00e9lecteur de RAM dans Profil - R\u00e9glages am\u00e9lior\u00e9" + lineSep +
                                                 "- Ajout de la page des changelogs" + lineSep +

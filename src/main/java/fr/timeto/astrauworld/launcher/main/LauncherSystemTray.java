@@ -22,7 +22,7 @@ import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
  */
 public class LauncherSystemTray {
     /* Récupère l'image */
-    static BufferedImage trayIconImage = getResourceIgnorePath("/assets.launcher/main/logo.png");
+    static BufferedImage trayIconImage = getResourceIgnorePath("/assets/launcher/main/logo.png");
     static int trayIconWidth = new TrayIcon(trayIconImage).getSize().width;
 
     static TrayIcon trayIcon;
@@ -114,49 +114,49 @@ public class LauncherSystemTray {
                 PageChange.setNewsPage(true);
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfilePlayPageItem) {
-                PageChange.setProfilePage(true, "1", "home");
+                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileHome);
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileAccountPageItem) {
-                PageChange.setProfilePage(true, "1", "account");
+                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileAccount);
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileModsPageItem) {
-                PageChange.setProfilePage(true, "1", "mods");
+                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileAddonsMods);
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileSettingsPageItem) {
-                PageChange.setProfilePage(true, "1", "settings");
+                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileSettings);
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfilePlayPageItem) {
-                PageChange.setProfilePage(true, "2", "home");
+                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileHome);
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileAccountPageItem) {
-                PageChange.setProfilePage(true, "2", "account");
+                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileAccount);
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileModsPageItem) {
-                PageChange.setProfilePage(true, "2", "mods");
+                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileAddonsMods);
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileSettingsPageItem) {
-                PageChange.setProfilePage(true, "2", "settings");
+                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileSettings);
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfilePlayPageItem) {
-                PageChange.setProfilePage(true, "3", "home");
+                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileHome);
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileAccountPageItem) {
-                PageChange.setProfilePage(true, "3", "account");
+                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileAccount);
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileModsPageItem) {
-                PageChange.setProfilePage(true, "3", "mods");
+                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileAddonsMods);
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileSettingsPageItem) {
-                PageChange.setProfilePage(true, "3", "settings");
+                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileSettings);
                 LauncherFrame.getInstance().toFront();
             } else if (src == changelogsPageItem) {
                 PageChange.setChangesPage(true);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutInfosPageItem) {
-                PageChange.setAboutPage("infos", true);
+                PageChange.setAboutPage(true, PageChange.TAB_KEY.aboutInfos);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutModsPageItem) {
-                PageChange.setAboutPage("mods", true);
+                PageChange.setAboutPage(true, PageChange.TAB_KEY.aboutMods);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutEasterEggItem) {
                 if (numberOfTrolled[0] < 8) {

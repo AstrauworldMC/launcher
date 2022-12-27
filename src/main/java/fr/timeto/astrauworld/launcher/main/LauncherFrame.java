@@ -17,7 +17,7 @@ import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.initLaunche
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 /**
- * La classe de la frame du launcher
+ * La classe de la frame du assets
  * @author <a href="https://github.com/TimEtOff">TimEtO</a>
  * @see LauncherPanel
  */
@@ -28,7 +28,7 @@ public class LauncherFrame extends JFrame {
     private static final Rectangle movableZone = new Rectangle(0, 0, 1000, 33);
 
     /**
-     * Défini comment s'affichera la frame du launcher, son contenu, puis l'affiche
+     * Défini comment s'affichera la frame du assets, son contenu, puis l'affiche
      */
     public LauncherFrame() {
         this.setTitle("Astrauworld Launcher");
@@ -37,7 +37,7 @@ public class LauncherFrame extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setUndecorated(true);
-        this.setIconImage(Swinger.getResourceIgnorePath("/assets.launcher/main/logo.png"));
+        this.setIconImage(Swinger.getResourceIgnorePath("/assets/launcher/main/logo.png"));
         this.setContentPane(new LauncherPanel());
 
         ZoneWindowMover mover = new ZoneWindowMover(this, movableZone);
@@ -49,15 +49,15 @@ public class LauncherFrame extends JFrame {
     }
 
     /**
-     * La méthode appelée par le JRE au lancement, initialise tout le launcher
+     * La méthode appelée par le JRE au lancement, initialise tout le assets
      * @param args Si des arguments sont ajoutés au lancement. Si l'argument {@link Launcher#afterMcExitArg} est spécifié, il doit être suivi du numéro du profil lancé
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         String OS = System.getProperty("os.name");
 
-        if (OS.contains("Win") || OS.contains("win")) {
+        if (OS.toLowerCase().contains("win")) {
             Launcher.println("Windows OK");
         }else {
             JOptionPane.showMessageDialog(null, "Désolé, votre système d'exploitation (" + OS + ") n´est pas encore compatible", "Erreur de compatibilité", JOptionPane.ERROR_MESSAGE);
@@ -74,28 +74,18 @@ public class LauncherFrame extends JFrame {
         Launcher.AW_SECONDPROFILE_CUSTOMFILES_FOLDER.mkdir();
         Launcher.AW_THIRDPROFILE_CUSTOMFILES_FOLDER.mkdir();
 
-        try {
-            Launcher.AW_FIRSTPROFILE_ICON.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            Launcher.AW_SECONDPROFILE_ICON.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            Launcher.AW_THIRDPROFILE_ICON.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        shaderpacksFolder.mkdir();
+        optionsShadersTextfile.createNewFile();
+
+        Launcher.AW_FIRSTPROFILE_ICON.createNewFile();
+
+        Launcher.AW_SECONDPROFILE_ICON.createNewFile();
+
+        Launcher.AW_THIRDPROFILE_ICON.createNewFile();
+
 
         initializeDataFiles();
-        try {
-            initProfileIcon();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        initProfileIcon();
 
         CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
 

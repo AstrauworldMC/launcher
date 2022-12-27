@@ -9,12 +9,12 @@ import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 public class TexturedSwitchButton extends STexturedButton {
-    private final BufferedImage textureOff = getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png");
-    private final BufferedImage textureOn = getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_on.png");
-    private final BufferedImage textureHoverOff = getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-hover_off.png");
-    private final BufferedImage textureHoverOn = getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-hover_on.png");
-    private final BufferedImage textureDisabledOff = getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-disabled_off.png");
-    private final BufferedImage textureDisabledOn = getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-disabled_on.png");
+    private final BufferedImage textureOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png");
+    private final BufferedImage textureOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_on.png");
+    private final BufferedImage textureHoverOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-hover_off.png");
+    private final BufferedImage textureHoverOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-hover_on.png");
+    private final BufferedImage textureDisabledOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_off.png");
+    private final BufferedImage textureDisabledOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_on.png");
     private final String saverKey;
 
     public BufferedImage getTexture() {
@@ -38,7 +38,7 @@ public class TexturedSwitchButton extends STexturedButton {
         return textureDisabledOff;
     }
 
-    public void defineTextures() {
+    private void defineTextures() {
         if (selectedSaver.get(saverKey).contains("true")) {
             super.setTexture(textureOn);
             super.setTextureHover(textureHoverOn);
@@ -60,6 +60,7 @@ public class TexturedSwitchButton extends STexturedButton {
 
     }
 
+    @Override
     public void setVisible(boolean aFlag) {
         if(aFlag) {
             defineTextures();
@@ -69,6 +70,7 @@ public class TexturedSwitchButton extends STexturedButton {
         }
     }
 
+    @Override
     public void setEnabled(boolean aFlag) {
         String value = selectedSaver.get(saverKey);
 

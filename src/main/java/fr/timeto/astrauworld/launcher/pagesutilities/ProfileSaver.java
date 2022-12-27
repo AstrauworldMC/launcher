@@ -2,6 +2,7 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.theshark34.openlauncherlib.util.Saver;
+import fr.timeto.astrauworld.launcher.customelements.ShadersSwitchButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 
 import java.awt.*;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static fr.timeto.timutilslib.TimFilesUtils.*;
+import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 
 /**
  * La classe qui regroupe tous les éléments en rapport avec les savers des profils
@@ -183,10 +185,10 @@ public class ProfileSaver {
         } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("asriel")) {
             url = "https://user-images.githubusercontent.com/97166376/209479946-e10c816c-6665-4347-9c8b-dd5165f42089.png";
             EasterEggs.setEatereggAsFound(EasterEggs.asrielName);
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("flowey")) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON).contains("true"))) {
             url = "https://user-images.githubusercontent.com/97166376/209479944-e76fbf8f-6aba-462f-afc5-08829af3f9c8.png";
             EasterEggs.setEatereggAsFound(EasterEggs.floweyName);
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("cursedflowey")) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON).contains("false"))) {
             url = "https://user-images.githubusercontent.com/97166376/209480184-79318022-8ba0-46c9-9773-504a63c2ee47.png";
             EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
         } else if (saver.get(KEY.SETTINGS_HELMICON).contains("true")) {
@@ -294,6 +296,7 @@ public class ProfileSaver {
      * ./config
      * options.txt
      * optionsof.txt
+     * optionsshaders.txt
      *
      */
 
@@ -331,17 +334,22 @@ public class ProfileSaver {
     private static final File optionsOFTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsof.txt");
 
     /**
+     * Le fichier des options des shaders d'Optifine général
+     */
+    public static final File optionsShadersTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsshaders.txt");
+
+    /**
      * Le dossier des saves des profils, initialisé plus tard
      */
     private static File savesProfileFolder = null;
     /**
      * Le dossier des resource packs des profils, initialisé plus tard
      */
-    private static File resourcepacksProfileFolder = null;
+    public static File resourcepacksProfileFolder = null;
     /**
      * Le dossier des shaders des profils, initialisé plus tard
      */
-    private static File shaderpacksProfileFolder = null;
+    public static File shaderpacksProfileFolder = null;
     /**
      * Le dossier des music sheets des profils, initialisé plus tard
      */
@@ -364,11 +372,41 @@ public class ProfileSaver {
     private static File optionsOFProfileTextfile = null;
 
     /**
+     * Le fichier des options des shaders d'Optifine des profils, initialisé plus tard
+     */
+    public static File optionsShadersProfileTextfile = null;
+
+    public static final String shaderChocapicV6Lite = "Chocapic13_V6_Lite.zip";
+    public static final String shaderChocapicV6Low = "Chocapic13_V6_Low.zip";
+    public static final String shaderChocapicV6Medium = "Chocapic13_V6_Medium.zip";
+    public static final String shaderChocapicV6High = "Chocapic13_V6_High.zip";
+    public static final String shaderChocapicV6Ultra = "Chocapic13_V6_Ultra.zip";
+    public static final String shaderChocapicV6Extreme = "Chocapic13_V6_Extreme.zip";
+
+    public static final String shaderChocapicV7_1Toaster = "Chocapic13_V7.1.1_Toaster_Edition.zip";
+    public static final String shaderChocapicV7_1Lite = "Chocapic13_V7.1.1_Lite.zip";
+    public static final String shaderChocapicV7_1Low = "Chocapic13_V7.1_Low.zip";
+    public static final String shaderChocapicV7_1Medium = "Chocapic13_V7.1_Medium.zip";
+    public static final String shaderChocapicV7_1High = "Chocapic13_V7.1_High.zip";
+    public static final String shaderChocapicV7_1Ultra = "Chocapic13_V7.1_Ultra.zip";
+    public static final String shaderChocapicV7_1Extreme = "Chocapic13_V7.1_Extreme.zip";
+
+    public static final String shaderChocapicV9Low = "Chocapic13_V9_Low.zip";
+    public static final String shaderChocapicV9Medium = "Chocapic13_V9_Medium.zip";
+    public static final String shaderChocapicV9High = "Chocapic13_V9_High.zip";
+    public static final String shaderChocapicV9Extreme = "Chocapic13_V9_Extreme.zip";
+    public static final String shaderChocapicV9_1Extreme = "Chocapic13_V9.1_Extreme_beta_5.zip";
+
+    public static final String shaderSeusRenewed = "SEUS-Renewed-v1.0.1.zip";
+
+    public static final ShadersSwitchButton[] shadersButtonsList = {profileShadersSeusRenewedSwitchButton, null};
+
+    /**
      * Initialise les dossiers customs
      * @param saver le Saver concerné
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    private static void initCustomFilesFolder(Saver saver) {
+    public static void initCustomFilesFolder(Saver saver) { // TODO mettre les fichiers des shaders et resource packs dans les dossier de profil et pas général
         File customFilesFolder = null;
         if (saver == firstProfileSaver) {
             customFilesFolder = Launcher.AW_FIRSTPROFILE_CUSTOMFILES_FOLDER;
@@ -386,6 +424,7 @@ public class ProfileSaver {
         configProfileFolder = new File(customFilesFolder + Launcher.separatorChar + "config");
         optionsProfileTextfile = new File(customFilesFolder + Launcher.separatorChar + "options.txt");
         optionsOFProfileTextfile = new File(customFilesFolder + Launcher.separatorChar + "optionsof.txt");
+        optionsShadersProfileTextfile = new File(customFilesFolder + Launcher.separatorChar + "optionsshaders.txt");
     }
 
     /**
@@ -410,6 +449,7 @@ public class ProfileSaver {
         try {
             copyFile(optionsTextfile, optionsProfileTextfile);
             copyFile(optionsOFTextfile, optionsOFProfileTextfile);
+            copyFile(optionsProfileTextfile, optionsShadersProfileTextfile);
         } catch (IOException e) {
             Launcher.println("Failed copy options files");
         }
@@ -426,10 +466,6 @@ public class ProfileSaver {
 
         deleteDirectory(savesFolder);
         savesFolder.mkdir();
-        deleteDirectory(resourcepacksFolder);
-        resourcepacksFolder.mkdir();
-        deleteDirectory(shaderpacksFolder);
-        shaderpacksFolder.mkdir();
         deleteDirectory(musicsheetsFolder);
         musicsheetsFolder.mkdir();
         deleteDirectory(schematicsFolder);
@@ -449,6 +485,7 @@ public class ProfileSaver {
         try {
             copyFile(optionsProfileTextfile, optionsTextfile);
             copyFile(optionsOFProfileTextfile, optionsOFTextfile);
+            copyFile(optionsShadersProfileTextfile, optionsShadersTextfile);
         } catch (IOException e) {
             Launcher.println("Failed copy options files");
         }

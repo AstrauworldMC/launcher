@@ -69,9 +69,10 @@ public class OnButtonEvent {
         profilePageButtons.add(profileAccountConnectionMicrosoftButton);
         profilePageButtons.add(profileAccountResetButton);
 
-        profilePageButtons.add(profileModsShadersButton);
-        profilePageButtons.add(profileModsResourcePacksButton);
-        profilePageButtons.add(profileModsOptifineSwitchButton);
+        profilePageButtons.add(profileAddonsShadersButton);
+        profilePageButtons.add(profileAddonsResourcePacksButton);
+        profilePageButtons.add(profileAddonsModsButton);
+        profilePageButtons.add(profileAddonsOptifineSwitchButton);
         profilePageButtons.add(profileModsFpsmodelSwitchButton);
         profilePageButtons.add(profileModsFpsmodelMoreInfosButton);
         profilePageButtons.add(profileModsBettertpsSwitchButton);
@@ -82,6 +83,11 @@ public class OnButtonEvent {
         profilePageButtons.add(profileModsAppleskinMoreInfosButton);
         profilePageButtons.add(profileModsSoundphysicsSwitchButton);
         profilePageButtons.add(profileModsSoundphysicsMoreInfosButton);
+        profilePageButtons.add(profileShadersChocapicV6PlusButton);
+        profilePageButtons.add(profileShadersChocapicV7_1PlusButton);
+        profilePageButtons.add(profileShadersChocapicV9PlusButton);
+        profilePageButtons.add(profileShadersSeusRenewedDownloadButton);
+        profilePageButtons.add(profileShadersSeusRenewedSwitchButton);
 
         profilePageButtons.add(profileSettingsHelmIconSwitchButton);
         profilePageButtons.add(profileSettingsSaveSettings);
@@ -140,15 +146,15 @@ public class OnButtonEvent {
         else if (src == newsButton) {
             setNewsPage(true);
         } else if (src == firstProfileButton) {
-            setProfilePage(true, "1", "home");
+            setProfilePage(true, "1", PageChange.TAB_KEY.profileHome);
         } else if (src == secondProfileButton) {
-            setProfilePage(true, "2", "home");
+            setProfilePage(true, "2", PageChange.TAB_KEY.profileHome);
         } else if (src == thirdProfileButton) {
-            setProfilePage(true, "3", "home");
+            setProfilePage(true, "3", PageChange.TAB_KEY.profileHome);
         } else if (src == changesButton) {
             setChangesPage(true);
         } else if (src == aboutButton) {
-            setAboutPage("infos", true);
+            setAboutPage(true, PageChange.TAB_KEY.aboutInfos);
         }
     }
 
@@ -160,15 +166,17 @@ public class OnButtonEvent {
      * @since Beta2.2.0
      */
     private static void onProfilePageEvent(Object src) {
+        String eventSelectedProfile = getSelectedProfile(selectedSaver);
+
         // Actions des boutons du haut des profilePage
         if (src == profilePlayTabButton) {
-            setProfilePage(true, "null", "home");
+            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileHome);
         } else if (src == profileAccountTabButton) {
-            setProfilePage(true, "null", "account");
+            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAccount);
         } else if (src == profileModsTabButton) {
-            setProfilePage(true, "null", "mods");
+            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsMods);
         } else if (src == profileSettingsTabButton) {
-            setProfilePage(true, "null", "settings");
+            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileSettings);
         }
 
         // Actions des boutons de la profilePage - Home
@@ -339,17 +347,17 @@ public class OnButtonEvent {
         }
 
         // Actions des boutons de la profilePage - Mods
-        else if (src == profileModsShadersButton) {
-            shaderpacksFolder.mkdir();
+        else if (src == profileAddonsShadersButton) {
+            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsShaders);
+        } else if (src == profileAddonsResourcePacksButton) {
             try {
-                Desktop.getDesktop().open((shaderpacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
+                Desktop.getDesktop().open(resourcepacksFolder); // TODO Temporaire jusqu'à pouvoir le faire depuis le assets
             } catch (IOException ignored) {}
-        } else if (src == profileModsResourcePacksButton) {
-            try {
-                Desktop.getDesktop().open((resourcepacksFolder)); // TODO Temporaire jusqu'à pouvoir le faire depuis le launcher
-            } catch (IOException ignored) {}
-        } else if (src == profileModsOptifineSwitchButton) {
-            profileModsOptifineSwitchButton.toggleButton();
+        } else if (src == profileAddonsModsButton) {
+            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsMods);
+        }
+        if (src == profileAddonsOptifineSwitchButton) {
+            profileAddonsOptifineSwitchButton.toggleButton();
         } else if (src == profileModsFpsmodelSwitchButton) {
             profileModsFpsmodelSwitchButton.toggleButton();
         } else if (src == profileModsFpsmodelMoreInfosButton) {
@@ -395,9 +403,9 @@ public class OnButtonEvent {
     private static void onAboutPageEvent(Object src) {
         // Actions des boutons de l'aboutPage - Up
         if (src == aboutInfosTabButton) {
-            setAboutPage("infos", true);
+            setAboutPage(true, PageChange.TAB_KEY.aboutInfos);
         } else if (src == aboutModsTabButton) {
-            setAboutPage("mods", true);
+            setAboutPage(true, PageChange.TAB_KEY.aboutMods);
         }
 
         // Actions des boutons de l'aboutPage - Infos

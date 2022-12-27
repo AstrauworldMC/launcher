@@ -4,6 +4,7 @@ import fr.theshark34.swinger.colored.SColoredBar;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.customelements.ShadersSwitchButton;
 import fr.timeto.astrauworld.launcher.pagesutilities.*;
 import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
 
@@ -24,18 +25,18 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
 import static fr.timeto.timutilslib.CustomFonts.*;
 
 /**
- * La classe du panel du launcher
+ * La classe du panel du assets
  * @author <a href="https://github.com/TimEtOff">TimEtO</a>
  * @see LauncherFrame
  */
 @SuppressWarnings("InstantiatingAThreadWithDefaultRunMethod")
-public class LauncherPanel extends JPanel implements SwingerEventListener, ActionListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
+public class LauncherPanel extends JPanel implements SwingerEventListener, ActionListener { // TODO faire une belle doc en utilisant la run assets [javadoc] pour voir où y'a rien
 
      /**
       * La variable du background, change à changement de page
       * @see PageChange
       */
-     public static Image background = getResourceIgnorePath("/assets.launcher/main/baseGUI.png");
+     public static Image background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
      static String lineSeparator = System.getProperty("line.separator");
 
@@ -72,23 +73,23 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
           if(Objects.equals(base, "firstProfile")){
                if(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
-                    button = getResourceIgnorePath("/assets.launcher/commonButtons/" + base + "Button-" + state + "None.png");
+                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + "None.png");
                }else {
-                    button = getResourceIgnorePath("/assets.launcher/commonButtons/" + base + "Button-" + state + ".png");
+                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
                }
 
           } else if (Objects.equals(base, "secondProfile")) {
                if(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
-                    button = getResourceIgnorePath("/assets.launcher/commonButtons/" + base + "Button-" + state + "None.png");
+                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + "None.png");
                }else {
-                    button = getResourceIgnorePath("/assets.launcher/commonButtons/" + base + "Button-" + state + ".png");
+                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
                }
 
           } else if (Objects.equals(base, "thirdProfile")) {
                if(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
-                    button = getResourceIgnorePath("/assets.launcher/commonButtons/" + base + "Button-" + state + "None.png");
+                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + "None.png");
                }else {
-                    button = getResourceIgnorePath("/assets.launcher/commonButtons/" + base + "Button-" + state + ".png");
+                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
                }
 
           }
@@ -142,16 +143,16 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Le bouton pour fermer la fenêtre et terminer le processus
            */
-          public static final STexturedButton quitButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/quitButton.png"), getResourceIgnorePath("/assets.launcher/commonButtons/quitButtonHover.png"));
+          public static final STexturedButton quitButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/quitButton.png"), getResourceIgnorePath("/assets/launcher/commonButtons/quitButtonHover.png"));
           /**
            * Le bouton pour réduire la fenêtre
            */
-          public static final STexturedButton hideButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/hideButton.png"), getResourceIgnorePath("/assets.launcher/commonButtons/hideButtonHover.png"));
+          public static final STexturedButton hideButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/hideButton.png"), getResourceIgnorePath("/assets/launcher/commonButtons/hideButtonHover.png"));
 
           /**
            * Le bouton du menu général de gauche pour ouvrir la page principale des actualités
            */
-          public static final STexturedButton newsButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/newsButton-normal.png"), getResourceIgnorePath("/assets.launcher/commonButtons/newsButton-hover.png"), getResourceIgnorePath("/assets.launcher/commonButtons/newsButton-selected.png"));
+          public static final STexturedButton newsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/newsButton-normal.png"), getResourceIgnorePath("/assets/launcher/commonButtons/newsButton-hover.png"), getResourceIgnorePath("/assets/launcher/commonButtons/newsButton-selected.png"));
           /**
            * Le bouton du menu général de gauche pour ouvrir la page principale du premier profil
            * @see Components#firstProfileIcon
@@ -208,19 +209,19 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final JLabel thirdProfileNameLabel = new JLabel(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
           /**
-           * Le texte contenant la version du launcher dans le menu général de gauche
+           * Le texte contenant la version du assets dans le menu général de gauche
            */
-          public static final JTextArea launcherVersionLabel = new JTextArea("Version du launcher:" + lineSeparator + Launcher.version);
+          public static final JTextArea launcherVersionLabel = new JTextArea("Version du assets:" + lineSeparator + Launcher.version);
 
           /**
            * Bouton du menu général de gauche pour ouvrir la page des changelogs
            * @see Changelogs
            */
-          public static final STexturedButton changesButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/changesButton-normal.png"), getResourceIgnorePath("/assets.launcher/commonButtons/changesButton-hover.png"), getResourceIgnorePath("/assets.launcher/commonButtons/changesButton-selected.png"));
+          public static final STexturedButton changesButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/changesButton-normal.png"), getResourceIgnorePath("/assets/launcher/commonButtons/changesButton-hover.png"), getResourceIgnorePath("/assets/launcher/commonButtons/changesButton-selected.png"));
           /**
            * Bouton du menu général de gauche pour ouvrir la page principale à propos
            */
-          public static final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/assets.launcher/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/assets.launcher/commonButtons/aboutButton-selected.png"));
+          public static final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/assets/launcher/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/assets/launcher/commonButtons/aboutButton-selected.png"));
           /**
            * Label contenant le titre de la page, affiché au-dessus du contenu de la page
            * @see Components#subTitleLabel
@@ -264,40 +265,40 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * Bouton invisible en haut à gauche de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
            */
-          public static final STexturedButton upLeftCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"));
+          public static final STexturedButton upLeftCorner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
           /**
            * Bouton invisible en haut à droite de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
            */
-          public static final STexturedButton upRightCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"));
+          public static final STexturedButton upRightCorner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
           /**
            * Bouton invisible en bas à gauche de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
            */
-          public static final STexturedButton downLeftCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"));
+          public static final STexturedButton downLeftCorner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
           /**
            * Bouton invisible en bas à droite de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
            */
-          public static final STexturedButton downRightCorner = new STexturedButton(getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"), getResourceIgnorePath("/assets.launcher/main/corner.png"));
+          public static final STexturedButton downRightCorner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
 
           // Profiles components - up
           /**
            * Bouton d'onglet de la page principale des pages de profil
            */
-          public static final STexturedButton profilePlayTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/up/Jouer-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Jouer-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Jouer-selected.png"));
+          public static final STexturedButton profilePlayTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Jouer-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Jouer-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Jouer-selected.png"));
           /**
            * Bouton d'onglet de la page du compte des pages de profil
            */
-          public static final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Compte-selected.png"));
+          public static final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-selected.png"));
           /**
            * Bouton d'onglet de la page des mods des pages de profil
            */
-          public static final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Mods-selected.png"));
+          public static final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Mods-selected.png"));
           /**
            * Bouton d'onglet de la page des paramètres des pages de profil
            */
-          public static final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/up/Reglages-selected.png"));
+          public static final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-selected.png"));
 
           // Profiles components - home
           /**
@@ -311,19 +312,19 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton pour lancer une update puis le jeu directement vers le serveur
            */
-          public static final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/playButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/playButton-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/playButton-disabled.png"));
+          public static final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/playButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/playButton-disabled.png"));
           /**
            * Bouton pour voir les actualités
            */
-          public static final STexturedButton profileNewsButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/newsButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/newsButton-hover.png"));
+          public static final STexturedButton profileNewsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/newsButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/newsButton-hover.png"));
           /**
            * Bouton pour lancer une update puis le jeu
            */
-          public static final STexturedButton profileLaunchToMenuButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/launchToMenuButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/launchToMenuButton-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/launchToMenuButton-disabled.png"));
+          public static final STexturedButton profileLaunchToMenuButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/launchToMenuButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/launchToMenuButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/launchToMenuButton-disabled.png"));
           /**
            * Bouton pour lancer une update des fichiers du jeu
            */
-          public static final STexturedButton profileDownloadButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/downloadButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/downloadButton-hover.png"), getResourceIgnorePath("/assets.launcher/profilesPage/downloadButton-disabled.png"));
+          public static final STexturedButton profileDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/downloadButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/downloadButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/downloadButton-disabled.png"));
           /**
            * Label du nom du compte connecté du profil
            */
@@ -334,16 +335,16 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * Bouton de connexion classique dans la page des profils - compte
            * @see Components#profileAccountConnectionMicrosoftButton
            */
-          public static final STexturedButton profileAccountConnectionButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/compte/connectionButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/compte/connectionButton-hover.png"));
+          public static final STexturedButton profileAccountConnectionButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/compte/connectionButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/compte/connectionButton-hover.png"));
           /**
            * Bouton de connexion avec une webview de Microsoft dans la page des profils - compte
            * @see Components#profileAccountConnectionButton
            */
-          public static final STexturedButton profileAccountConnectionMicrosoftButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/compte/connectionWithMicrosoftButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/compte/connectionWithMicrosoftButton-hover.png"));
+          public static final STexturedButton profileAccountConnectionMicrosoftButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/compte/connectionWithMicrosoftButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/compte/connectionWithMicrosoftButton-hover.png"));
           /**
            * Bouton pour réinitialiser les informations du compte connecté
            */
-          public static final STexturedButton profileAccountResetButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/compte/resetButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/compte/resetButton-hover.png"));
+          public static final STexturedButton profileAccountResetButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/compte/resetButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/compte/resetButton-hover.png"));
           /**
            * TextField pour entrer l'adresse email pour la connexion
            */
@@ -354,79 +355,87 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            */
           public static final JPasswordField profileAccountPasswordField = new JPasswordField();
 
-          // Profiles components - mods
+          // Profiles components - addons
           /**
            * Bouton pour les shaders
            */
-          public static STexturedButton profileModsShadersButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/shadersButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/shadersButton-hover.png"));
+          public static STexturedButton profileAddonsShadersButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/shadersButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/shadersButton-hover.png"));
           /**
            * Bouton pour les resource packs
            */
-          public static STexturedButton profileModsResourcePacksButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/resourcePacksButton-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/resourcePacksButton-hover.png"));
+          public static STexturedButton profileAddonsResourcePacksButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/resourcePacksButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/resourcePacksButton-hover.png"));
+
+          public static STexturedButton profileAddonsModsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/modsButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/modsButton-hover.png"));
           /**
            * Bouton I/O pour Optfine
            */
-          public static TexturedSwitchButton profileModsOptifineSwitchButton = new TexturedSwitchButton(KEY.MOD_OPTIFINE, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
+          public static TexturedSwitchButton profileAddonsOptifineSwitchButton = new TexturedSwitchButton(KEY.MOD_OPTIFINE, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton I/O pour le mod client 'First Person Model'
            * @see KEY#MOD_FPSMODEL
            * @see Components#profileModsFpsmodelMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsFpsmodelSwitchButton = new TexturedSwitchButton(KEY.MOD_FPSMODEL, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsFpsmodelSwitchButton = new TexturedSwitchButton(KEY.MOD_FPSMODEL, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'First Person Model', revoie à la page CurseForge
            * @see KEY#MOD_FPSMODEL
            * @see Components#profileModsFpsmodelSwitchButton
            */
-          public static final STexturedButton profileModsFpsmodelMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsFpsmodelMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'Better Third Person'
            * @see KEY#MOD_BETTERTPS
            * @see Components#profileModsBettertpsMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsBettertpsSwitchButton = new TexturedSwitchButton(KEY.MOD_BETTERTPS, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsBettertpsSwitchButton = new TexturedSwitchButton(KEY.MOD_BETTERTPS, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'Better Third Person', revoie à la page CurseForge
            * @see KEY#MOD_BETTERTPS
            * @see Components#profileModsBettertpsSwitchButton
            */
-          public static final STexturedButton profileModsBettertpsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsBettertpsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'Falling Leaves'
            * @see KEY#MOD_FALLINGLEAVES
            * @see Components#profileModsFallingleavesMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsFallingleavesSwitchButton = new TexturedSwitchButton(KEY.MOD_FALLINGLEAVES, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsFallingleavesSwitchButton = new TexturedSwitchButton(KEY.MOD_FALLINGLEAVES, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'Falling Leaves', revoie à la page CurseForge
            * @see KEY#MOD_FALLINGLEAVES
            * @see Components#profileModsFallingleavesSwitchButton
            */
-          public static final STexturedButton profileModsFallingleavesMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsFallingleavesMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'AppleSkin'
            * @see KEY#MOD_APPLESKIN
            * @see Components#profileModsAppleskinMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsAppleskinSwitchButton = new TexturedSwitchButton(KEY.MOD_APPLESKIN, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsAppleskinSwitchButton = new TexturedSwitchButton(KEY.MOD_APPLESKIN, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'AppleSkin', revoie à la page CurseForge
            * @see KEY#MOD_APPLESKIN
            * @see Components#profileModsAppleskinSwitchButton
            */
-          public static final STexturedButton profileModsAppleskinMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsAppleskinMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'Sound Physics Remastered'
            * @see KEY#MOD_SOUNDPHYSICS
            * @see Components#profileModsSoundphysicsMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsSoundphysicsSwitchButton = new TexturedSwitchButton(KEY.MOD_SOUNDPHYSICS, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsSoundphysicsSwitchButton = new TexturedSwitchButton(KEY.MOD_SOUNDPHYSICS, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'Sound Physics Remastered', revoie à la page CurseForge
            * @see KEY#MOD_SOUNDPHYSICS
            * @see Components#profileModsSoundphysicsSwitchButton
            */
-          public static final STexturedButton profileModsSoundphysicsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets.launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsSoundphysicsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
+
+          public static final STexturedButton profileShadersChocapicV6PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-hover.png"));
+          public static final STexturedButton profileShadersChocapicV7_1PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-hover.png"));
+          public static final STexturedButton profileShadersChocapicV9PlusButton =new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-hover.png"));
+          public static final STexturedButton profileShadersSeusRenewedDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final ShadersSwitchButton profileShadersSeusRenewedSwitchButton = new ShadersSwitchButton(shaderSeusRenewed, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
 
           // Profiles components - reglages
           /**
@@ -436,7 +445,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton I/O pour avoir la 2e couche sur l'avatar du profil dans la page profil - réglages
            */
-          public static final TexturedSwitchButton profileSettingsHelmIconSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.SETTINGS_HELMICON, getResourceIgnorePath("/assets.launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileSettingsHelmIconSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.SETTINGS_HELMICON, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
           /**
            * Spinner pour sélectionner la ram allouée au jeu au lancement dans la page profil - réglages
            */
@@ -444,7 +453,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton pour sauvegarder les paramètres du profil
            */
-          public static STexturedButton profileSettingsSaveSettings = new STexturedButton(getResourceIgnorePath("/assets.launcher/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/assets.launcher/profilesPage/reglages/saveProfileNameButton-hover.png"));
+          public static STexturedButton profileSettingsSaveSettings = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton-hover.png"));
 
           // Changelogs components
           /**
@@ -471,58 +480,58 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * Le bouton de l'onglet de la page à propos - infos
            * @since Beta2.1.2
            */
-          public static final STexturedButton aboutInfosTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/up/infosTab-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/up/infosTab-hover.png"), getResourceIgnorePath("/assets.launcher/aboutPage/up/infosTab-selected.png"));
+          public static final STexturedButton aboutInfosTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-selected.png"));
           /**
            * Le bouton de l'onglet de la page à propos - mods
            * @since Beta2.1.2
            */
-          public static final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/assets.launcher/aboutPage/up/modsTab-selected.png"));
+          public static final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-selected.png"));
 
           // About components - infos
           /**
            * Bouton du logo Astrauworld avec le texte qui renvoie au site dans la page à propos - infos
            * @since Beta2.1.2
            */
-          public static final STexturedButton aboutTextLogo = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/logo-texte.png"), getResourceIgnorePath("/assets.launcher/aboutPage/logo-texte.png"));
+          public static final STexturedButton aboutTextLogo = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/logo-texte.png"), getResourceIgnorePath("/assets/launcher/aboutPage/logo-texte.png"));
           /**
            * Bouton du logo d'Astrauwolf dans la page à propos - infos (easter egg) dans la page à propos - infos
            *
            * @since Beta2.1.2
            * @see EasterEggs#polishCow
            */
-          public static final STexturedButton aboutAstrauwolfLogo = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/aboutLogoAstrau.png"), getResourceIgnorePath("/assets.launcher/aboutPage/aboutLogoAstrau.png"));
+          public static final STexturedButton aboutAstrauwolfLogo = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/aboutLogoAstrau.png"), getResourceIgnorePath("/assets/launcher/aboutPage/aboutLogoAstrau.png"));
           /**
            * Bouton du logo de Capitenzo974 dans la page à propos - infos (easter egg) dans la page à propos - infos
            * @since Beta2.1.2
            * @see EasterEggs#frogWalking
            */
-          public static final STexturedButton aboutCapitenzoLogo = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/capitenzoPfp.png"), getResourceIgnorePath("/assets.launcher/aboutPage/capitenzoPfp.png"));
+          public static final STexturedButton aboutCapitenzoLogo = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/capitenzoPfp.png"), getResourceIgnorePath("/assets/launcher/aboutPage/capitenzoPfp.png"));
           /**
            * Bouton du logo de TimEtO dans la page à propos - infos (easter egg) dans la page à propos - infos
            * @since Beta2.1.2
            * @see EasterEggs#rickroll
            */
-          public static final STexturedButton aboutTimEtOLogo = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/aboutLogoTim.png"), getResourceIgnorePath("/assets.launcher/aboutPage/aboutLogoTim.png"));
+          public static final STexturedButton aboutTimEtOLogo = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/aboutLogoTim.png"), getResourceIgnorePath("/assets/launcher/aboutPage/aboutLogoTim.png"));
           /**
            * Bouton qui envoie à la page GitHub de AstrauworldMC dans la page à propos - infos
            * @since Beta2.1.2
            */
-          public static final STexturedButton aboutGithubButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/github-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/github-hover.png"));
+          public static final STexturedButton aboutGithubButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/github-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/github-hover.png"));
           /**
            * Bouton qui renvoie à un mailto:[l'adresse mail d'Astrauworld] dans la page à propos - infos
            * @since Beta2.1.2
            */
-          public static final STexturedButton aboutMailButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/mail-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/mail-hover.png"));
+          public static final STexturedButton aboutMailButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/mail-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/mail-hover.png"));
           /**
            * Bouton qui envoie à la page d'invitation au serveur Discord d'Astrauworld dans la page à propos - infos
            * @since Beta2.1.2
            */
-          public static final STexturedButton aboutDiscordButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/discord-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/discord-hover.png"));
+          public static final STexturedButton aboutDiscordButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/discord-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/discord-hover.png"));
           /**
            * Bouton qui envoie à la page du compte Twitter d'@AstrauworldMC dans la page à propos - infos
            * @since Beta2.1.2
            */
-          public static final STexturedButton aboutTwitterButton = new STexturedButton(getResourceIgnorePath("/assets.launcher/aboutPage/twitter-normal.png"), getResourceIgnorePath("/assets.launcher/aboutPage/twitter-hover.png"));
+          public static final STexturedButton aboutTwitterButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/twitter-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/twitter-hover.png"));
           /**
            * Label où est écrit le nombre d'easter eggs trouvés dans la page à propos - infos
            * @since Beta2.1.2
@@ -739,21 +748,26 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileAccountPasswordField);
           profileAccountPasswordField.setVisible(false);
 
-          // Profile components - mods
-          profileModsShadersButton.setBounds(566, 128);
-          profileModsShadersButton.addEventListener(this);
-          this.add(profileModsShadersButton);
-          profileModsShadersButton.setVisible(false);
+          // Profile components - addons
+          profileAddonsShadersButton.setBounds(566, 128);
+          profileAddonsShadersButton.addEventListener(this);
+          this.add(profileAddonsShadersButton);
+          profileAddonsShadersButton.setVisible(false);
 
-          profileModsResourcePacksButton.setBounds(735, 128);
-          profileModsResourcePacksButton.addEventListener(this);
-          this.add(profileModsResourcePacksButton);
-          profileModsResourcePacksButton.setVisible(false);
+          profileAddonsResourcePacksButton.setBounds(735, 128);
+          profileAddonsResourcePacksButton.addEventListener(this);
+          this.add(profileAddonsResourcePacksButton);
+          profileAddonsResourcePacksButton.setVisible(false);
 
-          profileModsOptifineSwitchButton.setBounds(402, 120);
-          profileModsOptifineSwitchButton.addEventListener(this);
-          this.add(profileModsOptifineSwitchButton);
-          profileModsOptifineSwitchButton.setVisible(false);
+          profileAddonsModsButton.setBounds(566, 128);
+          profileAddonsModsButton.addEventListener(this);
+          this.add(profileAddonsModsButton);
+          profileAddonsModsButton.setVisible(false);
+
+          profileAddonsOptifineSwitchButton.setBounds(402, 120);
+          profileAddonsOptifineSwitchButton.addEventListener(this);
+          this.add(profileAddonsOptifineSwitchButton);
+          profileAddonsOptifineSwitchButton.setVisible(false);
 
           profileModsFpsmodelSwitchButton.setBounds(496, 200);
           profileModsFpsmodelSwitchButton.addEventListener(this);
@@ -804,6 +818,32 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileModsSoundphysicsMoreInfosButton.addEventListener(this);
           this.add(profileModsSoundphysicsMoreInfosButton);
           profileModsSoundphysicsMoreInfosButton.setVisible(false);
+
+
+          profileShadersChocapicV6PlusButton.setBounds(490, 210);
+          profileShadersChocapicV6PlusButton.addEventListener(this);
+          this.add(profileShadersChocapicV6PlusButton);
+          profileShadersChocapicV6PlusButton.setVisible(false);
+
+          profileShadersChocapicV7_1PlusButton.setBounds(892, 210);
+          profileShadersChocapicV7_1PlusButton.addEventListener(this);
+          this.add(profileShadersChocapicV7_1PlusButton);
+          profileShadersChocapicV7_1PlusButton.setVisible(false);
+
+          profileShadersChocapicV9PlusButton.setBounds(490, 269);
+          profileShadersChocapicV9PlusButton.addEventListener(this);
+          this.add(profileShadersChocapicV9PlusButton);
+          profileShadersChocapicV9PlusButton.setVisible(false);
+
+          profileShadersSeusRenewedDownloadButton.setBounds(808, 299);
+          profileShadersSeusRenewedDownloadButton.addEventListener(this);
+          this.add(profileShadersSeusRenewedDownloadButton);
+          profileShadersSeusRenewedDownloadButton.setVisible(false);
+
+          profileShadersSeusRenewedSwitchButton.setBounds(892, 260);
+          profileShadersSeusRenewedSwitchButton.addEventListener(this);
+          this.add(profileShadersSeusRenewedSwitchButton);
+          profileShadersSeusRenewedSwitchButton.setVisible(false);
 
           // Profile components - reglages
           profileSettingsProfileNameTextField.setForeground(Color.WHITE);
@@ -923,7 +963,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(aboutEastereggsLabel);
           aboutEastereggsLabel.setVisible(false);
 
-          setProfilePage(true, "1", "home");
+          setProfilePage(true, "1", PageChange.TAB_KEY.profileHome);
 
      }
 
@@ -947,18 +987,18 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
       */
      public static void togglePlayButtonStatus(boolean toPlayStatus) {
           if (toPlayStatus) {
-               profilePlayButton.setTexture(getResourceIgnorePath("/assets.launcher/profilesPage/playButton-normal.png"));
-               profilePlayButton.setTextureHover(getResourceIgnorePath("/assets.launcher/profilesPage/playButton-hover.png"));
-               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/assets.launcher/profilesPage/playButton-disabled.png"));
+               profilePlayButton.setTexture(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-normal.png"));
+               profilePlayButton.setTextureHover(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-hover.png"));
+               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-disabled.png"));
 
                enablePlayButtons(true);
 
                profilePlayButtonIsPlayStatus = true;
                isUpdating = false;
           } else {
-               profilePlayButton.setTexture(getResourceIgnorePath("/assets.launcher/profilesPage/stopButton-normal.png"));
-               profilePlayButton.setTextureHover(getResourceIgnorePath("/assets.launcher/profilesPage/stopButton-hover.png"));
-               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/assets.launcher/profilesPage/stopButton-disabled.png"));
+               profilePlayButton.setTexture(getResourceIgnorePath("/assets/launcher/profilesPage/stopButton-normal.png"));
+               profilePlayButton.setTextureHover(getResourceIgnorePath("/assets/launcher/profilesPage/stopButton-hover.png"));
+               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/assets/launcher/profilesPage/stopButton-disabled.png"));
 
                enablePlayButtons(false);
 
