@@ -831,8 +831,6 @@ public class PageChange {
                     while (inDiaporama) {
                         profileDiapoImage1.setIcon(new ImageIcon(lakeImage));
                         profileDiapoImage2.setIcon(new ImageIcon(townHallImage));
-                        corner.setVisible(true);
-                        corner.setVisible(false);
 
                         if (!inDiaporama) {
                             return;
@@ -842,6 +840,8 @@ public class PageChange {
                         x1 = xAllView;
                         profileDiapoImage2.setLocation(x2, 0);
                         profileDiapoImage1.setLocation(x1, 0);
+                        corner.setVisible(true);
+                        corner.setVisible(false);
                         try {
                             Thread.sleep(6000);
                         } catch (InterruptedException e) {
