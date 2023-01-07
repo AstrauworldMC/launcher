@@ -48,6 +48,8 @@ public class LauncherFrame extends JFrame {
 
     }
 
+    public static String profileAfterMcExit = null;
+
     /**
      * La méthode appelée par le JRE au lancement, initialise tout le launcher
      * @param args Si des arguments sont ajoutés au lancement. Si l'argument {@link Launcher#afterMcExitArg} est spécifié, il doit être suivi du numéro du profil lancé
@@ -99,6 +101,7 @@ public class LauncherFrame extends JFrame {
                 } else if (Objects.equals(args[1], "3")) {
                     saver = thirdProfileSaver;
                 }
+                profileAfterMcExit = args[1];
 
                 ProfileSaver.saveCustomFiles(saver);
             }
@@ -106,6 +109,12 @@ public class LauncherFrame extends JFrame {
 
         EasterEggs.initEastereggs();
         new File(Launcher.dataFolder + "eastereggs.properties").delete();
+
+        if (firstProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null && secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null && thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null) {
+            firstProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "true");
+            secondProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
+            thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
+        }
 
         initLauncherSystemTray();
         instance = new LauncherFrame();

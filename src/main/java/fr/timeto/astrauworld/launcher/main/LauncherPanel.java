@@ -359,13 +359,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton I/O pour Optfine
            */
-          public static TexturedSwitchButton profileAddonsOptifineSwitchButton = new TexturedSwitchButton(KEY.MOD_OPTIFINE, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static TexturedSwitchButton profileAddonsOptifineSwitchButton = new TexturedSwitchButton(KEY.MOD_OPTIFINE, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
           /**
            * Bouton I/O pour le mod client 'First Person Model'
            * @see KEY#MOD_FPSMODEL
            * @see Components#profileModsFpsmodelMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsFpsmodelSwitchButton = new TexturedSwitchButton(KEY.MOD_FPSMODEL, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsFpsmodelSwitchButton = new TexturedSwitchButton(KEY.MOD_FPSMODEL, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'First Person Model', revoie à la page CurseForge
            * @see KEY#MOD_FPSMODEL
@@ -377,7 +377,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see KEY#MOD_BETTERTPS
            * @see Components#profileModsBettertpsMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsBettertpsSwitchButton = new TexturedSwitchButton(KEY.MOD_BETTERTPS, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsBettertpsSwitchButton = new TexturedSwitchButton(KEY.MOD_BETTERTPS, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'Better Third Person', revoie à la page CurseForge
            * @see KEY#MOD_BETTERTPS
@@ -389,7 +389,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see KEY#MOD_FALLINGLEAVES
            * @see Components#profileModsFallingleavesMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsFallingleavesSwitchButton = new TexturedSwitchButton(KEY.MOD_FALLINGLEAVES, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsFallingleavesSwitchButton = new TexturedSwitchButton(KEY.MOD_FALLINGLEAVES, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'Falling Leaves', revoie à la page CurseForge
            * @see KEY#MOD_FALLINGLEAVES
@@ -401,7 +401,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see KEY#MOD_APPLESKIN
            * @see Components#profileModsAppleskinMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsAppleskinSwitchButton = new TexturedSwitchButton(KEY.MOD_APPLESKIN, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsAppleskinSwitchButton = new TexturedSwitchButton(KEY.MOD_APPLESKIN, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'AppleSkin', revoie à la page CurseForge
            * @see KEY#MOD_APPLESKIN
@@ -413,7 +413,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see KEY#MOD_SOUNDPHYSICS
            * @see Components#profileModsSoundphysicsMoreInfosButton
            */
-          public static final TexturedSwitchButton profileModsSoundphysicsSwitchButton = new TexturedSwitchButton(KEY.MOD_SOUNDPHYSICS, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileModsSoundphysicsSwitchButton = new TexturedSwitchButton(KEY.MOD_SOUNDPHYSICS, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
           /**
            * Bouton pour avoir plus d'informations sur le mod client 'Sound Physics Remastered', revoie à la page CurseForge
            * @see KEY#MOD_SOUNDPHYSICS
@@ -435,11 +435,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton I/O pour avoir la 2e couche sur l'avatar du profil dans la page profil - réglages
            */
-          public static final TexturedSwitchButton profileSettingsHelmIconSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.SETTINGS_HELMICON, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final TexturedSwitchButton profileSettingsHelmIconSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_HELMICON, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
           /**
            * Spinner pour sélectionner la ram allouée au jeu au lancement dans la page profil - réglages
            */
           public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(2, 0.10, 256.00, 0.10));
+          public static TexturedSwitchButton profileSettingsMainProfileSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_MAINPROFILE, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), true);
           /**
            * Bouton pour sauvegarder les paramètres du profil
            */
@@ -862,6 +863,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileSettingsAllowedRamSpinner);
           profileSettingsAllowedRamSpinner.setVisible(false);
 
+          profileSettingsMainProfileSwitchButton.setBounds(491, 381);
+          profileSettingsMainProfileSwitchButton.addEventListener(this);
+          this.add(profileSettingsMainProfileSwitchButton);
+          profileSettingsMainProfileSwitchButton.setVisible(false);
+
           profileSettingsSaveSettings.setBounds(824, 543);
           profileSettingsSaveSettings.addEventListener(this);
           this.add(profileSettingsSaveSettings);
@@ -953,7 +959,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(aboutEastereggsLabel);
           aboutEastereggsLabel.setVisible(false);
 
-          setProfilePage(true, "1", PageChange.TAB_KEY.profileHome);
+          if (LauncherFrame.profileAfterMcExit == null) {
+               setProfilePage(true, getActualMainProfile(), PageChange.TAB_KEY.profileHome);
+          } else {
+               setProfilePage(true, LauncherFrame.profileAfterMcExit, PageChange.TAB_KEY.profileHome);
+          }
 
      }
 

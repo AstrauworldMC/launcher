@@ -90,6 +90,7 @@ public class OnButtonEvent {
         profilePageButtons.add(profileShadersSeusRenewedSwitchButton);
 
         profilePageButtons.add(profileSettingsHelmIconSwitchButton);
+        profilePageButtons.add(profileSettingsMainProfileSwitchButton);
         profilePageButtons.add(profileSettingsSaveSettings);
 
         aboutPageButtons.add(aboutInfosTabButton);
@@ -384,6 +385,8 @@ public class OnButtonEvent {
         else if (src == profileSettingsHelmIconSwitchButton) {
             profileSettingsHelmIconSwitchButton.toggleButton();
             initProfileButtons();
+        } else if (src == profileSettingsMainProfileSwitchButton) {
+            profileSettingsMainProfileSwitchButton.toggleButton();
         } else if (src == profileSettingsSaveSettings) {
             selectedSaver.set(ProfileSaver.KEY.SETTINGS_RAM, profileSettingsAllowedRamSpinner.getValue().toString());
             selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());

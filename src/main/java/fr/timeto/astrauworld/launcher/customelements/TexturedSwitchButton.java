@@ -1,5 +1,6 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
+import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.textured.STexturedButton;
 
 import java.awt.image.BufferedImage;
@@ -16,6 +17,7 @@ public class TexturedSwitchButton extends STexturedButton {
     private final BufferedImage textureDisabledOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_off.png");
     private final BufferedImage textureDisabledOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_on.png");
     private final String saverKey;
+    private final boolean global;
 
     public BufferedImage getTexture() {
         if (selectedSaver.get(saverKey).contains("true")) {
@@ -38,7 +40,7 @@ public class TexturedSwitchButton extends STexturedButton {
         return textureDisabledOff;
     }
 
-    private void defineTextures() {
+    protected void defineTextures() {
         if (selectedSaver.get(saverKey).contains("true")) {
             super.setTexture(textureOn);
             super.setTextureHover(textureHoverOn);
@@ -54,9 +56,10 @@ public class TexturedSwitchButton extends STexturedButton {
         return saverKey;
     }
 
-    public TexturedSwitchButton(String saverKey, BufferedImage texture) {
+    public TexturedSwitchButton(String saverKey, BufferedImage texture, boolean global) {
         super(texture);
         this.saverKey = saverKey;
+        this.global = global;
 
     }
 
@@ -94,10 +97,28 @@ public class TexturedSwitchButton extends STexturedButton {
     public void toggleButton() {
         String value = selectedSaver.get(saverKey);
 
+        Saver saverNotSelect1 = null;
+        Saver saverNotSelect2 = null;
+        if (selectedSaver == firstProfileSaver) {
+            saverNotSelect1 = secondProfileSaver;
+            saverNotSelect2 = thirdProfileSaver;
+        } else if (selectedSaver == secondProfileSaver) {
+            saverNotSelect1 = firstProfileSaver;
+            saverNotSelect2 = thirdProfileSaver;
+        } else if (selectedSaver == thirdProfileSaver) {
+            saverNotSelect1 = firstProfileSaver;
+            saverNotSelect2 = secondProfileSaver;
+        }
+
         if (Objects.equals(value, "true")) {
-            selectedSaver.set(saverKey, "false");
+            selectedSaver.set(this.getSaverKey(), "false");
+            if (global) {firstProfileSaver.set(this.getSaverKey(), "true");};
         } else if (Objects.equals(value, "false")) {
-            selectedSaver.set(saverKey, "true");
+            selectedSaver.set(this.getSaverKey(), "true");
+            if (global) {
+                saverNotSelect1.set(this.getSaverKey(), "false");
+                saverNotSelect2.set(this.getSaverKey(), "false");
+            };
         }
         defineTextures();
     }

@@ -94,6 +94,16 @@ public class ProfileSaver {
         }
     }
 
+    public static String getActualMainProfile() {
+        if (Objects.equals(thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE), "true")) {
+            return "3";
+        } else if (Objects.equals(secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE), "true")) {
+            return "2";
+        } else {
+            return "1";
+        }
+    }
+
     /**
      * Initialise le fichier de données du profil sélectionné s'il n'a pas déjà été créé
      * @param saver Le profil sélectionné
@@ -119,6 +129,7 @@ public class ProfileSaver {
             saver.set(KEY.SETTINGS_PROFILENAME, "none");
             saver.set(KEY.SETTINGS_HELMICON, "true");
             saver.set(KEY.SETTINGS_RAM, "2");
+            saver.set(KEY.SETTINGS_MAINPROFILE, "false");
 
             saver.set(KEY.FILECREATED, "true");
         }
@@ -557,6 +568,7 @@ public class ProfileSaver {
          * La RAM allouée
          */
         public static final String SETTINGS_RAM = "settings|AllowedRam";
+        public static final String SETTINGS_MAINPROFILE = "settings|MainProfile";
 
         /**
          * Si le fichier est créé

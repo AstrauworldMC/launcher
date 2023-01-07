@@ -181,9 +181,6 @@ public class PageChange {
                 LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets/launcher/profilesPage/profilePage.png");
-
-                
-                
                  
                 corner.setVisible(true);
 
@@ -583,6 +580,7 @@ public class PageChange {
                 profileSettingsHelmIconSwitchButton.setVisible(true);
                 profileSettingsAllowedRamSpinner.setVisible(true);
                 profileSettingsAllowedRamSpinner.setValue(parseFloat(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM)));
+                profileSettingsMainProfileSwitchButton.setVisible(true);
                 profileSettingsSaveSettings.setVisible(true);
 
                 profileAccountLabel.setBounds(388, 575, 276, 31);
@@ -613,6 +611,7 @@ public class PageChange {
                 profileSettingsProfileNameTextField.setVisible(false);
                 profileSettingsHelmIconSwitchButton.setVisible(false);
                 profileSettingsAllowedRamSpinner.setVisible(false);
+                profileSettingsMainProfileSwitchButton.setVisible(false);
                 profileSettingsSaveSettings.setVisible(false);
 
                 profileAccountLabel.setVisible(false);
