@@ -1,5 +1,6 @@
 package fr.timeto.astrauworld.launcher.main;
 
+import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.colored.SColoredBar;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
@@ -262,25 +263,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static JLabel infosLabel = new JLabel("", SwingConstants.CENTER);
 
           /**
-           * Bouton invisible en haut à gauche de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
-           * <p> Doit être mis visible puis invisible à chaque changement de page
-           */
-          public static final STexturedButton upLeftCorner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
-          /**
-           * Bouton invisible en haut à droite de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
-           * <p> Doit être mis visible puis invisible à chaque changement de page
-           */
-          public static final STexturedButton upRightCorner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
-          /**
-           * Bouton invisible en bas à gauche de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
-           * <p> Doit être mis visible puis invisible à chaque changement de page
-           */
-          public static final STexturedButton downLeftCorner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
-          /**
            * Bouton invisible en bas à droite de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
            */
-          public static final STexturedButton downRightCorner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
+          public static final STexturedButton corner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
 
           // Profiles components - up
           /**
@@ -329,6 +315,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * Label du nom du compte connecté du profil
            */
           public static final JLabel profileAccountLabel = new JLabel("", SwingConstants.LEFT);
+          public static final JPanel profileDiapoPanel = new JPanel();
+          public static final JLabel profileTextLogo = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/logo-texte.png")));
+          public static JLabel profileDiapoImage1 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png")));
+          public static JLabel profileDiapoImage2 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/townHall-day.png")));
 
           // Profiles components - compte
           /**
@@ -649,22 +639,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           launcherVersionLabel.setOpaque(false);
           this.add(launcherVersionLabel);
 
-
-          upLeftCorner.setBounds(0, 0);
-          this.add(upLeftCorner);
-          upLeftCorner.setEnabled(false);
-
-          upRightCorner.setBounds(1000, 0);
-          this.add(upRightCorner);
-          upRightCorner.setEnabled(false);
-
-          downLeftCorner.setBounds(0, 630);
-          this.add(downLeftCorner);
-          downLeftCorner.setEnabled(false);
-
-          downRightCorner.setBounds(1000, 630);
-          this.add(downRightCorner);
-          downRightCorner.setEnabled(false);
+          corner.setBounds(this.getWidth(), this.getHeight());
+          this.add(corner);
+          corner.setEnabled(false);
 
           // Profiles components - up
           profilePlayTabButton.setBounds(178, 89);
@@ -713,6 +690,19 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileAccountLabel.setFont(titleLabel.getFont().deriveFont(17f));
           this.add(profileAccountLabel);
           profileAccountLabel.setVisible(false);
+
+          profileTextLogo.setBounds(420, 138, 338, 83);
+          this.add(profileTextLogo);
+          profileTextLogo.setVisible(false);
+
+          profileDiapoPanel.setLayout(null);
+          this.add(profileDiapoPanel);
+          profileDiapoPanel.setBounds(178, 113, 822, 343);
+          profileDiapoPanel.setVisible(false);
+          profileDiapoImage1.setBounds(0, 0, 822, 343);
+          profileDiapoPanel.add(profileDiapoImage1);
+          profileDiapoImage2.setBounds(0, 0, 822, 343);
+          profileDiapoPanel.add(profileDiapoImage2);
 
           // Profiles components - compte
           profileAccountConnectionButton.setBounds(301, 359);
@@ -1052,7 +1042,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
      /**
       * Vérifie la version sélectionnée des changelogs
       * @return le numéro dans la liste
-      * @see Changelogs#changelogsList
       */
      public static int verifyVersionChangelog() {
           int i = 0;

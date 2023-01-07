@@ -1,10 +1,16 @@
 package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.openlauncherlib.util.Saver;
+import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
@@ -20,7 +26,7 @@ import static java.lang.Float.parseFloat;
  */
 public class PageChange {
 
-    public class TAB_KEY {
+    public static class TAB_KEY {
 
         public static final String profileHome = "home";
         public static final String profileAccount = "account";
@@ -47,21 +53,18 @@ public class PageChange {
 
             newsButton.setEnabled(false);
 
-            upLeftCorner.setVisible(false);
-            upRightCorner.setVisible(false);
-            downLeftCorner.setVisible(false);
-            downRightCorner.setVisible(false);
+            corner.setVisible(false);
 
             titleLabel.setText("Actualit\u00e9s");
             subTitleLabel.setText("");
             LauncherSystemTray.changeTrayTooltip();
 
-            background = getResourceIgnorePath("/assets/launcher//main/baseGUI.png");
+            background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
-            upLeftCorner.setVisible(true);
-            upRightCorner.setVisible(true);
-            downLeftCorner.setVisible(true);
-            downRightCorner.setVisible(true);
+            
+            
+             
+            corner.setVisible(true);
         }else {
             newsButton.setEnabled(true);
         }
@@ -152,6 +155,10 @@ public class PageChange {
                 profileLaunchToMenuButton.setVisible(true);
                 profileDownloadButton.setVisible(true);
 
+                profileDiapoPanel.setVisible(true);
+                profileTextLogo.setVisible(true);
+                profileDiaporama(true);
+
                 profileAccountLabel.setBounds(386, 468, 276, 31);
                 profileAccountLabel.setVisible(true);
                 if (!Objects.equals(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")){
@@ -168,20 +175,17 @@ public class PageChange {
 
                 //          togglePlayButtonStatus(profilePlayButtonIsPlayStatus);
 
-                upLeftCorner.setVisible(false);
-                upRightCorner.setVisible(false);
-                downLeftCorner.setVisible(false);
-                downRightCorner.setVisible(false);
+                corner.setVisible(false);
 
                 subTitleLabel.setText("Jouer");
                 LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets/launcher/profilesPage/profilePage.png");
 
-                upLeftCorner.setVisible(true);
-                upRightCorner.setVisible(true);
-                downLeftCorner.setVisible(true);
-                downRightCorner.setVisible(true);
+                
+                
+                 
+                corner.setVisible(true);
 
             } else {
                 profileNotSelected1.setEnabled(true);
@@ -196,6 +200,11 @@ public class PageChange {
                 profileNewsButton.setVisible(false);
                 profileLaunchToMenuButton.setVisible(false);
                 profileDownloadButton.setVisible(false);
+
+                profileDiapoPanel.setVisible(false);
+                profileTextLogo.setVisible(false);
+                profileDiaporama(false);
+
                 profileAccountLabel.setVisible(false);
                 if (profileNumber == null) {
                     thirdProfileButton.setEnabled(true);
@@ -292,20 +301,17 @@ public class PageChange {
                     profileAccountLabel.setText("");
                 }
 
-                upLeftCorner.setVisible(false);
-                upRightCorner.setVisible(false);
-                downLeftCorner.setVisible(false);
-                downRightCorner.setVisible(false);
+                corner.setVisible(false);
 
                 subTitleLabel.setText("Compte");
                 LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets/launcher/profilesPage/compte/profilePage-compte.png");
 
-                upLeftCorner.setVisible(true);
-                upRightCorner.setVisible(true);
-                downLeftCorner.setVisible(true);
-                downRightCorner.setVisible(true);
+                
+                
+                 
+                corner.setVisible(true);
 
             } else {
                 profilePlayTabButton.setVisible(false);
@@ -405,20 +411,17 @@ public class PageChange {
                         profileAccountLabel.setText("");
                     }
 
-                    upLeftCorner.setVisible(false);
-                    upRightCorner.setVisible(false);
-                    downLeftCorner.setVisible(false);
-                    downRightCorner.setVisible(false);
+                    corner.setVisible(false);
 
                     subTitleLabel.setText("Addons - Mods");
                     LauncherSystemTray.changeTrayTooltip();
 
                     background = getResourceIgnorePath("/assets/launcher/profilesPage/mods/profilePage-addons-mods.png");
 
-                    upLeftCorner.setVisible(true);
-                    upRightCorner.setVisible(true);
-                    downLeftCorner.setVisible(true);
-                    downRightCorner.setVisible(true);
+                    
+                    
+                     
+                    corner.setVisible(true);
                 } else {
                     profilePlayTabButton.setVisible(false);
                     profileAccountTabButton.setVisible(false);
@@ -483,20 +486,17 @@ public class PageChange {
                         profileAccountLabel.setText("");
                     }
 
-                    upLeftCorner.setVisible(false);
-                    upRightCorner.setVisible(false);
-                    downLeftCorner.setVisible(false);
-                    downRightCorner.setVisible(false);
+                    corner.setVisible(false);
 
                     subTitleLabel.setText("Addons - Shaders");
                     LauncherSystemTray.changeTrayTooltip();
 
                     background = getResourceIgnorePath("/assets/launcher/profilesPage/mods/profilePage-addons-shaders.png");
 
-                    upLeftCorner.setVisible(true);
-                    upRightCorner.setVisible(true);
-                    downLeftCorner.setVisible(true);
-                    downRightCorner.setVisible(true);
+                    
+                    
+                     
+                    corner.setVisible(true);
                 } else {
                     profilePlayTabButton.setVisible(false);
                     profileAccountTabButton.setVisible(false);
@@ -578,7 +578,6 @@ public class PageChange {
                 profileModsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
-
                 profileSettingsProfileNameTextField.setVisible(true);
                 profileSettingsProfileNameTextField.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
                 profileSettingsHelmIconSwitchButton.setVisible(true);
@@ -594,20 +593,17 @@ public class PageChange {
                     profileAccountLabel.setText("");
                 }
 
-                upLeftCorner.setVisible(false);
-                upRightCorner.setVisible(false);
-                downLeftCorner.setVisible(false);
-                downRightCorner.setVisible(false);
+                corner.setVisible(false);
 
                 subTitleLabel.setText("R\u00e9glages");
                 LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets/launcher/profilesPage/reglages/profilePage-reglages.png");
 
-                upLeftCorner.setVisible(true);
-                upRightCorner.setVisible(true);
-                downLeftCorner.setVisible(true);
-                downRightCorner.setVisible(true);
+                
+                
+                 
+                corner.setVisible(true);
             } else {
                 profilePlayTabButton.setVisible(false);
                 profileAccountTabButton.setVisible(false);
@@ -647,10 +643,7 @@ public class PageChange {
             changelogsVersionComboBox.setVisible(true);
             changelogsTextArea.setVisible(true);
 
-            upLeftCorner.setVisible(false);
-            upRightCorner.setVisible(false);
-            downLeftCorner.setVisible(false);
-            downRightCorner.setVisible(false);
+            corner.setVisible(false);
 
             subTitleLabel.setText(" ");
             titleLabel.setText("Changelogs");
@@ -661,10 +654,10 @@ public class PageChange {
 
             background = getResourceIgnorePath("/assets/launcher/changelogsPage/changelogsPage.png");
 
-            upLeftCorner.setVisible(true);
-            upRightCorner.setVisible(true);
-            downLeftCorner.setVisible(true);
-            downRightCorner.setVisible(true);
+            
+            
+             
+            corner.setVisible(true);
         }else {
             changelogsVersionComboBox.setVisible(false);
             changelogsTextArea.setVisible(false);
@@ -707,10 +700,7 @@ public class PageChange {
                 aboutEastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
                 aboutEastereggsLabel.setVisible(true);
 
-                upLeftCorner.setVisible(false);
-                upRightCorner.setVisible(false);
-                downLeftCorner.setVisible(false);
-                downRightCorner.setVisible(false);
+                corner.setVisible(false);
 
                 subTitleLabel.setText("Infos");
                 titleLabel.setText("\u00c0 propos");
@@ -718,10 +708,10 @@ public class PageChange {
 
                 background = getResourceIgnorePath("/assets/launcher/aboutPage/aboutPage-infos.png");
 
-                upLeftCorner.setVisible(true);
-                upRightCorner.setVisible(true);
-                downLeftCorner.setVisible(true);
-                downRightCorner.setVisible(true);
+                
+                
+                 
+                corner.setVisible(true);
             } else {
                 aboutInfosTabButton.setVisible(false);
                 aboutModsTabButton.setVisible(false);
@@ -754,10 +744,7 @@ public class PageChange {
                 aboutInfosTabButton.setVisible(true);
                 aboutModsTabButton.setVisible(true);
 
-                upLeftCorner.setVisible(false);
-                upRightCorner.setVisible(false);
-                downLeftCorner.setVisible(false);
-                downRightCorner.setVisible(false);
+                corner.setVisible(false);
 
                 subTitleLabel.setText("Mods");
                 titleLabel.setText("\u00c0 propos");
@@ -765,9 +752,9 @@ public class PageChange {
 
                 background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
-                upLeftCorner.setVisible(true);
-                upRightCorner.setVisible(true);
-                downLeftCorner.setVisible(true);
+                
+                
+                 
 
             } else {
                 aboutInfosTabButton.setVisible(false);
@@ -782,5 +769,235 @@ public class PageChange {
             setAboutPage(false, TAB_KEY.aboutMods);
         }
 
+    }
+
+    private static boolean inDiaporama;
+    private static Thread tDiapo = null;
+    public static void profileDiaporama(boolean active) {
+        if (active) {
+            inDiaporama = true;
+
+            corner.setVisible(true);
+            corner.setVisible(false);
+
+            if (tDiapo == null) {
+                tDiapo = new Thread(() -> {
+                    BufferedImage lakeImage;
+                    BufferedImage townHallImage;
+                    BufferedImage churchImage;
+                    BufferedImage villageImage;
+
+                    String check = "dayCycle";
+                    try {
+                        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+                        Date date_from = formatter.parse("20:00");
+                        Date date_to = formatter.parse("08:00");
+                        Date dateNow = formatter.parse(formatter.format(new Date()));
+
+                        if (date_from.before(date_to)) { // they are on the same day
+                            if (dateNow.after(date_from) && dateNow.before(date_to)) {
+                                check = "nightCycle";
+                            } else {
+                                check = "dayCycle";
+                            }
+                        } else { // interval crossing midnight
+                            if (dateNow.before(date_to) || dateNow.after(date_from)) {
+                                check = "nightCycle";
+                            } else {
+                                check = "dayCycle";
+                            }
+                        }
+                    } catch (ParseException ignored) {
+                    }
+                    if (check.equals("nightCycle")) {
+                        lakeImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-night.png");
+                        townHallImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/townHall-night.png");
+                        churchImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/church-night.png");
+                        villageImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/village-night.png");
+                    } else {
+                        lakeImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png");
+                        townHallImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/townHall-day.png");
+                        churchImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/church-day.png");
+                        villageImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/village-day.png");
+                    }
+
+                    final int xAllView = 0;
+                    final int xAllLeft = -822;
+                    final int xALlRight = 822;
+
+                    int x1;
+                    int x2;
+
+                    while (inDiaporama) {
+                        profileDiapoImage1.setIcon(new ImageIcon(lakeImage));
+                        profileDiapoImage2.setIcon(new ImageIcon(townHallImage));
+                        corner.setVisible(true);
+                        corner.setVisible(false);
+
+                        if (!inDiaporama) {
+                            return;
+                        }
+
+                        x2 = xALlRight;
+                        x1 = xAllView;
+                        profileDiapoImage2.setLocation(x2, 0);
+                        profileDiapoImage1.setLocation(x1, 0);
+                        try {
+                            Thread.sleep(6000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        corner.setVisible(true);
+                        corner.setVisible(false);
+                        if (!inDiaporama) {
+                            return;
+                        }
+
+                        while (x1 != xAllLeft && x2 != xAllView) {
+                            if (!inDiaporama) {
+                                return;
+                            }
+
+                            x1 -= 3;
+                            x2 -= 3;
+                            corner.setVisible(true);
+                            profileDiapoImage1.setLocation(x1, 0);
+                            profileDiapoImage2.setLocation(x2, 0);
+                            corner.setVisible(false);
+                            try {
+                                Thread.sleep(5);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                        x1 = xALlRight;
+                        profileDiapoImage1.setLocation(x1, 0);
+                        if (!inDiaporama) {
+                            return;
+                        }
+                        try {
+                            Thread.sleep(6000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        corner.setVisible(true);
+                        corner.setVisible(false);
+                        if (!inDiaporama) {
+                            return;
+                        }
+
+                        profileDiapoImage1.setIcon(new ImageIcon(churchImage));
+
+                        while (x2 != xAllLeft && x1 != xAllView) {
+                            if (!inDiaporama) {
+                                return;
+                            }
+
+                            x1 -= 3;
+                            x2 -= 3;
+                            corner.setVisible(true);
+                            profileDiapoImage1.setLocation(x1, 0);
+                            profileDiapoImage2.setLocation(x2, 0);
+                            corner.setVisible(false);
+                            try {
+                                Thread.sleep(5);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                        profileDiapoImage2.setIcon(new ImageIcon(villageImage));
+
+                        x2 = xALlRight;
+                        profileDiapoImage2.setLocation(x2, 0);
+                        if (!inDiaporama) {
+                            return;
+                        }
+                        try {
+                            Thread.sleep(6000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        if (!inDiaporama) {
+                            return;
+                        }
+                        corner.setVisible(true);
+                        corner.setVisible(false);
+
+                        while (x1 != xAllLeft && x2 != xAllView) {
+                            if (!inDiaporama) {
+                                return;
+                            }
+                            x1 -= 3;
+                            x2 -= 3;
+                            corner.setVisible(true);
+                            profileDiapoImage1.setLocation(x1, 0);
+                            profileDiapoImage2.setLocation(x2, 0);
+                            corner.setVisible(false);
+                            try {
+                                Thread.sleep(5);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                        x1 = xALlRight;
+                        profileDiapoImage1.setLocation(x1, 0);
+                        if (!inDiaporama) {
+                            return;
+                        }
+                        try {
+                            Thread.sleep(6000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        corner.setVisible(true);
+                        corner.setVisible(false);
+                        if (!inDiaporama) {
+                            return;
+                        }
+
+                        profileDiapoImage1.setIcon(new ImageIcon(lakeImage));
+
+                        while (x2 != xAllLeft && x1 != xAllView) {
+                            if (!inDiaporama) {
+                                return;
+                            }
+                            x1 -= 3;
+                            x2 -= 3;
+                            corner.setVisible(true);
+                            profileDiapoImage1.setLocation(x1, 0);
+                            profileDiapoImage2.setLocation(x2, 0);
+                            corner.setVisible(false);
+                            try {
+                                Thread.sleep(5);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                        corner.setVisible(true);
+                        corner.setVisible(false);
+                    }
+
+                });
+                tDiapo.start();
+
+                Thread t = new Thread(() -> {
+                    try {
+                        tDiapo.join();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    tDiapo = null;
+                });
+                t.start();
+            }
+
+        } else {
+            inDiaporama = false;
+        }
     }
 }

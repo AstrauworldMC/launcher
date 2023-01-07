@@ -49,7 +49,7 @@ public class LauncherFrame extends JFrame {
     }
 
     /**
-     * La méthode appelée par le JRE au lancement, initialise tout le assets
+     * La méthode appelée par le JRE au lancement, initialise tout le launcher
      * @param args Si des arguments sont ajoutés au lancement. Si l'argument {@link Launcher#afterMcExitArg} est spécifié, il doit être suivi du numéro du profil lancé
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
