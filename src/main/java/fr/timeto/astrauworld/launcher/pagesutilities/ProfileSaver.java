@@ -410,7 +410,7 @@ public class ProfileSaver {
 
     public static final String shaderSeusRenewed = "SEUS-Renewed-v1.0.1.zip";
 
-    public static final ShadersSwitchButton[] shadersButtonsList = {profileShadersSeusRenewedSwitchButton, profileShadersChocapicV6LiteSwitchButton, profileShadersChocapicV6LowSwitchButton, profileShadersChocapicV6MediumSwitchButton, profileShadersChocapicV6UltraSwitchButton, profileShadersChocapicV6ExtremeSwitchButton};
+    public static final ShadersSwitchButton[] shadersButtonsList = {profileShadersSeusRenewedSwitchButton, profileShadersChocapicV6LiteSwitchButton, profileShadersChocapicV6LowSwitchButton, profileShadersChocapicV6MediumSwitchButton, profileShadersChocapicV6UltraSwitchButton, profileShadersChocapicV6ExtremeSwitchButton, profileShadersChocapicV7_1ToasterSwitchButton, profileShadersChocapicV7_1LiteSwitchButton, profileShadersChocapicV7_1LowSwitchButton, profileShadersChocapicV7_1MediumSwitchButton, profileShadersChocapicV7_1UltraSwitchButton, profileShadersChocapicV7_1ExtremeSwitchButton, profileShadersChocapicV9LowSwitchButton, profileShadersChocapicV9MediumSwitchButton, profileShadersChocapicV9HighSwitchButton, profileShadersChocapicV9ExtremeSwitchButton, profileShadersChocapicV9_1ExtremeSwitchButton};
 
     /**
      * Initialise les dossiers customs
