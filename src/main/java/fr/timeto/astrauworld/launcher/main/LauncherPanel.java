@@ -427,6 +427,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final STexturedButton profileShadersSeusRenewedDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
           public static final ShadersSwitchButton profileShadersSeusRenewedSwitchButton = new ShadersSwitchButton(shaderSeusRenewed, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
 
+          public static final ShadersSwitchButton profileShadersChocapicV6LiteSwitchButton = new ShadersSwitchButton(shaderChocapicV6Lite, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final STexturedButton profileShadersChocapicV6LiteDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final ShadersSwitchButton profileShadersChocapicV6LowSwitchButton = new ShadersSwitchButton(shaderChocapicV6Low, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final STexturedButton profileShadersChocapicV6LowDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final ShadersSwitchButton profileShadersChocapicV6MediumSwitchButton = new ShadersSwitchButton(shaderChocapicV6Medium, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final STexturedButton profileShadersChocapicV6MediumDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final ShadersSwitchButton profileShadersChocapicV6UltraSwitchButton = new ShadersSwitchButton(shaderChocapicV6Ultra, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final STexturedButton profileShadersChocapicV6UltraDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final ShadersSwitchButton profileShadersChocapicV6ExtremeSwitchButton = new ShadersSwitchButton(shaderChocapicV6Extreme, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+          public static final STexturedButton profileShadersChocapicV6ExtremeDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+
           // Profiles components - reglages
           /**
            * Text field pour changer le nom du profil dans la page profil - réglages
@@ -836,6 +847,57 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileShadersSeusRenewedSwitchButton);
           profileShadersSeusRenewedSwitchButton.setVisible(false);
 
+
+          profileShadersChocapicV6LiteSwitchButton.setBounds(496, 200);
+          profileShadersChocapicV6LiteSwitchButton.addEventListener(this);
+          this.add(profileShadersChocapicV6LiteSwitchButton);
+          profileShadersChocapicV6LiteSwitchButton.setVisible(false);
+
+          profileShadersChocapicV6LiteDownloadButton.setBounds(419, 239);
+          profileShadersChocapicV6LiteDownloadButton.addEventListener(this);
+          this.add(profileShadersChocapicV6LiteDownloadButton);
+          profileShadersChocapicV6LiteDownloadButton.setVisible(false);
+
+          profileShadersChocapicV6LowSwitchButton.setBounds(892, 200);
+          profileShadersChocapicV6LowSwitchButton.addEventListener(this);
+          this.add(profileShadersChocapicV6LowSwitchButton);
+          profileShadersChocapicV6LowSwitchButton.setVisible(false);
+
+          profileShadersChocapicV6LowDownloadButton.setBounds(808, 239);
+          profileShadersChocapicV6LowDownloadButton.addEventListener(this);
+          this.add(profileShadersChocapicV6LowDownloadButton);
+          profileShadersChocapicV6LowDownloadButton.setVisible(false);
+
+          profileShadersChocapicV6MediumSwitchButton.setBounds(496, 260);
+          profileShadersChocapicV6MediumSwitchButton.addEventListener(this);
+          this.add(profileShadersChocapicV6MediumSwitchButton);
+          profileShadersChocapicV6MediumSwitchButton.setVisible(false);
+
+          profileShadersChocapicV6MediumDownloadButton.setBounds(419, 299);
+          profileShadersChocapicV6MediumDownloadButton.addEventListener(this);
+          this.add(profileShadersChocapicV6MediumDownloadButton);
+          profileShadersChocapicV6MediumDownloadButton.setVisible(false);
+
+          profileShadersChocapicV6UltraSwitchButton.setBounds(892, 260);
+          profileShadersChocapicV6UltraSwitchButton.addEventListener(this);
+          this.add(profileShadersChocapicV6UltraSwitchButton);
+          profileShadersChocapicV6UltraSwitchButton.setVisible(false);
+
+          profileShadersChocapicV6UltraDownloadButton.setBounds(808, 299);
+          profileShadersChocapicV6UltraDownloadButton.addEventListener(this);
+          this.add(profileShadersChocapicV6UltraDownloadButton);
+          profileShadersChocapicV6UltraDownloadButton.setVisible(false);
+
+          profileShadersChocapicV6ExtremeSwitchButton.setBounds(496, 320);
+          profileShadersChocapicV6ExtremeSwitchButton.addEventListener(this);
+          this.add(profileShadersChocapicV6ExtremeSwitchButton);
+          profileShadersChocapicV6ExtremeSwitchButton.setVisible(false);
+
+          profileShadersChocapicV6ExtremeDownloadButton.setBounds(419, 359);
+          profileShadersChocapicV6ExtremeDownloadButton.addEventListener(this);
+          this.add(profileShadersChocapicV6ExtremeDownloadButton);
+          profileShadersChocapicV6ExtremeDownloadButton.setVisible(false);
+
           // Profile components - reglages
           profileSettingsProfileNameTextField.setForeground(Color.WHITE);
           profileSettingsProfileNameTextField.setFont(titleLabel.getFont().deriveFont(25f));
@@ -959,11 +1021,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(aboutEastereggsLabel);
           aboutEastereggsLabel.setVisible(false);
 
-          if (LauncherFrame.profileAfterMcExit == null) {
-               setProfilePage(true, getActualMainProfile(), PageChange.TAB_KEY.profileHome);
-          } else {
-               setProfilePage(true, LauncherFrame.profileAfterMcExit, PageChange.TAB_KEY.profileHome);
-          }
+          setProfilePage(true, Objects.requireNonNullElseGet(LauncherFrame.profileAfterMcExit, ProfileSaver::getActualMainProfile), TAB_KEY.profileHome);
 
      }
 

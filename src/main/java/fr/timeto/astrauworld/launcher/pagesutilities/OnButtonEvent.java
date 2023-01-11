@@ -86,8 +86,19 @@ public class OnButtonEvent {
         profilePageButtons.add(profileShadersChocapicV6PlusButton);
         profilePageButtons.add(profileShadersChocapicV7_1PlusButton);
         profilePageButtons.add(profileShadersChocapicV9PlusButton);
-        profilePageButtons.add(profileShadersSeusRenewedDownloadButton);
         profilePageButtons.add(profileShadersSeusRenewedSwitchButton);
+        profilePageButtons.add(profileShadersSeusRenewedDownloadButton);
+
+        profilePageButtons.add(profileShadersChocapicV6LiteSwitchButton);
+        profilePageButtons.add(profileShadersChocapicV6LiteDownloadButton);
+        profilePageButtons.add(profileShadersChocapicV6LowSwitchButton);
+        profilePageButtons.add(profileShadersChocapicV6LowDownloadButton);
+        profilePageButtons.add(profileShadersChocapicV6MediumSwitchButton);
+        profilePageButtons.add(profileShadersChocapicV6MediumDownloadButton);
+        profilePageButtons.add(profileShadersChocapicV6UltraSwitchButton);
+        profilePageButtons.add(profileShadersChocapicV6UltraDownloadButton);
+        profilePageButtons.add(profileShadersChocapicV6ExtremeSwitchButton);
+        profilePageButtons.add(profileShadersChocapicV6ExtremeDownloadButton);
 
         profilePageButtons.add(profileSettingsHelmIconSwitchButton);
         profilePageButtons.add(profileSettingsMainProfileSwitchButton);
@@ -379,6 +390,38 @@ public class OnButtonEvent {
             profileModsSoundphysicsSwitchButton.toggleButton();
         } else if (src == profileModsSoundphysicsMoreInfosButton) {
             openMoreInfosUrl(KEY.MOD_SOUNDPHYSICS);
+        }
+        
+        // Actions des boutons de la profilePage - Shaders
+        else if (src == profileShadersSeusRenewedSwitchButton) {
+            profileShadersSeusRenewedSwitchButton.toggle();
+        } else if (src == profileShadersSeusRenewedDownloadButton) {
+            profileShadersSeusRenewedSwitchButton.installShader();
+        } else if (src == profileShadersChocapicV6PlusButton) {
+            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsShaders + " ChocapicV6");
+        }
+
+        // Actions des boutons de la profilePage - Shaders (ChocapicV6)
+        else if (src == profileShadersChocapicV6LiteSwitchButton) {
+            profileShadersChocapicV6LiteSwitchButton.toggle();
+        } else if (src == profileShadersChocapicV6LiteDownloadButton) {
+            profileShadersChocapicV6LiteSwitchButton.installShader();
+        } else if (src == profileShadersChocapicV6LowSwitchButton) {
+            profileShadersChocapicV6LowSwitchButton.toggle();
+        } else if (src == profileShadersChocapicV6LowDownloadButton) {
+            profileShadersChocapicV6LowSwitchButton.installShader();
+        } else if (src == profileShadersChocapicV6MediumSwitchButton) {
+            profileShadersChocapicV6MediumSwitchButton.toggle();
+        } else if (src == profileShadersChocapicV6MediumDownloadButton) {
+            profileShadersChocapicV6MediumSwitchButton.installShader();
+        } else if (src == profileShadersChocapicV6UltraSwitchButton) {
+            profileShadersChocapicV6UltraSwitchButton.toggle();
+        } else if (src == profileShadersChocapicV6UltraDownloadButton) {
+            profileShadersChocapicV6UltraSwitchButton.installShader();
+        } else if (src == profileShadersChocapicV6ExtremeSwitchButton) {
+            profileShadersChocapicV6ExtremeSwitchButton.toggle();
+        } else if (src == profileShadersChocapicV6ExtremeDownloadButton) {
+            profileShadersChocapicV6ExtremeSwitchButton.installShader();
         }
 
         // Actions des boutons de la profilePage - Reglages

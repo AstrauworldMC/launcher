@@ -6,11 +6,12 @@ import fr.timeto.timutilslib.TimFilesUtils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
+import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
+import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.infosLabel;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 public class ShadersSwitchButton extends STexturedButton {
@@ -23,7 +24,7 @@ public class ShadersSwitchButton extends STexturedButton {
     private final BufferedImage textureDisabledOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_on.png");
 
     private Saver shaderOptionsSaver;
-    private final String shaderResourceFolderUrl = "https://github.com/AstrauworldMC/resources/shaderpacks/";
+    private final String shaderResourceFolderUrl = "https://github.com/AstrauworldMC/resources/blob/main/shaderpacks/";
     private final String selectedShaderKey = "shaderPack";
 
     private final String shaderFileName;
@@ -76,9 +77,11 @@ public class ShadersSwitchButton extends STexturedButton {
             super.setTextureDisabled(textureDisabledOff);
         }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_OPTIFINE), "true")) {
+        if (Objects.equals(selectedSaver.get(KEY.MOD_OPTIFINE), "true") && new File(shaderpacksProfileFolder + System.getProperty("file.separator") + shaderFileName).exists()) {
             this.setEnabled(true);
         } else {
+            shaderOptionsSaver.set(selectedShaderKey, "");
+            super.setTextureDisabled(textureDisabledOff);
             this.setEnabled(false);
         }
     }
@@ -93,25 +96,53 @@ public class ShadersSwitchButton extends STexturedButton {
         }
     }
 
-    public void setOn() {
+    public void toggle() {
         initOptionSaver();
 
-        shaderOptionsSaver.set(selectedShaderKey, shaderFileName);
+        if (!Objects.equals(shaderOptionsSaver.get(selectedShaderKey), shaderFileName)) {
+            shaderOptionsSaver.set(selectedShaderKey, shaderFileName);
+        } else {
+            shaderOptionsSaver.set(selectedShaderKey, "");
+        }
         this.defineTextures();
 
         int i = 0;
 
         while (i != shadersButtonsList.length) {
-            shadersButtonsList[i].setOn();
             shadersButtonsList[i].defineTextures();
             i += 1;
         }
 
     }
 
-    public void installShader() throws IOException {
+    public void installShader() {
         initCustomFilesFolder(selectedSaver);
 
-        TimFilesUtils.downloadFromInternet(shaderResourceFolderUrl + shaderFileName, new File(shaderpacksProfileFolder + System.getProperty("file.separator") + shaderFileName));
+        Thread t = new Thread(() -> {
+            loadingBar.setValue(0);
+            loadingBar.setVisible(true);
+            barLabel.setText(shaderFileName);
+            percentLabel.setText("0%");
+            infosLabel.setText("T\u00e9l\u00e9chargement du shader");
+            infosLabel.setVisible(true);
+            barLabel.setVisible(true);
+            percentLabel.setVisible(true);
+            infosLabel.setVisible(true);
+            try {
+                TimFilesUtils.downloadFromInternet(shaderResourceFolderUrl + shaderFileName + "?raw=true", new File(shaderpacksProfileFolder + System.getProperty("file.separator") + shaderFileName));
+                loadingBar.setValue(100);
+                percentLabel.setText("100%");
+                Thread.sleep(1500);
+                loadingBar.setVisible(false);
+                infosLabel.setVisible(false);
+                barLabel.setVisible(false);
+                percentLabel.setVisible(false);
+                infosLabel.setVisible(false);
+                defineTextures();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        t.start();
     }
 }
