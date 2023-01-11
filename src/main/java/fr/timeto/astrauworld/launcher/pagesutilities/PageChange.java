@@ -485,6 +485,42 @@ public class PageChange {
 
                         background = getResourceIgnorePath("/assets/launcher/profilesPage/mods/profilePage-addons-shaders-chocapicV6.png");
                         subTitleLabel.setText("Addons - Shaders (ChocapicV6)");
+                    } else if (tab.toLowerCase().contains("chocapicv7")) {
+                        profileAddonsShadersButton.setVisible(true);
+                        profileAddonsShadersButton.setBounds(566, 128);
+
+                        profileShadersChocapicV7_1ToasterSwitchButton.setVisible(true);
+                        profileShadersChocapicV7_1ToasterDownloadButton.setVisible(true);
+                        profileShadersChocapicV7_1LiteSwitchButton.setVisible(true);
+                        profileShadersChocapicV7_1LiteDownloadButton.setVisible(true);
+                        profileShadersChocapicV7_1LowSwitchButton.setVisible(true);
+                        profileShadersChocapicV7_1LowDownloadButton.setVisible(true);
+                        profileShadersChocapicV7_1MediumSwitchButton.setVisible(true);
+                        profileShadersChocapicV7_1MediumDownloadButton.setVisible(true);
+                        profileShadersChocapicV7_1UltraSwitchButton.setVisible(true);
+                        profileShadersChocapicV7_1UltraDownloadButton.setVisible(true);
+                        profileShadersChocapicV7_1ExtremeSwitchButton.setVisible(true);
+                        profileShadersChocapicV7_1ExtremeDownloadButton.setVisible(true);
+
+                        background = getResourceIgnorePath("/assets/launcher/profilesPage/mods/profilePage-addons-shaders-chocapicV7.png");
+                        subTitleLabel.setText("Addons - Shaders (ChocapicV7)");
+                    } else if (tab.toLowerCase().contains("chocapicv9")) {
+                        profileAddonsShadersButton.setVisible(true);
+                        profileAddonsShadersButton.setBounds(566, 128);
+
+                        profileShadersChocapicV9LowSwitchButton.setVisible(true);
+                        profileShadersChocapicV9LowDownloadButton.setVisible(true);
+                        profileShadersChocapicV9MediumSwitchButton.setVisible(true);
+                        profileShadersChocapicV9MediumDownloadButton.setVisible(true);
+                        profileShadersChocapicV9HighSwitchButton.setVisible(true);
+                        profileShadersChocapicV9HighDownloadButton.setVisible(true);
+                        profileShadersChocapicV9ExtremeSwitchButton.setVisible(true);
+                        profileShadersChocapicV9ExtremeDownloadButton.setVisible(true);
+                        profileShadersChocapicV9_1ExtremeSwitchButton.setVisible(true);
+                        profileShadersChocapicV9_1ExtremeDownloadButton.setVisible(true);
+
+                        background = getResourceIgnorePath("/assets/launcher/profilesPage/mods/profilePage-addons-shaders-chocapicV9.png");
+                        subTitleLabel.setText("Addons - Shaders (ChocapicV9)");
                     } else {
                         profileAddonsModsButton.setVisible(true);
                         profileAddonsModsButton.setBounds(566, 128);
@@ -538,6 +574,30 @@ public class PageChange {
                     profileShadersChocapicV6UltraDownloadButton.setVisible(false);
                     profileShadersChocapicV6ExtremeSwitchButton.setVisible(false);
                     profileShadersChocapicV6ExtremeDownloadButton.setVisible(false);
+
+                    profileShadersChocapicV7_1ToasterSwitchButton.setVisible(false);
+                    profileShadersChocapicV7_1ToasterDownloadButton.setVisible(false);
+                    profileShadersChocapicV7_1LiteSwitchButton.setVisible(false);
+                    profileShadersChocapicV7_1LiteDownloadButton.setVisible(false);
+                    profileShadersChocapicV7_1LowSwitchButton.setVisible(false);
+                    profileShadersChocapicV7_1LowDownloadButton.setVisible(false);
+                    profileShadersChocapicV7_1MediumSwitchButton.setVisible(false);
+                    profileShadersChocapicV7_1MediumDownloadButton.setVisible(false);
+                    profileShadersChocapicV7_1UltraSwitchButton.setVisible(false);
+                    profileShadersChocapicV7_1UltraDownloadButton.setVisible(false);
+                    profileShadersChocapicV7_1ExtremeSwitchButton.setVisible(false);
+                    profileShadersChocapicV7_1ExtremeDownloadButton.setVisible(false);
+
+                    profileShadersChocapicV9LowSwitchButton.setVisible(false);
+                    profileShadersChocapicV9LowDownloadButton.setVisible(false);
+                    profileShadersChocapicV9MediumSwitchButton.setVisible(false);
+                    profileShadersChocapicV9MediumDownloadButton.setVisible(false);
+                    profileShadersChocapicV9HighSwitchButton.setVisible(false);
+                    profileShadersChocapicV9HighDownloadButton.setVisible(false);
+                    profileShadersChocapicV9ExtremeSwitchButton.setVisible(false);
+                    profileShadersChocapicV9ExtremeDownloadButton.setVisible(false);
+                    profileShadersChocapicV9_1ExtremeSwitchButton.setVisible(false);
+                    profileShadersChocapicV9_1ExtremeDownloadButton.setVisible(false);
 
                     profileAccountLabel.setVisible(false);
                 }

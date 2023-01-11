@@ -22,7 +22,7 @@ public class Changelogs {
                                                 "- Ajout de la license GPLv3" + lineSep +
                                                 "- Ajout du system tray icon" + lineSep +
                                                 "- R\u00e9glages de bugs avec les fichiers customs" + lineSep +
-                                                "- Ajout de la page profils - addons [shaders]" + lineSep +
+                                                "- Ajout des pages profils - addons [shaders]" + lineSep +
                                                 "- Ajout du diaporama sur la page d'accueil des profils (en lien avec l'heure système)";
         public static final String BETA2_1_2 =  "- Options d'Optifine enregistr\u00e9es par profils" + lineSep +
                                                 "- Console de Minecraft affich\u00e9e dans la console du assets" + lineSep +
