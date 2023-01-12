@@ -692,9 +692,6 @@ public class PageChange {
 
                 background = getResourceIgnorePath("/assets/launcher/profilesPage/reglages/profilePage-reglages.png");
 
-                
-                
-                 
                 corner.setVisible(true);
             } else {
                 profilePlayTabButton.setVisible(false);

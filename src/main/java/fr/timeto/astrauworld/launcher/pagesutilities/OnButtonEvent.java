@@ -46,6 +46,7 @@ public class OnButtonEvent {
 
         generalButtons.add(quitButton);
         generalButtons.add(hideButton);
+        generalButtons.add(corner);
 
         generalButtons.add(newsButton);
         generalButtons.add(firstProfileButton);
@@ -179,6 +180,8 @@ public class OnButtonEvent {
             System.exit(0);
         } else if (src == hideButton) {
             LauncherFrame.getInstance().setState(JFrame.ICONIFIED);
+        } else if (src == corner) {
+            Launcher.println("Corner?");
         }
 
         // Actions des boutons du menu de gauche

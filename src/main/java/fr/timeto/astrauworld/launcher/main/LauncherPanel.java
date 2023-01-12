@@ -677,6 +677,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(launcherVersionLabel);
 
           corner.setBounds(this.getWidth(), this.getHeight());
+          corner.addEventListener(this);
           this.add(corner);
           corner.setEnabled(false);
 

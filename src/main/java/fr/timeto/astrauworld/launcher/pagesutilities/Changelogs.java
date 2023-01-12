@@ -23,11 +23,11 @@ public class Changelogs {
                                                 "- Ajout du system tray icon" + lineSep +
                                                 "- R\u00e9glages de bugs avec les fichiers customs" + lineSep +
                                                 "- Ajout des pages profils - addons [shaders]" + lineSep +
-                                                "- Ajout du diaporama sur la page d'accueil des profils (en lien avec l'heure système)";
+                                                "- Ajout du diaporama sur la page d'accueil des profils (en lien avec l'heure syst\u00e8me)";
         public static final String BETA2_1_2 =  "- Options d'Optifine enregistr\u00e9es par profils" + lineSep +
                                                 "- Console de Minecraft affich\u00e9e dans la console du assets" + lineSep +
                                                 "- Le assets se relance quand Minecraft se ferme" + lineSep +
-                                                "- Fen\u00eatre bougeable seulement depuis la barre d'infos de la fen\u00eatre" + lineSep +
+                                                "- Fen\u00eatre mobile seulement depuis la barre d'infos de la fen\u00eatre" + lineSep +
                                                 "- Visuel du s\u00e9lecteur de RAM dans Profil - R\u00e9glages am\u00e9lior\u00e9" + lineSep +
                                                 "- Ajout de la page des changelogs" + lineSep +
                                                 "- Ajout de la page \u00c0 propos - Infos";
