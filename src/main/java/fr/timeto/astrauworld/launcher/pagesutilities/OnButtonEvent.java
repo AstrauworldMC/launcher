@@ -73,6 +73,8 @@ public class OnButtonEvent {
         profilePageButtons.add(profileAddonsResourcePacksButton);
         profilePageButtons.add(profileAddonsModsButton);
         profilePageButtons.add(profileAddonsOptifineSwitchButton);
+        profilePageButtons.add(profileAddonsGoToFolderButton);
+
         profilePageButtons.add(profileModsFpsmodelSwitchButton);
         profilePageButtons.add(profileModsFpsmodelMoreInfosButton);
         profilePageButtons.add(profileModsBettertpsSwitchButton);
@@ -83,6 +85,7 @@ public class OnButtonEvent {
         profilePageButtons.add(profileModsAppleskinMoreInfosButton);
         profilePageButtons.add(profileModsSoundphysicsSwitchButton);
         profilePageButtons.add(profileModsSoundphysicsMoreInfosButton);
+
         profilePageButtons.add(profileShadersChocapicV6PlusButton);
         profilePageButtons.add(profileShadersChocapicV7_1PlusButton);
         profilePageButtons.add(profileShadersChocapicV9PlusButton);
@@ -386,13 +389,30 @@ public class OnButtonEvent {
         else if (src == profileAddonsShadersButton) {
             setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsShaders);
         } else if (src == profileAddonsResourcePacksButton) {
+            initCustomFilesFolder(selectedSaver);
             try {
-                Desktop.getDesktop().open(resourcepacksFolder); // TODO Temporaire jusqu'à pouvoir le faire depuis le assets
+                Desktop.getDesktop().open(resourcepacksProfileFolder); // TODO Temporaire jusqu'à pouvoir le faire depuis le assets
             } catch (IOException ignored) {}
         } else if (src == profileAddonsModsButton) {
             setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsMods);
-        }
-        if (src == profileAddonsOptifineSwitchButton) {
+        } else if (src == profileAddonsGoToFolderButton) {
+            initCustomFilesFolder(selectedSaver);
+            if (subTitleLabel.getText().toLowerCase().contains("shader")) {
+                try {
+                    Desktop.getDesktop().open(shaderpacksProfileFolder);
+                } catch (Exception e) {
+                    shaderpacksProfileFolder.mkdir();
+                    Launcher.println("Folder created: " + shaderpacksProfileFolder);
+                    try {
+                        Desktop.getDesktop().open(shaderpacksProfileFolder);
+                    } catch (IOException ignored) {}
+                }
+            } else if (subTitleLabel.getText().toLowerCase().contains("resource")) {
+                try {
+                    Desktop.getDesktop().open(resourcepacksProfileFolder);
+                } catch (IOException ignored) {}
+            }
+        } else if (src == profileAddonsOptifineSwitchButton) {
             profileAddonsOptifineSwitchButton.toggleButton();
         } else if (src == profileModsFpsmodelSwitchButton) {
             profileModsFpsmodelSwitchButton.toggleButton();

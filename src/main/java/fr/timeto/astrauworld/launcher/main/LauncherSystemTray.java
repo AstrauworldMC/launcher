@@ -53,7 +53,7 @@ public class LauncherSystemTray {
         Menu firstProfileMenu = new Menu("Profil 1 - " + firstProfileName);
         MenuItem firstProfilePlayPageItem = new MenuItem("Jouer");
         MenuItem firstProfileAccountPageItem = new MenuItem("Compte");
-        MenuItem firstProfileModsPageItem = new MenuItem("Mods");
+        MenuItem firstProfileModsPageItem = new MenuItem("Addons");
         MenuItem firstProfileSettingsPageItem = new MenuItem("Param\u00e8tres");
 
         String secondProfileName;
@@ -65,7 +65,7 @@ public class LauncherSystemTray {
         Menu secondProfileMenu = new Menu("Profil 2 - " + secondProfileName);
         MenuItem secondProfilePlayPageItem = new MenuItem("Jouer");
         MenuItem secondProfileAccountPageItem = new MenuItem("Compte");
-        MenuItem secondProfileModsPageItem = new MenuItem("Mods");
+        MenuItem secondProfileModsPageItem = new MenuItem("Addons");
         MenuItem secondProfileSettingsPageItem = new MenuItem("Param\u00e8tres");
 
         String thirdProfileName;
@@ -77,7 +77,7 @@ public class LauncherSystemTray {
         Menu thirdProfileMenu = new Menu("Profil 3 - " + thirdProfileName);
         MenuItem thirdProfilePlayPageItem = new MenuItem("Jouer");
         MenuItem thirdProfileAccountPageItem = new MenuItem("Compte");
-        MenuItem thirdProfileModsPageItem = new MenuItem("Mods");
+        MenuItem thirdProfileModsPageItem = new MenuItem("Addons");
         MenuItem thirdProfileSettingsPageItem = new MenuItem("Param\u00e8tres");
 
         MenuItem changelogsPageItem = new MenuItem("Changelogs");

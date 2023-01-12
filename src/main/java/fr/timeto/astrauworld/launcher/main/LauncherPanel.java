@@ -354,8 +354,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * Bouton pour les resource packs
            */
           public static STexturedButton profileAddonsResourcePacksButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/resourcePacksButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/resourcePacksButton-hover.png"));
-
           public static STexturedButton profileAddonsModsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/modsButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/modsButton-hover.png"));
+          public static STexturedButton profileAddonsGoToFolderButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/goToFolder-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/goToFolder-hover.png"));
           /**
            * Bouton I/O pour Optfine
            */
@@ -790,6 +790,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileAddonsModsButton.addEventListener(this);
           this.add(profileAddonsModsButton);
           profileAddonsModsButton.setVisible(false);
+
+          profileAddonsGoToFolderButton.setBounds(804, 554);
+          profileAddonsGoToFolderButton.addEventListener(this);
+          this.add(profileAddonsGoToFolderButton);
+          profileAddonsGoToFolderButton.setVisible(false);
 
           profileAddonsOptifineSwitchButton.setBounds(402, 120);
           profileAddonsOptifineSwitchButton.addEventListener(this);

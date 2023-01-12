@@ -390,7 +390,6 @@ public class ProfileSaver {
     public static final String shaderChocapicV6Lite = "Chocapic13_V6_Lite.zip";
     public static final String shaderChocapicV6Low = "Chocapic13_V6_Low.zip";
     public static final String shaderChocapicV6Medium = "Chocapic13_V6_Medium.zip";
-    public static final String shaderChocapicV6High = "Chocapic13_V6_High.zip";
     public static final String shaderChocapicV6Ultra = "Chocapic13_V6_Ultra.zip";
     public static final String shaderChocapicV6Extreme = "Chocapic13_V6_Extreme.zip";
 
@@ -398,7 +397,6 @@ public class ProfileSaver {
     public static final String shaderChocapicV7_1Lite = "Chocapic13_V7.1.1_Lite.zip";
     public static final String shaderChocapicV7_1Low = "Chocapic13_V7.1_Low.zip";
     public static final String shaderChocapicV7_1Medium = "Chocapic13_V7.1_Medium.zip";
-    public static final String shaderChocapicV7_1High = "Chocapic13_V7.1_High.zip";
     public static final String shaderChocapicV7_1Ultra = "Chocapic13_V7.1_Ultra.zip";
     public static final String shaderChocapicV7_1Extreme = "Chocapic13_V7.1_Extreme.zip";
 
@@ -410,7 +408,24 @@ public class ProfileSaver {
 
     public static final String shaderSeusRenewed = "SEUS-Renewed-v1.0.1.zip";
 
-    public static final ShadersSwitchButton[] shadersButtonsList = {profileShadersSeusRenewedSwitchButton, profileShadersChocapicV6LiteSwitchButton, profileShadersChocapicV6LowSwitchButton, profileShadersChocapicV6MediumSwitchButton, profileShadersChocapicV6UltraSwitchButton, profileShadersChocapicV6ExtremeSwitchButton, profileShadersChocapicV7_1ToasterSwitchButton, profileShadersChocapicV7_1LiteSwitchButton, profileShadersChocapicV7_1LowSwitchButton, profileShadersChocapicV7_1MediumSwitchButton, profileShadersChocapicV7_1UltraSwitchButton, profileShadersChocapicV7_1ExtremeSwitchButton, profileShadersChocapicV9LowSwitchButton, profileShadersChocapicV9MediumSwitchButton, profileShadersChocapicV9HighSwitchButton, profileShadersChocapicV9ExtremeSwitchButton, profileShadersChocapicV9_1ExtremeSwitchButton};
+    public static final ShadersSwitchButton[] shadersButtonsList = {
+            profileShadersSeusRenewedSwitchButton,
+            profileShadersChocapicV6LiteSwitchButton,
+            profileShadersChocapicV6LowSwitchButton,
+            profileShadersChocapicV6MediumSwitchButton,
+            profileShadersChocapicV6UltraSwitchButton,
+            profileShadersChocapicV6ExtremeSwitchButton,
+            profileShadersChocapicV7_1ToasterSwitchButton,
+            profileShadersChocapicV7_1LiteSwitchButton,
+            profileShadersChocapicV7_1LowSwitchButton,
+            profileShadersChocapicV7_1MediumSwitchButton,
+            profileShadersChocapicV7_1UltraSwitchButton,
+            profileShadersChocapicV7_1ExtremeSwitchButton,
+            profileShadersChocapicV9LowSwitchButton,
+            profileShadersChocapicV9MediumSwitchButton,
+            profileShadersChocapicV9HighSwitchButton,
+            profileShadersChocapicV9ExtremeSwitchButton,
+            profileShadersChocapicV9_1ExtremeSwitchButton};
 
     /**
      * Initialise les dossiers customs
@@ -483,6 +498,10 @@ public class ProfileSaver {
         schematicsFolder.mkdir();
         deleteDirectory(configFolder);
         configFolder.mkdir();
+        deleteDirectory(resourcepacksFolder);
+        resourcepacksFolder.mkdir();
+        deleteDirectory(shaderpacksFolder);
+        shaderpacksFolder.mkdir();
 
         try {
             copyFiles(savesProfileFolder, savesFolder);

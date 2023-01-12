@@ -467,6 +467,7 @@ public class PageChange {
 
                     profileAddonsResourcePacksButton.setVisible(true);
                     profileAddonsOptifineSwitchButton.setVisible(true);
+                    profileAddonsGoToFolderButton.setVisible(true);
 
                     if (tab.toLowerCase().contains("chocapicv6")) {
                         profileAddonsShadersButton.setVisible(true);
@@ -558,6 +559,9 @@ public class PageChange {
                     profileAddonsModsButton.setVisible(false);
                     profileAddonsResourcePacksButton.setVisible(false);
                     profileAddonsOptifineSwitchButton.setVisible(false);
+                    profileAddonsShadersButton.setVisible(false);
+                    profileAddonsGoToFolderButton.setVisible(false);
+
                     profileShadersChocapicV6PlusButton.setVisible(false);
                     profileShadersChocapicV7_1PlusButton.setVisible(false);
                     profileShadersChocapicV9PlusButton.setVisible(false);
