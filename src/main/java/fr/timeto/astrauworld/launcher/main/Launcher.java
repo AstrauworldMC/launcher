@@ -61,7 +61,7 @@ public class Launcher {
     public static final String thirdProfileCustomFilesFolder = dataFolder + separatorChar + "thirdProfileCustomFiles";
 
     // Version de Minecraft et de Forge utilisée
-    public static final String mcVersion = "1.19.2"; // TODO Passer à la 1.19.3 quand les addons seront dispos
+    public static final String mcVersion = "1.19.2"; // TODO Passer à la 1.19.3 quand les mods seront dispos
     public static final String forgeVersion = "43.1.1";
     public static final String optifineVersion = "1.19.2_HD_U_H9"; // FIXME Bug certaines textures sont unies
 
@@ -225,13 +225,13 @@ public class Launcher {
     public enum StepInfo {
 
         INTEGRATION("Chargement de l'int\u00e9gration..."),
-        MOD_PACK("T\u00e9l\u00e9chargement du pack de addons..."),
+        MOD_PACK("T\u00e9l\u00e9chargement du pack de mods..."),
         READ("Lecture du json..."),
         DL_LIBS("T\u00e9l\u00e9chargement des librairies..."),
         DL_ASSETS("T\u00e9l\u00e9chargement des assets..."),
         EXTRACT_NATIVES("Extraction des natives..."),
         MOD_LOADER("T\u00e9l\u00e9chargement du mod loader..."),
-        MODS("T\u00e9l\u00e9chargement des addons..."),
+        MODS("T\u00e9l\u00e9chargement des mods..."),
         EXTERNAL_FILES("T\u00e9l\u00e9chargement des fichiers externes..."),
         POST_EXECUTIONS("Running post executions..."),
         END("Termin\u00e9!");
@@ -308,7 +308,7 @@ public class Launcher {
 
         final List<CurseFileInfo> modInfos = new ArrayList<>();
 
-        // Liste des addons serveurs
+        // Liste des mods serveurs
         modInfos.add(new CurseFileInfo(352835, 3923045)); // Backpacked 2.1.10
         modInfos.add(new CurseFileInfo(416811, 4032100)); // Medieval Craft 1.19.2 weapons only pre-pre-alpha
         modInfos.add(new CurseFileInfo(509041, 4019310)); // Epic Knights [...] v6.7
