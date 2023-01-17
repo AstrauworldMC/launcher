@@ -535,7 +535,7 @@ public class OnButtonEvent {
             selectedSaver.set(ProfileSaver.KEY.SETTINGS_RAM, profileSettingsAllowedRamSpinner.getValue().toString());
             selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());
             initProfileButtons();
-            doneMessage("Enregistr\u00e9 !", "Param\u00e8tres enregistr\u00e9s");
+            doneMessage("Enregistr\u00e9 !", "Param\u00e8tres           enregistr\u00e9s");
         }
 
     }

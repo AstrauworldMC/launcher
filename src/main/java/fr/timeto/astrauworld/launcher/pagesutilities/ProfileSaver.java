@@ -76,6 +76,18 @@ public class ProfileSaver {
         }
     }
 
+    public static Saver getSaver(String profile) {
+        Saver saver = null;
+        if (Objects.equals(profile, "1")) {
+            saver = firstProfileSaver;
+        } else if (Objects.equals(profile, "2")) {
+            saver = secondProfileSaver;
+        } else if (Objects.equals(profile, "3")) {
+            saver = thirdProfileSaver;
+        }
+        return saver;
+    }
+
     /**
      * Récupérer le Saver sélectionné (doit être initialisé d'abord)
      * @return Le Saver sélectionné
@@ -230,9 +242,9 @@ public class ProfileSaver {
     }
 
     /**
-     * Ajoute les mods clients à la liste spécifiée d'après le Saver sélectionné
+     * Ajoute les addons clients à la liste spécifiée d'après le Saver sélectionné
      * @param selectedSaver Le Saver où les données seront cherchées
-     * @param modList La liste où les mods seront ajoutés
+     * @param modList La liste où les addons seront ajoutés
      */
     public static void initClientMods(Saver selectedSaver, List modList) {
 
@@ -259,7 +271,7 @@ public class ProfileSaver {
     }
 
     /**
-     * Les différents URLs pour en savoir plus sur les mods clients puis l'ouvre dans une nouvelle page du navigateur par défault
+     * Les différents URLs pour en savoir plus sur les addons clients puis l'ouvre dans une nouvelle page du navigateur par défault
      * @param key La key du mod client
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
@@ -299,9 +311,9 @@ public class ProfileSaver {
 
     /*  Liste des fichiers custom à sauvegarder dans GameFiles
      *
-     * ./saves // FIXME problème où les mondes sont pas vraiment que pour un profil
-     * ./resourcepacks (hors ceux du launcher) TODO <-
-     * ./shaderpacks (hors ceux du launcher) TODO <-
+     * ./saves
+     * ./resourcepacks
+     * ./shaderpacks
      * ./music_sheets
      * ./schematics
      * ./config

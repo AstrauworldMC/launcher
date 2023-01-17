@@ -278,7 +278,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            */
           public static final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-selected.png"));
           /**
-           * Bouton d'onglet de la page des mods des pages de profil
+           * Bouton d'onglet de la page des addons des pages de profil
            */
           public static final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Mods-selected.png"));
           /**
@@ -315,6 +315,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * Label du nom du compte connecté du profil
            */
           public static final JLabel profileAccountLabel = new JLabel("", SwingConstants.LEFT);
+          public static final JLabel profileAccountConnectedLabel = new JLabel("Connecté en tant que: ");
           public static final JPanel profileDiapoPanel = new JPanel();
           public static final JLabel profileTextLogo = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/logo-texte.png")));
           public static JLabel profileDiapoImage1 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png")));
@@ -349,13 +350,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton pour les shaders
            */
-          public static STexturedButton profileAddonsShadersButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/shadersButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/shadersButton-hover.png"));
+          public static STexturedButton profileAddonsShadersButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/shadersButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/shadersButton-hover.png"));
           /**
            * Bouton pour les resource packs
            */
-          public static STexturedButton profileAddonsResourcePacksButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/resourcePacksButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/resourcePacksButton-hover.png"));
-          public static STexturedButton profileAddonsModsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/modsButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/modsButton-hover.png"));
-          public static STexturedButton profileAddonsGoToFolderButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/goToFolder-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/goToFolder-hover.png"));
+          public static STexturedButton profileAddonsResourcePacksButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/resourcePacksButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/resourcePacksButton-hover.png"));
+          public static STexturedButton profileAddonsModsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/modsButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/modsButton-hover.png"));
+          public static STexturedButton profileAddonsGoToFolderButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/goToFolder-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/goToFolder-hover.png"));
           /**
            * Bouton I/O pour Optfine
            */
@@ -371,7 +372,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see KEY#MOD_FPSMODEL
            * @see Components#profileModsFpsmodelSwitchButton
            */
-          public static final STexturedButton profileModsFpsmodelMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsFpsmodelMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'Better Third Person'
            * @see KEY#MOD_BETTERTPS
@@ -383,7 +384,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see KEY#MOD_BETTERTPS
            * @see Components#profileModsBettertpsSwitchButton
            */
-          public static final STexturedButton profileModsBettertpsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsBettertpsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'Falling Leaves'
            * @see KEY#MOD_FALLINGLEAVES
@@ -395,7 +396,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see KEY#MOD_FALLINGLEAVES
            * @see Components#profileModsFallingleavesSwitchButton
            */
-          public static final STexturedButton profileModsFallingleavesMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsFallingleavesMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'AppleSkin'
            * @see KEY#MOD_APPLESKIN
@@ -407,7 +408,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see KEY#MOD_APPLESKIN
            * @see Components#profileModsAppleskinSwitchButton
            */
-          public static final STexturedButton profileModsAppleskinMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsAppleskinMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
           /**
            * Bouton I/O pour le mod client 'Sound Physics Remastered'
            * @see KEY#MOD_SOUNDPHYSICS
@@ -419,48 +420,48 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see KEY#MOD_SOUNDPHYSICS
            * @see Components#profileModsSoundphysicsSwitchButton
            */
-          public static final STexturedButton profileModsSoundphysicsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/moreInfos-hover.png"));
+          public static final STexturedButton profileModsSoundphysicsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
 
-          public static final STexturedButton profileShadersChocapicV6PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-hover.png"));
-          public static final STexturedButton profileShadersChocapicV7_1PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-hover.png"));
-          public static final STexturedButton profileShadersChocapicV9PlusButton =new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/plus-hover.png"));
-          public static final STexturedButton profileShadersSeusRenewedDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV6PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
+          public static final STexturedButton profileShadersChocapicV7_1PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
+          public static final STexturedButton profileShadersChocapicV9PlusButton =new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
+          public static final STexturedButton profileShadersSeusRenewedDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersSeusRenewedSwitchButton = new ShadersSwitchButton(shaderSeusRenewed, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
 
           public static final ShadersSwitchButton profileShadersChocapicV6LiteSwitchButton = new ShadersSwitchButton(shaderChocapicV6Lite, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV6LiteDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV6LiteDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV6LowSwitchButton = new ShadersSwitchButton(shaderChocapicV6Low, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV6LowDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV6LowDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV6MediumSwitchButton = new ShadersSwitchButton(shaderChocapicV6Medium, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV6MediumDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV6MediumDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV6UltraSwitchButton = new ShadersSwitchButton(shaderChocapicV6Ultra, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV6UltraDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV6UltraDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV6ExtremeSwitchButton = new ShadersSwitchButton(shaderChocapicV6Extreme, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV6ExtremeDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV6ExtremeDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
 
           public static final ShadersSwitchButton profileShadersChocapicV7_1ToasterSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Toaster, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV7_1ToasterDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV7_1ToasterDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV7_1LiteSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Lite, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV7_1LiteDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV7_1LiteDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV7_1LowSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Low, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV7_1LowDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV7_1LowDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV7_1MediumSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Medium, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV7_1MediumDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV7_1MediumDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV7_1UltraSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Ultra, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV7_1UltraDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV7_1UltraDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV7_1ExtremeSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Extreme, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV7_1ExtremeDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV7_1ExtremeDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
 
           public static final ShadersSwitchButton profileShadersChocapicV9LowSwitchButton = new ShadersSwitchButton(shaderChocapicV9Low, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV9LowDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV9LowDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV9MediumSwitchButton = new ShadersSwitchButton(shaderChocapicV9Medium, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV9MediumDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV9MediumDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV9HighSwitchButton = new ShadersSwitchButton(shaderChocapicV9High, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV9HighDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV9HighDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV9ExtremeSwitchButton = new ShadersSwitchButton(shaderChocapicV9Extreme, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV9ExtremeDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV9ExtremeDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
           public static final ShadersSwitchButton profileShadersChocapicV9_1ExtremeSwitchButton = new ShadersSwitchButton(shaderChocapicV9_1Extreme, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final STexturedButton profileShadersChocapicV9_1ExtremeDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/mods/download-hover.png"));
+          public static final STexturedButton profileShadersChocapicV9_1ExtremeDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/download-hover.png"));
 
 
           // Profiles components - reglages
@@ -509,7 +510,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            */
           public static final STexturedButton aboutInfosTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-selected.png"));
           /**
-           * Le bouton de l'onglet de la page à propos - mods
+           * Le bouton de l'onglet de la page à propos - addons
            * @since Beta2.1.2
            */
           public static final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-selected.png"));
@@ -728,6 +729,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileAccountLabel.setFont(titleLabel.getFont().deriveFont(17f));
           this.add(profileAccountLabel);
           profileAccountLabel.setVisible(false);
+
+          profileAccountConnectedLabel.setBounds(192, 472, 191, 19);
+          profileAccountConnectedLabel.setForeground(new Color(179, 179, 179));
+          profileAccountConnectedLabel.setFont(titleLabel.getFont().deriveFont(17f));
+          this.add(profileAccountConnectedLabel);
+          profileAccountConnectedLabel.setVisible(false);
 
           profileTextLogo.setBounds(420, 138, 338, 83);
           this.add(profileTextLogo);
