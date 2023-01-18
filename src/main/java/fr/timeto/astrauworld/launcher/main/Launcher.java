@@ -1,5 +1,6 @@
 package fr.timeto.astrauworld.launcher.main;
 
+import br.com.azalim.mcserverping.MCPingOptions;
 import fr.flowarg.flowlogger.ILogger;
 import fr.flowarg.flowlogger.Logger;
 import fr.flowarg.flowupdater.FlowUpdater;
@@ -64,8 +65,12 @@ public class Launcher {
     public static final String mcVersion = "1.19.2"; // TODO Passer à la 1.19.3 quand les mods seront dispos
     public static final String forgeVersion = "43.1.1";
     public static final String optifineVersion = "1.19.2_HD_U_H9"; // FIXME Bug certaines textures sont unies
+    static MCPingOptions serverOptions = MCPingOptions.builder()
+            .hostname("207.180.196.61")
+            .port(33542)
+            .build();
 
-    // Version du assets
+    // Version du launcher
     public static final String version = "Beta2.2.0"; // TODO CHANGER LA VERSION A CHAQUE FOIS
 
     // File des dont on a besoin
@@ -176,7 +181,7 @@ public class Launcher {
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
         if (connectToServer) {
-            noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G", "--server", "207.180.196.61", "--port", "33542"));
+            noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G", "--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
         } else {
             noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
         }

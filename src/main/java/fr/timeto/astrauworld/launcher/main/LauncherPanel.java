@@ -299,6 +299,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * Bouton pour lancer une update puis le jeu directement vers le serveur
            */
           public static final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/playButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/playButton-disabled.png"));
+          public static final STexturedButton profileServerInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/serverInfosButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/serverInfosButton-hover.png"));
           /**
            * Bouton pour voir les actualités
            */
@@ -709,10 +710,15 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profilePlayButton);
           profilePlayButton.setVisible(false);
 
-          profileNewsButton.setBounds(212, 552);
+          profileNewsButton.setBounds(229, 578);
           profileNewsButton.addEventListener(this);
           this.add(profileNewsButton);
           profileNewsButton.setVisible(false);
+
+          profileServerInfosButton.setBounds(246, 528);
+          profileServerInfosButton.addEventListener(this);
+          this.add(profileServerInfosButton);
+          profileServerInfosButton.setVisible(false);
 
           profileLaunchToMenuButton.setBounds(495, 541);
           profileLaunchToMenuButton.addEventListener(this);

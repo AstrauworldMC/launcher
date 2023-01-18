@@ -1,8 +1,5 @@
 package fr.timeto.astrauworld.launcher.main;
 
-import br.com.azalim.mcserverping.MCPing;
-import br.com.azalim.mcserverping.MCPingOptions;
-import br.com.azalim.mcserverping.MCPingResponse;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
@@ -15,14 +12,12 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.List;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.initLauncherSystemTray;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 /**
- * La classe de la frame du assets
+ * La classe de la frame du launcher
  * @author <a href="https://github.com/TimEtOff">TimEtO</a>
  * @see LauncherPanel
  */
@@ -123,63 +118,6 @@ public class LauncherFrame extends JFrame {
 
         initLauncherSystemTray();
         instance = new LauncherFrame();
-    //    serverInfosTest();
-
-    }
-
-    private static void serverInfosTest() {
-        MCPingOptions options = MCPingOptions.builder()
-                .hostname("90.120.153.171")
-                .port(25565)
-                .build();
-
-        MCPingResponse reply;
-
-        try {
-            reply = MCPing.getPing(options);
-        } catch (IOException ex) {
-            System.out.println(options.getHostname() + " is down or unreachable.");
-            return;
-        }
-
-        System.out.printf("Full response from %s:%n", options.getHostname());
-        System.out.println();
-
-        MCPingResponse.Description description = reply.getDescription();
-
-        System.out.println("Description:");
-        System.out.println("    Raw: " + description.getText());
-        System.out.println("    No color codes: " + description.getStrippedText());
-        System.out.println();
-
-        MCPingResponse.Players players = reply.getPlayers();
-
-        System.out.println("Players: ");
-        System.out.println("    Online count: " + players.getOnline());
-        System.out.println("    Max players: " + players.getMax());
-        System.out.println();
-
-        // Can be null depending on the server
-        List<MCPingResponse.Player> sample = players.getSample();
-
-        if (sample != null) {
-            System.out.println("    Players: " + players.getSample().stream()
-                    .map(player -> String.format("%s@%s", player.getName(), player.getId()))
-                    .collect(Collectors.joining(", "))
-            );
-            System.out.println();
-        }
-
-        MCPingResponse.Version version = reply.getVersion();
-
-        System.out.println("Version: ");
-
-        // The protocol is the version number: http://wiki.vg/Protocol_version_numbers
-        System.out.println("    Protocol: " + version.getProtocol());
-        System.out.println("    Name: " + version.getName());
-        System.out.println();
-
-        System.out.println("Ping: " + reply.getPing() + "ms");
 
     }
 

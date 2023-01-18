@@ -7,6 +7,7 @@ import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherFrame;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
+import fr.timeto.astrauworld.launcher.main.ServerInfosFrame;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
@@ -62,6 +63,7 @@ public class OnButtonEvent {
         profilePageButtons.add(profileSettingsTabButton);
 
         profilePageButtons.add(profilePlayButton);
+        profilePageButtons.add(profileServerInfosButton);
         profilePageButtons.add(profileNewsButton);
         profilePageButtons.add(profileLaunchToMenuButton);
         profilePageButtons.add(profileDownloadButton);
@@ -270,6 +272,8 @@ public class OnButtonEvent {
             //          togglePlayButtonStatus(true);
             //     }
 
+        } else if (src == profileServerInfosButton) {
+            ServerInfosFrame.openServerInfos();
         } else if (src == profileNewsButton) {
             setNewsPage(true);
         } else if (src == profileLaunchToMenuButton) {

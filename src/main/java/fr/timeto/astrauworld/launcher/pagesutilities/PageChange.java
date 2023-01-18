@@ -155,6 +155,7 @@ public class PageChange {
                 profileSettingsTabButton.setVisible(true);
 
                 profilePlayButton.setVisible(true);
+                profileServerInfosButton.setVisible(true);
                 profileNewsButton.setVisible(true);
                 profileLaunchToMenuButton.setVisible(true);
                 profileDownloadButton.setVisible(true);
@@ -202,6 +203,7 @@ public class PageChange {
                 profileSettingsTabButton.setVisible(false);
 
                 profilePlayButton.setVisible(false);
+                profileServerInfosButton.setVisible(false);
                 profileNewsButton.setVisible(false);
                 profileLaunchToMenuButton.setVisible(false);
                 profileDownloadButton.setVisible(false);
