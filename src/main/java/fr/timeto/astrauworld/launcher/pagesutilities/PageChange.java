@@ -703,7 +703,8 @@ public class PageChange {
             LauncherSystemTray.changeTrayTooltip();
 
             int i = LauncherPanel.verifyVersionChangelog();
-            changelogsTextArea.setText(Changelogs.getChangelogsTextsList().toArray()[i].toString());
+            changelogsVersionComboBox.setSelectedIndex(i);
+            changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i].toString());
 
             background = getResourceIgnorePath("/assets/launcher/changelogsPage/changelogsPage.png");
              

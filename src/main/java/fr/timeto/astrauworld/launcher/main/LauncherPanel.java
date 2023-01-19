@@ -5,9 +5,8 @@ import fr.theshark34.swinger.colored.SColoredBar;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
-import fr.timeto.astrauworld.launcher.customelements.ShadersSwitchButton;
+import fr.timeto.astrauworld.launcher.customelements.*;
 import fr.timeto.astrauworld.launcher.pagesutilities.*;
-import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.*;
@@ -490,13 +488,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @since Beta2.1.2
            * @see Changelogs#getChangelogsVersionsList()
            */
-          public static final ArrayList<String> changelogsVersionsArrayList = Changelogs.getChangelogsVersionsList();
+          public static final Object[] changelogsVersionsArrayList = Changelogs.getChangelogsVersionsList();
           /**
            * La combo-box pour sélectionner la version du changelog voulu
            * @since Beta2.1.2
            * @see Changelogs
            */
-          public static JComboBox<Object> changelogsVersionComboBox = new JComboBox<>(changelogsVersionsArrayList.toArray());
+          public static JComboBox<Object> changelogsVersionComboBox = new JComboBox<>(changelogsVersionsArrayList);
           /**
            * La text area non éditable où apparait le texte du changelog
            * @since Beta2.1.2
@@ -1099,15 +1097,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
           changelogsVersionComboBox.setOpaque(false);
           changelogsVersionComboBox.setBorder(null);
-          changelogsVersionComboBox.setRenderer(new DefaultListCellRenderer(){
-               @Override
-               public Component getListCellRendererComponent(JList list, Object value,
-                                                             int index, boolean isSelected, boolean cellHasFocus) {
-                    JComponent result = (JComponent)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                    list.setForeground(Color.BLACK);
-                    result.setOpaque(false);
-                    return result;
-               }});
+          changelogsVersionComboBox.setEditable(true);
+          changelogsVersionComboBox.setRenderer(new CustomComboBoxRenderer());
+          changelogsVersionComboBox.setEditor(new CustomComboBoxEditor());
+          changelogsVersionComboBox.setUI(ColorArrowUI.createUI(changelogsVersionComboBox));
           this.add(changelogsVersionComboBox);
           changelogsVersionComboBox.setVisible(false);
 
@@ -1268,18 +1261,23 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
       * @return le numéro dans la liste
       */
      public static int verifyVersionChangelog() {
-          int i = 0;
-          while (Objects.requireNonNull(changelogsVersionComboBox.getSelectedItem()).toString() != changelogsVersionsArrayList.toArray()[i]) {
-               i += 1;
+          String val = Objects.requireNonNull(changelogsVersionComboBox.getSelectedItem()).toString();
+          Object[] T = changelogsVersionsArrayList;
+
+          int i;
+          for(i = 0; i<T.length;i++){
+               if(val==T[i])
+                    //retourner la position courante
+                    return i;
           }
-          return i;
+          return i-1;
      }
 
      @Override
      public void actionPerformed(ActionEvent e) {
           if (e.getSource() == changelogsVersionComboBox) {
                int i = verifyVersionChangelog();
-               changelogsTextArea.setText(Changelogs.getChangelogsTextsList().toArray()[i].toString());
+               changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i].toString());
 
           }
      }

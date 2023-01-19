@@ -48,10 +48,8 @@ public class Changelogs {
     /**
      * La liste des changelogs
      * @since Beta2.1.2
-     * @see Changelogs#initChangelogs()
-     * @see Changelogs#getChangelogsList()
      */
-    private static ArrayList<Changelogs> changelogsList = new ArrayList<>();
+    private static final Changelogs[] changelogsList = {new Changelogs("Beta2.2.0", TEXTS.BETA2_2_0), new Changelogs("Beta2.1.2", TEXTS.BETA2_1_2)};
 
     /**
      * Initialise un nouveau changelog
@@ -67,34 +65,21 @@ public class Changelogs {
     }
 
     /**
-     * Initialise la liste des changelogs ({@link Changelogs#changelogsList})
-     * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-     */
-    private static void initChangelogs() {
-        changelogsList = new ArrayList<>();
-        changelogsList.add(new Changelogs("Beta2.2.0", TEXTS.BETA2_2_0));
-        changelogsList.add(new Changelogs("Beta2.1.2", TEXTS.BETA2_1_2));
-
-    }
-
-    /**
      * Pour récupérer une liste des Strings des versions de la {@link Changelogs#changelogsList}
      * @return une array list de Strings des versions
      * @since Beta2.1.2
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      * @see Changelogs#getChangelogsTextsList()
      */
-    public static ArrayList<String> getChangelogsVersionsList() {
-        initChangelogs();
-
+    public static Object[] getChangelogsVersionsList() {
         ArrayList<String> changelogsVersionsList = new ArrayList<>();
         int i = 0;
-        while (i != changelogsList.toArray().length) {
-            changelogsVersionsList.add(changelogsList.get(i).version);
+        while (i != changelogsList.length) {
+            changelogsVersionsList.add(changelogsList[i].version);
             i+=1;
         }
-        return changelogsVersionsList;
+
+        return changelogsVersionsList.toArray();
     }
 
     /**
@@ -104,29 +89,13 @@ public class Changelogs {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      * @see Changelogs#getChangelogsVersionsList()
      */
-    public static ArrayList<String> getChangelogsTextsList() {
-        initChangelogs();
-
+    public static Object[] getChangelogsTextsList() {
         ArrayList<String> changelogsTextsList = new ArrayList<>();
         int i = 0;
-        while (i != changelogsList.toArray().length) {
-            changelogsTextsList.add(changelogsList.get(i).text);
+        while (i != changelogsList.length) {
+            changelogsTextsList.add(changelogsList[i].text);
             i+=1;
         }
-        return changelogsTextsList;
-    }
-
-    /**
-     * Pour récupérer la {@link Changelogs#changelogsList} initialisée
-     * @return une array list de Strings des versions
-     * @since Beta2.1.2
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-     * @see Changelogs#getChangelogsVersionsList()
-     * @see Changelogs#getChangelogsTextsList() 
-     */
-    public static ArrayList<Changelogs> getChangelogsList() {
-        initChangelogs();
-
-        return changelogsList;
+        return changelogsTextsList.toArray();
     }
 }
