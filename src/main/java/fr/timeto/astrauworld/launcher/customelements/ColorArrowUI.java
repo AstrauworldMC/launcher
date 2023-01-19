@@ -15,15 +15,14 @@ public class ColorArrowUI extends BasicComboBoxUI {
 
     @Override
     protected JButton createArrowButton() {
-        BasicArrowButton basicArrowButton = new BasicArrowButton(
+
+        return new BasicArrowButton(
                 BasicArrowButton.SOUTH,
                 new Color(30, 30, 30),
                 new Color(190, 0, 0),
-                new Color(180, 0, 0),
+                new Color(210, 0, 0),
                 new Color(40, 40, 40)
         );
-
-        return basicArrowButton;
     }
 
     private static BufferedImage createColorImage(BufferedImage originalImage, int mask) {
