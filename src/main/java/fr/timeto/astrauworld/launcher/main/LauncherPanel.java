@@ -10,6 +10,7 @@ import fr.timeto.astrauworld.launcher.pagesutilities.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -1076,6 +1077,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileSettingsAllowedRamSpinner.getEditor().setOpaque(false);
           ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setOpaque(false);
           ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setForeground(Color.WHITE);
+          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setBorder(new EmptyBorder(5, 0, 0, 4));
           this.add(profileSettingsAllowedRamSpinner);
           profileSettingsAllowedRamSpinner.setVisible(false);
 
