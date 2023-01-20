@@ -279,7 +279,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton d'onglet de la page des addons des pages de profil
            */
-          public static final STexturedButton profileModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Mods-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Mods-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Mods-selected.png"));
+          public static final STexturedButton profileAddonsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Addons-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Addons-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Addons-selected.png"));
           /**
            * Bouton d'onglet de la page des paramètres des pages de profil
            */
@@ -422,6 +422,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            */
           public static final STexturedButton profileModsSoundphysicsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
 
+          public static final STexturedButton profileShadersSeeComparisonButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-hover.png"));
           public static final STexturedButton profileShadersChocapicV6PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
           public static final STexturedButton profileShadersChocapicV7_1PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
           public static final STexturedButton profileShadersChocapicV9PlusButton =new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
@@ -693,10 +694,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileAccountTabButton);
           profileAccountTabButton.setVisible(false);
 
-          profileModsTabButton.setBounds(418, 89);
-          profileModsTabButton.addEventListener(this);
-          this.add(profileModsTabButton);
-          profileModsTabButton.setVisible(false);
+          profileAddonsTabButton.setBounds(418, 89);
+          profileAddonsTabButton.addEventListener(this);
+          this.add(profileAddonsTabButton);
+          profileAddonsTabButton.setVisible(false);
 
           profileSettingsTabButton.setBounds(538, 89);
           profileSettingsTabButton.addEventListener(this);
@@ -804,7 +805,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileAddonsModsButton);
           profileAddonsModsButton.setVisible(false);
 
-          profileAddonsGoToFolderButton.setBounds(804, 554);
+          profileAddonsGoToFolderButton.setBounds(804, 561);
           profileAddonsGoToFolderButton.addEventListener(this);
           this.add(profileAddonsGoToFolderButton);
           profileAddonsGoToFolderButton.setVisible(false);
@@ -864,6 +865,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileModsSoundphysicsMoreInfosButton);
           profileModsSoundphysicsMoreInfosButton.setVisible(false);
 
+
+          profileShadersSeeComparisonButton.setBounds(630, 582);
+          profileShadersSeeComparisonButton.addEventListener(this);
+          this.add(profileShadersSeeComparisonButton);
+          profileShadersSeeComparisonButton.setVisible(false);
 
           profileShadersChocapicV6PlusButton.setBounds(490, 210);
           profileShadersChocapicV6PlusButton.addEventListener(this);

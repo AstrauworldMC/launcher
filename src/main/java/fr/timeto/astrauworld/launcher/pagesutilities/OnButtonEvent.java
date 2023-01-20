@@ -44,7 +44,6 @@ public class OnButtonEvent {
         profilePageButtons = new ArrayList<>();
         aboutPageButtons = new ArrayList<>();
 
-
         generalButtons.add(quitButton);
         generalButtons.add(hideButton);
         generalButtons.add(corner);
@@ -59,7 +58,7 @@ public class OnButtonEvent {
 
         profilePageButtons.add(profilePlayTabButton);
         profilePageButtons.add(profileAccountTabButton);
-        profilePageButtons.add(profileModsTabButton);
+        profilePageButtons.add(profileAddonsTabButton);
         profilePageButtons.add(profileSettingsTabButton);
 
         profilePageButtons.add(profilePlayButton);
@@ -88,6 +87,8 @@ public class OnButtonEvent {
         profilePageButtons.add(profileModsAppleskinMoreInfosButton);
         profilePageButtons.add(profileModsSoundphysicsSwitchButton);
         profilePageButtons.add(profileModsSoundphysicsMoreInfosButton);
+
+        profilePageButtons.add(profileShadersSeeComparisonButton);
 
         profilePageButtons.add(profileShadersChocapicV6PlusButton);
         profilePageButtons.add(profileShadersChocapicV7_1PlusButton);
@@ -217,7 +218,7 @@ public class OnButtonEvent {
             setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileHome);
         } else if (src == profileAccountTabButton) {
             setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAccount);
-        } else if (src == profileModsTabButton) {
+        } else if (src == profileAddonsTabButton) {
             setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsMods);
         } else if (src == profileSettingsTabButton) {
             setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileSettings);
@@ -444,7 +445,13 @@ public class OnButtonEvent {
         }
         
         // Actions des boutons de la profilePage - Shaders
-        else if (src == profileShadersSeusRenewedSwitchButton) {
+        else if (src == profileShadersSeeComparisonButton) {
+            try {
+                Desktop.getDesktop().browse(new URL("https://github.com/AstrauworldMC/launcher/wiki/Comparaison-des-shaders").toURI());
+            } catch (IOException | URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (src == profileShadersSeusRenewedSwitchButton) {
             profileShadersSeusRenewedSwitchButton.toggle();
         } else if (src == profileShadersSeusRenewedDownloadButton) {
             profileShadersSeusRenewedSwitchButton.installShader();

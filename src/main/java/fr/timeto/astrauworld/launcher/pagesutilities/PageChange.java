@@ -146,12 +146,12 @@ public class PageChange {
 
                 profilePlayTabButton.setEnabled(false);
                 profileAccountTabButton.setEnabled(true);
-                profileModsTabButton.setEnabled(true);
+                profileAddonsTabButton.setEnabled(true);
                 profileSettingsTabButton.setEnabled(true);
 
                 profilePlayTabButton.setVisible(true);
                 profileAccountTabButton.setVisible(true);
-                profileModsTabButton.setVisible(true);
+                profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
                 profilePlayButton.setVisible(true);
@@ -199,7 +199,7 @@ public class PageChange {
 
                 profilePlayTabButton.setVisible(false);
                 profileAccountTabButton.setVisible(false);
-                profileModsTabButton.setVisible(false);
+                profileAddonsTabButton.setVisible(false);
                 profileSettingsTabButton.setVisible(false);
 
                 profilePlayButton.setVisible(false);
@@ -225,7 +225,7 @@ public class PageChange {
                 setChangesPage(false);
                 setAboutPage(false, null);
 
-                if(tab.equals("all")) {
+                if (tab.equals("all")) {
                 } else {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -234,12 +234,12 @@ public class PageChange {
 
                 profilePlayTabButton.setEnabled(true);
                 profileAccountTabButton.setEnabled(false);
-                profileModsTabButton.setEnabled(true);
+                profileAddonsTabButton.setEnabled(true);
                 profileSettingsTabButton.setEnabled(true);
 
                 profilePlayTabButton.setVisible(true);
                 profileAccountTabButton.setVisible(true);
-                profileModsTabButton.setVisible(true);
+                profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
                 profileAccountConnectionButton.setVisible(true);
@@ -249,25 +249,16 @@ public class PageChange {
                 profileAccountPasswordField.setVisible(true);
                 profileAccountTextField.setText("");
                 profileAccountPasswordField.setText("");
-                if (Objects.equals(selectedProfile, "1")) {
-                    if(!Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_EMAIL), "none")) {
-                        profileAccountTextField.setText(firstProfileSaver.get(ProfileSaver.KEY.INFOS_EMAIL));
-                    }
-                } else if (Objects.equals(selectedProfile, "2")) {
-                    if(!Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_EMAIL), "none")) {
-                        profileAccountTextField.setText(secondProfileSaver.get(ProfileSaver.KEY.INFOS_EMAIL));
-                    }
-                } else if (Objects.equals(selectedProfile, "3")) {
-                    if(!Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_EMAIL), "none")) {
-                        profileAccountTextField.setText(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_EMAIL));
-                    }
+
+                if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_EMAIL), "none")) {
+                    profileAccountTextField.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_EMAIL));
                 }
 
                 profileAccountLabel.setBounds(380, 526, 276, 31);
                 profileAccountLabel.setVisible(true);
                 profileAccountConnectedLabel.setBounds(198, 526, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
-                if (!Objects.equals(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")){
+                if (!Objects.equals(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
                     if (Objects.equals(infosLabel.getText(), "")) {
                         profileAccountLabel.setText(selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
                         profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
@@ -287,13 +278,13 @@ public class PageChange {
                 LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets/launcher/profilesPage/compte/profilePage-compte.png");
-                 
+
                 corner.setVisible(true);
 
             } else {
                 profilePlayTabButton.setVisible(false);
                 profileAccountTabButton.setVisible(false);
-                profileModsTabButton.setVisible(false);
+                profileAddonsTabButton.setVisible(false);
                 profileSettingsTabButton.setVisible(false);
                 profileAccountConnectionButton.setVisible(false);
                 profileAccountConnectionMicrosoftButton.setVisible(false);
@@ -319,12 +310,12 @@ public class PageChange {
 
                     profilePlayTabButton.setEnabled(true);
                     profileAccountTabButton.setEnabled(true);
-                    profileModsTabButton.setEnabled(false);
+                    profileAddonsTabButton.setEnabled(false);
                     profileSettingsTabButton.setEnabled(true);
 
                     profilePlayTabButton.setVisible(true);
                     profileAccountTabButton.setVisible(true);
-                    profileModsTabButton.setVisible(true);
+                    profileAddonsTabButton.setVisible(true);
                     profileSettingsTabButton.setVisible(true);
 
                     profileAddonsShadersButton.setVisible(true);
@@ -370,7 +361,7 @@ public class PageChange {
                 } else {
                     profilePlayTabButton.setVisible(false);
                     profileAccountTabButton.setVisible(false);
-                    profileModsTabButton.setVisible(false);
+                    profileAddonsTabButton.setVisible(false);
                     profileSettingsTabButton.setVisible(false);
 
                     profileAddonsShadersButton.setVisible(false);
@@ -403,17 +394,18 @@ public class PageChange {
 
                     profilePlayTabButton.setEnabled(true);
                     profileAccountTabButton.setEnabled(true);
-                    profileModsTabButton.setEnabled(false);
+                    profileAddonsTabButton.setEnabled(false);
                     profileSettingsTabButton.setEnabled(true);
 
                     profilePlayTabButton.setVisible(true);
                     profileAccountTabButton.setVisible(true);
-                    profileModsTabButton.setVisible(true);
+                    profileAddonsTabButton.setVisible(true);
                     profileSettingsTabButton.setVisible(true);
 
                     profileAddonsResourcePacksButton.setVisible(true);
                     profileAddonsOptifineSwitchButton.setVisible(true);
                     profileAddonsGoToFolderButton.setVisible(true);
+                    profileShadersSeeComparisonButton.setVisible(true);
 
                     if (tab.toLowerCase().contains("chocapicv6")) {
                         profileAddonsShadersButton.setVisible(true);
@@ -509,7 +501,7 @@ public class PageChange {
                 } else {
                     profilePlayTabButton.setVisible(false);
                     profileAccountTabButton.setVisible(false);
-                    profileModsTabButton.setVisible(false);
+                    profileAddonsTabButton.setVisible(false);
                     profileSettingsTabButton.setVisible(false);
 
                     profileAddonsModsButton.setVisible(false);
@@ -517,6 +509,7 @@ public class PageChange {
                     profileAddonsOptifineSwitchButton.setVisible(false);
                     profileAddonsShadersButton.setVisible(false);
                     profileAddonsGoToFolderButton.setVisible(false);
+                    profileShadersSeeComparisonButton.setVisible(false);
 
                     profileShadersChocapicV6PlusButton.setVisible(false);
                     profileShadersChocapicV7_1PlusButton.setVisible(false);
@@ -581,12 +574,12 @@ public class PageChange {
 
                 profilePlayTabButton.setEnabled(true);
                 profileAccountTabButton.setEnabled(true);
-                profileModsTabButton.setEnabled(true);
+                profileAddonsTabButton.setEnabled(true);
                 profileSettingsTabButton.setEnabled(false);
 
                 profilePlayTabButton.setVisible(true);
                 profileAccountTabButton.setVisible(true);
-                profileModsTabButton.setVisible(true);
+                profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
                 profileSettingsProfileNameTextField.setVisible(true);
@@ -658,7 +651,7 @@ public class PageChange {
 
                 profilePlayTabButton.setVisible(false);
                 profileAccountTabButton.setVisible(false);
-                profileModsTabButton.setVisible(false);
+                profileAddonsTabButton.setVisible(false);
                 profileSettingsTabButton.setVisible(false);
 
                 profileSettingsProfileNameTextField.setVisible(false);
