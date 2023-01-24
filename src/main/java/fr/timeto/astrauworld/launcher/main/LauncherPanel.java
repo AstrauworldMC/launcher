@@ -25,7 +25,7 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
 import static fr.timeto.timutilslib.CustomFonts.*;
 
 /**
- * La classe du panel du assets
+ * La classe du panel du launcher
  * @author <a href="https://github.com/TimEtOff">TimEtO</a>
  * @see LauncherFrame
  */
@@ -209,9 +209,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final JLabel thirdProfileNameLabel = new JLabel(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
           /**
-           * Le texte contenant la version du assets dans le menu général de gauche
+           * Le texte contenant la version du launcher dans le menu général de gauche
            */
-          public static final JTextArea launcherVersionLabel = new JTextArea("Version du assets:" + lineSeparator + Launcher.version);
+          public static final JTextArea launcherVersionLabel = new JTextArea("Version du launcher:" + lineSeparator + Launcher.version);
 
           /**
            * Bouton du menu général de gauche pour ouvrir la page des changelogs
@@ -266,6 +266,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * <p> Doit être mis visible puis invisible à chaque changement de page
            */
           public static final STexturedButton corner = new STexturedButton(getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"), getResourceIgnorePath("/assets/launcher/main/corner.png"));
+
+          // News components
+          public static final NewsPanel newsScrollPanel = new NewsPanel();
+          public static final NewsOpenPanel newsOpenScrollPanel = new NewsOpenPanel();
 
           // Profiles components - up
           /**
@@ -671,8 +675,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(loadingBar);
           loadingBar.setVisible(false);
 
-          launcherVersionLabel.setBounds(4, 39, 160, 50);
-          launcherVersionLabel.setForeground(new Color(128, 128, 128));
+          launcherVersionLabel.setBounds(9, 39, 150, 50);
+          launcherVersionLabel.setForeground(new Color(100, 100, 100));
           launcherVersionLabel.setFont(kollektifBoldFont.deriveFont(14f));
           launcherVersionLabel.setEditable(false);
           launcherVersionLabel.setOpaque(false);
@@ -682,6 +686,15 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           corner.addEventListener(this);
           this.add(corner);
           corner.setEnabled(false);
+
+          // News components
+          newsScrollPanel.setBounds(178, 113, 822, 517);
+          this.add(newsScrollPanel);
+          newsScrollPanel.setVisible(false);
+
+          newsOpenScrollPanel.setBounds(178, 113, 822, 517);
+          this.add(newsOpenScrollPanel);
+          newsOpenScrollPanel.setVisible(false);
 
           // Profiles components - up
           profilePlayTabButton.setBounds(178, 89);
@@ -1074,6 +1087,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileSettingsHelmIconSwitchButton);
           profileSettingsHelmIconSwitchButton.setVisible(false);
 
+          profileSettingsAllowedRamSpinner.setUI(new CustomSpinnerUI());
           profileSettingsAllowedRamSpinner.setForeground(Color.WHITE);
           profileSettingsAllowedRamSpinner.setFont(titleLabel.getFont().deriveFont(25f));
           profileSettingsAllowedRamSpinner.setOpaque(false);
@@ -1104,11 +1118,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           changelogsVersionComboBox.setForeground(Color.WHITE);
 
           changelogsVersionComboBox.setOpaque(false);
-          changelogsVersionComboBox.setBorder(null);
           changelogsVersionComboBox.setEditable(true);
           changelogsVersionComboBox.setRenderer(new CustomComboBoxRenderer());
           changelogsVersionComboBox.setEditor(new CustomComboBoxEditor());
-          changelogsVersionComboBox.setUI(ColorArrowUI.createUI(changelogsVersionComboBox));
+          changelogsVersionComboBox.setUI(ColorArrowComboBoxUI.createUI(changelogsVersionComboBox));
+          changelogsVersionComboBox.setBorder(null);
           this.add(changelogsVersionComboBox);
           changelogsVersionComboBox.setVisible(false);
 

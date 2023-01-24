@@ -444,7 +444,7 @@ public class ProfileSaver {
      * @param saver le Saver concerné
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static void initCustomFilesFolder(Saver saver) { // TODO mettre les fichiers des shaders et resource packs dans les dossier de profil et pas général
+    public static void initCustomFilesFolder(Saver saver) {
         File customFilesFolder = null;
         if (saver == firstProfileSaver) {
             customFilesFolder = Launcher.AW_FIRSTPROFILE_CUSTOMFILES_FOLDER;

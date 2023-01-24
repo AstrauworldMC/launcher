@@ -1,7 +1,6 @@
 package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.openlauncherlib.util.Saver;
-import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
@@ -54,20 +53,23 @@ public class PageChange {
 
             newsButton.setEnabled(false);
 
+            newsScrollPanel.setVisible(true);
+            newsOpenScrollPanel.setVisible(false);
+
             corner.setVisible(false);
 
             titleLabel.setText("Actualit\u00e9s");
             subTitleLabel.setText("");
             LauncherSystemTray.changeTrayTooltip();
 
-            background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
+            background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
 
-            
-            
-             
             corner.setVisible(true);
         }else {
             newsButton.setEnabled(true);
+
+            newsScrollPanel.setVisible(false);
+            newsOpenScrollPanel.setVisible(false);
         }
 
     }
@@ -681,7 +683,7 @@ public class PageChange {
      */
     public static void setChangesPage(boolean enabled) {
         if (enabled) {
-            setAboutPage(false, null);
+            setNewsPage(false);
             setProfilePage(false, null, "all");
             setAboutPage(false, null);
             changesButton.setEnabled(false);
@@ -854,15 +856,15 @@ public class PageChange {
                     } catch (ParseException ignored) {
                     }
                     if (check.equals("nightCycle")) {
-                        lakeImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-night.png");
-                        townHallImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/townHall-night.png");
-                        churchImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/church-night.png");
-                        villageImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/village-night.png");
+                        lakeImage = getResourceIgnorePath("/assets/launcher/profilesPage/lake-night.png");
+                        townHallImage = getResourceIgnorePath("/assets/launcher/profilesPage/townHall-night.png");
+                        churchImage = getResourceIgnorePath("/assets/launcher/profilesPage/church-night.png");
+                        villageImage = getResourceIgnorePath("/assets/launcher/profilesPage/village-night.png");
                     } else {
-                        lakeImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png");
-                        townHallImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/townHall-day.png");
-                        churchImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/church-day.png");
-                        villageImage = Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/village-day.png");
+                        lakeImage = getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png");
+                        townHallImage = getResourceIgnorePath("/assets/launcher/profilesPage/townHall-day.png");
+                        churchImage = getResourceIgnorePath("/assets/launcher/profilesPage/church-day.png");
+                        villageImage = getResourceIgnorePath("/assets/launcher/profilesPage/village-day.png");
                     }
 
                     final int xAllView = 0;

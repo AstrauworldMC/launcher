@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.github.TimEtOff:TimUtilsLib:main-SNAPSHOT'
     implementation 'com.github.lucaazalim:minecraft-server-ping:b1d8c96009d3a86184f5e75820e1e6e97eee5cd1'
     implementation 'org.projectlombok:lombok:1.18.20'
+    implementation 'org.commonmark:commonmark:0.21.0'
 }
 
 javafx {

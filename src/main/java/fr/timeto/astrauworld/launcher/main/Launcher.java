@@ -66,8 +66,8 @@ public class Launcher {
     public static final String forgeVersion = "43.1.1";
     public static final String optifineVersion = "1.19.2_HD_U_H9"; // FIXME Bug certaines textures sont unies
     static MCPingOptions serverOptions = MCPingOptions.builder()
-            .hostname("207.180.196.61")
-            .port(33542)
+            .hostname("207.180.196.61") // 207.180.196.61
+            .port(33542) //33542
             .build();
 
     // Version du launcher

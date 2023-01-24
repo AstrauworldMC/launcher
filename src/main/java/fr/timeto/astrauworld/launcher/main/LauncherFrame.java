@@ -28,7 +28,7 @@ public class LauncherFrame extends JFrame {
     private static final Rectangle movableZone = new Rectangle(0, 0, 1000, 33);
 
     /**
-     * Défini comment s'affichera la frame du assets, son contenu, puis l'affiche
+     * Défini comment s'affichera la frame du launcher, son contenu, puis l'affiche
      */
     public LauncherFrame() {
         this.setTitle("Astrauworld Launcher");
@@ -90,6 +90,9 @@ public class LauncherFrame extends JFrame {
         initProfileIcon();
 
         CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
+
+        Swinger.setResourcePath("/assets/launcher/");
+        Swinger.setSystemLookNFeel();
 
         try {
             if (Objects.equals(args[0], Launcher.afterMcExitArg)) {

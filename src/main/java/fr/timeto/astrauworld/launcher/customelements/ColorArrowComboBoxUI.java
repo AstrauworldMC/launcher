@@ -7,10 +7,10 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class ColorArrowUI extends BasicComboBoxUI {
+public class ColorArrowComboBoxUI extends BasicComboBoxUI {
 
     public static ComboBoxUI createUI(JComponent c) {
-        return new ColorArrowUI();
+        return new ColorArrowComboBoxUI();
     }
 
     @Override
