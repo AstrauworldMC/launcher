@@ -5,9 +5,12 @@ import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.timutilslib.CustomFonts;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
@@ -31,6 +34,8 @@ public class NewsOpenPanel extends JScrollPane {
 
     static JLabel imageLabel = new JLabel();
     static JLabel titleLabel = new JLabel();
+ //   private static WebView browser = new WebView();
+ //   static WebEngine textArea = browser.getEngine();
     static JTextArea textArea = new JTextArea();
 
     public NewsOpenPanel() {
@@ -69,6 +74,7 @@ public class NewsOpenPanel extends JScrollPane {
         inside.add(titleLabel);
 
         textArea.setBounds(20, 260, 764, 1200);
+    //    textArea.setContentType("text/html");
         textArea.setFont(CustomFonts.kollektifFont.deriveFont(16f));
         textArea.setForeground(Color.WHITE);
         textArea.setOpaque(false);
@@ -90,6 +96,12 @@ public class NewsOpenPanel extends JScrollPane {
         imageLabel.setIcon(new ImageIcon(news.getImage()));
         titleLabel.setText(news.getTitle());
         textArea.setText(news.getText());
+    /*    try {
+            textArea.setPage("https://github.com/AstrauworldMC/launcher/blob/main/README.md");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } */
+        //    textArea.loadContent(news.getText(), "text/html");
 
         background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
 

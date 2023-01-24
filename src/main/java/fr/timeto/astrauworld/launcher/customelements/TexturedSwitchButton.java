@@ -112,13 +112,13 @@ public class TexturedSwitchButton extends STexturedButton {
 
         if (Objects.equals(value, "true")) {
             selectedSaver.set(this.getSaverKey(), "false");
-            if (global) {firstProfileSaver.set(this.getSaverKey(), "true");};
+            if (global) {firstProfileSaver.set(this.getSaverKey(), "true");}
         } else if (Objects.equals(value, "false")) {
             selectedSaver.set(this.getSaverKey(), "true");
             if (global) {
                 saverNotSelect1.set(this.getSaverKey(), "false");
                 saverNotSelect2.set(this.getSaverKey(), "false");
-            };
+            }
         }
         defineTextures();
     }

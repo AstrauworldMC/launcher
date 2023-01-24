@@ -6,6 +6,9 @@ import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
 import fr.timeto.timutilslib.CustomFonts;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -24,12 +27,8 @@ public class NewsPanel extends JScrollPane {
     JPanel panel = new JPanel();
 
     public static News[] newsList = {
-            new News("test", "Ceci est un article de test", "TimEtOff", "23/01/2023"),
-            new News("test", "Ceci est un article de test", "Astrauwolf", "24/02/2023"),
-            new News("test", "Ceci est un article de test", "Thomasdu332", "25/03/2023"),
-            new News("test", "Ceci est un article de test", "Capitenzo674", "26/04/2023"),
-            new News("test", "Ceci est un article de test", "ThunderFurax", "27/05/2023"),
-            new News("test", "Ceci est un article de test", "Cyril.04", "28/06/2023")};
+            new News("test", "Ceci est un article de test", "TimEtOff", "24/01/2023")
+    };
 
     static Box[] boxes;
     static JPanel container;
@@ -171,7 +170,10 @@ class News {
 
         String fileSep = System.getProperty("file.separator");
         InputStream is = getFileFromResourceAsStream("assets/launcher/newsPage/" + newsId + "/text.md");
-        this.text = getStringFromInputStream(is);
+    /*    Parser parser = Parser.builder().build();
+        Node document = parser.parse(getStringFromInputStream(is));
+        HtmlRenderer renderer = HtmlRenderer.builder().build(); */
+        this.text = getStringFromInputStream(is); // renderer.render(document)
     }
 
     // get a file from the resources folder
