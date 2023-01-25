@@ -71,7 +71,7 @@ public class Launcher {
             .build();
 
     // Version du launcher
-    public static final String version = "Beta2.2.0"; // TODO CHANGER LA VERSION A CHAQUE FOIS
+    public static final String version = "Beta2.2.1"; // TODO CHANGER LA VERSION A CHAQUE FOIS
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
