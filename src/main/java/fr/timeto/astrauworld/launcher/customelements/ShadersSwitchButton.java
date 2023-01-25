@@ -7,6 +7,7 @@ import fr.timeto.timutilslib.TimFilesUtils;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
@@ -108,9 +109,18 @@ public class ShadersSwitchButton extends STexturedButton {
 
         int i = 0;
 
+        ArrayList<ShadersSwitchButton> enabledShadersButtonsList = new ArrayList<>();
         while (i != shadersButtonsList.length) {
-            shadersButtonsList[i].defineTextures();
-            i += 1;
+            if (shadersButtonsList[i].isEnabled()) {
+                enabledShadersButtonsList.add(shadersButtonsList[i]);
+            }
+            i++;
+        }
+
+        i = 0;
+        while (i != enabledShadersButtonsList.toArray().length) {
+            enabledShadersButtonsList.toArray(new ShadersSwitchButton[0])[i].defineTextures();
+            i++;
         }
 
     }

@@ -344,7 +344,7 @@ public class OnButtonEvent {
             Saver saver = selectedSaver;
 
             if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
-                errorMessage("Erreur de connexion", "Erreur, veuillez entrer un    email et un mot de passe      valides");
+                errorMessage("Erreur de connexion", "Erreur, veuillez     entrer un email et un   mot de passe valides");
                 return;
             }
 
