@@ -85,6 +85,18 @@ public class LauncherFrame extends JFrame {
 
         Launcher.AW_THIRDPROFILE_ICON.createNewFile();
 
+        if (firstProfileSaver.get(KEY.INFOS_NAME).toLowerCase().equals("no")) {
+            firstProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
+            firstProfileSaver.set(KEY.INFOS_NAME, "");
+        }
+        if (secondProfileSaver.get(KEY.INFOS_NAME).toLowerCase().equals("no")) {
+            secondProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
+            secondProfileSaver.set(KEY.INFOS_NAME, "");
+        }
+        if (thirdProfileSaver.get(KEY.INFOS_NAME).toLowerCase().equals("no")) {
+            thirdProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
+            thirdProfileSaver.set(KEY.INFOS_NAME, "");
+        }
 
         initializeDataFiles();
         initProfileIcon();

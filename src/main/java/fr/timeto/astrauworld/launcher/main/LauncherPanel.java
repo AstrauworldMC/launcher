@@ -69,31 +69,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
       * Sinon, retourne la version avec seulement 'Profil [1/2/3]' de l'état demandé
       */
      public static BufferedImage getProfileButton(String base, String state) {
-          BufferedImage button = null;
-
-          if(Objects.equals(base, "firstProfile")){
-               if(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + "None.png");
-               }else {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
-               }
-
-          } else if (Objects.equals(base, "secondProfile")) {
-               if(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + "None.png");
-               }else {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
-               }
-
-          } else if (Objects.equals(base, "thirdProfile")) {
-               if(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + "None.png");
-               }else {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
-               }
-
-          }
-          return button;
+          return getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
      }
 
      /**
@@ -111,25 +87,25 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           firstProfileButton.setTextureHover(getProfileButton("firstProfile", "hover"));
           firstProfileButton.setTextureDisabled(getProfileButton("firstProfile", "selected"));
           firstProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON))));
-          firstProfileIcon.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          firstProfileIcon.setVisible(true);
           firstProfileNameLabel.setText(firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          firstProfileNameLabel.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          firstProfileNameLabel.setVisible(true);
 
           secondProfileButton.setTexture(getProfileButton("secondProfile", "normal"));
           secondProfileButton.setTextureHover(getProfileButton("secondProfile", "hover"));
           secondProfileButton.setTextureDisabled(getProfileButton("secondProfile", "selected"));
           secondProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON))));
-          secondProfileIcon.setVisible(!(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          secondProfileIcon.setVisible(true);
           secondProfileNameLabel.setText(secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          secondProfileNameLabel.setVisible(!(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          secondProfileNameLabel.setVisible(true);
 
           thirdProfileButton.setTexture(getProfileButton("thirdProfile", "normal"));
           thirdProfileButton.setTextureHover(getProfileButton("thirdProfile", "hover"));
           thirdProfileButton.setTextureDisabled(getProfileButton("thirdProfile", "selected"));
           thirdProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON))));
-          thirdProfileIcon.setVisible(!(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          thirdProfileIcon.setVisible(true);
           thirdProfileNameLabel.setText(thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          thirdProfileNameLabel.setVisible(!(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          thirdProfileNameLabel.setVisible(true);
 
      }
 
