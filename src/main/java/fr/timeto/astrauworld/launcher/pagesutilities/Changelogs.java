@@ -18,6 +18,7 @@ public class Changelogs {
      * @see Changelogs#text
      */
     private static class TEXTS {
+        public static final String BETA2_2_2 =  "- R\u00e9glages de bugs sur les shaders et les changelogs";
         public static final String BETA2_2_0 =  "- Rangement du code et documentation dans les sources" + lineSep +
                                                 "- Ajout de la license GPLv3" + lineSep +
                                                 "- Ajout du system tray icon" + lineSep +
@@ -51,7 +52,11 @@ public class Changelogs {
      * La liste des changelogs
      * @since Beta2.1.2
      */
-    private static final Changelogs[] changelogsList = {new Changelogs("Beta2.2.0", TEXTS.BETA2_2_0), new Changelogs("Beta2.1.2", TEXTS.BETA2_1_2)};
+    private static final Changelogs[] changelogsList = {
+            new Changelogs("Beta2.2.2", TEXTS.BETA2_2_2),
+            new Changelogs("Beta2.2.0", TEXTS.BETA2_2_0),
+            new Changelogs("Beta2.1.2", TEXTS.BETA2_1_2)
+    };
 
     /**
      * Initialise un nouveau changelog
@@ -73,7 +78,7 @@ public class Changelogs {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      * @see Changelogs#getChangelogsTextsList()
      */
-    public static Object[] getChangelogsVersionsList() {
+    public static String[] getChangelogsVersionsList() {
         ArrayList<String> changelogsVersionsList = new ArrayList<>();
         int i = 0;
         while (i != changelogsList.length) {
@@ -81,7 +86,7 @@ public class Changelogs {
             i+=1;
         }
 
-        return changelogsVersionsList.toArray();
+        return changelogsVersionsList.toArray(new String[0]);
     }
 
     /**
@@ -91,13 +96,13 @@ public class Changelogs {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      * @see Changelogs#getChangelogsVersionsList()
      */
-    public static Object[] getChangelogsTextsList() {
+    public static String[] getChangelogsTextsList() {
         ArrayList<String> changelogsTextsList = new ArrayList<>();
         int i = 0;
         while (i != changelogsList.length) {
             changelogsTextsList.add(changelogsList[i].text);
             i+=1;
         }
-        return changelogsTextsList.toArray();
+        return changelogsTextsList.toArray(new String[0]);
     }
 }

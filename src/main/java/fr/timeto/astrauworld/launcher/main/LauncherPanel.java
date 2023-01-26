@@ -494,7 +494,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @since Beta2.1.2
            * @see Changelogs#getChangelogsVersionsList()
            */
-          public static final Object[] changelogsVersionsArrayList = Changelogs.getChangelogsVersionsList();
+          public static final String[] changelogsVersionsArrayList = Changelogs.getChangelogsVersionsList();
           /**
            * La combo-box pour sélectionner la version du changelog voulu
            * @since Beta2.1.2
@@ -1284,11 +1284,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
       */
      public static int verifyVersionChangelog() {
           String val = Objects.requireNonNull(changelogsVersionComboBox.getSelectedItem()).toString();
-          Object[] T = changelogsVersionsArrayList;
+          String[] T = changelogsVersionsArrayList;
 
           int i;
           for(i = 0; i<T.length;i++){
-               if(val==T[i])
+               val = val.replaceAll("\\[", "").replaceAll("]", "");
+               changelogsVersionComboBox.setSelectedItem(val);
+               if(val.contains(T[i]))
                     //retourner la position courante
                     return i;
           }
@@ -1299,7 +1301,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
      public void actionPerformed(ActionEvent e) {
           if (e.getSource() == changelogsVersionComboBox) {
                int i = verifyVersionChangelog();
-               changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i].toString());
+               changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i]);
 
           }
      }

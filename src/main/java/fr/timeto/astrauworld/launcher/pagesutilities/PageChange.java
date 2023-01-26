@@ -699,7 +699,7 @@ public class PageChange {
 
             int i = LauncherPanel.verifyVersionChangelog();
             changelogsVersionComboBox.setSelectedIndex(i);
-            changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i].toString());
+            changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i]);
 
             background = getResourceIgnorePath("/assets/launcher/changelogsPage/changelogsPage.png");
              
