@@ -214,7 +214,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see Components#percentLabel
            * @see Components#infosLabel
            */
-          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED);
+          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED){
+               @Override
+               public void setVisible(boolean aFlag) {
+                    super.setVisible(aFlag);
+                    if (aFlag) {
+                         profileNewsButton.setLocation(profileNewsButton.getX(), 575);
+                    } else {
+                         profileNewsButton.setLocation(profileNewsButton.getX(), 578);
+                    }
+               }
+          };
           /**
            * Label à gauche dans la {@link Components#loadingBar}, apparait et affiche les noms des fichiers téléchargés lors d'un d'un téléchargement
            * @see Components#loadingBar

@@ -170,14 +170,10 @@ public class PageChange {
                 profileAccountLabel.setVisible(true);
                 profileAccountConnectedLabel.setBounds(192, 470, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
-                if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")){
-                    if (Objects.equals(infosLabel.getText(), "")) {
-                        profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-                        profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                        enablePlayButtons(true);
-                    } else {
-                        enablePlayButtons(false);
-                    }
+                if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                    profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                    profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                    enablePlayButtons(true);
                 } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
@@ -261,13 +257,9 @@ public class PageChange {
                 profileAccountConnectedLabel.setBounds(198, 526, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
                 if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                    if (Objects.equals(infosLabel.getText(), "")) {
-                        profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-                        profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                        enablePlayButtons(true);
-                    } else {
-                        enablePlayButtons(false);
-                    }
+                    profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                    profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                    enablePlayButtons(true);
                 } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
@@ -338,14 +330,10 @@ public class PageChange {
                     profileAccountLabel.setVisible(true);
                     profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
                     profileAccountConnectedLabel.setVisible(true);
-                    if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")){
-                        if (Objects.equals(infosLabel.getText(), "")) {
-                            profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-                            profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                            enablePlayButtons(true);
-                        } else {
-                            enablePlayButtons(false);
-                        }
+                    if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                        profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                        profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                        enablePlayButtons(true);
                     } else {
                         profileAccountLabel.setText("");
                         profileAccountConnectedLabel.setText("Non connect\u00e9");
@@ -480,14 +468,10 @@ public class PageChange {
                     profileAccountLabel.setVisible(true);
                     profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
                     profileAccountConnectedLabel.setVisible(true);
-                    if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")){
-                        if (Objects.equals(infosLabel.getText(), "")) {
-                            profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-                            profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                            enablePlayButtons(true);
-                        } else {
-                            enablePlayButtons(false);
-                        }
+                    if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                        profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                        profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                        enablePlayButtons(true);
                     } else {
                         profileAccountLabel.setText("");
                         profileAccountConnectedLabel.setText("Non connect\u00e9");
@@ -596,14 +580,10 @@ public class PageChange {
                 profileAccountLabel.setVisible(true);
                 profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
-                if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")){
-                    if (Objects.equals(infosLabel.getText(), "")) {
-                        profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
-                        profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                        enablePlayButtons(true);
-                    } else {
-                        enablePlayButtons(false);
-                    }
+                if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                    profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                    profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                    enablePlayButtons(true);
                 } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
