@@ -143,7 +143,7 @@ public class Launcher {
         saveInfosWhenConnect(saver, result);
 
         Launcher.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");
-        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId());
+        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
     }
 
     public static void microsoftAuthWebview(Saver saver) throws MicrosoftAuthenticationException {
@@ -155,6 +155,7 @@ public class Launcher {
         saveInfosWhenConnect(saver, result);
 
         Launcher.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
+        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
     }
 
     /**
@@ -165,13 +166,14 @@ public class Launcher {
         infosLabel.setText("Connexion...");
 
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
+        MicrosoftAuthResult result;
         if (Objects.equals(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN), null)) {
             throw new MicrosoftAuthenticationException("Aucun compte connecté");
         } else {
-            MicrosoftAuthResult result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
+            result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
         }
 
-        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID));
+        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID), result.getXuid(), result.getClientId()); // "YWQ4MWRmN2EtZGM2Ni00ZjIwLThiYzEtOTA4YzRmNGVjNTU3"
         Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
         infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
 
@@ -182,6 +184,8 @@ public class Launcher {
         System.out.println(authInfos.getUsername());
         System.out.println(authInfos.getUuid());
         System.out.println(authInfos.getAccessToken());
+        System.out.println(authInfos.getAuthXUID());
+        System.out.println(authInfos.getClientId());
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER); // ah oui il est en decimal dans le fichier
         noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM))) + "G");
