@@ -143,7 +143,7 @@ public class Launcher {
         saveInfosWhenConnect(saver, result);
 
         Launcher.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");
-        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), "", "");
+        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId());
     }
 
     public static void microsoftAuthWebview(Saver saver) throws MicrosoftAuthenticationException {
@@ -171,7 +171,7 @@ public class Launcher {
             MicrosoftAuthResult result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
         }
 
-        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID), "", "");
+        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID));
         Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
         infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
 
@@ -179,11 +179,14 @@ public class Launcher {
 
     public static void launch(boolean connectToServer, Saver saver) throws Exception{
 
-        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
+        System.out.println(authInfos.getUsername());
+        System.out.println(authInfos.getUuid());
+        System.out.println(authInfos.getAccessToken());
+
+        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER); // ah oui il est en decimal dans le fichier
+        noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM))) + "G");
         if (connectToServer) {
-            noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G", "--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
-        } else {
-            noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
+            noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
         }
 
         LauncherFrame.getInstance().setVisible(false);

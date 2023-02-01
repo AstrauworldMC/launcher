@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.initLauncherSystemTray;
+import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.verifyLauncherVersion;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 /**
@@ -133,6 +134,8 @@ public class LauncherFrame extends JFrame {
 
         initLauncherSystemTray();
         instance = new LauncherFrame();
+
+        verifyLauncherVersion(false);
 
     }
 

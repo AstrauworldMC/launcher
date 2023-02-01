@@ -8,12 +8,17 @@ import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
+import static fr.timeto.timutilslib.TimFilesUtils.copyFile;
+import static fr.timeto.timutilslib.TimFilesUtils.downloadFromInternet;
 
 /**
  * La classe pour le système tray (icône dans la zone de notification)
@@ -449,6 +454,118 @@ public class LauncherSystemTray {
             trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText() + " [" + ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + "] (" + LauncherPanel.Components.subTitleLabel.getText() + ")");
         } else {
             trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText() + " (" + LauncherPanel.Components.subTitleLabel.getText() + ")");
+        }
+    }
+
+    static String separatorChar = System.getProperty("file.separator");
+    static String userAppDataDir = System.getenv("APPDATA");
+    static String astrauworldDir = userAppDataDir + separatorChar + "Astrauworld Launcher";
+
+    static String currentPropertiesDir = astrauworldDir + separatorChar + "currentLauncher.properties";
+    static String newPropertiesDir = astrauworldDir + separatorChar + "newLauncher.properties";
+    static String launcherJar = astrauworldDir + separatorChar + "launcher.jar";
+
+    static File astrauworldFolder = new File(astrauworldDir);
+    static File currentPropertiesFile = new File(currentPropertiesDir);
+    static File newPropertiesFile = new File(newPropertiesDir);
+    static File launcherJarFile = new File(launcherJar);
+
+    static Path currentPropertiesPath = Paths.get(currentPropertiesDir);
+    static Path newPropertiesPath = Paths.get(newPropertiesDir);
+
+    static Saver currentSaver = new Saver(currentPropertiesPath);
+    static Saver newSaver = new Saver(newPropertiesPath);
+
+    public static void verifyLauncherVersion(boolean download) {
+        setPropertiesFile();
+
+        Launcher.println("");
+        Launcher.println("---- JAR UPDATE ----");
+
+        Thread t = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            if (launcherJarFile.createNewFile()) {
+                currentSaver.set("launcherVersion", "");
+                Launcher.println("jar created");
+            }
+        } catch (IOException ignored) {}
+
+        if (!Objects.equals(Launcher.version, newSaver.get("launcherVersion"))) {
+            Launcher.println("Current: " + Launcher.version);
+            Launcher.println("New: " + newSaver.get("launcherVersion"));
+            Launcher.println("pas égal");
+
+            if (download) {
+                downloadLatest();
+            } else {
+                trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour disponible" + System.getProperty("line.separator") + "T\u00e9l\u00e9chargez-la depuis le launcher", TrayIcon.MessageType.INFO);
+            }
+        } else {
+            Launcher.println("Dernière version détectée");
+            trayIcon.displayMessage("V\u00e9rification de la version", "Derni\u00e8re version d\u00e9tect\u00e9e", TrayIcon.MessageType.INFO);
+        }
+    }
+
+    public static void downloadLatest() {
+        trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour disponible, t\u00e9l\u00e9chargement...", TrayIcon.MessageType.INFO);
+        Launcher.println("Téléchargement de ma maj");
+        try {
+            downloadFromInternet(getJarLink(), launcherJarFile);
+            trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour effectu\u00e9e" + System.getProperty("line.separator") + "Veuillez relancer le launcher pour qu'elle prenne effet", TrayIcon.MessageType.INFO);
+            Launcher.println("jar downloaded");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            copyFile(newPropertiesFile, currentPropertiesFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static String getJarLink() {
+        return "https://github.com/AstrauworldMC/launcher/releases/download/" + newSaver.get("launcherVersion") + "/launcher.jar";
+    }
+
+    private static void setPropertiesFile() {
+
+        try {
+            newPropertiesFile.createNewFile();
+        } catch (IOException ignored) {}
+
+
+        try {
+            downloadFromInternet("https://raw.githubusercontent.com/AstrauworldMC/launcher/main/currentLauncher.properties", newPropertiesFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (currentSaver.get("launcherVersion") == null) {
+            try {
+                currentPropertiesFile.createNewFile();
+                System.out.println("created");
+            } catch (IOException ignored) {}
+            try {
+                copyFile(newPropertiesFile, currentPropertiesFile);
+                System.out.println("copied?");
+            } catch (IOException e) {
+                System.out.println("fail");
+                throw new RuntimeException(e);
+            }
         }
     }
 }
