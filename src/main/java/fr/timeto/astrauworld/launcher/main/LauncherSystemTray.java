@@ -1,6 +1,7 @@
 package fr.timeto.astrauworld.launcher.main;
 
 import fr.theshark34.openlauncherlib.util.Saver;
+import fr.theshark34.swinger.Swinger;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
@@ -512,21 +513,55 @@ public class LauncherSystemTray {
                 downloadLatest();
             } else {
                 trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour disponible" + System.getProperty("line.separator") + "T\u00e9l\u00e9chargez-la depuis le launcher", TrayIcon.MessageType.INFO);
+                LauncherPanel.Components.updateButton.setTexture(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton-red.png"));
+                LauncherPanel.Components.updateButton.setTextureHover(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover-red.png"));
+                LauncherPanel.Components.updateButton.setTextureDisabled(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton-red.png"));
             }
         } else {
             Launcher.println("Dernière version détectée");
             trayIcon.displayMessage("V\u00e9rification de la version", "Derni\u00e8re version d\u00e9tect\u00e9e", TrayIcon.MessageType.INFO);
+            LauncherPanel.Components.updateButton.setTexture(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
+            LauncherPanel.Components.updateButton.setTextureHover(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover.png"));
+            LauncherPanel.Components.updateButton.setTextureDisabled(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
         }
     }
 
     public static void downloadLatest() {
+        LauncherPanel.Components.updateButton.setEnabled(false);
         trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour disponible, t\u00e9l\u00e9chargement...", TrayIcon.MessageType.INFO);
-        Launcher.println("Téléchargement de ma maj");
+        Launcher.println("Téléchargement de la maj");
+
+        LauncherPanel.Components.loadingBar.setVisible(true);
+        LauncherPanel.Components.infosLabel.setVisible(true);
+        LauncherPanel.Components.loadingBar.setValue(0);
+        LauncherPanel.Components.loadingBar.setMaximum(1);
+        LauncherPanel.Components.infosLabel.setText("Mise \u00e0 jour du launcher");
         try {
             downloadFromInternet(getJarLink(), launcherJarFile);
             trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour effectu\u00e9e" + System.getProperty("line.separator") + "Veuillez relancer le launcher pour qu'elle prenne effet", TrayIcon.MessageType.INFO);
             Launcher.println("jar downloaded");
+            LauncherPanel.Components.updateButton.setEnabled(true);
+            LauncherPanel.Components.updateButton.setTexture(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
+            LauncherPanel.Components.updateButton.setTextureHover(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover.png"));
+            LauncherPanel.Components.updateButton.setTextureDisabled(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
+
+            LauncherPanel.Components.loadingBar.setValue(1);
+            LauncherPanel.Components.loadingBar.setVisible(false);
+            LauncherPanel.Components.infosLabel.setVisible(false);
+            LauncherPanel.Components.infosLabel.setText("");
+            LauncherPanel.Components.loadingBar.setValue(0);
+
+            // TODO LANCEMENT
         } catch (IOException e) {
+            LauncherPanel.Components.updateButton.setEnabled(true);
+            LauncherPanel.Components.loadingBar.setValue(1);
+            LauncherPanel.Components.loadingBar.setVisible(false);
+            LauncherPanel.Components.infosLabel.setVisible(false);
+            LauncherPanel.Components.infosLabel.setText("");
+            LauncherPanel.Components.loadingBar.setValue(0);
+
+            trayIcon.displayMessage("V\u00e9rification de la version", "Echec de la mise \u00e0 jour", TrayIcon.MessageType.ERROR);
+
             throw new RuntimeException(e);
         }
 

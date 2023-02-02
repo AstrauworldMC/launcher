@@ -4,10 +4,7 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.textured.STexturedButton;
-import fr.timeto.astrauworld.launcher.main.Launcher;
-import fr.timeto.astrauworld.launcher.main.LauncherFrame;
-import fr.timeto.astrauworld.launcher.main.LauncherPanel;
-import fr.timeto.astrauworld.launcher.main.ServerInfosFrame;
+import fr.timeto.astrauworld.launcher.main.*;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
@@ -46,6 +43,7 @@ public class OnButtonEvent {
 
         generalButtons.add(quitButton);
         generalButtons.add(hideButton);
+        generalButtons.add(updateButton);
         generalButtons.add(corner);
 
         generalButtons.add(newsButton);
@@ -183,6 +181,11 @@ public class OnButtonEvent {
             System.exit(0);
         } else if (src == hideButton) {
             LauncherFrame.getInstance().setState(JFrame.ICONIFIED);
+        } else if (src == updateButton) {
+            Thread t = new Thread(() -> {
+                LauncherSystemTray.verifyLauncherVersion(true);
+            });
+            t.start();
         } else if (src == corner) {
             Launcher.println("Corner?");
         }

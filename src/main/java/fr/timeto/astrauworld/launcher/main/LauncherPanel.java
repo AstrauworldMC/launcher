@@ -125,6 +125,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            */
           public static final STexturedButton hideButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/hideButton.png"), getResourceIgnorePath("/assets/launcher/commonButtons/hideButtonHover.png"));
 
+          public static final STexturedButton updateButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"), getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover.png"));
           /**
            * Le bouton du menu général de gauche pour ouvrir la page principale des actualités
            */
@@ -568,13 +569,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           initFonts();
 
           // Common components
-          quitButton.setBounds(962, 1);
+          quitButton.setBounds(970, 4);
           quitButton.addEventListener(this);
           this.add(quitButton);
 
-          hideButton.setBounds(921, 1);
+          hideButton.setBounds(935, 4);
           hideButton.addEventListener(this);
           this.add(hideButton);
+
+          updateButton.setBounds(899, 5);
+          updateButton.addEventListener(this);
+          this.add(updateButton);
 
           newsButton.setBounds(0, 113);
           newsButton.addEventListener(this);
