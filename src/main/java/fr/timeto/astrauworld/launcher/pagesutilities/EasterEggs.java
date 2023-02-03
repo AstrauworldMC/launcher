@@ -60,6 +60,7 @@ public class EasterEggs {
      * @since Beta2.2.0
      */
     public static final String asrielName = "AsrielProfileName";
+    public static final String trueAsrielName = "TrueAsrielProfileName";
 
     /**
      * String général pour le nom de l'easter egg 'FloweyProfileName'
@@ -102,6 +103,7 @@ public class EasterEggs {
             friskName,
             charaName,
             asrielName,
+            trueAsrielName,
             floweyName,
             cursedFloweyName
     };

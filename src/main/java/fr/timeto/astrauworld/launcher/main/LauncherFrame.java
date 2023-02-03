@@ -5,6 +5,7 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.timeto.astrauworld.launcher.customelements.ZoneWindowMover;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.initLauncherSystemTray;
+import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.verifyLauncherVersion;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 /**
@@ -85,8 +87,21 @@ public class LauncherFrame extends JFrame {
 
         Launcher.AW_THIRDPROFILE_ICON.createNewFile();
 
-
         initializeDataFiles();
+
+        if (firstProfileSaver.get(KEY.INFOS_NAME).toLowerCase().equals("no")) {
+            firstProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
+            firstProfileSaver.set(KEY.INFOS_NAME, "");
+        }
+        if (secondProfileSaver.get(KEY.INFOS_NAME).toLowerCase().equals("no")) {
+            secondProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
+            secondProfileSaver.set(KEY.INFOS_NAME, "");
+        }
+        if (thirdProfileSaver.get(KEY.INFOS_NAME).toLowerCase().equals("no")) {
+            thirdProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
+            thirdProfileSaver.set(KEY.INFOS_NAME, "");
+        }
+
         initProfileIcon();
 
         CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
@@ -119,8 +134,11 @@ public class LauncherFrame extends JFrame {
             thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
         }
 
+        PageChange.lastSettingsSaver = null;
         initLauncherSystemTray();
         instance = new LauncherFrame();
+
+        verifyLauncherVersion(false, false);
 
     }
 

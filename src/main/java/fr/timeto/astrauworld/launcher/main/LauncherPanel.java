@@ -69,31 +69,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
       * Sinon, retourne la version avec seulement 'Profil [1/2/3]' de l'état demandé
       */
      public static BufferedImage getProfileButton(String base, String state) {
-          BufferedImage button = null;
-
-          if(Objects.equals(base, "firstProfile")){
-               if(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + "None.png");
-               }else {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
-               }
-
-          } else if (Objects.equals(base, "secondProfile")) {
-               if(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + "None.png");
-               }else {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
-               }
-
-          } else if (Objects.equals(base, "thirdProfile")) {
-               if(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no")) {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + "None.png");
-               }else {
-                    button = getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
-               }
-
-          }
-          return button;
+          return getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
      }
 
      /**
@@ -111,25 +87,25 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           firstProfileButton.setTextureHover(getProfileButton("firstProfile", "hover"));
           firstProfileButton.setTextureDisabled(getProfileButton("firstProfile", "selected"));
           firstProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON))));
-          firstProfileIcon.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          firstProfileIcon.setVisible(true);
           firstProfileNameLabel.setText(firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          firstProfileNameLabel.setVisible(!(Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          firstProfileNameLabel.setVisible(true);
 
           secondProfileButton.setTexture(getProfileButton("secondProfile", "normal"));
           secondProfileButton.setTextureHover(getProfileButton("secondProfile", "hover"));
           secondProfileButton.setTextureDisabled(getProfileButton("secondProfile", "selected"));
           secondProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON))));
-          secondProfileIcon.setVisible(!(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          secondProfileIcon.setVisible(true);
           secondProfileNameLabel.setText(secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          secondProfileNameLabel.setVisible(!(Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          secondProfileNameLabel.setVisible(true);
 
           thirdProfileButton.setTexture(getProfileButton("thirdProfile", "normal"));
           thirdProfileButton.setTextureHover(getProfileButton("thirdProfile", "hover"));
           thirdProfileButton.setTextureDisabled(getProfileButton("thirdProfile", "selected"));
           thirdProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON))));
-          thirdProfileIcon.setVisible(!(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          thirdProfileIcon.setVisible(true);
           thirdProfileNameLabel.setText(thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          thirdProfileNameLabel.setVisible(!(Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "no") || Objects.equals(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME), "")));
+          thirdProfileNameLabel.setVisible(true);
 
      }
 
@@ -149,6 +125,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            */
           public static final STexturedButton hideButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/hideButton.png"), getResourceIgnorePath("/assets/launcher/commonButtons/hideButtonHover.png"));
 
+          public static final STexturedButton updateButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"), getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover.png"));
           /**
            * Le bouton du menu général de gauche pour ouvrir la page principale des actualités
            */
@@ -238,7 +215,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @see Components#percentLabel
            * @see Components#infosLabel
            */
-          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED);
+          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED){
+               @Override
+               public void setVisible(boolean aFlag) {
+                    super.setVisible(aFlag);
+                    if (aFlag) {
+                         profileNewsButton.setLocation(profileNewsButton.getX(), 575);
+                    } else {
+                         profileNewsButton.setLocation(profileNewsButton.getX(), 578);
+                    }
+               }
+          };
           /**
            * Label à gauche dans la {@link Components#loadingBar}, apparait et affiche les noms des fichiers téléchargés lors d'un d'un téléchargement
            * @see Components#loadingBar
@@ -481,7 +468,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Spinner pour sélectionner la ram allouée au jeu au lancement dans la page profil - réglages
            */
-          public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(2, 0.10, 256.00, 0.10));
+          public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 256.00, 1));
           public static TexturedSwitchButton profileSettingsMainProfileSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_MAINPROFILE, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), true);
           /**
            * Bouton pour sauvegarder les paramètres du profil
@@ -494,7 +481,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @since Beta2.1.2
            * @see Changelogs#getChangelogsVersionsList()
            */
-          public static final Object[] changelogsVersionsArrayList = Changelogs.getChangelogsVersionsList();
+          public static final String[] changelogsVersionsArrayList = Changelogs.getChangelogsVersionsList();
           /**
            * La combo-box pour sélectionner la version du changelog voulu
            * @since Beta2.1.2
@@ -582,13 +569,17 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           initFonts();
 
           // Common components
-          quitButton.setBounds(962, 1);
+          quitButton.setBounds(970, 4);
           quitButton.addEventListener(this);
           this.add(quitButton);
 
-          hideButton.setBounds(921, 1);
+          hideButton.setBounds(935, 4);
           hideButton.addEventListener(this);
           this.add(hideButton);
+
+          updateButton.setBounds(899, 5);
+          updateButton.addEventListener(this);
+          this.add(updateButton);
 
           newsButton.setBounds(0, 113);
           newsButton.addEventListener(this);
@@ -1284,11 +1275,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
       */
      public static int verifyVersionChangelog() {
           String val = Objects.requireNonNull(changelogsVersionComboBox.getSelectedItem()).toString();
-          Object[] T = changelogsVersionsArrayList;
+          String[] T = changelogsVersionsArrayList;
 
           int i;
           for(i = 0; i<T.length;i++){
-               if(val==T[i])
+               val = val.replaceAll("\\[", "").replaceAll("]", "");
+               changelogsVersionComboBox.setSelectedItem(val);
+               if(val.contains(T[i]))
                     //retourner la position courante
                     return i;
           }
@@ -1299,7 +1292,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
      public void actionPerformed(ActionEvent e) {
           if (e.getSource() == changelogsVersionComboBox) {
                int i = verifyVersionChangelog();
-               changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i].toString());
+               changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i]);
 
           }
      }

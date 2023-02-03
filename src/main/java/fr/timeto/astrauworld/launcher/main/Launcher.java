@@ -71,7 +71,7 @@ public class Launcher {
             .build();
 
     // Version du launcher
-    public static final String version = "Beta2.2.1"; // TODO CHANGER LA VERSION A CHAQUE FOIS
+    public static final String version = "Beta2.2.2"; // TODO CHANGER LA VERSION A CHAQUE FOIS
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -143,7 +143,7 @@ public class Launcher {
         saveInfosWhenConnect(saver, result);
 
         Launcher.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");
-        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), "", "");
+        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
     }
 
     public static void microsoftAuthWebview(Saver saver) throws MicrosoftAuthenticationException {
@@ -155,6 +155,7 @@ public class Launcher {
         saveInfosWhenConnect(saver, result);
 
         Launcher.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
+        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
     }
 
     /**
@@ -165,13 +166,14 @@ public class Launcher {
         infosLabel.setText("Connexion...");
 
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
+        MicrosoftAuthResult result;
         if (Objects.equals(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN), null)) {
             throw new MicrosoftAuthenticationException("Aucun compte connecté");
         } else {
-            MicrosoftAuthResult result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
+            result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
         }
 
-        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID), "", "");
+        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID), result.getXuid(), result.getClientId()); // "YWQ4MWRmN2EtZGM2Ni00ZjIwLThiYzEtOTA4YzRmNGVjNTU3"
         Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
         infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
 
@@ -179,11 +181,16 @@ public class Launcher {
 
     public static void launch(boolean connectToServer, Saver saver) throws Exception{
 
-        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
+        System.out.println(authInfos.getUsername());
+        System.out.println(authInfos.getUuid());
+        System.out.println(authInfos.getAccessToken());
+        System.out.println(authInfos.getAuthXUID());
+        System.out.println(authInfos.getClientId());
+
+        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER); // ah oui il est en decimal dans le fichier
+        noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM))) + "G");
         if (connectToServer) {
-            noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G", "--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
-        } else {
-            noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
+            noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
         }
 
         LauncherFrame.getInstance().setVisible(false);
@@ -361,6 +368,8 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(438116, 3922999)); //   "     Paintings v1.0.4
         modInfos.add(new CurseFileInfo(363569, 3830460)); //   "     Windows v2.0.3
         modInfos.add(new CurseFileInfo(373774, 3909206)); // Rare Ice v0.5.1
+        modInfos.add(new CurseFileInfo(280200, 3930087)); // Colytra 6.0.0+ 1.19.2
+        modInfos.add(new CurseFileInfo(308989, 3929284)); //   |_> Caelus API 1.19.2-3.0.0.6
 
         initClientMods(saver, modInfos);
 
