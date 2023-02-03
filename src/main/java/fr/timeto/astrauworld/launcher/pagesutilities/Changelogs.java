@@ -19,7 +19,10 @@ public class Changelogs {
      */
     private static class TEXTS {
         public static final String BETA2_2_2 =  "- R\u00e9glages de bugs sur les shaders, les changelogs et l'affichage du profil connect\u00e9" + lineSep +
-                                                "- Les boutons de profil du menu de gauche ne sont plus d\u00e9pendants d'une image lorsqu'ils n'ont pas de compte";
+                                                "- Les boutons de profil du menu de gauche ne sont plus d\u00e9pendants d'une image lorsqu'ils n'ont pas de compte" + lineSep +
+                                                "- Session Minecraft valide avec les nouveaux id demandés" + lineSep +
+                                                "- Update du launcher disponible depuis le launcher" + lineSep +
+                                                "- Ajout des mods Colytra et Caelus API";
         public static final String BETA2_2_0 =  "- Rangement du code et documentation dans les sources" + lineSep +
                                                 "- Ajout de la license GPLv3" + lineSep +
                                                 "- Ajout du system tray icon" + lineSep +
