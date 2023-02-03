@@ -468,7 +468,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Spinner pour sélectionner la ram allouée au jeu au lancement dans la page profil - réglages
            */
-          public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(2, 0.10, 256.00, 0.10));
+          public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 256.00, 1));
           public static TexturedSwitchButton profileSettingsMainProfileSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_MAINPROFILE, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), true);
           /**
            * Bouton pour sauvegarder les paramètres du profil

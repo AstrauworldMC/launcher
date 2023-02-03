@@ -477,7 +477,7 @@ public class LauncherSystemTray {
     static Saver currentSaver = new Saver(currentPropertiesPath);
     static Saver newSaver = new Saver(newPropertiesPath);
 
-    public static void verifyLauncherVersion(boolean download) {
+    public static void verifyLauncherVersion(boolean download, boolean confirmNoNew) {
         setPropertiesFile();
 
         Launcher.println("");
@@ -519,7 +519,9 @@ public class LauncherSystemTray {
             }
         } else {
             Launcher.println("Dernière version détectée");
-            trayIcon.displayMessage("V\u00e9rification de la version", "Derni\u00e8re version d\u00e9tect\u00e9e", TrayIcon.MessageType.INFO);
+            if (confirmNoNew) {
+                trayIcon.displayMessage("V\u00e9rification de la version", "Derni\u00e8re version d\u00e9tect\u00e9e", TrayIcon.MessageType.INFO);
+            }
             LauncherPanel.Components.updateButton.setTexture(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
             LauncherPanel.Components.updateButton.setTextureHover(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover.png"));
             LauncherPanel.Components.updateButton.setTextureDisabled(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
@@ -551,7 +553,6 @@ public class LauncherSystemTray {
             LauncherPanel.Components.infosLabel.setText("");
             LauncherPanel.Components.loadingBar.setValue(0);
 
-            // TODO LANCEMENT
         } catch (IOException e) {
             LauncherPanel.Components.updateButton.setEnabled(true);
             LauncherPanel.Components.loadingBar.setValue(1);

@@ -368,6 +368,8 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(438116, 3922999)); //   "     Paintings v1.0.4
         modInfos.add(new CurseFileInfo(363569, 3830460)); //   "     Windows v2.0.3
         modInfos.add(new CurseFileInfo(373774, 3909206)); // Rare Ice v0.5.1
+        modInfos.add(new CurseFileInfo(280200, 3930087)); // Colytra 6.0.0+ 1.19.2
+        modInfos.add(new CurseFileInfo(308989, 3929284)); //   |_> Caelus API 1.19.2-3.0.0.6
 
         initClientMods(saver, modInfos);
 

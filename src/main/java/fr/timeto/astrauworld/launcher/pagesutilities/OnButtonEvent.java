@@ -183,7 +183,7 @@ public class OnButtonEvent {
             LauncherFrame.getInstance().setState(JFrame.ICONIFIED);
         } else if (src == updateButton) {
             Thread t = new Thread(() -> {
-                LauncherSystemTray.verifyLauncherVersion(true);
+                LauncherSystemTray.verifyLauncherVersion(true, true);
             });
             t.start();
         } else if (src == corner) {

@@ -140,7 +140,7 @@ public class ProfileSaver {
 
             saver.set(KEY.SETTINGS_PROFILENAME, "none");
             saver.set(KEY.SETTINGS_HELMICON, "true");
-            saver.set(KEY.SETTINGS_RAM, "2");
+            saver.set(KEY.SETTINGS_RAM, "3");
             saver.set(KEY.SETTINGS_MAINPROFILE, "false");
 
             saver.set(KEY.FILECREATED, "true");

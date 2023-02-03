@@ -74,7 +74,9 @@ public class PageChange {
 
     }
 
-    private static Saver lastSettingsSaver = null;
+    public static Saver lastSettingsSaver = null;
+    public static String lastSettingsProfileName = "";
+    public static String lastSettingsRam = "";
     /**
      * Change la page pour la page d'un profil
      * @param enabled Si {@code true}, affiche la page et tous ces composants. {@code Si false}, fait disparaitre tous ces composants
@@ -129,6 +131,7 @@ public class PageChange {
                     selectedSaver = thirdProfileSaver;
                 }
             }
+            ProfileSaver.selectedSaver = selectedSaver;
         }
 
         if(Objects.equals(tab, TAB_KEY.profileHome)) {
@@ -598,31 +601,32 @@ public class PageChange {
                 background = getResourceIgnorePath("/assets/launcher/profilesPage/reglages/profilePage-reglages.png");
 
                 corner.setVisible(true);
+
+                lastSettingsProfileName = profileSettingsProfileNameTextField.getText();
+                lastSettingsRam = profileSettingsAllowedRamSpinner.getValue().toString();
             } else {
                 if (lastSettingsSaver != null) {
                     Saver finalLastSettingsSaver = lastSettingsSaver;
+                    String finalLastSettingsProfileName = lastSettingsProfileName;
+                    String finalLastSettingsRam = lastSettingsRam;
 
-                    if (Objects.equals(profileSettingsProfileNameTextField.getText(), "")) {
-                        profileSettingsProfileNameTextField.setText(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-                    }
-                    if (Objects.equals(profileSettingsAllowedRamSpinner.getValue().toString(), "2.0")) {
-                        profileSettingsProfileNameTextField.setText(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM));
-                    }
-
-                    String profileName = profileSettingsProfileNameTextField.getText();
-                    String ram = profileSettingsAllowedRamSpinner.getValue().toString();
-
-                    if (!Objects.equals(profileName, finalLastSettingsSaver.get(KEY.SETTINGS_PROFILENAME)) || !Objects.equals(ram, finalLastSettingsSaver.get(KEY.SETTINGS_RAM))) {
+                    if (!Objects.equals(profileSettingsProfileNameTextField.getText(), finalLastSettingsSaver.get(KEY.SETTINGS_PROFILENAME)) || !Objects.equals(profileSettingsAllowedRamSpinner.getValue().toString(), finalLastSettingsSaver.get(KEY.SETTINGS_RAM))) {
                         Thread yes = new Thread(() -> {
-                            finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileName);
-                            finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_RAM, ram);
+                            finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, finalLastSettingsProfileName);
+                            finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_RAM, finalLastSettingsRam);
+                            profileSettingsProfileNameTextField.setText(finalLastSettingsProfileName);
+                            profileSettingsAllowedRamSpinner.setValue(parseFloat(finalLastSettingsRam));
+                            lastSettingsProfileName = finalLastSettingsProfileName;
+                            lastSettingsRam = finalLastSettingsRam;
                             initProfileButtons();
 
                             PopUpMessages.doneMessage("Sauvegard\u00e9", "Param\u00e8tres           sauvegard\u00e9s");
                         });
                         Thread no = new Thread(() -> {
-                            profileSettingsProfileNameTextField.setText(finalLastSettingsSaver.get(KEY.SETTINGS_PROFILENAME));
+                            profileSettingsProfileNameTextField.setText(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
                             profileSettingsAllowedRamSpinner.setValue(parseFloat(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM)));
+                            lastSettingsProfileName = finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME);
+                            lastSettingsRam = finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM);
 
                             PopUpMessages.errorMessage("Non sauvegard\u00e9", "Param\u00e8tres non       sauvegard\u00e9s");
                         });
@@ -647,6 +651,8 @@ public class PageChange {
             }
 
         } else if (Objects.equals(tab, "all")) {
+            lastSettingsProfileName = profileSettingsProfileNameTextField.getText();
+            lastSettingsRam = profileSettingsAllowedRamSpinner.getValue().toString();
             setProfilePage(enabled, null, TAB_KEY.profileHome);
             setProfilePage(enabled, null, TAB_KEY.profileAccount);
             setProfilePage(enabled, null, TAB_KEY.profileAddonsMods);
@@ -866,13 +872,31 @@ public class PageChange {
                         x1 = xAllView;
                         profileDiapoImage2.setLocation(x2, 0);
                         profileDiapoImage1.setLocation(x1, 0);
-                        try {
-                            Thread.sleep(5);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
+
+                        for(int i = 0; i == 1; i++) {
+                            if (!inDiaporama) {
+                                return;
+                            }
+
+                            if (i==0) {
+                                x1 -= 3;
+                                x2 -= 3;
+                            } else {
+                                x1 = xALlRight;
+                                x2 = xAllLeft;
+                            }
+                            corner.setVisible(true);
+                            profileDiapoImage1.setLocation(x1, 0);
+                            profileDiapoImage2.setLocation(x2, 0);
+                            corner.setVisible(false);
+
+                            try {
+                                Thread.sleep(5);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
-                        corner.setVisible(true);
-                        corner.setVisible(false);
+
                         try {
                             Thread.sleep(6000);
                         } catch (InterruptedException e) {
