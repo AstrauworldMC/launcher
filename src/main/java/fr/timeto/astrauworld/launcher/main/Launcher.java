@@ -173,7 +173,7 @@ public class Launcher {
             result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
         }
 
-        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID), result.getXuid(), result.getClientId()); // "YWQ4MWRmN2EtZGM2Ni00ZjIwLThiYzEtOTA4YzRmNGVjNTU3"
+        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID), result.getXuid(), result.getClientId());
         Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
         infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
 
@@ -328,8 +328,8 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(238222, 4087658)); // JEI forge 11.4.0.286
         modInfos.add(new CurseFileInfo(416089, 4104024)); // Simple Voice Chat [FORGE] 1.19.2-2.3.16
         modInfos.add(new CurseFileInfo(274259, 3885508)); // Carry On 1.19-1.18.1.2
-        modInfos.add(new CurseFileInfo(426558, 4071154)); // Alex's Mobs 1.21.0
-        modInfos.add(new CurseFileInfo(331936, 4087465)); //    |_> Citadel 2.1.0-1.19
+    //    modInfos.add(new CurseFileInfo(426558, 4071154)); // Alex's Mobs 1.21.0
+    //    modInfos.add(new CurseFileInfo(331936, 4087465)); //    |_> Citadel 2.1.0-1.19
         modInfos.add(new CurseFileInfo(421377, 3907904)); // HT's TreeChop 1.19.1-0.15.8
         modInfos.add(new CurseFileInfo(316582, 3920717)); // Corpse 1.19.2-1.0.0
         modInfos.add(new CurseFileInfo(225738, 3913301)); // MmmMmmMmmMmm (Target Dummy) 1.19.2-1.5.5
