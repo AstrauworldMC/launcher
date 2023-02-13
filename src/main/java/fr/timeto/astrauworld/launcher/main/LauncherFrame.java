@@ -29,6 +29,8 @@ public class LauncherFrame extends JFrame {
 
     private static final Rectangle movableZone = new Rectangle(0, 0, 1000, 33);
 
+    public static boolean devEnv = false;
+
     /**
      * Défini comment s'affichera la frame du launcher, son contenu, puis l'affiche
      */
@@ -122,6 +124,8 @@ public class LauncherFrame extends JFrame {
                 profileAfterMcExit = args[1];
 
                 ProfileSaver.saveCustomFiles(saver);
+            } else if (Objects.equals(args[0], Launcher.devEnvArg)) {
+                devEnv = true;
             }
         } catch (Exception ignored) {}
 
@@ -138,7 +142,9 @@ public class LauncherFrame extends JFrame {
         initLauncherSystemTray();
         instance = new LauncherFrame();
 
-        verifyLauncherVersion(false, false);
+        if (!devEnv) {
+            verifyLauncherVersion(false, false);
+        }
 
     }
 
