@@ -336,6 +336,7 @@ public class LauncherSystemTray {
 
         MenuItem discordItem = new MenuItem("Discord");
         MenuItem chatItem = new MenuItem("Tchat du serveur");
+        MenuItem serverInfos = new MenuItem("Infos du serveur");
         Menu problemMenu = new Menu("Report un bug");
         MenuItem problemLauncherItem = new MenuItem("Launcher");
         MenuItem problemServerItem = new MenuItem("Serveur");
@@ -363,6 +364,8 @@ public class LauncherSystemTray {
                 try {
                     Desktop.getDesktop().browse(new URL("https://discord.gg/863JZ4yK8Q").toURI());
                 } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == serverInfos) {
+                ServerInfosFrame.openServerInfos();
             } else if (src == problemLauncherItem) {
                 try {
                     Desktop.getDesktop().browse(new URL("https://discord.gg/r3kRQeBQAW").toURI());
@@ -401,6 +404,7 @@ public class LauncherSystemTray {
 
         discordItem.addActionListener(listener);
         chatItem.addActionListener(listener);
+        serverInfos.addActionListener(listener);
         problemLauncherItem.addActionListener(listener);
         problemServerItem.addActionListener(listener);
         suggestLauncherItem.addActionListener(listener);
@@ -414,6 +418,7 @@ public class LauncherSystemTray {
         /* Ajoute tous les menus principaux au menu popup */
         popup.add(discordItem);
         popup.add(chatItem);
+        popup.add(serverInfos);
 
         popup.add(problemMenu);
         problemMenu.add(problemLauncherItem);

@@ -355,11 +355,11 @@ public class ProfileSaver {
     /**
      * Le fichier des options général
      */
-    private static final File optionsTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "options.txt");
+    public static final File optionsTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "options.txt");
     /**
      * Le fichier des options Optifine général
      */
-    private static final File optionsOFTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsof.txt");
+    public static final File optionsOFTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsof.txt");
 
     /**
      * Le fichier des options des shaders d'Optifine général
@@ -393,11 +393,11 @@ public class ProfileSaver {
     /**
      * Le fichier des options des profils, initialisé plus tard
      */
-    private static File optionsProfileTextfile = null;
+    public static File optionsProfileTextfile = null;
     /**
      * Le fichier des options d'Optifine des profils, initialisé plus tard
      */
-    private static File optionsOFProfileTextfile = null;
+    public static File optionsOFProfileTextfile = null;
 
     /**
      * Le fichier des options des shaders d'Optifine des profils, initialisé plus tard
@@ -492,7 +492,7 @@ public class ProfileSaver {
         try {
             copyFile(optionsTextfile, optionsProfileTextfile);
             copyFile(optionsOFTextfile, optionsOFProfileTextfile);
-            copyFile(optionsProfileTextfile, optionsShadersProfileTextfile);
+            copyFile(optionsShadersTextfile, optionsShadersProfileTextfile);
         } catch (IOException e) {
             Launcher.println("Failed copy options files");
         }

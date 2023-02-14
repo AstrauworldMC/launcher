@@ -65,7 +65,7 @@ public class Launcher {
     // Version de Minecraft et de Forge utilisée
     public static final String mcVersion = "1.18.2";
     public static final String forgeVersion = "40.1.85";
-    public static final String optifineVersion = "1.18.2_HD_U_H9_pre2"; // FIXME ?Bug certaines textures sont unies
+    public static final String optifineVersion = "1.18.2_HD_U_H7"; // FIXME Bug certaines textures sont unies
     static MCPingOptions serverOptions = MCPingOptions.builder()
             .hostname("207.180.196.61") // 207.180.196.61
             .port(33542) //33542
@@ -134,7 +134,9 @@ public class Launcher {
         saver.set(KEY.INFOS_ACCESSTOKEN, result.getAccessToken());
         saver.set(KEY.INFOS_REFRESHTOKEN, result.getRefreshToken());
         saver.set(KEY.INFOS_UUID, result.getProfile().getId());
-        saver.set(KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
+        if (Objects.equals(saver.get(KEY.SETTINGS_PROFILENAME), "none")) {
+            saver.set(KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
+        }
     }
 
     public static void microsoftAuth(String email, String password, Saver saver) throws MicrosoftAuthenticationException {
@@ -329,7 +331,7 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(237307, 4016730)); // Cosmetic Armor Reworked 1.18.2-v2a
         modInfos.add(new CurseFileInfo(238222, 3940240)); // JEI forge 1.18.1-9.7.1.255
         modInfos.add(new CurseFileInfo(416089, 4372207)); // Simple Voice Chat [FORGE] 1.18.2-2.3.28
-        modInfos.add(new CurseFileInfo(274259, 3674344)); // Carry On 1.18.2-1.17.0.8
+    //    modInfos.add(new CurseFileInfo(274259, 3674344)); // Carry On 1.18.2-1.17.0.8
         modInfos.add(new CurseFileInfo(426558, 3853078)); // Alex's Mobs 1.18.6
         modInfos.add(new CurseFileInfo(331936, 3783096)); //    |_> Citadel 1.11.3-1.18.2
         modInfos.add(new CurseFileInfo(421377, 4388478)); // HT's TreeChop 1.18.2-0.17.4

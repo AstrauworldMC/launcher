@@ -8,7 +8,7 @@ plugins {
 apply plugin: 'org.openjfx.javafxplugin'
 
 group 'fr.timeto.astrauworld'
-version 'Beta2.2.0'
+version 'Beta2.2.3'
 
 repositories {
     mavenCentral()
@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.flowarg:flowupdater:1.7.2'
+    implementation 'fr.flowarg:flowupdater:1.7.4'
     implementation 'com.google.code.gson:gson:2.10'
     implementation 'fr.flowarg:flowmultitools:1.4.0'
     implementation 'fr.flowarg:openlauncherlib:3.2.5'

@@ -138,6 +138,22 @@ public class LauncherFrame extends JFrame {
             thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
         }
 
+        File mcVersionJsonFile = new File(Launcher.AW_GAMEFILES_FOLDER + "1.18.2.json");
+        if (!mcVersionJsonFile.exists()) {
+            optionsTextfile.delete();
+            optionsOFTextfile.delete();
+            optionsShadersTextfile.delete();
+            int i = 1;
+            while (i != 4) {
+                initCustomFilesFolder(ProfileSaver.getSaver(i + ""));
+                optionsProfileTextfile.delete();
+                optionsOFProfileTextfile.delete();
+                optionsShadersProfileTextfile.delete();
+                i++;
+            }
+            mcVersionJsonFile.createNewFile();
+        }
+
         PageChange.lastSettingsSaver = null;
         initLauncherSystemTray();
         instance = new LauncherFrame();
