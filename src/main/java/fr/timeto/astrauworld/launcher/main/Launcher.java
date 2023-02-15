@@ -176,7 +176,7 @@ public class Launcher {
             result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
         }
 
-        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID), result.getXuid(), result.getClientId());
+        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
         Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
         infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
 

@@ -154,17 +154,25 @@ public class OnButtonEvent {
      * @since Beta2.2.0
      */
     public static void onButtonEvent(SwingerEvent e) {
-        Object src = e.getSource();
-        initLists();
+        try {
+            Object src = e.getSource();
+            initLists();
 
-        if(generalButtons.contains(src)) {
-            onGeneralEvent(src);
-        } else if (profilePageButtons.contains(src)) {
-            onProfilePageEvent(src);
-        } else if (aboutPageButtons.contains(src)) {
-            onAboutPageEvent(src);
-        } else {
-            PopUpMessages.errorMessage("Erreur du bouton", "Ev\u00e9nement du bouton non trouv\u00e9");
+            if (generalButtons.contains(src)) {
+                onGeneralEvent(src);
+            } else if (profilePageButtons.contains(src)) {
+                onProfilePageEvent(src);
+            } else if (aboutPageButtons.contains(src)) {
+                onAboutPageEvent(src);
+            } else {
+                PopUpMessages.errorMessage("Erreur du bouton", "Ev\u00e9nement du bouton non trouv\u00e9");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Thread t = new Thread(() -> {
+                System.exit(1);
+            });
+            PopUpMessages.errorMessage("Erreur", ex.getLocalizedMessage(), t);
         }
     }
 
@@ -234,37 +242,45 @@ public class OnButtonEvent {
 
             //     if (profilePlayButtonIsPlayStatus) {
             launchThread = new Thread(() -> {
-                //               togglePlayButtonStatus(false);
-                loadingBar.setVisible(true);
-                infosLabel.setVisible(true);
-                infosLabel.setText("Connexion...");
                 try {
-                    Launcher.connect(saver);
-                } catch (MicrosoftAuthenticationException m) {
-                    enablePlayButtons(true);
-                    errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                    infosLabel.setText("Connexion \u00e9chou\u00e9e");
-                    loadingBar.setVisible(false);
-                    infosLabel.setVisible(false);
-                    return;
-                }
-                infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                    //               togglePlayButtonStatus(false);
+                    loadingBar.setVisible(true);
+                    infosLabel.setVisible(true);
+                    infosLabel.setText("Connexion...");
+                    try {
+                        Launcher.connect(saver);
+                    } catch (MicrosoftAuthenticationException m) {
+                        enablePlayButtons(true);
+                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                        infosLabel.setText("Connexion \u00e9chou\u00e9e");
+                        loadingBar.setVisible(false);
+                        infosLabel.setVisible(false);
+                        return;
+                    }
+                    infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
-                try {
-                    Launcher.update(saver);
-                } catch (Exception ex) {
-                    enablePlayButtons(true);
-                    throw new RuntimeException(ex);
-                }
-                updatePostExecutions();
+                    try {
+                        Launcher.update(saver);
+                    } catch (Exception ex) {
+                        enablePlayButtons(true);
+                        throw new RuntimeException(ex);
+                    }
+                    updatePostExecutions();
 
-                try {
-                    Launcher.launch(true, saver);
-                } catch (Exception ex) {
+                    try {
+                        Launcher.launch(true, saver);
+                    } catch (Exception ex) {
+                        enablePlayButtons(true);
+                        throw new RuntimeException(ex);
+                    }
                     enablePlayButtons(true);
-                    throw new RuntimeException(ex);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Thread t = new Thread(() -> {
+                        System.exit(1);
+                    });
+                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
                 }
-                enablePlayButtons(true);
 
             });
             launchThread.start();
@@ -285,34 +301,42 @@ public class OnButtonEvent {
             enablePlayButtons(false);
 
             launchThread = new Thread(() -> {
-                //          togglePlayButtonStatus(false);
-
                 try {
-                    Launcher.connect(saver);
-                } catch (MicrosoftAuthenticationException m) {
-                    enablePlayButtons(true);
-                    errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                    infosLabel.setText("Connexion \u00e9chou\u00e9e");
-                    loadingBar.setVisible(false);
-                    infosLabel.setVisible(false);
-                    return;
-                }
+                    //          togglePlayButtonStatus(false);
 
-                try {
-                    Launcher.update(saver);
-                } catch (Exception ex) {
-                    enablePlayButtons(true);
-                    throw new RuntimeException(ex);
-                }
-                updatePostExecutions();
+                    try {
+                        Launcher.connect(saver);
+                    } catch (MicrosoftAuthenticationException m) {
+                        enablePlayButtons(true);
+                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                        infosLabel.setText("Connexion \u00e9chou\u00e9e");
+                        loadingBar.setVisible(false);
+                        infosLabel.setVisible(false);
+                        return;
+                    }
 
-                try {
-                    Launcher.launch(false, saver);
-                } catch (Exception ex) {
+                    try {
+                        Launcher.update(saver);
+                    } catch (Exception ex) {
+                        enablePlayButtons(true);
+                        throw new RuntimeException(ex);
+                    }
+                    updatePostExecutions();
+
+                    try {
+                        Launcher.launch(false, saver);
+                    } catch (Exception ex) {
+                        enablePlayButtons(true);
+                        throw new RuntimeException(ex);
+                    }
                     enablePlayButtons(true);
-                    throw new RuntimeException(ex);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Thread t = new Thread(() -> {
+                        System.exit(1);
+                    });
+                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
                 }
-                enablePlayButtons(true);
 
             });
             launchThread.start();
@@ -322,19 +346,27 @@ public class OnButtonEvent {
             enablePlayButtons(false);
 
             updateThread = new Thread(() -> {
-                //          togglePlayButtonStatus(false);
                 try {
-                    Launcher.update(saver);
-                } catch (InterruptedException e1) {
+                    //          togglePlayButtonStatus(false);
+                    try {
+                        Launcher.update(saver);
+                    } catch (InterruptedException e1) {
+                        enablePlayButtons(true);
+                        updatePostExecutions();
+                    } catch (Exception ex) {
+                        enablePlayButtons(true);
+                        throw new RuntimeException(ex);
+                    }
                     enablePlayButtons(true);
                     updatePostExecutions();
-                } catch (Exception ex) {
-                    enablePlayButtons(true);
-                    throw new RuntimeException(ex);
+                    doneMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Thread t = new Thread(() -> {
+                        System.exit(1);
+                    });
+                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
                 }
-                enablePlayButtons(true);
-                updatePostExecutions();
-                doneMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
 
             });
 
@@ -353,14 +385,22 @@ public class OnButtonEvent {
 
             Thread connect = new Thread(() -> {
                 try {
-                    Launcher.println("Connexion...");
-                    Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()), saver);
-                } catch (MicrosoftAuthenticationException m) {
-                    errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                    return;
+                    try {
+                        Launcher.println("Connexion...");
+                        Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()), saver);
+                    } catch (MicrosoftAuthenticationException m) {
+                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                        return;
+                    }
+                    doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                    initProfileButtons();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Thread t = new Thread(() -> {
+                        System.exit(1);
+                    });
+                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
                 }
-                doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
-                initProfileButtons();
             });
 
             connect.start();
@@ -371,14 +411,22 @@ public class OnButtonEvent {
 
             Thread connect = new Thread(() -> {
                 try {
-                    Launcher.println("Connexion...");
-                    Launcher.microsoftAuthWebview(saver);
-                } catch (MicrosoftAuthenticationException m) {
-                    errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                    return;
+                    try {
+                        Launcher.println("Connexion...");
+                        Launcher.microsoftAuthWebview(saver);
+                    } catch (MicrosoftAuthenticationException m) {
+                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+                        return;
+                    }
+                    doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                    initProfileButtons();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Thread t = new Thread(() -> {
+                        System.exit(1);
+                    });
+                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
                 }
-                doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
-                initProfileButtons();
             });
             connect.start();
         } else if (src == profileAccountResetButton) {
