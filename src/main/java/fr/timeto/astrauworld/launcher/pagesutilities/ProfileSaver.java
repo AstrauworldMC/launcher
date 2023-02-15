@@ -254,23 +254,23 @@ public class ProfileSaver {
     public static void initClientMods(Saver selectedSaver, List modList) {
 
         if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL), "true")) {
-            modList.add(new CurseFileInfo(333287, 4018928)); // First Peron Model 2.2.0 - Forge
+            modList.add(new CurseFileInfo(333287, 4327736)); // First Peron Model 2.2.2 - Forge
         }
 
         if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS), "true")) {
-            modList.add(new CurseFileInfo(435044, 3834422)); // Better Third Person 1.8.1
+            modList.add(new CurseFileInfo(435044, 4177087)); // Better Third Person 1.9.0
         }
 
         if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES), "true")) {
-            modList.add(new CurseFileInfo(463155, 3965374)); // Falling Leaves 1.3.1
+            modList.add(new CurseFileInfo(463155, 3705945)); // Falling Leaves 1.3.2
         }
 
         if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN), "true")) {
-            modList.add(new CurseFileInfo(248787, 3872808)); // Apple Skin 2.4.2
+            modList.add(new CurseFileInfo(248787, 3927564)); // Apple Skin 2.4.1
         }
 
         if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS), "true")) {
-            modList.add(new CurseFileInfo(535489, 4064927)); // Sound Physics Remastered v0.5.1
+            modList.add(new CurseFileInfo(535489, 3775919)); // Sound Physics Remastered 1.0.6
         }
 
     }
@@ -355,11 +355,11 @@ public class ProfileSaver {
     /**
      * Le fichier des options général
      */
-    private static final File optionsTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "options.txt");
+    public static final File optionsTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "options.txt");
     /**
      * Le fichier des options Optifine général
      */
-    private static final File optionsOFTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsof.txt");
+    public static final File optionsOFTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsof.txt");
 
     /**
      * Le fichier des options des shaders d'Optifine général
@@ -393,11 +393,11 @@ public class ProfileSaver {
     /**
      * Le fichier des options des profils, initialisé plus tard
      */
-    private static File optionsProfileTextfile = null;
+    public static File optionsProfileTextfile = null;
     /**
      * Le fichier des options d'Optifine des profils, initialisé plus tard
      */
-    private static File optionsOFProfileTextfile = null;
+    public static File optionsOFProfileTextfile = null;
 
     /**
      * Le fichier des options des shaders d'Optifine des profils, initialisé plus tard
@@ -492,7 +492,7 @@ public class ProfileSaver {
         try {
             copyFile(optionsTextfile, optionsProfileTextfile);
             copyFile(optionsOFTextfile, optionsOFProfileTextfile);
-            copyFile(optionsProfileTextfile, optionsShadersProfileTextfile);
+            copyFile(optionsShadersTextfile, optionsShadersProfileTextfile);
         } catch (IOException e) {
             Launcher.println("Failed copy options files");
         }

@@ -41,6 +41,7 @@ public class Launcher {
     public static final String userAppDataDir = System.getenv("APPDATA");
 
     public static final String afterMcExitArg = "--afterMcExit";
+    public static final String devEnvArg = "--dev";
 
     // String des les path dont on a besoin
     public static final String filesFolder = userAppDataDir + separatorChar + "Astrauworld Launcher";
@@ -62,16 +63,16 @@ public class Launcher {
     public static final String thirdProfileCustomFilesFolder = dataFolder + separatorChar + "thirdProfileCustomFiles";
 
     // Version de Minecraft et de Forge utilisée
-    public static final String mcVersion = "1.19.2"; // TODO Passer à la 1.19.3 quand les mods seront dispos
-    public static final String forgeVersion = "43.1.1";
-    public static final String optifineVersion = "1.19.2_HD_U_H9"; // FIXME Bug certaines textures sont unies
+    public static final String mcVersion = "1.18.2";
+    public static final String forgeVersion = "40.1.85";
+    public static final String optifineVersion = "1.18.2_HD_U_H7"; // FIXME Bug certaines textures sont unies
     static MCPingOptions serverOptions = MCPingOptions.builder()
             .hostname("207.180.196.61") // 207.180.196.61
             .port(33542) //33542
             .build();
 
     // Version du launcher
-    public static final String version = "Beta2.2.2"; // TODO CHANGER LA VERSION A CHAQUE FOIS
+    public static final String version = "Beta2.2.3"; // TODO CHANGER LA VERSION A CHAQUE FOIS
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -133,7 +134,9 @@ public class Launcher {
         saver.set(KEY.INFOS_ACCESSTOKEN, result.getAccessToken());
         saver.set(KEY.INFOS_REFRESHTOKEN, result.getRefreshToken());
         saver.set(KEY.INFOS_UUID, result.getProfile().getId());
-        saver.set(KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
+        if (Objects.equals(saver.get(KEY.SETTINGS_PROFILENAME), "none")) {
+            saver.set(KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
+        }
     }
 
     public static void microsoftAuth(String email, String password, Saver saver) throws MicrosoftAuthenticationException {
@@ -173,7 +176,7 @@ public class Launcher {
             result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
         }
 
-        authInfos = new AuthInfos(saver.get(ProfileSaver.KEY.INFOS_NAME), saver.get(ProfileSaver.KEY.INFOS_ACCESSTOKEN), saver.get(ProfileSaver.KEY.INFOS_UUID), result.getXuid(), result.getClientId());
+        authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
         Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
         infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
 
@@ -321,55 +324,59 @@ public class Launcher {
         final List<CurseFileInfo> modInfos = new ArrayList<>();
 
         // Liste des mods serveurs
-        modInfos.add(new CurseFileInfo(352835, 3923045)); // Backpacked 2.1.10
-        modInfos.add(new CurseFileInfo(416811, 4032100)); // Medieval Craft 1.19.2 weapons only pre-pre-alpha
-        modInfos.add(new CurseFileInfo(509041, 4019310)); // Epic Knights [...] v6.7
-        modInfos.add(new CurseFileInfo(237307, 4016732)); // Cosmetic Armor Reworked 1.19.2-v1a
-        modInfos.add(new CurseFileInfo(238222, 4087658)); // JEI forge 11.4.0.286
-        modInfos.add(new CurseFileInfo(416089, 4104024)); // Simple Voice Chat [FORGE] 1.19.2-2.3.16
-        modInfos.add(new CurseFileInfo(274259, 3885508)); // Carry On 1.19-1.18.1.2
-    //    modInfos.add(new CurseFileInfo(426558, 4071154)); // Alex's Mobs 1.21.0
-    //    modInfos.add(new CurseFileInfo(331936, 4087465)); //    |_> Citadel 2.1.0-1.19
-        modInfos.add(new CurseFileInfo(421377, 3907904)); // HT's TreeChop 1.19.1-0.15.8
-        modInfos.add(new CurseFileInfo(316582, 3920717)); // Corpse 1.19.2-1.0.0
-        modInfos.add(new CurseFileInfo(225738, 3913301)); // MmmMmmMmmMmm (Target Dummy) 1.19.2-1.5.5
-        modInfos.add(new CurseFileInfo(350727, 3947216)); // Joy of Painting (xerapaint) 1.19.2-1.0.0
-        modInfos.add(new CurseFileInfo(341448, 3947219)); // Music Maker Mod (xeramusic) 1.19.2-1.0.0
-        modInfos.add(new CurseFileInfo(328085, 4011414)); // Create v0.5.0f
-        modInfos.add(new CurseFileInfo(360203, 3970122)); // Guard Villagers 1.15.2
-        modInfos.add(new CurseFileInfo(581854, 3905172)); // InvMove v0.8.1
-        modInfos.add(new CurseFileInfo(348521, 3972423)); //    |_> Cloth Config API v8.2.88
-        modInfos.add(new CurseFileInfo(441647, 3919861)); // FramedBlocks 6.6.2
-        modInfos.add(new CurseFileInfo(558126, 4064323)); // This Rocks! 1.19.2-1.2.2
-        modInfos.add(new CurseFileInfo(377051, 3943018)); // Bed Benefits 1.19.2-9.1.2
-        modInfos.add(new CurseFileInfo(228525, 4052856)); //    |_> Bookshelf 1.19.2-16.1.11
-        modInfos.add(new CurseFileInfo(608235, 3919439)); // YDM's Weapon Master 1.19.x-v3.0.3
-        modInfos.add(new CurseFileInfo(260262, 3872707)); // ToolBelt 1.19-1.19.6
-        modInfos.add(new CurseFileInfo(634062, 4082456)); // No Chat Reports FORGE-1.19.2-v1.5.1
-        modInfos.add(new CurseFileInfo(570319, 4036347)); // Human Companions 1.19.2-1.5.1
-        modInfos.add(new CurseFileInfo(450659, 3926824)); // Small Ships 1.19.2-2.0.0-Alpha-0.4
-        modInfos.add(new CurseFileInfo(223852, 3884263)); // Storage Drawers 1.19-11.1.2
-        modInfos.add(new CurseFileInfo(542110, 3877554)); // Jumpy Boats 1.19.2-0.1.0.5
-        modInfos.add(new CurseFileInfo(64760 , 3921272)); // SecurityCraft v1.9.3.1
-        modInfos.add(new CurseFileInfo(398521, 3999157)); // Farmer's Delight 1.2
-        modInfos.add(new CurseFileInfo(55438 , 3907425)); // MrCrayfish's Furniture Mod 7.0.0-pre34
-        modInfos.add(new CurseFileInfo(482378, 3969415)); // ParCool! 1.19.2-1.0.0.2-R
-        modInfos.add(new CurseFileInfo(60028 , 4074684)); // Aquaculture2 1.19.2-2.4.8
-        modInfos.add(new CurseFileInfo(243121, 4102873)); // Quark 3.3-373
-        modInfos.add(new CurseFileInfo(250363, 4100299)); //   |_> AutoRegLib 1.8.2-55
-        modInfos.add(new CurseFileInfo(351725, 4018295)); // Macaw's Bridges v2.0.5
-        modInfos.add(new CurseFileInfo(359540, 4018184)); //   "     Furniture v3.0.2
-        modInfos.add(new CurseFileInfo(352039, 4028405)); //   "     Roofs v2.2.1
-        modInfos.add(new CurseFileInfo(378646, 3930976)); //   "     Doors v1.0.7
-        modInfos.add(new CurseFileInfo(629153, 3923436)); //   "     Path and Pavings v1.0.1
-        modInfos.add(new CurseFileInfo(502372, 3923131)); //   "     Lights and Lamps v1.0.4
-        modInfos.add(new CurseFileInfo(453925, 3923128)); //   "     Fences and Walls v1.0.6
-        modInfos.add(new CurseFileInfo(400933, 3923124)); //   "     Trapdoors v1.0.7
-        modInfos.add(new CurseFileInfo(438116, 3922999)); //   "     Paintings v1.0.4
-        modInfos.add(new CurseFileInfo(363569, 3830460)); //   "     Windows v2.0.3
-        modInfos.add(new CurseFileInfo(373774, 3909206)); // Rare Ice v0.5.1
-        modInfos.add(new CurseFileInfo(280200, 3930087)); // Colytra 6.0.0+ 1.19.2
-        modInfos.add(new CurseFileInfo(308989, 3929284)); //   |_> Caelus API 1.19.2-3.0.0.6
+        modInfos.add(new CurseFileInfo(352835, 3923041)); // Backpacked 2.1.10
+        modInfos.add(new CurseFileInfo(416811, 3858618)); // Medieval Craft 1.18.2 weapons only
+        modInfos.add(new CurseFileInfo(509041, 4393487)); // Epic Knights [...] 7.1
+        modInfos.add(new CurseFileInfo(419699, 4384391)); //    |_> Architectury API v4.11.89
+        modInfos.add(new CurseFileInfo(237307, 4016730)); // Cosmetic Armor Reworked 1.18.2-v2a
+        modInfos.add(new CurseFileInfo(238222, 3940240)); // JEI forge 1.18.1-9.7.1.255
+        modInfos.add(new CurseFileInfo(416089, 4372207)); // Simple Voice Chat [FORGE] 1.18.2-2.3.28
+    //    modInfos.add(new CurseFileInfo(274259, 3674344)); // Carry On 1.18.2-1.17.0.8
+        modInfos.add(new CurseFileInfo(426558, 3853078)); // Alex's Mobs 1.18.6
+        modInfos.add(new CurseFileInfo(331936, 3783096)); //    |_> Citadel 1.11.3-1.18.2
+        modInfos.add(new CurseFileInfo(421377, 4388478)); // HT's TreeChop 1.18.2-0.17.4
+        modInfos.add(new CurseFileInfo(433969, 3912070)); // HT's TreePlant 1.18.2-0.3.1
+        modInfos.add(new CurseFileInfo(316582, 3694258)); // Corpse 1.18.2-1.0.1
+        modInfos.add(new CurseFileInfo(225738, 3820503)); // MmmMmmMmmMmm (Target Dummy) 1.18.2-1.5.2
+        modInfos.add(new CurseFileInfo(350727, 4119502)); // Joy of Painting (xerapaint) 1.18.2-1.0.1
+        modInfos.add(new CurseFileInfo(341448, 4131736)); // Music Maker Mod (xeramusic) 1.18.2-1.0.2
+        modInfos.add(new CurseFileInfo(328085, 4371807)); // Create v0.5.0i
+        modInfos.add(new CurseFileInfo(486392, 4341461)); //    |_> Flywheel forge 1.18.2-0.6.8.a
+        modInfos.add(new CurseFileInfo(360203, 3823106)); // Guard Villagers 1.18.2-1.4.3
+        modInfos.add(new CurseFileInfo(581854, 4346452)); // InvMove v0.8.2 (1.18. [Forge]
+        modInfos.add(new CurseFileInfo(348521, 3972426)); //    |_> Cloth Config API v6.4.90
+        modInfos.add(new CurseFileInfo(441647, 4094409)); // FramedBlocks 5.9.2
+        modInfos.add(new CurseFileInfo(558126, 4341453)); // This Rocks! 1.18.2-1.0.4
+        modInfos.add(new CurseFileInfo(377051, 3807788)); // Bed Benefits 1.18.2-6.0.2
+        modInfos.add(new CurseFileInfo(228525, 4351251)); //    |_> Bookshelf 1.18.2-13.2.52
+        modInfos.add(new CurseFileInfo(608235, 3919398)); // YDM's Weapon Master Forge - Multiplayer - 1.18.x - v3.0.3
+        modInfos.add(new CurseFileInfo(260262, 4124030)); // Tool Belt 1.18.2-1.18.9
+        modInfos.add(new CurseFileInfo(570319, 4279118)); // Human Companions 1.18.2-1.7.3
+        modInfos.add(new CurseFileInfo(450659, 3908056)); // Small Ships 1.18.2-2.0.0-Alpha-0.4
+        modInfos.add(new CurseFileInfo(223852, 3807626)); // Storage Drawers 1.18.2-10.2.1
+        modInfos.add(new CurseFileInfo(542110, 3682173)); // Jumpy Boats 1.18.2-0.1.0.3
+        modInfos.add(new CurseFileInfo(64760 , 4318703)); // SecurityCraft v1.9.5
+        modInfos.add(new CurseFileInfo(398521, 3999153)); // Farmer's Delight 1.2 - 1.18.2
+        modInfos.add(new CurseFileInfo(55438 , 4374992)); // MrCrayfish's Furniture Mod 7.0.0-pre35
+        modInfos.add(new CurseFileInfo(482378, 3969410)); // ParCool! 1.18.2-2.0.0.3-R
+        modInfos.add(new CurseFileInfo(60028 , 4183848)); // Aquaculture 2 1.18.2-2.3.10
+        modInfos.add(new CurseFileInfo(243121, 3840125)); // Quark 3.2-358
+        modInfos.add(new CurseFileInfo(250363, 3642382)); //   |_> AutoRegLib 1.7-53
+        modInfos.add(new CurseFileInfo(579403, 3778254)); // Calemi's Economy 1.0.1
+        modInfos.add(new CurseFileInfo(573646, 3778251)); //   |_> Calemi Core 1.0.14
+        modInfos.add(new CurseFileInfo(351725, 4178158)); // Macaw's Bridges v2.0.6
+        modInfos.add(new CurseFileInfo(359540, 4018178)); //   "     Furniture v3.0.2
+        modInfos.add(new CurseFileInfo(352039, 4205653)); //   "     Roofs v2.2.2
+        modInfos.add(new CurseFileInfo(378646, 4381503)); //   "     Doors v1.0.8
+        modInfos.add(new CurseFileInfo(629153, 4126518)); //   "     Path and Pavings v1.0.2
+        modInfos.add(new CurseFileInfo(502372, 4358260)); //   "     Lights and Lamps v1.0.5
+        modInfos.add(new CurseFileInfo(453925, 4204541)); //   "     Fences and Walls v1.0.7
+        modInfos.add(new CurseFileInfo(400933, 4181456)); //   "     Trapdoors v1.0.8
+        modInfos.add(new CurseFileInfo(438116, 3922996)); //   "     Paintings v1.0.4
+        modInfos.add(new CurseFileInfo(363569, 4203418)); //   "     Windows v2.1.1
+        modInfos.add(new CurseFileInfo(373774, 3669561)); // Rare Ice v0.4.1
+        modInfos.add(new CurseFileInfo(280200, 4087911)); // Colytra 1.18.1-5.2.0.4
+        modInfos.add(new CurseFileInfo(308989, 3650485)); //   |_> Caelus API 1.18.1-3.0.0.2
 
         initClientMods(saver, modInfos);
 
