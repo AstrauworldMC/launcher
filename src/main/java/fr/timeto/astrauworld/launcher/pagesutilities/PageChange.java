@@ -1,7 +1,7 @@
 package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.openlauncherlib.util.Saver;
-import fr.theshark34.swinger.textured.STexturedButton;
+import fr.theshark34.swinger.colored.SColoredButton;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.timutilslib.PopUpMessages;
@@ -51,7 +51,8 @@ public class PageChange {
             setChangesPage(false);
             setAboutPage(false, null);
 
-            newsButton.setEnabled(false);
+            leftMenuSelector.moveTo(newsButton);
+            newsButton.getButton().setEnabled(false);
 
             newsScrollPanel.setVisible(true);
             newsOpenScrollPanel.setVisible(false);
@@ -66,7 +67,7 @@ public class PageChange {
 
             corner.setVisible(true);
         }else {
-            newsButton.setEnabled(true);
+            newsButton.getButton().setEnabled(true);
 
             newsScrollPanel.setVisible(false);
             newsOpenScrollPanel.setVisible(false);
@@ -85,52 +86,60 @@ public class PageChange {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void setProfilePage(boolean enabled, String profileNumber, String tab) {
-        STexturedButton profileSelected = null;
-        STexturedButton profileNotSelected1 = firstProfileButton;
-        STexturedButton profileNotSelected2 = secondProfileButton;
+        JPanel profilePanelSelected = null;
+        SColoredButton profileSelected = null;
+        SColoredButton profileNotSelected1 = firstProfileButton.getProfileButton();
+        SColoredButton profileNotSelected2 = secondProfileButton.getProfileButton();
         Saver selectedSaver = firstProfileSaver;
 
         ProfileSaver.initSelectedProfile(profileNumber);
 
         if (enabled && !Objects.equals(tab, "all")) {
             if (Objects.equals(profileNumber, "1")) {
-                profileSelected = firstProfileButton;
-                profileNotSelected1 = secondProfileButton;
-                profileNotSelected2 = thirdProfileButton;
+                profileSelected = firstProfileButton.getProfileButton();
+                profilePanelSelected = firstProfileButton;
+                profileNotSelected1 = secondProfileButton.getProfileButton();
+                profileNotSelected2 = thirdProfileButton.getProfileButton();
                 titleLabel.setText("Profil 1");
                 selectedSaver = firstProfileSaver;
                 selectedProfile = "1";
             } else if (Objects.equals(profileNumber, "2")) {
-                profileSelected = secondProfileButton;
-                profileNotSelected2 = thirdProfileButton;
+                profileSelected = secondProfileButton.getProfileButton();
+                profilePanelSelected = secondProfileButton;
+                profileNotSelected2 = thirdProfileButton.getProfileButton();
                 titleLabel.setText("Profil 2");
                 selectedSaver = secondProfileSaver;
                 selectedProfile = "2";
             } else if (Objects.equals(profileNumber, "3")) {
-                profileSelected = thirdProfileButton;
-                profileNotSelected1 = secondProfileButton;
-                profileNotSelected2 = firstProfileButton;
+                profileSelected = thirdProfileButton.getProfileButton();
+                profilePanelSelected = thirdProfileButton;
+                profileNotSelected1 = secondProfileButton.getProfileButton();
+                profileNotSelected2 = firstProfileButton.getProfileButton();
                 titleLabel.setText("Profil 3");
                 selectedSaver = thirdProfileSaver;
                 selectedProfile = "3";
             } else if (Objects.equals(profileNumber, "null")) {
                 if (Objects.equals(titleLabel.getText(), "Profil 1")) {
-                    profileSelected = firstProfileButton;
-                    profileNotSelected1 = secondProfileButton;
-                    profileNotSelected2 = thirdProfileButton;
+                    profileSelected = firstProfileButton.getProfileButton();
+                    profilePanelSelected = firstProfileButton;
+                    profileNotSelected1 = secondProfileButton.getProfileButton();
+                    profileNotSelected2 = thirdProfileButton.getProfileButton();
                     selectedSaver = firstProfileSaver;
                 } else if (Objects.equals(titleLabel.getText(), "Profil 2")) {
-                    profileSelected = secondProfileButton;
-                    profileNotSelected1 = firstProfileButton;
-                    profileNotSelected2 = thirdProfileButton;
+                    profileSelected = secondProfileButton.getProfileButton();
+                    profilePanelSelected = secondProfileButton;
+                    profileNotSelected1 = firstProfileButton.getProfileButton();
+                    profileNotSelected2 = thirdProfileButton.getProfileButton();
                     selectedSaver = secondProfileSaver;
                 } else if (Objects.equals(titleLabel.getText(), "Profil 3")) {
-                    profileSelected = thirdProfileButton;
-                    profileNotSelected1 = secondProfileButton;
-                    profileNotSelected2 = firstProfileButton;
+                    profileSelected = thirdProfileButton.getProfileButton();
+                    profilePanelSelected = thirdProfileButton;
+                    profileNotSelected1 = secondProfileButton.getProfileButton();
+                    profileNotSelected2 = firstProfileButton.getProfileButton();
                     selectedSaver = thirdProfileSaver;
                 }
             }
+            leftMenuSelector.moveTo(profilePanelSelected);
             ProfileSaver.selectedSaver = selectedSaver;
         }
 
@@ -651,6 +660,10 @@ public class PageChange {
             }
 
         } else if (Objects.equals(tab, "all")) {
+            firstProfileButton.getProfileButton().setEnabled(true);
+            secondProfileButton.getProfileButton().setEnabled(true);
+            thirdProfileButton.getProfileButton().setEnabled(true);
+
             lastSettingsProfileName = profileSettingsProfileNameTextField.getText();
             lastSettingsRam = profileSettingsAllowedRamSpinner.getValue().toString();
             setProfilePage(enabled, null, TAB_KEY.profileHome);
@@ -672,7 +685,9 @@ public class PageChange {
             setNewsPage(false);
             setProfilePage(false, null, "all");
             setAboutPage(false, null);
-            changesButton.setEnabled(false);
+
+            leftMenuSelector.moveTo(changesButton);
+            changesButton.getButton().setEnabled(false);
 
             changelogsVersionComboBox.setVisible(true);
             changelogsTextArea.setVisible(true);
@@ -694,7 +709,7 @@ public class PageChange {
             changelogsVersionComboBox.setVisible(false);
             changelogsTextArea.setVisible(false);
 
-            changesButton.setEnabled(true);
+            changesButton.getButton().setEnabled(true);
         }
     }
 
@@ -713,7 +728,8 @@ public class PageChange {
                 setChangesPage(false);
                 setAboutPage(false, PageChange.TAB_KEY.aboutMods);
 
-                aboutButton.setEnabled(false);
+                leftMenuSelector.moveTo(aboutButton);
+                aboutButton.getButton().setEnabled(false);
                 aboutInfosTabButton.setEnabled(false);
 
                 aboutInfosTabButton.setVisible(true);
@@ -739,9 +755,6 @@ public class PageChange {
                 LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets/launcher/aboutPage/aboutPage-infos.png");
-
-                
-                
                  
                 corner.setVisible(true);
             } else {
@@ -760,7 +773,7 @@ public class PageChange {
 
                 aboutEastereggsLabel.setVisible(false);
 
-                aboutButton.setEnabled(true);
+                aboutButton.getButton().setEnabled(true);
                 aboutInfosTabButton.setEnabled(true);
             }
         } else if (Objects.equals(tab, TAB_KEY.aboutMods)) {
@@ -784,15 +797,11 @@ public class PageChange {
 
                 background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
-                
-                
-                 
-
             } else {
                 aboutInfosTabButton.setVisible(false);
                 aboutModsTabButton.setVisible(false);
 
-                aboutButton.setEnabled(true);
+                aboutButton.getButton().setEnabled(true);
                 aboutModsTabButton.setEnabled(true);
             }
 

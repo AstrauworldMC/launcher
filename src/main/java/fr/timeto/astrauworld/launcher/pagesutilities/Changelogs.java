@@ -18,9 +18,15 @@ public class Changelogs {
      * @see Changelogs#text
      */
     private static class TEXTS {
+        public static final String BETA2_2_4 =  "- Changement de la version de Forge pour probl\u00e8mes de compatiblit\u00e9" + lineSep +
+                                                "- Rework du menu de gauche pour ne plus d\u00e9pendre d'images" + lineSep +
+                                                "- Animation de s\u00e9lection sur le menu de gauche";
+        public static final String BETA2_2_3 =  "- Passage en 1.18.2" + lineSep +
+                                                "- Erreurs affich\u00e9es en pop-up" + lineSep +
+                                                "- Divers";
         public static final String BETA2_2_2 =  "- R\u00e9glages de bugs sur les shaders, les changelogs et l'affichage du profil connect\u00e9" + lineSep +
                                                 "- Les boutons de profil du menu de gauche ne sont plus d\u00e9pendants d'une image lorsqu'ils n'ont pas de compte" + lineSep +
-                                                "- Session Minecraft valide avec les nouveaux id demandés" + lineSep +
+                                                "- Session Minecraft valide avec les nouveaux id demand\u00e9s" + lineSep +
                                                 "- Update du launcher disponible depuis le launcher" + lineSep +
                                                 "- Ajout des mods Colytra et Caelus API";
         public static final String BETA2_2_0 =  "- Rangement du code et documentation dans les sources" + lineSep +
@@ -57,6 +63,8 @@ public class Changelogs {
      * @since Beta2.1.2
      */
     private static final Changelogs[] changelogsList = {
+            new Changelogs("Beta2.2.4", TEXTS.BETA2_2_4),
+            new Changelogs("Beta2.2.3", TEXTS.BETA2_2_3),
             new Changelogs("Beta2.2.2", TEXTS.BETA2_2_2),
             new Changelogs("Beta2.2.0", TEXTS.BETA2_2_0),
             new Changelogs("Beta2.1.2", TEXTS.BETA2_1_2)

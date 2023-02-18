@@ -7,14 +7,15 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.*;
 import fr.timeto.astrauworld.launcher.pagesutilities.*;
+import fr.timeto.astrauworld.launcher.panels.LeftMenuButton;
+import fr.timeto.astrauworld.launcher.panels.LeftMenuSelector;
+import fr.timeto.astrauworld.launcher.panels.ProfileButton;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Objects;
 
@@ -41,38 +42,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
      static String lineSeparator = System.getProperty("line.separator");
 
      /**
-      * Récupère une image de profil
-      * @param file le chemin du fichier où est stockée l'image (../AppData/Roaming/Astrauworld Launcher/data)
-      * @return L'image en {@code BufferedImage}
-      */
-     public static BufferedImage getProfileIcon(File file) {
-          // This time, you can use an InputStream to load
-          try {
-               // Grab the InputStream for the image.
-               InputStream in = new FileInputStream(file);
-
-               // Then read it.
-               return ImageIO.read(in);
-          } catch (IOException e) {
-               Launcher.println("The image was not loaded.");
-          }
-
-          return null;
-     }
-
-     /**
-      * Récupère la version du bouton de profil voulu d'après le fichier de données
-      * @param base réfère à 'profile1/2/3' contenu dans le nom de l'image
-      * @param state la version de l'image demandée
-      * @return Si le 'name' est égal à 'none' dans le fichier de données, l'image retournée est la version avec un bloc d'herbe Minecraft et la mention 'Vide' au-dessus de 'Profil [1/2/3]' de l'état demandé.
-      * <p>
-      * Sinon, retourne la version avec seulement 'Profil [1/2/3]' de l'état demandé
-      */
-     public static BufferedImage getProfileButton(String base, String state) {
-          return getResourceIgnorePath("/assets/launcher/commonButtons/" + base + "Button-" + state + ".png");
-     }
-
-     /**
       * Initialise les boutons de profils, à appeler dès que le profil change.
       * Change le {@code ProfileButton}, la {@code ProfileIcon} et le {@code ProfileNameLabel}
       * @author <a href="https://github.com/TimEtOff">TimEtO</a>
@@ -83,29 +52,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           } catch (IOException e) {
                throw new RuntimeException(e);
           }
-          firstProfileButton.setTexture(getProfileButton("firstProfile", "normal"));
-          firstProfileButton.setTextureHover(getProfileButton("firstProfile", "hover"));
-          firstProfileButton.setTextureDisabled(getProfileButton("firstProfile", "selected"));
-          firstProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON))));
-          firstProfileIcon.setVisible(true);
-          firstProfileNameLabel.setText(firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          firstProfileNameLabel.setVisible(true);
+          firstProfileButton.initButton();
 
-          secondProfileButton.setTexture(getProfileButton("secondProfile", "normal"));
-          secondProfileButton.setTextureHover(getProfileButton("secondProfile", "hover"));
-          secondProfileButton.setTextureDisabled(getProfileButton("secondProfile", "selected"));
-          secondProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON))));
-          secondProfileIcon.setVisible(true);
-          secondProfileNameLabel.setText(secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          secondProfileNameLabel.setVisible(true);
+          secondProfileButton.initButton();
 
-          thirdProfileButton.setTexture(getProfileButton("thirdProfile", "normal"));
-          thirdProfileButton.setTextureHover(getProfileButton("thirdProfile", "hover"));
-          thirdProfileButton.setTextureDisabled(getProfileButton("thirdProfile", "selected"));
-          thirdProfileIcon.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON))));
-          thirdProfileIcon.setVisible(true);
-          thirdProfileNameLabel.setText(thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-          thirdProfileNameLabel.setVisible(true);
+          thirdProfileButton.initButton();
 
      }
 
@@ -126,79 +77,23 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final STexturedButton hideButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/hideButton.png"), getResourceIgnorePath("/assets/launcher/commonButtons/hideButtonHover.png"));
 
           public static final STexturedButton updateButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"), getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover.png"));
-          /**
-           * Le bouton du menu général de gauche pour ouvrir la page principale des actualités
-           */
-          public static final STexturedButton newsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/newsButton-normal.png"), getResourceIgnorePath("/assets/launcher/commonButtons/newsButton-hover.png"), getResourceIgnorePath("/assets/launcher/commonButtons/newsButton-selected.png"));
-          /**
-           * Le bouton du menu général de gauche pour ouvrir la page principale du premier profil
-           * @see Components#firstProfileIcon
-           * @see Components#firstProfileNameLabel
-           */
-          public static final STexturedButton firstProfileButton = new STexturedButton(getProfileButton("firstProfile", "normal"), getProfileButton("firstProfile", "hover"), getProfileButton("firstProfile", "selected"));
-          /**
-           * Le bouton du menu général de gauche pour ouvrir la page principale du second profil
-           * @see Components#secondProfileIcon
-           * @see Components#secondProfileNameLabel
-           */
-          public static final STexturedButton secondProfileButton = new STexturedButton(getProfileButton("secondProfile", "normal"), getProfileButton("secondProfile", "hover"), getProfileButton("secondProfile", "selected"));
-          /**
-           * Le bouton du menu général de gauche pour ouvrir la page principale du troisième profil
-           * @see Components#thirdProfileIcon
-           * @see Components#thirdProfileNameLabel
-           */
-          public static final STexturedButton thirdProfileButton = new STexturedButton(getProfileButton("thirdProfile", "normal"), getProfileButton("thirdProfile", "hover"), getProfileButton("thirdProfile", "selected"));
-          /**
-           * Icône du bouton du premier profil
-           * @see Components#firstProfileButton
-           * @see Components#firstProfileNameLabel
-           */
-          public static final JLabel firstProfileIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_FIRSTPROFILE_ICON))));
-          /**
-           * Icône du bouton du second profil
-           * @see Components#secondProfileButton
-           * @see Components#secondProfileNameLabel
-           */
-          public static final JLabel secondProfileIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_SECONDPROFILE_ICON))));
-          /**
-           * Icône du bouton du troisième profil
-           * @see Components#thirdProfileButton
-           * @see Components#thirdProfileNameLabel
-           */
-          public static final JLabel thirdProfileIcon = new JLabel(new ImageIcon(Objects.requireNonNull(getProfileIcon(Launcher.AW_THIRDPROFILE_ICON))));
-          /**
-           * Label contenant le nom du premier profil
-           * @see Components#firstProfileButton
-           * @see Components#firstProfileIcon
-           */
-          public static final JLabel firstProfileNameLabel = new JLabel(firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
-          /**
-           * Label contenant le nom du second profil
-           * @see Components#secondProfileButton
-           * @see Components#secondProfileIcon
-           */
-          public static final JLabel secondProfileNameLabel = new JLabel(secondProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
-          /**
-           * Label contenant le nom du troisième profil
-           * @see Components#thirdProfileButton
-           * @see Components#thirdProfileIcon
-           */
-          public static final JLabel thirdProfileNameLabel = new JLabel(thirdProfileSaver.get(ProfileSaver.KEY.INFOS_NAME));
 
-          /**
-           * Le texte contenant la version du launcher dans le menu général de gauche
-           */
+          public static final LeftMenuSelector leftMenuSelector = new LeftMenuSelector();
           public static final JTextArea launcherVersionLabel = new JTextArea("Version du launcher:" + lineSeparator + Launcher.version);
+          public static final LeftMenuButton newsButton = new LeftMenuButton("Actualit\u00e9s", getResourceIgnorePath("/assets/launcher/icons/newsIcon.png"));
+          public static final ProfileButton firstProfileButton = new ProfileButton(firstProfileSaver);
+          public static final ProfileButton secondProfileButton = new ProfileButton(secondProfileSaver);
+          public static final ProfileButton thirdProfileButton = new ProfileButton(thirdProfileSaver);
 
           /**
            * Bouton du menu général de gauche pour ouvrir la page des changelogs
            * @see Changelogs
            */
-          public static final STexturedButton changesButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/changesButton-normal.png"), getResourceIgnorePath("/assets/launcher/commonButtons/changesButton-hover.png"), getResourceIgnorePath("/assets/launcher/commonButtons/changesButton-selected.png"));
+          public static final LeftMenuButton changesButton = new LeftMenuButton("Changelogs", getResourceIgnorePath("/assets/launcher/icons/changesIcon.png"));
           /**
            * Bouton du menu général de gauche pour ouvrir la page principale à propos
            */
-          public static final STexturedButton aboutButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/commonButtons/aboutButton-normal.png"), getResourceIgnorePath("/assets/launcher/commonButtons/aboutButton-hover.png"), getResourceIgnorePath("/assets/launcher/commonButtons/aboutButton-selected.png"));
+          public static final LeftMenuButton aboutButton = new LeftMenuButton("\u00c0 propos", getResourceIgnorePath("/assets/launcher/icons/aboutIcon.png"));
           /**
            * Label contenant le titre de la page, affiché au-dessus du contenu de la page
            * @see Components#subTitleLabel
@@ -581,8 +476,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           updateButton.addEventListener(this);
           this.add(updateButton);
 
-          newsButton.setBounds(0, 113);
-          newsButton.addEventListener(this);
+          leftMenuSelector.setLocation(-2, 187);
+          add(leftMenuSelector);
+
+          newsButton.setLocation(0, 113);
           this.add(newsButton);
 
           try {
@@ -591,50 +488,21 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
                throw new RuntimeException(e);
           }
 
-          firstProfileIcon.setBounds(15, 187, 35, 35);
-          this.add(firstProfileIcon);
-          firstProfileIcon.setVisible(false);
-          firstProfileNameLabel.setBounds(61, 188, 80, 12);
-          firstProfileNameLabel.setForeground(Color.WHITE);
-          firstProfileNameLabel.setFont(kollektifBoldFont.deriveFont(13f));
-          this.add(firstProfileNameLabel);
-          firstProfileNameLabel.setVisible(false);
-          firstProfileButton.setBounds(0, 174);
-          firstProfileButton.addEventListener(this);
+          firstProfileButton.setLocation(0, 174);
           this.add(firstProfileButton);
 
-          secondProfileIcon.setBounds(15, 248, 35, 35);
-          this.add(secondProfileIcon);
-          secondProfileIcon.setVisible(false);
-          secondProfileNameLabel.setBounds(61, 249, 80, 12);
-          secondProfileNameLabel.setForeground(Color.WHITE);
-          secondProfileNameLabel.setFont(firstProfileNameLabel.getFont());
-          this.add(secondProfileNameLabel);
-          secondProfileNameLabel.setVisible(false);
-          secondProfileButton.setBounds(0, 235);
-          secondProfileButton.addEventListener(this);
+          secondProfileButton.setLocation(0, 235);
           this.add(secondProfileButton);
 
-          thirdProfileIcon.setBounds(15, 309, 35, 35);
-          this.add(thirdProfileIcon);
-          thirdProfileIcon.setVisible(false);
-          thirdProfileNameLabel.setBounds(61, 310, 80, 12);
-          thirdProfileNameLabel.setForeground(Color.WHITE);
-          thirdProfileNameLabel.setFont(firstProfileNameLabel.getFont());
-          this.add(thirdProfileNameLabel);
-          thirdProfileNameLabel.setVisible(false);
-          thirdProfileButton.setBounds(0, 296);
-          thirdProfileButton.addEventListener(this);
+          thirdProfileButton.setLocation(0, 296);
           this.add(thirdProfileButton);
 
           initProfileButtons();
 
-          changesButton.setBounds(0, 510);
-          changesButton.addEventListener(this);
+          changesButton.setLocation(0, 510);
           this.add(changesButton);
 
-          aboutButton.setBounds(0, 571);
-          aboutButton.addEventListener(this);
+          aboutButton.setLocation(0, 571);
           this.add(aboutButton);
 
           titleLabel.setBounds(190, 60, 809, 23);
