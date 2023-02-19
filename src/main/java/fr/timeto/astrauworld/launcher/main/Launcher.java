@@ -64,7 +64,7 @@ public class Launcher {
 
     // Version de Minecraft et de Forge utilisée
     public static final String mcVersion = "1.18.2";
-    public static final String forgeVersion = "40.1.85";
+    public static final String forgeVersion = "40.1.57";
     public static final String optifineVersion = "1.18.2_HD_U_H7"; // FIXME Bug certaines textures sont unies
     static MCPingOptions serverOptions = MCPingOptions.builder()
             .hostname("207.180.196.61") // 207.180.196.61
@@ -72,7 +72,7 @@ public class Launcher {
             .build();
 
     // Version du launcher
-    public static final String version = "Beta2.2.3"; // TODO CHANGER LA VERSION A CHAQUE FOIS
+    public static final String version = "Beta2.2.4"; // TODO CHANGER LA VERSION A CHAQUE FOIS
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -340,12 +340,12 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(225738, 3820503)); // MmmMmmMmmMmm (Target Dummy) 1.18.2-1.5.2
         modInfos.add(new CurseFileInfo(350727, 4119502)); // Joy of Painting (xerapaint) 1.18.2-1.0.1
         modInfos.add(new CurseFileInfo(341448, 4131736)); // Music Maker Mod (xeramusic) 1.18.2-1.0.2
-        modInfos.add(new CurseFileInfo(328085, 4371807)); // Create v0.5.0i
-        modInfos.add(new CurseFileInfo(486392, 4341461)); //    |_> Flywheel forge 1.18.2-0.6.8.a
+        modInfos.add(new CurseFileInfo(328085, 3864525)); // Create v0.5.0
+        modInfos.add(new CurseFileInfo(486392, 3864518)); //    |_> Flywheel forge 1.18.2-0.6.3
         modInfos.add(new CurseFileInfo(360203, 3823106)); // Guard Villagers 1.18.2-1.4.3
         modInfos.add(new CurseFileInfo(581854, 4346452)); // InvMove v0.8.2 (1.18. [Forge]
         modInfos.add(new CurseFileInfo(348521, 3972426)); //    |_> Cloth Config API v6.4.90
-        modInfos.add(new CurseFileInfo(441647, 4094409)); // FramedBlocks 5.9.2
+        modInfos.add(new CurseFileInfo(441647, 3850130)); // FramedBlocks 5.4.0
         modInfos.add(new CurseFileInfo(558126, 4341453)); // This Rocks! 1.18.2-1.0.4
         modInfos.add(new CurseFileInfo(377051, 3807788)); // Bed Benefits 1.18.2-6.0.2
         modInfos.add(new CurseFileInfo(228525, 4351251)); //    |_> Bookshelf 1.18.2-13.2.52
@@ -355,7 +355,7 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(450659, 3908056)); // Small Ships 1.18.2-2.0.0-Alpha-0.4
         modInfos.add(new CurseFileInfo(223852, 3807626)); // Storage Drawers 1.18.2-10.2.1
         modInfos.add(new CurseFileInfo(542110, 3682173)); // Jumpy Boats 1.18.2-0.1.0.3
-        modInfos.add(new CurseFileInfo(64760 , 4318703)); // SecurityCraft v1.9.5
+        modInfos.add(new CurseFileInfo(64760 , 3921270)); // SecurityCraft v1.9.3.1
         modInfos.add(new CurseFileInfo(398521, 3999153)); // Farmer's Delight 1.2 - 1.18.2
         modInfos.add(new CurseFileInfo(55438 , 4374992)); // MrCrayfish's Furniture Mod 7.0.0-pre35
         modInfos.add(new CurseFileInfo(482378, 3969410)); // ParCool! 1.18.2-2.0.0.3-R
@@ -377,6 +377,8 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(373774, 3669561)); // Rare Ice v0.4.1
         modInfos.add(new CurseFileInfo(280200, 4087911)); // Colytra 1.18.1-5.2.0.4
         modInfos.add(new CurseFileInfo(308989, 3650485)); //   |_> Caelus API 1.18.1-3.0.0.2
+    //    modInfos.add(new CurseFileInfo(517167, 3760573)); // Flash's NPCs 1.18.1-1.1.4v2
+    //    modInfos.add(new CurseFileInfo(273771, 4367403)); // AstikorCarts 1.1.2
 
         initClientMods(saver, modInfos);
 

@@ -46,13 +46,6 @@ public class OnButtonEvent {
         generalButtons.add(updateButton);
         generalButtons.add(corner);
 
-        generalButtons.add(newsButton);
-        generalButtons.add(firstProfileButton);
-        generalButtons.add(secondProfileButton);
-        generalButtons.add(thirdProfileButton);
-        generalButtons.add(changesButton);
-        generalButtons.add(aboutButton);
-
 
         profilePageButtons.add(profilePlayTabButton);
         profilePageButtons.add(profileAccountTabButton);
@@ -196,21 +189,6 @@ public class OnButtonEvent {
             t.start();
         } else if (src == corner) {
             Launcher.println("Corner?");
-        }
-
-        // Actions des boutons du menu de gauche
-        else if (src == newsButton) {
-            setNewsPage(true);
-        } else if (src == firstProfileButton) {
-            setProfilePage(true, "1", PageChange.TAB_KEY.profileHome);
-        } else if (src == secondProfileButton) {
-            setProfilePage(true, "2", PageChange.TAB_KEY.profileHome);
-        } else if (src == thirdProfileButton) {
-            setProfilePage(true, "3", PageChange.TAB_KEY.profileHome);
-        } else if (src == changesButton) {
-            setChangesPage(true);
-        } else if (src == aboutButton) {
-            setAboutPage(true, PageChange.TAB_KEY.aboutInfos);
         }
     }
 
