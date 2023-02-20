@@ -96,6 +96,7 @@ public class LauncherSystemTray {
 
         MenuItem discordItem = new MenuItem("Discord");
         MenuItem chatItem = new MenuItem("Tchat du serveur");
+        MenuItem mapItem = new MenuItem("Map du serveur");
         Menu problemMenu = new Menu("Report un bug");
         MenuItem problemLauncherItem = new MenuItem("Launcher");
         MenuItem problemServerItem = new MenuItem("Serveur");
@@ -188,6 +189,10 @@ public class LauncherSystemTray {
                 try {
                     Desktop.getDesktop().browse(new URL("https://discord.gg/863JZ4yK8Q").toURI());
                 } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == mapItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("http://astrauworld.ovh:8100").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
             } else if (src == problemLauncherItem) {
                 try {
                     Desktop.getDesktop().browse(new URL("https://discord.gg/r3kRQeBQAW").toURI());
@@ -246,6 +251,7 @@ public class LauncherSystemTray {
 
         discordItem.addActionListener(listener);
         chatItem.addActionListener(listener);
+        mapItem.addActionListener(listener);
         problemLauncherItem.addActionListener(listener);
         problemServerItem.addActionListener(listener);
         suggestLauncherItem.addActionListener(listener);
@@ -288,6 +294,7 @@ public class LauncherSystemTray {
         popup.addSeparator();
         popup.add(discordItem);
         popup.add(chatItem);
+        popup.add(mapItem);
 
         popup.add(problemMenu);
         problemMenu.add(problemLauncherItem);
@@ -337,6 +344,7 @@ public class LauncherSystemTray {
         MenuItem discordItem = new MenuItem("Discord");
         MenuItem chatItem = new MenuItem("Tchat du serveur");
         MenuItem serverInfos = new MenuItem("Infos du serveur");
+        MenuItem mapItem = new MenuItem("Map du serveur");
         Menu problemMenu = new Menu("Report un bug");
         MenuItem problemLauncherItem = new MenuItem("Launcher");
         MenuItem problemServerItem = new MenuItem("Serveur");
@@ -363,6 +371,10 @@ public class LauncherSystemTray {
             } else if (src == chatItem) {
                 try {
                     Desktop.getDesktop().browse(new URL("https://discord.gg/863JZ4yK8Q").toURI());
+                } catch (IOException | URISyntaxException ignored) {}
+            } else if (src == mapItem) {
+                try {
+                    Desktop.getDesktop().browse(new URL("http://astrauworld.ovh:8100").toURI());
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == serverInfos) {
                 ServerInfosFrame.openServerInfos();
@@ -404,6 +416,7 @@ public class LauncherSystemTray {
 
         discordItem.addActionListener(listener);
         chatItem.addActionListener(listener);
+        mapItem.addActionListener(listener);
         serverInfos.addActionListener(listener);
         problemLauncherItem.addActionListener(listener);
         problemServerItem.addActionListener(listener);
@@ -419,6 +432,7 @@ public class LauncherSystemTray {
         popup.add(discordItem);
         popup.add(chatItem);
         popup.add(serverInfos);
+        popup.add(mapItem);
 
         popup.add(problemMenu);
         problemMenu.add(problemLauncherItem);

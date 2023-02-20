@@ -82,9 +82,6 @@ public class LauncherFrame extends JFrame {
             Launcher.AW_SECONDPROFILE_CUSTOMFILES_FOLDER.mkdir();
             Launcher.AW_THIRDPROFILE_CUSTOMFILES_FOLDER.mkdir();
 
-            shaderpacksFolder.mkdir();
-            optionsShadersTextfile.createNewFile();
-
             Launcher.AW_FIRSTPROFILE_ICON.createNewFile();
 
             Launcher.AW_SECONDPROFILE_ICON.createNewFile();
@@ -141,6 +138,13 @@ public class LauncherFrame extends JFrame {
                 thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
             }
 
+            PageChange.lastSettingsSaver = null;
+            initLauncherSystemTray();
+            instance = new LauncherFrame();
+
+            shaderpacksFolder.mkdir();
+            optionsShadersTextfile.createNewFile();
+
             File mcVersionJsonFile = new File(Launcher.AW_GAMEFILES_FOLDER + "1.18.2.json");
             if (!mcVersionJsonFile.exists()) {
                 optionsTextfile.delete();
@@ -156,10 +160,6 @@ public class LauncherFrame extends JFrame {
                 }
                 mcVersionJsonFile.createNewFile();
             }
-
-            PageChange.lastSettingsSaver = null;
-            initLauncherSystemTray();
-            instance = new LauncherFrame();
 
             if (!devEnv) {
                 verifyLauncherVersion(false, false);

@@ -53,13 +53,13 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
         setLayout(null);
         CustomFonts.initFonts();
 
-        if (saver == firstProfileSaver) {
+        if (Objects.equals(saver, firstProfileSaver)) {
             profileIcon = Launcher.AW_FIRSTPROFILE_ICON;
             profileNumber = 1;
-        } else if (saver == secondProfileSaver) {
+        } else if (Objects.equals(saver, secondProfileSaver)) {
             profileIcon = Launcher.AW_SECONDPROFILE_ICON;
             profileNumber = 2;
-        } else if (saver == thirdProfileSaver) {
+        } else if (Objects.equals(saver, thirdProfileSaver)) {
             profileIcon = Launcher.AW_THIRDPROFILE_ICON;
             profileNumber = 3;
         }
