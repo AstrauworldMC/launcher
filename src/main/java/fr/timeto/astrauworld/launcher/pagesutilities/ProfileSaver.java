@@ -138,7 +138,7 @@ public class ProfileSaver {
             saver.set(KEY.MOD_APPLESKIN, "false");
             saver.set(KEY.MOD_SOUNDPHYSICS, "false");
 
-            saver.set(KEY.SETTINGS_PROFILENAME, "none");
+            saver.set(KEY.SETTINGS_PROFILENAME, "Vide");
             saver.set(KEY.SETTINGS_HELMICON, "true");
             saver.set(KEY.SETTINGS_RAM, "3");
             saver.set(KEY.SETTINGS_MAINPROFILE, "false");
@@ -199,7 +199,7 @@ public class ProfileSaver {
      */
     public static void initProfileIcon(Saver saver) throws IOException {
         String url;
-        if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().equals("")) {
+        if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("")) {
             url = "https://user-images.githubusercontent.com/97166376/214735612-abc155df-6535-4852-aad5-cd97901f5e86.png";
         } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("frisk")) {
             url = "https://user-images.githubusercontent.com/97166376/209479948-9077d6d4-1254-4423-914b-d8b7ecf895d0.png";
@@ -220,9 +220,9 @@ public class ProfileSaver {
             url = "https://user-images.githubusercontent.com/97166376/209480184-79318022-8ba0-46c9-9773-504a63c2ee47.png";
             EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
         } else if (saver.get(KEY.SETTINGS_HELMICON).contains("true")) {
-            url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID) + "/34.png";
+            url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID) + "/35.png";
         } else {
-            url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID) + "/34.png";
+            url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID) + "/35.png";
         }
 
         if (saver == firstProfileSaver) {
@@ -480,21 +480,31 @@ public class ProfileSaver {
 
         try {
             if (saver != null) {
-                copyFiles(savesFolder, savesProfileFolder);
-                copyFiles(resourcepacksFolder, resourcepacksProfileFolder);
-                copyFiles(shaderpacksFolder, shaderpacksProfileFolder);
-                copyFiles(musicsheetsFolder, musicsheetsProfileFolder);
-                copyFiles(schematicsFolder, schematicsProfileFolder);
-                copyFiles(configFolder, configProfileFolder);
+                if (savesFolder.exists()) {savesProfileFolder.mkdir(); copyFiles(savesFolder, savesProfileFolder);}
+                if (resourcepacksFolder.exists()) {resourcepacksProfileFolder.mkdir(); copyFiles(resourcepacksFolder, resourcepacksProfileFolder);}
+                if (shaderpacksFolder.exists()) {shaderpacksProfileFolder.mkdir(); copyFiles(shaderpacksFolder, shaderpacksProfileFolder);}
+                if (musicsheetsFolder.exists()) {musicsheetsProfileFolder.mkdir(); copyFiles(musicsheetsFolder, musicsheetsProfileFolder);}
+                if (schematicsFolder.exists()) {schematicsProfileFolder.mkdir(); copyFiles(schematicsFolder, schematicsProfileFolder);}
+                if (configFolder.exists()) {configProfileFolder.mkdir(); copyFiles(configFolder, configProfileFolder);}
             }
         } catch (IOException ignored) {}
 
         try {
             copyFile(optionsTextfile, optionsProfileTextfile);
+        } catch (IOException e) {
+            Launcher.println("Failed copy options file");
+        }
+
+        try {
             copyFile(optionsOFTextfile, optionsOFProfileTextfile);
+        } catch (IOException e) {
+            Launcher.println("Failed copy optifine options file");
+        }
+
+        try {
             copyFile(optionsShadersTextfile, optionsShadersProfileTextfile);
         } catch (IOException e) {
-            Launcher.println("Failed copy options files");
+            Launcher.println("Failed copy options shader file");
         }
 
     }
@@ -507,34 +517,58 @@ public class ProfileSaver {
     public static void loadCustomFiles(Saver saver) {
         initCustomFilesFolder(saver);
 
-        deleteDirectory(savesFolder);
-        savesFolder.mkdir();
-        deleteDirectory(musicsheetsFolder);
-        musicsheetsFolder.mkdir();
-        deleteDirectory(schematicsFolder);
-        schematicsFolder.mkdir();
-        deleteDirectory(configFolder);
-        configFolder.mkdir();
-        deleteDirectory(resourcepacksFolder);
-        resourcepacksFolder.mkdir();
-        deleteDirectory(shaderpacksFolder);
-        shaderpacksFolder.mkdir();
+        try {
+            deleteDirectory(savesFolder);
+            savesFolder.mkdir();
+        } catch (NullPointerException ignored) {}
+        try {
+            deleteDirectory(musicsheetsFolder);
+            musicsheetsFolder.mkdir();
+        } catch (NullPointerException ignored) {}
+        try {
+            deleteDirectory(schematicsFolder);
+            schematicsFolder.mkdir();
+        } catch (NullPointerException ignored) {}
+        try {
+            deleteDirectory(configFolder);
+            configFolder.mkdir();
+        } catch (NullPointerException ignored) {}
+        try {
+            deleteDirectory(resourcepacksFolder);
+            resourcepacksFolder.mkdir();
+        } catch (NullPointerException ignored) {}
+        try {
+            deleteDirectory(shaderpacksFolder);
+            shaderpacksFolder.mkdir();
+        } catch (NullPointerException ignored) {}
 
         try {
-            copyFiles(savesProfileFolder, savesFolder);
-            copyFiles(resourcepacksProfileFolder, resourcepacksFolder);
-            copyFiles(shaderpacksProfileFolder, shaderpacksFolder);
-            copyFiles(musicsheetsProfileFolder, musicsheetsFolder);
-            copyFiles(schematicsProfileFolder, schematicsFolder);
-            copyFiles(configProfileFolder, configFolder);
+            if (saver != null) {
+                if (savesProfileFolder.exists()) {savesFolder.mkdir(); copyFiles(savesProfileFolder, savesFolder);}
+                if (resourcepacksProfileFolder.exists()) {resourcepacksFolder.mkdir(); copyFiles(resourcepacksProfileFolder, resourcepacksFolder);}
+                if (shaderpacksProfileFolder.exists()) {shaderpacksFolder.mkdir(); copyFiles(shaderpacksProfileFolder, shaderpacksFolder);}
+                if (musicsheetsProfileFolder.exists()) {musicsheetsFolder.mkdir(); copyFiles(musicsheetsProfileFolder, musicsheetsFolder);}
+                if (schematicsProfileFolder.exists()) {schematicsFolder.mkdir(); copyFiles(schematicsProfileFolder, schematicsFolder);}
+                if (configProfileFolder.exists()) {configFolder.mkdir(); copyFiles(configProfileFolder, configFolder);}
+            }
         } catch (IOException ignored) {}
 
         try {
             copyFile(optionsProfileTextfile, optionsTextfile);
+        } catch (IOException e) {
+            Launcher.println("Failed copy options file");
+        }
+
+        try {
             copyFile(optionsOFProfileTextfile, optionsOFTextfile);
+        } catch (IOException e) {
+            Launcher.println("Failed copy optifine options file");
+        }
+
+        try {
             copyFile(optionsShadersProfileTextfile, optionsShadersTextfile);
         } catch (IOException e) {
-            Launcher.println("Failed copy options files");
+            Launcher.println("Failed copy options shader file");
         }
 
     }

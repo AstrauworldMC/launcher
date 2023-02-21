@@ -37,6 +37,21 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 @SuppressWarnings("unused")
 public class Launcher {
 
+    public static InputStream getFileFromResourceAsStream(String fileName) {
+
+        // The class loader that loaded the class
+        ClassLoader classLoader = Launcher.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+        // the stream holding the file content
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            return inputStream;
+        }
+
+    }
+
     public static final String separatorChar = System.getProperty("file.separator");
     public static final String userAppDataDir = System.getenv("APPDATA");
 
@@ -72,7 +87,7 @@ public class Launcher {
             .build();
 
     // Version du launcher
-    public static final String version = "Beta2.2.4"; // TODO CHANGER LA VERSION A CHAQUE FOIS
+    public static final String version = "Beta2.2.5"; // TODO CHANGER LA VERSION A CHAQUE FOIS
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -128,34 +143,36 @@ public class Launcher {
         System.out.println("[" + dtf.format(now) + "] [Astrauworld Launcher] " + str);
     }
 
-    public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result){
+    public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result, String oldAccount){
         saver.set(KEY.INFOS_EMAIL, profileAccountTextField.getText());
         saver.set(KEY.INFOS_NAME, result.getProfile().getName());
         saver.set(KEY.INFOS_ACCESSTOKEN, result.getAccessToken());
         saver.set(KEY.INFOS_REFRESHTOKEN, result.getRefreshToken());
         saver.set(KEY.INFOS_UUID, result.getProfile().getId());
-        if (Objects.equals(saver.get(KEY.SETTINGS_PROFILENAME), "none")) {
+        if (Objects.equals(oldAccount, "no")) {
             saver.set(KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
         }
     }
 
     public static void microsoftAuth(String email, String password, Saver saver) throws MicrosoftAuthenticationException {
+        String oldAccount = saver.get(KEY.INFOS_NAME);
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithCredentials(email, password);
 
-        saveInfosWhenConnect(saver, result);
+        saveInfosWhenConnect(saver, result, oldAccount);
 
         Launcher.println("Compte enregistré " + result.getProfile().getName() + " (compte Microsoft)");
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
     }
 
     public static void microsoftAuthWebview(Saver saver) throws MicrosoftAuthenticationException {
+        String oldAccount = saver.get(KEY.INFOS_NAME);
         Launcher.println("webview?");
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithWebview();
         Launcher.println("webview");
 
-        saveInfosWhenConnect(saver, result);
+        saveInfosWhenConnect(saver, result, oldAccount);
 
         Launcher.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
@@ -377,7 +394,7 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(373774, 3669561)); // Rare Ice v0.4.1
         modInfos.add(new CurseFileInfo(280200, 4087911)); // Colytra 1.18.1-5.2.0.4
         modInfos.add(new CurseFileInfo(308989, 3650485)); //   |_> Caelus API 1.18.1-3.0.0.2
-    //    modInfos.add(new CurseFileInfo(517167, 3760573)); // Flash's NPCs 1.18.1-1.1.4v2
+        modInfos.add(new CurseFileInfo(517167, 3760573)); // Flash's NPCs 1.18.1-1.1.4v2
     //    modInfos.add(new CurseFileInfo(273771, 4367403)); // AstikorCarts 1.1.2
 
         initClientMods(saver, modInfos);
