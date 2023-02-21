@@ -18,6 +18,11 @@ public class Changelogs {
      * @see Changelogs#text
      */
     private static class TEXTS {
+        public static final String BETA2_2_5 =  "- BlueMap du serveur disponible en appuyant sur le logo dans la page '\u00c0 propos-infos' et dans le system tray" + lineSep +
+                                                "- R\u00e9glage du bug emp\u00eachant les nouveaux joueurs de lancer le launcher" + lineSep +
+                                                "- R\u00e9glages de bugs avec les fichiers custom de profils" + lineSep +
+                                                "- Avertissement au lancement du launcher apr\u00e8s la sortie du jeu" + lineSep +
+                                                "- Ajout de la participation de cyril dans la page '\u00c0 propos-infos'";
         public static final String BETA2_2_4 =  "- Changement de la version de Forge pour probl\u00e8mes de compatiblit\u00e9" + lineSep +
                                                 "- Rework du menu de gauche pour ne plus d\u00e9pendre d'images" + lineSep +
                                                 "- Animation de s\u00e9lection sur le menu de gauche";
@@ -63,6 +68,7 @@ public class Changelogs {
      * @since Beta2.1.2
      */
     private static final Changelogs[] changelogsList = {
+            new Changelogs("Beta2.2.5", TEXTS.BETA2_2_5),
             new Changelogs("Beta2.2.4", TEXTS.BETA2_2_4),
             new Changelogs("Beta2.2.3", TEXTS.BETA2_2_3),
             new Changelogs("Beta2.2.2", TEXTS.BETA2_2_2),
