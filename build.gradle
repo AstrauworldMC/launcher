@@ -7,9 +7,11 @@ plugins {
 
 apply plugin: 'org.openjfx.javafxplugin'
 
+Properties properties = new Properties()
+properties.load(project.file('currentLauncher.properties').newDataInputStream())
+
 group 'fr.timeto.astrauworld'
-version 'Beta2.2.4'
-// TODO CHANGER LA VERSION A CHAQUE FOIS
+version properties.getProperty('launcherVersion')
 
 repositories {
     mavenCentral()
@@ -46,6 +48,21 @@ javafx {
 application {
     mainClassName = 'fr.timeto.astrauworld.launcher.main.LauncherFrame'
 }
+/*
+task generateJava {
+    ext.outputDir = "$buildDir/generated/java"
+    outputs.dir outputDir
+    doLast {
+        mkdir "$outputDir/fr/timeto/astrauworld/launcher"
+        file("$outputDir/fr/timeto/astrauworld/launcher/BuildProperties.java").text =
+                """|package fr.timeto.astrauworld.launcher;
+               |public class BuildProperties {
+               |    public static String getLauncherVersion() { return "${properties.getProperty('launcherVersion')}"; }
+               |}""".stripMargin()
+    }
+}
+compileJava.dependsOn generateJava
+sourceSets.main.java.srcDir generateJava.outputDir */
 
 jar {
     manifest {

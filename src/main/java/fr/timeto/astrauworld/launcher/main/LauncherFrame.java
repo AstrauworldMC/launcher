@@ -7,13 +7,17 @@ import fr.timeto.astrauworld.launcher.customelements.ZoneWindowMover;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
+import fr.timeto.timutilslib.CustomFonts;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
+import java.util.Properties;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.initLauncherSystemTray;
 import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.verifyLauncherVersion;
@@ -53,6 +57,16 @@ public class LauncherFrame extends JFrame {
 
     }
 
+    static Properties currentLauncherProperties = new Properties();
+    public static void initCurrentLauncherProperties() {
+        InputStream is = Launcher.getFileFromResourceAsStream("currentLauncher.properties");
+        try {
+            currentLauncherProperties.load(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static String profileAfterMcExit = null;
 
     /**
@@ -61,7 +75,9 @@ public class LauncherFrame extends JFrame {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void main(String[] args) throws IOException {
+        CustomFonts.initFonts();
         try {
+        //    initCurrentLauncherProperties();
 
             String OS = System.getProperty("os.name");
 
@@ -90,15 +106,15 @@ public class LauncherFrame extends JFrame {
 
             initializeDataFiles();
 
-            if (firstProfileSaver.get(KEY.INFOS_NAME).toLowerCase().equals("no")) {
+            if (firstProfileSaver.get(KEY.INFOS_NAME).toLowerCase().replaceAll(" ", "").equals("no")) {
                 firstProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
                 firstProfileSaver.set(KEY.INFOS_NAME, "");
             }
-            if (secondProfileSaver.get(KEY.INFOS_NAME).toLowerCase().equals("no")) {
+            if (secondProfileSaver.get(KEY.INFOS_NAME).toLowerCase().replaceAll(" ", "").equals("no")) {
                 secondProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
                 secondProfileSaver.set(KEY.INFOS_NAME, "");
             }
-            if (thirdProfileSaver.get(KEY.INFOS_NAME).toLowerCase().equals("no")) {
+            if (thirdProfileSaver.get(KEY.INFOS_NAME).toLowerCase().replaceAll(" ", "").equals("no")) {
                 thirdProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
                 thirdProfileSaver.set(KEY.INFOS_NAME, "");
             }
@@ -145,7 +161,8 @@ public class LauncherFrame extends JFrame {
             shaderpacksFolder.mkdir();
             optionsShadersTextfile.createNewFile();
 
-            File mcVersionJsonFile = new File(Launcher.AW_GAMEFILES_FOLDER + "1.18.2.json");
+            new File(Launcher.AW_GAMEFILES_FOLDER + "1.18.2.json").delete();
+            File mcVersionJsonFile = new File(Launcher.AW_GAMEFILES_FOLDER + Launcher.separatorChar + "1.18.2.json");
             if (!mcVersionJsonFile.exists()) {
                 optionsTextfile.delete();
                 optionsOFTextfile.delete();

@@ -7,6 +7,7 @@ import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
+import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.imageio.ImageIO;
@@ -62,13 +63,15 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
         } else if (Objects.equals(saver, thirdProfileSaver)) {
             profileIcon = Launcher.AW_THIRDPROFILE_ICON;
             profileNumber = 3;
+        } else {
+            Launcher.println("IMAGE NOT LOADED, SAVER=" + saver);
         }
 
         setSize(178, 59);
         setOpaque(false);
 
         profileIconLabel.setBounds(15, 13, 35, 35);
-        profileIconLabel.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(profileIcon))));
+    //    profileIconLabel.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(profileIcon, true))));
         add(profileIconLabel);
 
         profileNameLabel.setBounds(61, 15, 80, 12);
@@ -90,13 +93,13 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
     }
 
     public void initButton() {
-        profileIconLabel.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(profileIcon))));
+        profileIconLabel.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(profileIcon, true))));
         profileNameLabel.setText(saver.get(KEY.SETTINGS_PROFILENAME));
         profileNumberLabel.setText("Profil " + profileNumber);
     }
 
 
-    public static BufferedImage getProfileIcon(File file) {
+    public BufferedImage getProfileIcon(File file, boolean firstTry) {
         // This time, you can use an InputStream to load
         try {
             // Grab the InputStream for the image.
@@ -106,9 +109,17 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
             return ImageIO.read(in);
         } catch (IOException e) {
             Launcher.println("The image was not loaded.");
+            if (firstTry) {
+                try {
+                    ProfileSaver.dlProfileIcon("https://user-images.githubusercontent.com/97166376/214735612-abc155df-6535-4852-aad5-cd97901f5e86.png", Integer.parseInt(ProfileSaver.getSelectedProfile(saver)));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                return getProfileIcon(file, false);
+            }
+            return null;
         }
 
-        return null;
     }
 
     @Override
