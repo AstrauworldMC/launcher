@@ -13,7 +13,6 @@ import fr.timeto.timutilslib.PopUpMessages;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
@@ -54,6 +53,10 @@ public class LauncherFrame extends JFrame {
         this.addMouseMotionListener(mover);
 
         this.setVisible(true);
+
+        if (profileAfterMcExit != null) {
+            PopUpMessages.normalMessage("Attention!", "Le launcher apr\u00e8s la sortie du jeu n'est pas stable.");
+        }
 
     }
 

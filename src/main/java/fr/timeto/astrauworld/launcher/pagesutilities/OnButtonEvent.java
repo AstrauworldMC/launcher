@@ -598,7 +598,7 @@ public class OnButtonEvent {
         // Actions des boutons de l'aboutPage - Infos
         else if (src == aboutTextLogo) {
             try {
-                Desktop.getDesktop().browse(new URL("http://astrauworld.ovh").toURI());
+                Desktop.getDesktop().browse(new URL("http://astrauworld.ovh:8100").toURI());
             } catch (IOException | URISyntaxException ignored) {}
         } else if (src == aboutAstrauwolfLogo) {
             try {
