@@ -31,26 +31,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static fr.timeto.astrauworld.launcher.main.LauncherFrame.getInstance;
+import static fr.timeto.astrauworld.launcher.main.LauncherFrame.launcherProperties;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 @SuppressWarnings("unused")
 public class Launcher {
-
-    public static InputStream getFileFromResourceAsStream(String fileName) {
-
-        // The class loader that loaded the class
-        ClassLoader classLoader = Launcher.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(fileName);
-
-        // the stream holding the file content
-        if (inputStream == null) {
-            throw new IllegalArgumentException("file not found! " + fileName);
-        } else {
-            return inputStream;
-        }
-
-    }
 
     public static final String separatorChar = System.getProperty("file.separator");
     public static final String userAppDataDir = System.getenv("APPDATA");
@@ -78,16 +65,16 @@ public class Launcher {
     public static final String thirdProfileCustomFilesFolder = dataFolder + separatorChar + "thirdProfileCustomFiles";
 
     // Version de Minecraft et de Forge utilisée
-    public static final String mcVersion = "1.18.2";
-    public static final String forgeVersion = "40.1.57";
-    public static final String optifineVersion = "1.18.2_HD_U_H7"; // FIXME Bug certaines textures sont unies
+    public static final String mcVersion = launcherProperties.getProperty("mcVersion");
+    public static final String forgeVersion = launcherProperties.getProperty("forgeVersion");
+    public static final String optifineVersion = launcherProperties.getProperty("optifineVersion"); // FIXME Bug certaines textures sont unies
     static MCPingOptions serverOptions = MCPingOptions.builder()
-            .hostname("207.180.196.61") // 207.180.196.61
-            .port(33542) //33542
+            .hostname(launcherProperties.getProperty("serverHostname")) // 207.180.196.61
+            .port(Integer.parseInt(launcherProperties.getProperty("serverPort"))) //33542
             .build();
 
     // Version du launcher
-    public static final String version = "Beta2.2.5"; // TODO CHANGER LA VERSION A CHAQUE FOIS
+    public static final String version = launcherProperties.getProperty("launcherVersion");
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -217,6 +204,7 @@ public class Launcher {
 
         process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
         LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
+        getInstance().setName("Astrauworld");
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -235,12 +223,13 @@ public class Launcher {
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
         noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", saver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
 
-        LauncherFrame.getInstance().setVisible(false);
+        getInstance().setVisible(false);
 
         ProfileSaver.saveCustomFiles(saver);
 
         process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
         LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
+        getInstance().setName("Astrauworld");
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 

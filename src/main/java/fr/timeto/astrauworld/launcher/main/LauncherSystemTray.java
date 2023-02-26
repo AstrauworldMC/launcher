@@ -191,7 +191,7 @@ public class LauncherSystemTray {
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == mapItem) {
                 try {
-                    Desktop.getDesktop().browse(new URL("http://astrauworld.ovh:8100").toURI());
+                    Desktop.getDesktop().browse(new URL(LauncherFrame.launcherProperties.getProperty("blueMapLink")).toURI());
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == problemLauncherItem) {
                 try {
@@ -374,7 +374,7 @@ public class LauncherSystemTray {
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == mapItem) {
                 try {
-                    Desktop.getDesktop().browse(new URL("http://astrauworld.ovh:8100").toURI());
+                    Desktop.getDesktop().browse(new URL(LauncherFrame.launcherProperties.getProperty("blueMapLink")).toURI());
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == serverInfos) {
                 ServerInfosFrame.openServerInfos();

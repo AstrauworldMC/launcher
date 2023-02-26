@@ -3,12 +3,13 @@ plugins {
     id 'java-library'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 apply plugin: 'org.openjfx.javafxplugin'
 
 Properties properties = new Properties()
-properties.load(project.file('currentLauncher.properties').newDataInputStream())
+properties.load(project.file('/src/main/resources/launcher.properties').newDataInputStream())
 
 group 'fr.timeto.astrauworld'
 version properties.getProperty('launcherVersion')
@@ -25,19 +26,19 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.flowarg:flowupdater:1.7.4'
-    implementation 'com.google.code.gson:gson:2.10'
-    implementation 'fr.flowarg:flowmultitools:1.4.0'
-    implementation 'fr.flowarg:openlauncherlib:3.2.5'
-    implementation 'org.json:json:20220924'
-    implementation 'org.apache.commons:commons-compress:1.21'
+    implementation('fr.flowarg:flowupdater:1.7.4')
+    implementation('com.google.code.gson:gson:2.10')
+    implementation('fr.flowarg:flowmultitools:1.4.0')
+    implementation('fr.flowarg:openlauncherlib:3.2.5')
+    implementation('org.json:json:20220924')
+    implementation('org.apache.commons:commons-compress:1.21')
 //    implementation 'fr.litarvan:openauth:1.1.4'
-    implementation 'com.github.litarvan:OpenAuth:PR34-SNAPSHOT'
-    implementation 'fr.theshark34.swinger:swinger:1.0.1-BETA'
-    implementation 'com.github.TimEtOff:TimUtilsLib:377198f0dce6e7b5aba831ba88bf906900710b33'
-    implementation 'com.github.lucaazalim:minecraft-server-ping:b1d8c96009d3a86184f5e75820e1e6e97eee5cd1'
-    implementation 'org.projectlombok:lombok:1.18.20'
-    implementation 'org.commonmark:commonmark:0.21.0'
+    implementation('com.github.litarvan:OpenAuth:PR34-SNAPSHOT')
+    implementation('fr.theshark34.swinger:swinger:1.0.1-BETA')
+    implementation('com.github.TimEtOff:TimUtilsLib:377198f0dce6e7b5aba831ba88bf906900710b33')
+    implementation('com.github.lucaazalim:minecraft-server-ping:b1d8c96009d3a86184f5e75820e1e6e97eee5cd1')
+    implementation('org.projectlombok:lombok:1.18.20')
+    implementation('org.commonmark:commonmark:0.21.0')
 }
 
 javafx {
@@ -45,24 +46,22 @@ javafx {
     modules = ['javafx.controls' , 'javafx.swing' , 'javafx.web']
 }
 
+shadowJar {
+ /*   relocate 'fr.litarvan.openauth', 'fr.timeto.astrauworld.launcher.libs.openauth'
+    relocate 'br.com.azalim.mcserverping', 'fr.timeto.astrauworld.launcher.libs.mcserverping'
+    relocate 'fr.timeto.timutilslib', 'fr.timeto.astrauworld.launcher.libs.timutilslib'
+    relocate 'com.google.gson', 'fr.timeto.astrauworld.launcher.libs.gson'
+    relocate 'fr.flowarg', 'fr.timeto.astrauworld.launcher.libs.flowarglibs'
+    relocate 'fr.theshark34.openlauncherlib', 'fr.timeto.astrauworld.launcher.libs.flowarglibs'
+    relocate 'fr.theshark34.swinger', 'fr.timeto.astrauworld.launcher.libs.swinger'
+    relocate '' */
+}
+
+// build.dependsOn shadowJar
+
 application {
     mainClassName = 'fr.timeto.astrauworld.launcher.main.LauncherFrame'
 }
-/*
-task generateJava {
-    ext.outputDir = "$buildDir/generated/java"
-    outputs.dir outputDir
-    doLast {
-        mkdir "$outputDir/fr/timeto/astrauworld/launcher"
-        file("$outputDir/fr/timeto/astrauworld/launcher/BuildProperties.java").text =
-                """|package fr.timeto.astrauworld.launcher;
-               |public class BuildProperties {
-               |    public static String getLauncherVersion() { return "${properties.getProperty('launcherVersion')}"; }
-               |}""".stripMargin()
-    }
-}
-compileJava.dependsOn generateJava
-sourceSets.main.java.srcDir generateJava.outputDir */
 
 jar {
     manifest {

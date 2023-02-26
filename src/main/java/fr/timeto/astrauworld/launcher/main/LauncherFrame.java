@@ -53,18 +53,28 @@ public class LauncherFrame extends JFrame {
         this.addMouseMotionListener(mover);
 
         this.setVisible(true);
+    }
 
-        if (profileAfterMcExit != null) {
-            PopUpMessages.normalMessage("Attention!", "Le launcher apr\u00e8s la sortie du jeu n'est pas stable.");
+    public static InputStream getFileFromResourceAsStream(String fileName) {
+
+        // The class loader that loaded the class
+        ClassLoader classLoader = Launcher.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+        // the stream holding the file content
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            return inputStream;
         }
 
     }
 
-    static Properties currentLauncherProperties = new Properties();
+    public static Properties launcherProperties = new Properties();
     public static void initCurrentLauncherProperties() {
-        InputStream is = Launcher.getFileFromResourceAsStream("currentLauncher.properties");
+        InputStream is = getFileFromResourceAsStream("launcher.properties");
         try {
-            currentLauncherProperties.load(is);
+            launcherProperties.load(is);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -80,14 +90,17 @@ public class LauncherFrame extends JFrame {
     public static void main(String[] args) throws IOException {
         CustomFonts.initFonts();
         try {
-        //    initCurrentLauncherProperties();
+            initCurrentLauncherProperties();
 
             String OS = System.getProperty("os.name");
 
             if (OS.toLowerCase().contains("win")) {
                 Launcher.println("Windows OK");
             } else {
-                JOptionPane.showMessageDialog(null, "Désolé, votre système d'exploitation (" + OS + ") n´est pas encore compatible", "Erreur de compatibilité", JOptionPane.ERROR_MESSAGE);
+                Thread ok = new Thread(() -> {
+                    System.exit(1);
+                });
+                PopUpMessages.errorMessage("Erreur", "Désolé, votre système d´exploitation (" + OS + ") n'est pas compatible", ok);
                 Launcher.println("Sorry nope");
                 System.exit(0);
             }
@@ -148,41 +161,48 @@ public class LauncherFrame extends JFrame {
             } catch (Exception ignored) {
             }
 
-            EasterEggs.initEastereggs();
-            new File(Launcher.dataFolder + "eastereggs.properties").delete();
+            if (profileAfterMcExit == null) {
 
-            if (firstProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null && secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null && thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null) {
-                firstProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "true");
-                secondProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
-                thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
-            }
+                EasterEggs.initEastereggs();
+                new File(Launcher.dataFolder + "eastereggs.properties").delete();
 
-            PageChange.lastSettingsSaver = null;
-            initLauncherSystemTray();
-            instance = new LauncherFrame();
-
-            shaderpacksFolder.mkdir();
-            optionsShadersTextfile.createNewFile();
-
-            new File(Launcher.AW_GAMEFILES_FOLDER + "1.18.2.json").delete();
-            File mcVersionJsonFile = new File(Launcher.AW_GAMEFILES_FOLDER + Launcher.separatorChar + "1.18.2.json");
-            if (!mcVersionJsonFile.exists()) {
-                optionsTextfile.delete();
-                optionsOFTextfile.delete();
-                optionsShadersTextfile.delete();
-                int i = 1;
-                while (i != 4) {
-                    initCustomFilesFolder(ProfileSaver.getSaver(i + ""));
-                    optionsProfileTextfile.delete();
-                    optionsOFProfileTextfile.delete();
-                    optionsShadersProfileTextfile.delete();
-                    i++;
+                if (firstProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null && secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null && thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null) {
+                    firstProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "true");
+                    secondProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
+                    thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
                 }
-                mcVersionJsonFile.createNewFile();
-            }
 
-            if (!devEnv) {
-                verifyLauncherVersion(false, false);
+                PageChange.lastSettingsSaver = null;
+                initLauncherSystemTray();
+                instance = new LauncherFrame();
+
+                shaderpacksFolder.mkdir();
+                optionsShadersTextfile.createNewFile();
+
+                new File(Launcher.AW_GAMEFILES_FOLDER + "1.18.2.json").delete();
+                File mcVersionJsonFile = new File(Launcher.AW_GAMEFILES_FOLDER + Launcher.separatorChar + "1.18.2.json");
+                if (!mcVersionJsonFile.exists()) {
+                    optionsTextfile.delete();
+                    optionsOFTextfile.delete();
+                    optionsShadersTextfile.delete();
+                    int i = 1;
+                    while (i != 4) {
+                        initCustomFilesFolder(ProfileSaver.getSaver(i + ""));
+                        optionsProfileTextfile.delete();
+                        optionsOFProfileTextfile.delete();
+                        optionsShadersProfileTextfile.delete();
+                        i++;
+                    }
+                    mcVersionJsonFile.createNewFile();
+                }
+
+                if (!devEnv) {
+                    verifyLauncherVersion(false, false);
+                }
+            } else {
+                getInstance().setName("Astrauworld Launcher");
+                getInstance().setVisible(true);
+                initLauncherSystemTray();
             }
 
         } catch (Exception e) {
