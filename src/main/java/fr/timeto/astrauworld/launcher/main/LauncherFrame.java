@@ -4,6 +4,7 @@ import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.timeto.astrauworld.launcher.customelements.ZoneWindowMover;
+import fr.timeto.astrauworld.launcher.discordrpc.DiscordManager;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
@@ -12,6 +13,9 @@ import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +46,8 @@ public class LauncherFrame extends JFrame {
         this.setTitle("Astrauworld Launcher");
         this.setSize(1000, 630);
         this.setResizable(false);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(exitListener);
         this.setLocationRelativeTo(null);
         this.setUndecorated(true);
         this.setIconImage(Swinger.getResourceIgnorePath("/assets/launcher/main/logo.png"));
@@ -54,6 +59,15 @@ public class LauncherFrame extends JFrame {
 
         this.setVisible(true);
     }
+
+    public static WindowListener exitListener = new WindowAdapter() {
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            DiscordManager.stop();
+            System.exit(0);
+        }
+    };
 
     public static InputStream getFileFromResourceAsStream(String fileName) {
 
@@ -102,7 +116,6 @@ public class LauncherFrame extends JFrame {
                 });
                 PopUpMessages.errorMessage("Erreur", "Désolé, votre système d´exploitation (" + OS + ") n'est pas compatible", ok);
                 Launcher.println("Sorry nope");
-                System.exit(0);
             }
 
             Launcher.AW_DIR.mkdir();
@@ -162,6 +175,8 @@ public class LauncherFrame extends JFrame {
             }
 
             if (profileAfterMcExit == null) {
+                DiscordManager.start();
+                DiscordManager.setLauncherPresence();
 
                 EasterEggs.initEastereggs();
                 new File(Launcher.dataFolder + "eastereggs.properties").delete();
@@ -203,6 +218,8 @@ public class LauncherFrame extends JFrame {
                 getInstance().setName("Astrauworld Launcher");
                 getInstance().setVisible(true);
                 initLauncherSystemTray();
+                PageChange.setProfilePage(true, profileAfterMcExit, PageChange.TAB_KEY.profileHome);
+                DiscordManager.setLauncherPresence();
             }
 
         } catch (Exception e) {

@@ -1051,7 +1051,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(aboutEastereggsLabel);
           aboutEastereggsLabel.setVisible(false);
 
-          setProfilePage(true, Objects.requireNonNullElseGet(LauncherFrame.profileAfterMcExit, ProfileSaver::getActualMainProfile), TAB_KEY.profileHome);
+          setProfilePage(true, ProfileSaver.getActualMainProfile(), TAB_KEY.profileHome);
 
      }
 

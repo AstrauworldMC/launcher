@@ -468,12 +468,26 @@ public class LauncherSystemTray {
     }
 
     public static void changeTrayTooltip() {
-        if (Objects.equals(LauncherPanel.Components.subTitleLabel.getText(), "") || Objects.equals(LauncherPanel.Components.subTitleLabel.getText(), " ")) {
-            trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText());
-        } else if (LauncherPanel.Components.titleLabel.getText().contains("Profil")) {
-            trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText() + " [" + ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + "] (" + LauncherPanel.Components.subTitleLabel.getText() + ")");
+        String titleText = Launcher.parseUnicode(LauncherPanel.Components.titleLabel.getText());
+        String subtitleText = Launcher.parseUnicode(LauncherPanel.Components.subTitleLabel.getText());
+
+        if (titleText.contains("Profil")) {
+            trayIcon.setToolTip("Astrauworld Launcher | " + titleText + " - " + subtitleText + " (" + ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + ")");
+        } else if (titleText.contains("Changelogs")) {
+            trayIcon.setToolTip("Astrauworld Launcher | " + LauncherPanel.Components.titleLabel.getText() + " - " + LauncherPanel.Components.changelogsVersionComboBox.getSelectedItem().toString());
+        } else if (Objects.equals(subtitleText, "") || Objects.equals(subtitleText, " ")) {
+            trayIcon.setToolTip("Astrauworld Launcher | " + titleText);
         } else {
-            trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText() + " (" + LauncherPanel.Components.subTitleLabel.getText() + ")");
+            trayIcon.setToolTip("Astrauworld Launcher | " + titleText + " - " + subtitleText);
+        }
+    }
+
+    public static String getToolTip(boolean withAppName) {
+        if (withAppName) {
+            return trayIcon.getToolTip();
+        } else {
+            String str = trayIcon.getToolTip().replaceFirst("Astrauworld Launcher \\| ", "");
+            return str;
         }
     }
 

@@ -21,6 +21,7 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
+import fr.timeto.astrauworld.launcher.discordrpc.DiscordManager;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 
 import java.io.*;
@@ -204,7 +205,8 @@ public class Launcher {
 
         process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
         LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
-        getInstance().setName("Astrauworld");
+        getInstance().setName("AstrauworldMC");
+        DiscordManager.setGamePresence(authInfos);
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -229,7 +231,8 @@ public class Launcher {
 
         process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
         LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
-        getInstance().setName("Astrauworld");
+        getInstance().setName("AstrauworldMC");
+        DiscordManager.setGamePresence(authInfos);
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -241,6 +244,22 @@ public class Launcher {
         String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
         LauncherFrame.main(args);
 
+    }
+
+    public static String parseUnicode(String oldString) {
+        return oldString
+                .replaceAll("é", "\u00e9")
+                .replaceAll("è", "\u00e8")
+                .replaceAll("ê", "\u00ea")
+                .replaceAll("À", "\u00c0");
+    }
+
+    public static String unparseUnicode(String oldString) {
+        return oldString
+                .replaceAll("\u00e9", "é")
+                .replaceAll("\u00e8", "è")
+                .replaceAll("\u00ea", "ê")
+                .replaceAll("\u00c0", "À");
     }
 
     public enum StepInfo {

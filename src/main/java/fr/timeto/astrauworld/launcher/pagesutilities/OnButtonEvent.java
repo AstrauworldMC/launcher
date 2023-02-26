@@ -179,7 +179,7 @@ public class OnButtonEvent {
     private static void onGeneralEvent(Object src) {
         // Actions des boutons de la barre d'infos de la fenêtre
         if(src == quitButton){
-            System.exit(0);
+            LauncherFrame.exitListener.windowClosing(null);
         } else if (src == hideButton) {
             LauncherFrame.getInstance().setState(JFrame.ICONIFIED);
         } else if (src == updateButton) {
@@ -576,6 +576,7 @@ public class OnButtonEvent {
             selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());
             initProfileButtons();
             doneMessage("Enregistr\u00e9 !", "Param\u00e8tres           enregistr\u00e9s");
+            LauncherSystemTray.changeTrayTooltip();
         }
 
     }
