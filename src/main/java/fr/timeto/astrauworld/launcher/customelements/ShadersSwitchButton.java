@@ -78,7 +78,7 @@ public class ShadersSwitchButton extends STexturedButton {
             super.setTextureDisabled(textureDisabledOff);
         }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_OPTIFINE), "true") && new File(shaderpacksProfileFolder + System.getProperty("file.separator") + shaderFileName).exists()) {
+        if (Objects.equals(selectedSaver.get(KEY.MOD_OPTIFINE), "true") && new File(shaderpacksProfileFolder + File.separator + shaderFileName).exists()) {
             this.setEnabled(true);
         } else {
             shaderOptionsSaver.set(selectedShaderKey, "");
@@ -132,16 +132,14 @@ public class ShadersSwitchButton extends STexturedButton {
             loadingBar.setValue(0);
             loadingBar.setVisible(true);
             barLabel.setText(shaderFileName);
-            percentLabel.setText("0%");
             infosLabel.setText("T\u00e9l\u00e9chargement du shader");
             infosLabel.setVisible(true);
             barLabel.setVisible(true);
             percentLabel.setVisible(true);
             infosLabel.setVisible(true);
             try {
-                TimFilesUtils.downloadFromInternet(shaderResourceFolderUrl + shaderFileName + "?raw=true", new File(shaderpacksProfileFolder + System.getProperty("file.separator") + shaderFileName));
-                loadingBar.setValue(100);
-                percentLabel.setText("100%");
+                if (!shaderpacksProfileFolder.exists()) shaderpacksProfileFolder.mkdir();
+                TimFilesUtils.downloadFromInternet(shaderResourceFolderUrl + shaderFileName + "?raw=true", new File(shaderpacksProfileFolder + File.separator + shaderFileName), loadingBar, percentLabel);
                 Thread.sleep(1500);
                 loadingBar.setVisible(false);
                 infosLabel.setVisible(false);

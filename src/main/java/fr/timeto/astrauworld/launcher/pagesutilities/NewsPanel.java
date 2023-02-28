@@ -6,9 +6,6 @@ import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
 import fr.timeto.timutilslib.CustomFonts;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -136,13 +133,13 @@ class NewsButton extends JPanel implements SwingerEventListener {
 }
 
 class News {
-    private String newsId;
-    private String title;
-    private String author;
-    private Date date;
-    private BufferedImage thumbnail;
-    private BufferedImage image;
-    private String text;
+    private final String newsId;
+    private final String title;
+    private final String author;
+    private final Date date;
+    private final BufferedImage thumbnail;
+    private final BufferedImage image;
+    private final String text;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
 
@@ -168,7 +165,7 @@ class News {
         }
         this.image = tempImage;
 
-        String fileSep = System.getProperty("file.separator");
+        String fileSep = File.separator;
         InputStream is = getFileFromResourceAsStream("assets/launcher/newsPage/" + newsId + "/text.md");
     /*    Parser parser = Parser.builder().build();
         Node document = parser.parse(getStringFromInputStream(is));

@@ -480,29 +480,29 @@ public class ProfileSaver {
 
         try {
             if (saver != null) {
-                if (savesFolder.exists()) {savesProfileFolder.mkdir(); copyFiles(savesFolder, savesProfileFolder);}
-                if (resourcepacksFolder.exists()) {resourcepacksProfileFolder.mkdir(); copyFiles(resourcepacksFolder, resourcepacksProfileFolder);}
-                if (shaderpacksFolder.exists()) {shaderpacksProfileFolder.mkdir(); copyFiles(shaderpacksFolder, shaderpacksProfileFolder);}
-                if (musicsheetsFolder.exists()) {musicsheetsProfileFolder.mkdir(); copyFiles(musicsheetsFolder, musicsheetsProfileFolder);}
-                if (schematicsFolder.exists()) {schematicsProfileFolder.mkdir(); copyFiles(schematicsFolder, schematicsProfileFolder);}
-                if (configFolder.exists()) {configProfileFolder.mkdir(); copyFiles(configFolder, configProfileFolder);}
+                if (savesFolder.exists()) {savesProfileFolder.mkdir(); copyFiles(savesFolder, savesProfileFolder, false);}
+                if (resourcepacksFolder.exists()) {resourcepacksProfileFolder.mkdir(); copyFiles(resourcepacksFolder, resourcepacksProfileFolder, false);}
+                if (shaderpacksFolder.exists()) {shaderpacksProfileFolder.mkdir(); copyFiles(shaderpacksFolder, shaderpacksProfileFolder, false);}
+                if (musicsheetsFolder.exists()) {musicsheetsProfileFolder.mkdir(); copyFiles(musicsheetsFolder, musicsheetsProfileFolder, false);}
+                if (schematicsFolder.exists()) {schematicsProfileFolder.mkdir(); copyFiles(schematicsFolder, schematicsProfileFolder, false);}
+                if (configFolder.exists()) {configProfileFolder.mkdir(); copyFiles(configFolder, configProfileFolder, false);}
             }
         } catch (IOException ignored) {}
 
         try {
-            copyFile(optionsTextfile, optionsProfileTextfile);
+            copyFile(optionsTextfile, optionsProfileTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy options file");
         }
 
         try {
-            copyFile(optionsOFTextfile, optionsOFProfileTextfile);
+            copyFile(optionsOFTextfile, optionsOFProfileTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy optifine options file");
         }
 
         try {
-            copyFile(optionsShadersTextfile, optionsShadersProfileTextfile);
+            copyFile(optionsShadersTextfile, optionsShadersProfileTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy options shader file");
         }
@@ -518,55 +518,55 @@ public class ProfileSaver {
         initCustomFilesFolder(saver);
 
         try {
-            deleteDirectory(savesFolder);
+            deleteDirectory(savesFolder, false);
             savesFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(musicsheetsFolder);
+            deleteDirectory(musicsheetsFolder, false);
             musicsheetsFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(schematicsFolder);
+            deleteDirectory(schematicsFolder, false);
             schematicsFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(configFolder);
+            deleteDirectory(configFolder, false);
             configFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(resourcepacksFolder);
+            deleteDirectory(resourcepacksFolder, false);
             resourcepacksFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(shaderpacksFolder);
+            deleteDirectory(shaderpacksFolder, false);
             shaderpacksFolder.mkdir();
         } catch (NullPointerException ignored) {}
 
         try {
             if (saver != null) {
-                if (savesProfileFolder.exists()) {savesFolder.mkdir(); copyFiles(savesProfileFolder, savesFolder);}
-                if (resourcepacksProfileFolder.exists()) {resourcepacksFolder.mkdir(); copyFiles(resourcepacksProfileFolder, resourcepacksFolder);}
-                if (shaderpacksProfileFolder.exists()) {shaderpacksFolder.mkdir(); copyFiles(shaderpacksProfileFolder, shaderpacksFolder);}
-                if (musicsheetsProfileFolder.exists()) {musicsheetsFolder.mkdir(); copyFiles(musicsheetsProfileFolder, musicsheetsFolder);}
-                if (schematicsProfileFolder.exists()) {schematicsFolder.mkdir(); copyFiles(schematicsProfileFolder, schematicsFolder);}
-                if (configProfileFolder.exists()) {configFolder.mkdir(); copyFiles(configProfileFolder, configFolder);}
+                if (savesProfileFolder.exists()) {savesFolder.mkdir(); copyFiles(savesProfileFolder, savesFolder, false);}
+                if (resourcepacksProfileFolder.exists()) {resourcepacksFolder.mkdir(); copyFiles(resourcepacksProfileFolder, resourcepacksFolder, false);}
+                if (shaderpacksProfileFolder.exists()) {shaderpacksFolder.mkdir(); copyFiles(shaderpacksProfileFolder, shaderpacksFolder, false);}
+                if (musicsheetsProfileFolder.exists()) {musicsheetsFolder.mkdir(); copyFiles(musicsheetsProfileFolder, musicsheetsFolder, false);}
+                if (schematicsProfileFolder.exists()) {schematicsFolder.mkdir(); copyFiles(schematicsProfileFolder, schematicsFolder, false);}
+                if (configProfileFolder.exists()) {configFolder.mkdir(); copyFiles(configProfileFolder, configFolder, false);}
             }
         } catch (IOException ignored) {}
 
         try {
-            copyFile(optionsProfileTextfile, optionsTextfile);
+            copyFile(optionsProfileTextfile, optionsTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy options file");
         }
 
         try {
-            copyFile(optionsOFProfileTextfile, optionsOFTextfile);
+            copyFile(optionsOFProfileTextfile, optionsOFTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy optifine options file");
         }
 
         try {
-            copyFile(optionsShadersProfileTextfile, optionsShadersTextfile);
+            copyFile(optionsShadersProfileTextfile, optionsShadersTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy options shader file");
         }

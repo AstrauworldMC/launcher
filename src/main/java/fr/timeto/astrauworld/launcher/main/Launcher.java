@@ -40,7 +40,7 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 @SuppressWarnings("unused")
 public class Launcher {
 
-    public static final String separatorChar = System.getProperty("file.separator");
+    public static final String separatorChar = File.separator;
     public static final String userAppDataDir = System.getenv("APPDATA");
 
     public static final String afterMcExitArg = "--afterMcExit";

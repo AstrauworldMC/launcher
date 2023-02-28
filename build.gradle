@@ -35,7 +35,7 @@ dependencies {
 //    implementation('fr.litarvan:openauth:1.1.5')
     implementation('com.github.litarvan:OpenAuth:PR34-SNAPSHOT')
     implementation('fr.theshark34.swinger:swinger:1.0.1-BETA')
-    implementation('com.github.TimEtOff:TimUtilsLib:377198f0dce6e7b5aba831ba88bf906900710b33')
+    implementation('com.github.TimEtOff:TimUtilsLib:51d1744ba8e88d5978843d1b7b3743e0db0910e3')
     implementation('com.github.lucaazalim:minecraft-server-ping:b1d8c96009d3a86184f5e75820e1e6e97eee5cd1')
     implementation('org.projectlombok:lombok:1.18.20')
     implementation('org.commonmark:commonmark:0.21.0')

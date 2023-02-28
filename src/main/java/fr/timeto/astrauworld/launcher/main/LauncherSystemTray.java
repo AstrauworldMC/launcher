@@ -491,7 +491,7 @@ public class LauncherSystemTray {
         }
     }
 
-    static String separatorChar = System.getProperty("file.separator");
+    static String separatorChar = File.separator;
     static String userAppDataDir = System.getenv("APPDATA");
     static String astrauworldDir = userAppDataDir + separatorChar + "Astrauworld Launcher";
 
@@ -499,7 +499,6 @@ public class LauncherSystemTray {
     static String newPropertiesDir = astrauworldDir + separatorChar + "newLauncher.properties";
     static String launcherJar = astrauworldDir + separatorChar + "launcher.jar";
 
-    static File astrauworldFolder = new File(astrauworldDir);
     static File currentPropertiesFile = new File(currentPropertiesDir);
     static File newPropertiesFile = new File(newPropertiesDir);
     static File launcherJarFile = new File(launcherJar);
@@ -600,7 +599,7 @@ public class LauncherSystemTray {
         }
 
         try {
-            copyFile(newPropertiesFile, currentPropertiesFile);
+            copyFile(newPropertiesFile, currentPropertiesFile, true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -629,7 +628,7 @@ public class LauncherSystemTray {
                 System.out.println("created");
             } catch (IOException ignored) {}
             try {
-                copyFile(newPropertiesFile, currentPropertiesFile);
+                copyFile(newPropertiesFile, currentPropertiesFile, true);
                 System.out.println("copied?");
             } catch (IOException e) {
                 System.out.println("fail");
