@@ -2,6 +2,7 @@ package fr.timeto.astrauworld.launcher.customelements;
 
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.timutilslib.TimFilesUtils;
 
 import java.awt.image.BufferedImage;
@@ -127,8 +128,12 @@ public class ShadersSwitchButton extends STexturedButton {
 
     public void installShader() {
         initCustomFilesFolder(selectedSaver);
-
+        if (LauncherPanel.inDownload) {
+            LauncherPanel.inDownloadError();
+            return;
+        }
         Thread t = new Thread(() -> {
+            LauncherPanel.inDownload = true;
             loadingBar.setValue(0);
             loadingBar.setVisible(true);
             barLabel.setText(shaderFileName);
@@ -147,6 +152,7 @@ public class ShadersSwitchButton extends STexturedButton {
                 percentLabel.setVisible(false);
                 infosLabel.setVisible(false);
                 defineTextures();
+                LauncherPanel.inDownload = false;
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

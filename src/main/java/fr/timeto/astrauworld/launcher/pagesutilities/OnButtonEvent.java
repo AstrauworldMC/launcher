@@ -183,6 +183,10 @@ public class OnButtonEvent {
         } else if (src == hideButton) {
             LauncherFrame.getInstance().setState(JFrame.ICONIFIED);
         } else if (src == updateButton) {
+            if (inDownload) {
+                inDownloadError();
+                return;
+            }
             Thread t = new Thread(() -> {
                 LauncherSystemTray.verifyLauncherVersion(true, true);
             });
@@ -218,6 +222,10 @@ public class OnButtonEvent {
             Saver saver = selectedSaver;
             enablePlayButtons(false);
 
+            if (inDownload) {
+                inDownloadError();
+                return;
+            }
             //     if (profilePlayButtonIsPlayStatus) {
             launchThread = new Thread(() -> {
                 try {
@@ -278,6 +286,10 @@ public class OnButtonEvent {
             Saver saver = selectedSaver;
             enablePlayButtons(false);
 
+            if (inDownload) {
+                inDownloadError();
+                return;
+            }
             launchThread = new Thread(() -> {
                 try {
                     //          togglePlayButtonStatus(false);
@@ -323,6 +335,10 @@ public class OnButtonEvent {
             Saver saver = selectedSaver;
             enablePlayButtons(false);
 
+            if (inDownload) {
+                inDownloadError();
+                return;
+            }
             updateThread = new Thread(() -> {
                 try {
                     //          togglePlayButtonStatus(false);

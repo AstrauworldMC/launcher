@@ -251,7 +251,14 @@ public class Launcher {
                 .replaceAll("é", "\u00e9")
                 .replaceAll("è", "\u00e8")
                 .replaceAll("ê", "\u00ea")
-                .replaceAll("À", "\u00c0");
+                .replaceAll("É", "\u00c9")
+                .replaceAll("È", "\u00c8")
+                .replaceAll("Ê", "\u00ca")
+                .replaceAll("à", "\u00e0")
+                .replaceAll("á", "\u00e1")
+                .replaceAll("â", "\u00e2")
+                .replaceAll("À", "\u00c0")
+                .replaceAll("Â", "\u00c2");
     }
 
     public static String unparseUnicode(String oldString) {
@@ -259,7 +266,14 @@ public class Launcher {
                 .replaceAll("\u00e9", "é")
                 .replaceAll("\u00e8", "è")
                 .replaceAll("\u00ea", "ê")
-                .replaceAll("\u00c0", "À");
+                .replaceAll("\u00c9", "É")
+                .replaceAll("\u00c8", "È")
+                .replaceAll("\u00ca", "Ê")
+                .replaceAll("\u00e0", "à")
+                .replaceAll("\u00e1", "á")
+                .replaceAll("\u00e2", "â")
+                .replaceAll("\u00c0", "À")
+                .replaceAll("\u00c2", "Â");
     }
 
     public enum StepInfo {

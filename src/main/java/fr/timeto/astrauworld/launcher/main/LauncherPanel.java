@@ -11,6 +11,7 @@ import fr.timeto.astrauworld.launcher.pagesutilities.*;
 import fr.timeto.astrauworld.launcher.panels.LeftMenuButton;
 import fr.timeto.astrauworld.launcher.panels.LeftMenuSelector;
 import fr.timeto.astrauworld.launcher.panels.ProfileButton;
+import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -41,6 +42,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
      public static Image background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
      static String lineSeparator = System.getProperty("line.separator");
+
+     public static boolean inDownload = false;
+
+     public static void inDownloadError() {
+          PopUpMessages.errorMessage("Erreur", Launcher.parseUnicode("Un téléchargement est déjà en route"));
+     }
 
      /**
       * Initialise les boutons de profils, à appeler dès que le profil change.
