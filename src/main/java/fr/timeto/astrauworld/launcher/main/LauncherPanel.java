@@ -1,5 +1,6 @@
 package fr.timeto.astrauworld.launcher.main;
 
+import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.colored.SColoredBar;
 import fr.theshark34.swinger.event.SwingerEvent;
@@ -58,6 +59,24 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
           thirdProfileButton.initButton();
 
+          try {
+               if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                    profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                    profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                    enablePlayButtons(true);
+               } else {
+                    profileAccountLabel.setText("");
+                    profileAccountConnectedLabel.setText("Non connect\u00e9");
+                    enablePlayButtons(false);
+               }
+          } catch (NullPointerException ignored) {}
+
+     }
+
+     public static void verifyNoAccountBefore(String oldAccount, Saver saver) {
+          if (oldAccount.replaceAll(" ", "").equals("")) {
+               saver.set(KEY.SETTINGS_PROFILENAME, saver.get(KEY.INFOS_NAME));
+          }
      }
 
      /**

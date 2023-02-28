@@ -355,6 +355,7 @@ public class OnButtonEvent {
         // Actions des boutons de la profilePage - Account
         else if (src == profileAccountConnectionButton) {
             Saver saver = selectedSaver;
+            String oldAccount = saver.get(KEY.INFOS_NAME);
 
             if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
                 errorMessage("Erreur de connexion", "Erreur, veuillez     entrer un email et un   mot de passe valides");
@@ -371,6 +372,7 @@ public class OnButtonEvent {
                         return;
                     }
                     doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                    verifyNoAccountBefore(oldAccount, saver);
                     initProfileButtons();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -386,6 +388,7 @@ public class OnButtonEvent {
 
         } else if (src == profileAccountConnectionMicrosoftButton) {
             Saver saver = selectedSaver;
+            String oldAccount = saver.get(KEY.INFOS_NAME);
 
             Thread connect = new Thread(() -> {
                 try {
@@ -397,6 +400,7 @@ public class OnButtonEvent {
                         return;
                     }
                     doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
+                    verifyNoAccountBefore(oldAccount, saver);
                     initProfileButtons();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -599,7 +603,7 @@ public class OnButtonEvent {
         // Actions des boutons de l'aboutPage - Infos
         else if (src == aboutTextLogo) {
             try {
-                Desktop.getDesktop().browse(new URL("http://astrauworld.ovh:8100").toURI());
+                Desktop.getDesktop().browse(new URL(LauncherFrame.launcherProperties.getProperty("blueMapLink")).toURI());
             } catch (IOException | URISyntaxException ignored) {}
         } else if (src == aboutAstrauwolfLogo) {
             try {

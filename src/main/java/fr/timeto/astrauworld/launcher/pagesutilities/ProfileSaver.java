@@ -125,7 +125,7 @@ public class ProfileSaver {
     public static void initializeDataFiles(Saver saver) {
         if(!Objects.equals(saver.get(KEY.FILECREATED), "true")) {
             // Informations générales
-            saver.set(KEY.INFOS_NAME, "no");
+            saver.set(KEY.INFOS_NAME, "");
             saver.set(KEY.INFOS_EMAIL, "none");
             saver.set(KEY.INFOS_UUID, "none");
             saver.set(KEY.INFOS_ACCESSTOKEN, "none");
