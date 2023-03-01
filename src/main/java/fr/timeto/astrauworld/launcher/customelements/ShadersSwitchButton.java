@@ -126,11 +126,11 @@ public class ShadersSwitchButton extends STexturedButton {
 
     }
 
-    public void installShader() {
+    public Thread installShader() {
         initCustomFilesFolder(selectedSaver);
         if (LauncherPanel.inDownload) {
             LauncherPanel.inDownloadError();
-            return;
+            return null;
         }
         Thread t = new Thread(() -> {
             LauncherPanel.inDownload = true;
@@ -158,5 +158,6 @@ public class ShadersSwitchButton extends STexturedButton {
             }
         });
         t.start();
+        return t;
     }
 }

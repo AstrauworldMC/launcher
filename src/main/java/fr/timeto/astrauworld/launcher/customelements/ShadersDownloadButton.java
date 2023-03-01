@@ -46,11 +46,21 @@ public class ShadersDownloadButton extends STexturedButton {
 
     public void setVisible(boolean aFlag) {
         super.setVisible(aFlag);
-        defineTextures();
+        this.defineTextures();
     }
 
     public void installShader() {
-        shadersSwitchButton.installShader();
-        defineTextures();
+        Thread t = new Thread(() -> {
+            Thread tt = shadersSwitchButton.installShader();
+            try {
+                tt.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            boolean actualState = this.isVisible();
+            this.setVisible(!actualState);
+            this.setVisible(actualState);
+        });
+        t.start();
     }
 }
