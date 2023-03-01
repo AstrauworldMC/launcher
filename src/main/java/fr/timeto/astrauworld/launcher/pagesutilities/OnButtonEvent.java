@@ -503,7 +503,7 @@ public class OnButtonEvent {
         } else if (src == profileShadersSeusRenewedSwitchButton) {
             profileShadersSeusRenewedSwitchButton.toggle();
         } else if (src == profileShadersSeusRenewedDownloadButton) {
-            profileShadersSeusRenewedSwitchButton.installShader();
+            profileShadersSeusRenewedDownloadButton.installShader();
         } else if (src == profileShadersChocapicV6PlusButton) {
             setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsShaders + " ChocapicV6");
         } else if (src == profileShadersChocapicV7_1PlusButton) {
@@ -516,73 +516,73 @@ public class OnButtonEvent {
         else if (src == profileShadersChocapicV6LiteSwitchButton) {
             profileShadersChocapicV6LiteSwitchButton.toggle();
         } else if (src == profileShadersChocapicV6LiteDownloadButton) {
-            profileShadersChocapicV6LiteSwitchButton.installShader();
+            profileShadersChocapicV6LiteDownloadButton.installShader();
         } else if (src == profileShadersChocapicV6LowSwitchButton) {
             profileShadersChocapicV6LowSwitchButton.toggle();
         } else if (src == profileShadersChocapicV6LowDownloadButton) {
-            profileShadersChocapicV6LowSwitchButton.installShader();
+            profileShadersChocapicV6LowDownloadButton.installShader();
         } else if (src == profileShadersChocapicV6MediumSwitchButton) {
             profileShadersChocapicV6MediumSwitchButton.toggle();
         } else if (src == profileShadersChocapicV6MediumDownloadButton) {
-            profileShadersChocapicV6MediumSwitchButton.installShader();
+            profileShadersChocapicV6MediumDownloadButton.installShader();
         } else if (src == profileShadersChocapicV6UltraSwitchButton) {
             profileShadersChocapicV6UltraSwitchButton.toggle();
         } else if (src == profileShadersChocapicV6UltraDownloadButton) {
-            profileShadersChocapicV6UltraSwitchButton.installShader();
+            profileShadersChocapicV6UltraDownloadButton.installShader();
         } else if (src == profileShadersChocapicV6ExtremeSwitchButton) {
             profileShadersChocapicV6ExtremeSwitchButton.toggle();
         } else if (src == profileShadersChocapicV6ExtremeDownloadButton) {
-            profileShadersChocapicV6ExtremeSwitchButton.installShader();
+            profileShadersChocapicV6ExtremeDownloadButton.installShader();
         }
 
         // Actions des boutons de la profilePage - Shaders (ChocapicV7)
         else if (src == profileShadersChocapicV7_1ToasterSwitchButton) {
             profileShadersChocapicV7_1ToasterSwitchButton.toggle();
         } else if (src == profileShadersChocapicV7_1ToasterDownloadButton) {
-            profileShadersChocapicV7_1ToasterSwitchButton.installShader();
+            profileShadersChocapicV7_1ToasterDownloadButton.installShader();
         } else if (src == profileShadersChocapicV7_1LiteSwitchButton) {
             profileShadersChocapicV7_1LiteSwitchButton.toggle();
         } else if (src == profileShadersChocapicV7_1LiteDownloadButton) {
-            profileShadersChocapicV7_1LiteSwitchButton.installShader();
+            profileShadersChocapicV7_1LiteDownloadButton.installShader();
         } else if (src == profileShadersChocapicV7_1LowSwitchButton) {
             profileShadersChocapicV7_1LowSwitchButton.toggle();
         } else if (src == profileShadersChocapicV7_1LowDownloadButton) {
-            profileShadersChocapicV7_1LowSwitchButton.installShader();
+            profileShadersChocapicV7_1LowDownloadButton.installShader();
         } else if (src == profileShadersChocapicV7_1MediumSwitchButton) {
             profileShadersChocapicV7_1MediumSwitchButton.toggle();
         } else if (src == profileShadersChocapicV7_1MediumDownloadButton) {
-            profileShadersChocapicV7_1MediumSwitchButton.installShader();
+            profileShadersChocapicV7_1MediumDownloadButton.installShader();
         } else if (src == profileShadersChocapicV7_1UltraSwitchButton) {
             profileShadersChocapicV7_1UltraSwitchButton.toggle();
         } else if (src == profileShadersChocapicV7_1UltraDownloadButton) {
-            profileShadersChocapicV7_1UltraSwitchButton.installShader();
+            profileShadersChocapicV7_1UltraDownloadButton.installShader();
         } else if (src == profileShadersChocapicV7_1ExtremeSwitchButton) {
             profileShadersChocapicV7_1ExtremeSwitchButton.toggle();
         } else if (src == profileShadersChocapicV7_1ExtremeDownloadButton) {
-            profileShadersChocapicV7_1ExtremeSwitchButton.installShader();
+            profileShadersChocapicV7_1ExtremeDownloadButton.installShader();
         }
 
         // Actions des boutons de la profilePage - Shaders (ChocapicV9)
         else if (src == profileShadersChocapicV9LowSwitchButton) {
             profileShadersChocapicV9LowSwitchButton.toggle();
         } else if (src == profileShadersChocapicV9LowDownloadButton) {
-            profileShadersChocapicV9LowSwitchButton.installShader();
+            profileShadersChocapicV9LowDownloadButton.installShader();
         } else if (src == profileShadersChocapicV9MediumSwitchButton) {
             profileShadersChocapicV9MediumSwitchButton.toggle();
         } else if (src == profileShadersChocapicV9MediumDownloadButton) {
-            profileShadersChocapicV9MediumSwitchButton.installShader();
+            profileShadersChocapicV9MediumDownloadButton.installShader();
         } else if (src == profileShadersChocapicV9HighSwitchButton) {
             profileShadersChocapicV9HighSwitchButton.toggle();
         } else if (src == profileShadersChocapicV9HighDownloadButton) {
-            profileShadersChocapicV9HighSwitchButton.installShader();
+            profileShadersChocapicV9HighDownloadButton.installShader();
         } else if (src == profileShadersChocapicV9ExtremeSwitchButton) {
             profileShadersChocapicV9ExtremeSwitchButton.toggle();
         } else if (src == profileShadersChocapicV9ExtremeDownloadButton) {
-            profileShadersChocapicV9ExtremeSwitchButton.installShader();
+            profileShadersChocapicV9ExtremeDownloadButton.installShader();
         } else if (src == profileShadersChocapicV9_1ExtremeSwitchButton) {
             profileShadersChocapicV9_1ExtremeSwitchButton.toggle();
         } else if (src == profileShadersChocapicV9_1ExtremeDownloadButton) {
-            profileShadersChocapicV9_1ExtremeSwitchButton.installShader();
+            profileShadersChocapicV9_1ExtremeDownloadButton.installShader();
         }
 
         // Actions des boutons de la profilePage - Reglages
