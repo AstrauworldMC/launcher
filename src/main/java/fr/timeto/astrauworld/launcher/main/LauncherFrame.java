@@ -10,6 +10,7 @@ import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.timutilslib.CustomFonts;
 import fr.timeto.timutilslib.PopUpMessages;
+import fr.timeto.timutilslib.TimFilesUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -209,6 +210,12 @@ public class LauncherFrame extends JFrame {
                         i++;
                     }
                     mcVersionJsonFile.createNewFile();
+                }
+
+                File serverDat = new File(Launcher.AW_GAMEFILES_FOLDER + File.separator + "servers.dat");
+                if (!serverDat.exists()) {
+                    TimFilesUtils.downloadFromInternet("https://github.com/AstrauworldMC/resources/raw/main/servers.dat", serverDat);
+                    Launcher.println("servers.dat file downloaded");
                 }
 
                 if (!devEnv) {

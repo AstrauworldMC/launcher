@@ -9,11 +9,11 @@ import java.awt.*;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static fr.timeto.timutilslib.TimFilesUtils.*;
-import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 
 /**
  * La classe qui regroupe tous les éléments en rapport avec les savers des profils
@@ -425,24 +425,7 @@ public class ProfileSaver {
 
     public static final String shaderSeusRenewed = "SEUS-Renewed-v1.0.1.zip";
 
-    public static final ShadersSwitchButton[] shadersButtonsList = {
-            profileShadersSeusRenewedSwitchButton,
-            profileShadersChocapicV6LiteSwitchButton,
-            profileShadersChocapicV6LowSwitchButton,
-            profileShadersChocapicV6MediumSwitchButton,
-            profileShadersChocapicV6UltraSwitchButton,
-            profileShadersChocapicV6ExtremeSwitchButton,
-            profileShadersChocapicV7_1ToasterSwitchButton,
-            profileShadersChocapicV7_1LiteSwitchButton,
-            profileShadersChocapicV7_1LowSwitchButton,
-            profileShadersChocapicV7_1MediumSwitchButton,
-            profileShadersChocapicV7_1UltraSwitchButton,
-            profileShadersChocapicV7_1ExtremeSwitchButton,
-            profileShadersChocapicV9LowSwitchButton,
-            profileShadersChocapicV9MediumSwitchButton,
-            profileShadersChocapicV9HighSwitchButton,
-            profileShadersChocapicV9ExtremeSwitchButton,
-            profileShadersChocapicV9_1ExtremeSwitchButton};
+    public static final ArrayList<ShadersSwitchButton> shadersButtonsList = new ArrayList<ShadersSwitchButton>();
 
     /**
      * Initialise les dossiers customs

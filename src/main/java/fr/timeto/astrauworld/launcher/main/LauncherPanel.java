@@ -11,6 +11,7 @@ import fr.timeto.astrauworld.launcher.pagesutilities.*;
 import fr.timeto.astrauworld.launcher.panels.LeftMenuButton;
 import fr.timeto.astrauworld.launcher.panels.LeftMenuSelector;
 import fr.timeto.astrauworld.launcher.panels.ProfileButton;
+import fr.timeto.astrauworld.launcher.panels.ShaderPanel;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
@@ -338,43 +339,26 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final STexturedButton profileShadersChocapicV6PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
           public static final STexturedButton profileShadersChocapicV7_1PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
           public static final STexturedButton profileShadersChocapicV9PlusButton =new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
-          public static final ShadersSwitchButton profileShadersSeusRenewedSwitchButton = new ShadersSwitchButton(shaderSeusRenewed, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersSeusRenewedDownloadButton = new ShadersDownloadButton(profileShadersSeusRenewedSwitchButton);
+          public static final ShaderPanel profileShadersSeusRenewedPanel = new ShaderPanel("SEUS Renewed", shaderSeusRenewed);
 
-          public static final ShadersSwitchButton profileShadersChocapicV6LiteSwitchButton = new ShadersSwitchButton(shaderChocapicV6Lite, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV6LiteDownloadButton = new ShadersDownloadButton(profileShadersChocapicV6LiteSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV6LowSwitchButton = new ShadersSwitchButton(shaderChocapicV6Low, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV6LowDownloadButton = new ShadersDownloadButton(profileShadersChocapicV6LowSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV6MediumSwitchButton = new ShadersSwitchButton(shaderChocapicV6Medium, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV6MediumDownloadButton = new ShadersDownloadButton(profileShadersChocapicV6MediumSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV6UltraSwitchButton = new ShadersSwitchButton(shaderChocapicV6Ultra, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV6UltraDownloadButton = new ShadersDownloadButton(profileShadersChocapicV6UltraSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV6ExtremeSwitchButton = new ShadersSwitchButton(shaderChocapicV6Extreme, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV6ExtremeDownloadButton = new ShadersDownloadButton(profileShadersChocapicV6ExtremeSwitchButton);
+          public static final ShaderPanel profileShadersChocapicV6LitePanel = new ShaderPanel("Chocapic13 V6 Lite", shaderChocapicV6Lite);
+          public static final ShaderPanel profileShadersChocapicV6LowPanel = new ShaderPanel("Chocapic13 V6 Low", shaderChocapicV6Low);
+          public static final ShaderPanel profileShadersChocapicV6MediumPanel = new ShaderPanel("Chocapic13 V6 Medium", shaderChocapicV6Medium);
+          public static final ShaderPanel profileShadersChocapicV6UltraPanel = new ShaderPanel("Chocapic13 V6 Ultra", shaderChocapicV6Ultra);
+          public static final ShaderPanel profileShadersChocapicV6ExtremePanel = new ShaderPanel("Chocapic13 V6 Extreme", shaderChocapicV6Ultra);
 
-          public static final ShadersSwitchButton profileShadersChocapicV7_1ToasterSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Toaster, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV7_1ToasterDownloadButton = new ShadersDownloadButton(profileShadersChocapicV7_1ToasterSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV7_1LiteSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Lite, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV7_1LiteDownloadButton = new ShadersDownloadButton(profileShadersChocapicV7_1LiteSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV7_1LowSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Low, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV7_1LowDownloadButton = new ShadersDownloadButton(profileShadersChocapicV7_1LowSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV7_1MediumSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Medium, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV7_1MediumDownloadButton = new ShadersDownloadButton(profileShadersChocapicV7_1MediumSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV7_1UltraSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Ultra, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV7_1UltraDownloadButton = new ShadersDownloadButton(profileShadersChocapicV7_1UltraSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV7_1ExtremeSwitchButton = new ShadersSwitchButton(shaderChocapicV7_1Extreme, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV7_1ExtremeDownloadButton = new ShadersDownloadButton(profileShadersChocapicV7_1ExtremeSwitchButton);
+          public static final ShaderPanel profileShadersChocapicV7_1ToasterPanel = new ShaderPanel("V7.1.1 Toaster Edition", shaderChocapicV7_1Toaster);
+          public static final ShaderPanel profileShadersChocapicV7_1LitePanel = new ShaderPanel("Chocapic13 V7.1 Lite", shaderChocapicV7_1Lite);
+          public static final ShaderPanel profileShadersChocapicV7_1LowPanel = new ShaderPanel("Chocapic13 V7.1 Low", shaderChocapicV7_1Low);
+          public static final ShaderPanel profileShadersChocapicV7_1MediumPanel = new ShaderPanel("Chocapic13 V7.1 Medium", shaderChocapicV7_1Medium);
+          public static final ShaderPanel profileShadersChocapicV7_1UltraPanel = new ShaderPanel("Chocapic13 V7.1 Ultra", shaderChocapicV7_1Ultra);
+          public static final ShaderPanel profileShadersChocapicV7_1ExtremePanel = new ShaderPanel("Chocapic13 V7.1 Extreme", shaderChocapicV7_1Extreme);
 
-          public static final ShadersSwitchButton profileShadersChocapicV9LowSwitchButton = new ShadersSwitchButton(shaderChocapicV9Low, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV9LowDownloadButton = new ShadersDownloadButton(profileShadersChocapicV9LowSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV9MediumSwitchButton = new ShadersSwitchButton(shaderChocapicV9Medium, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV9MediumDownloadButton = new ShadersDownloadButton(profileShadersChocapicV9MediumSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV9HighSwitchButton = new ShadersSwitchButton(shaderChocapicV9High, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV9HighDownloadButton = new ShadersDownloadButton(profileShadersChocapicV9HighSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV9ExtremeSwitchButton = new ShadersSwitchButton(shaderChocapicV9Extreme, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV9ExtremeDownloadButton = new ShadersDownloadButton(profileShadersChocapicV9ExtremeSwitchButton);
-          public static final ShadersSwitchButton profileShadersChocapicV9_1ExtremeSwitchButton = new ShadersSwitchButton(shaderChocapicV9_1Extreme, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-          public static final ShadersDownloadButton profileShadersChocapicV9_1ExtremeDownloadButton = new ShadersDownloadButton(profileShadersChocapicV9_1ExtremeSwitchButton);
+          public static final ShaderPanel profileShadersChocapicV9LowPanel = new ShaderPanel("Chocapic13 V9 Low", shaderChocapicV9Low);
+          public static final ShaderPanel profileShadersChocapicV9MediumPanel = new ShaderPanel("Chocapic13 V9 Medium", shaderChocapicV9Medium);
+          public static final ShaderPanel profileShadersChocapicV9HighPanel = new ShaderPanel("Chocapic13 V9 High", shaderChocapicV9High);
+          public static final ShaderPanel profileShadersChocapicV9ExtremePanel = new ShaderPanel("Chocapic13 V9 Extreme", shaderChocapicV9Extreme);
+          public static final ShaderPanel profileShadersChocapicV9_1ExtremePanel = new ShaderPanel("V9.1 Extreme Beta 5", shaderChocapicV9_1Extreme);
 
 
           // Profiles components - reglages
@@ -784,178 +768,76 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileShadersChocapicV9PlusButton);
           profileShadersChocapicV9PlusButton.setVisible(false);
 
-          profileShadersSeusRenewedDownloadButton.setBounds(808, 299);
-          profileShadersSeusRenewedDownloadButton.addEventListener(this);
-          this.add(profileShadersSeusRenewedDownloadButton);
-          profileShadersSeusRenewedDownloadButton.setVisible(false);
-
-          profileShadersSeusRenewedSwitchButton.setBounds(892, 260);
-          profileShadersSeusRenewedSwitchButton.addEventListener(this);
-          this.add(profileShadersSeusRenewedSwitchButton);
-          profileShadersSeusRenewedSwitchButton.setVisible(false);
+          profileShadersSeusRenewedPanel.setBounds(595, 255);
+          this.add(profileShadersSeusRenewedPanel);
+          profileShadersSeusRenewedPanel.setVisible(false);
 
 
-          profileShadersChocapicV6LiteSwitchButton.setBounds(496, 200);
-          profileShadersChocapicV6LiteSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV6LiteSwitchButton);
-          profileShadersChocapicV6LiteSwitchButton.setVisible(false);
+          profileShadersChocapicV6LitePanel.setBounds(185, 195);
+          this.add(profileShadersChocapicV6LitePanel);
+          profileShadersChocapicV6LitePanel.setVisible(false);
 
-          profileShadersChocapicV6LiteDownloadButton.setBounds(419, 239);
-          profileShadersChocapicV6LiteDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV6LiteDownloadButton);
-          profileShadersChocapicV6LiteDownloadButton.setVisible(false);
+          profileShadersChocapicV6LowPanel.setBounds(595, 195);
+          this.add(profileShadersChocapicV6LowPanel);
+          profileShadersChocapicV6LowPanel.setVisible(false);
 
-          profileShadersChocapicV6LowSwitchButton.setBounds(892, 200);
-          profileShadersChocapicV6LowSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV6LowSwitchButton);
-          profileShadersChocapicV6LowSwitchButton.setVisible(false);
+          profileShadersChocapicV6MediumPanel.setBounds(185, 255);
+          this.add(profileShadersChocapicV6MediumPanel);
+          profileShadersChocapicV6MediumPanel.setVisible(false);
 
-          profileShadersChocapicV6LowDownloadButton.setBounds(808, 239);
-          profileShadersChocapicV6LowDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV6LowDownloadButton);
-          profileShadersChocapicV6LowDownloadButton.setVisible(false);
+          profileShadersChocapicV6UltraPanel.setBounds(595, 255);
+          this.add(profileShadersChocapicV6UltraPanel);
+          profileShadersChocapicV6UltraPanel.setVisible(false);
 
-          profileShadersChocapicV6MediumSwitchButton.setBounds(496, 260);
-          profileShadersChocapicV6MediumSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV6MediumSwitchButton);
-          profileShadersChocapicV6MediumSwitchButton.setVisible(false);
-
-          profileShadersChocapicV6MediumDownloadButton.setBounds(419, 299);
-          profileShadersChocapicV6MediumDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV6MediumDownloadButton);
-          profileShadersChocapicV6MediumDownloadButton.setVisible(false);
-
-          profileShadersChocapicV6UltraSwitchButton.setBounds(892, 260);
-          profileShadersChocapicV6UltraSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV6UltraSwitchButton);
-          profileShadersChocapicV6UltraSwitchButton.setVisible(false);
-
-          profileShadersChocapicV6UltraDownloadButton.setBounds(808, 299);
-          profileShadersChocapicV6UltraDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV6UltraDownloadButton);
-          profileShadersChocapicV6UltraDownloadButton.setVisible(false);
-
-          profileShadersChocapicV6ExtremeSwitchButton.setBounds(496, 320);
-          profileShadersChocapicV6ExtremeSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV6ExtremeSwitchButton);
-          profileShadersChocapicV6ExtremeSwitchButton.setVisible(false);
-
-          profileShadersChocapicV6ExtremeDownloadButton.setBounds(419, 359);
-          profileShadersChocapicV6ExtremeDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV6ExtremeDownloadButton);
-          profileShadersChocapicV6ExtremeDownloadButton.setVisible(false);
+          profileShadersChocapicV6ExtremePanel.setBounds(185, 315);
+          this.add(profileShadersChocapicV6ExtremePanel);
+          profileShadersChocapicV6ExtremePanel.setVisible(false);
 
 
-          profileShadersChocapicV7_1ToasterSwitchButton.setBounds(496, 200);
-          profileShadersChocapicV7_1ToasterSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1ToasterSwitchButton);
-          profileShadersChocapicV7_1ToasterSwitchButton.setVisible(false);
+          profileShadersChocapicV7_1ToasterPanel.setBounds(185, 195);
+          this.add(profileShadersChocapicV7_1ToasterPanel);
+          profileShadersChocapicV7_1ToasterPanel.setVisible(false);
 
-          profileShadersChocapicV7_1ToasterDownloadButton.setBounds(419, 239);
-          profileShadersChocapicV7_1ToasterDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1ToasterDownloadButton);
-          profileShadersChocapicV7_1ToasterDownloadButton.setVisible(false);
+          profileShadersChocapicV7_1LitePanel.setBounds(595, 195);
+          this.add(profileShadersChocapicV7_1LitePanel);
+          profileShadersChocapicV7_1LitePanel.setVisible(false);
 
-          profileShadersChocapicV7_1LiteSwitchButton.setBounds(892, 200);
-          profileShadersChocapicV7_1LiteSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1LiteSwitchButton);
-          profileShadersChocapicV7_1LiteSwitchButton.setVisible(false);
+          profileShadersChocapicV7_1LowPanel.setBounds(185, 255);
+          this.add(profileShadersChocapicV7_1LowPanel);
+          profileShadersChocapicV7_1LowPanel.setVisible(false);
 
-          profileShadersChocapicV7_1LiteDownloadButton.setBounds(808, 239);
-          profileShadersChocapicV7_1LiteDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1LiteDownloadButton);
-          profileShadersChocapicV7_1LiteDownloadButton.setVisible(false);
+          profileShadersChocapicV7_1MediumPanel.setBounds(595, 255);
+          this.add(profileShadersChocapicV7_1MediumPanel);
+          profileShadersChocapicV7_1MediumPanel.setVisible(false);
 
-          profileShadersChocapicV7_1LowSwitchButton.setBounds(496, 260);
-          profileShadersChocapicV7_1LowSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1LowSwitchButton);
-          profileShadersChocapicV7_1LowSwitchButton.setVisible(false);
+          profileShadersChocapicV7_1UltraPanel.setBounds(185, 315);
+          this.add(profileShadersChocapicV7_1UltraPanel);
+          profileShadersChocapicV7_1UltraPanel.setVisible(false);
 
-          profileShadersChocapicV7_1LowDownloadButton.setBounds(419, 299);
-          profileShadersChocapicV7_1LowDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1LowDownloadButton);
-          profileShadersChocapicV7_1LowDownloadButton.setVisible(false);
-
-          profileShadersChocapicV7_1MediumSwitchButton.setBounds(892, 260);
-          profileShadersChocapicV7_1MediumSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1MediumSwitchButton);
-          profileShadersChocapicV7_1MediumSwitchButton.setVisible(false);
-
-          profileShadersChocapicV7_1MediumDownloadButton.setBounds(808, 299);
-          profileShadersChocapicV7_1MediumDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1MediumDownloadButton);
-          profileShadersChocapicV7_1MediumDownloadButton.setVisible(false);
-
-          profileShadersChocapicV7_1UltraSwitchButton.setBounds(496, 320);
-          profileShadersChocapicV7_1UltraSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1UltraSwitchButton);
-          profileShadersChocapicV7_1UltraSwitchButton.setVisible(false);
-
-          profileShadersChocapicV7_1UltraDownloadButton.setBounds(419, 359);
-          profileShadersChocapicV7_1UltraDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1UltraDownloadButton);
-          profileShadersChocapicV7_1UltraDownloadButton.setVisible(false);
-
-          profileShadersChocapicV7_1ExtremeSwitchButton.setBounds(892, 320);
-          profileShadersChocapicV7_1ExtremeSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1ExtremeSwitchButton);
-          profileShadersChocapicV7_1ExtremeSwitchButton.setVisible(false);
-
-          profileShadersChocapicV7_1ExtremeDownloadButton.setBounds(808, 359);
-          profileShadersChocapicV7_1ExtremeDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV7_1ExtremeDownloadButton);
-          profileShadersChocapicV7_1ExtremeDownloadButton.setVisible(false);
+          profileShadersChocapicV7_1ExtremePanel.setBounds(595, 315);
+          this.add(profileShadersChocapicV7_1ExtremePanel);
+          profileShadersChocapicV7_1ExtremePanel.setVisible(false);
 
 
-          profileShadersChocapicV9LowSwitchButton.setBounds(496, 200);
-          profileShadersChocapicV9LowSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV9LowSwitchButton);
-          profileShadersChocapicV9LowSwitchButton.setVisible(false);
+          profileShadersChocapicV9LowPanel.setBounds(185, 195);
+          this.add(profileShadersChocapicV9LowPanel);
+          profileShadersChocapicV9LowPanel.setVisible(false);
 
-          profileShadersChocapicV9LowDownloadButton.setBounds(419, 239);
-          profileShadersChocapicV9LowDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV9LowDownloadButton);
-          profileShadersChocapicV9LowDownloadButton.setVisible(false);
+          profileShadersChocapicV9MediumPanel.setBounds(595, 195);
+          this.add(profileShadersChocapicV9MediumPanel);
+          profileShadersChocapicV9MediumPanel.setVisible(false);
 
-          profileShadersChocapicV9MediumSwitchButton.setBounds(892, 200);
-          profileShadersChocapicV9MediumSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV9MediumSwitchButton);
-          profileShadersChocapicV9MediumSwitchButton.setVisible(false);
+          profileShadersChocapicV9HighPanel.setBounds(185, 255);
+          this.add(profileShadersChocapicV9HighPanel);
+          profileShadersChocapicV9HighPanel.setVisible(false);
 
-          profileShadersChocapicV9MediumDownloadButton.setBounds(808, 239);
-          profileShadersChocapicV9MediumDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV9MediumDownloadButton);
-          profileShadersChocapicV9MediumDownloadButton.setVisible(false);
+          profileShadersChocapicV9ExtremePanel.setBounds(595, 255);
+          this.add(profileShadersChocapicV9ExtremePanel);
+          profileShadersChocapicV9ExtremePanel.setVisible(false);
 
-          profileShadersChocapicV9HighSwitchButton.setBounds(496, 260);
-          profileShadersChocapicV9HighSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV9HighSwitchButton);
-          profileShadersChocapicV9HighSwitchButton.setVisible(false);
-
-          profileShadersChocapicV9HighDownloadButton.setBounds(419, 299);
-          profileShadersChocapicV9HighDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV9HighDownloadButton);
-          profileShadersChocapicV9HighDownloadButton.setVisible(false);
-
-          profileShadersChocapicV9ExtremeSwitchButton.setBounds(892, 260);
-          profileShadersChocapicV9ExtremeSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV9ExtremeSwitchButton);
-          profileShadersChocapicV9ExtremeSwitchButton.setVisible(false);
-
-          profileShadersChocapicV9ExtremeDownloadButton.setBounds(808, 299);
-          profileShadersChocapicV9ExtremeDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV9ExtremeDownloadButton);
-          profileShadersChocapicV9ExtremeDownloadButton.setVisible(false);
-
-          profileShadersChocapicV9_1ExtremeSwitchButton.setBounds(496, 320);
-          profileShadersChocapicV9_1ExtremeSwitchButton.addEventListener(this);
-          this.add(profileShadersChocapicV9_1ExtremeSwitchButton);
-          profileShadersChocapicV9_1ExtremeSwitchButton.setVisible(false);
-
-          profileShadersChocapicV9_1ExtremeDownloadButton.setBounds(419, 359);
-          profileShadersChocapicV9_1ExtremeDownloadButton.addEventListener(this);
-          this.add(profileShadersChocapicV9_1ExtremeDownloadButton);
-          profileShadersChocapicV9_1ExtremeDownloadButton.setVisible(false);
+          profileShadersChocapicV9_1ExtremePanel.setBounds(185, 315);
+          this.add(profileShadersChocapicV9_1ExtremePanel);
+          profileShadersChocapicV9_1ExtremePanel.setVisible(false);
 
           // Profile components - reglages
           profileSettingsProfileNameTextField.setForeground(Color.WHITE);

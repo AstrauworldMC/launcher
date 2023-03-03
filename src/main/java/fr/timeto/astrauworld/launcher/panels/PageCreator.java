@@ -1,6 +1,5 @@
 package fr.timeto.astrauworld.launcher.panels;
 
-import fr.theshark34.swinger.abstractcomponents.AbstractButton;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 

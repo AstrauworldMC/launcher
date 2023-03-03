@@ -36,8 +36,8 @@ public class ShadersSwitchButton extends STexturedButton {
         shaderOptionsSaver = new Saver(Paths.get(optionsShadersProfileTextfile.toString()));
     }
 
-    public ShadersSwitchButton(String fileName, BufferedImage texture) {
-        super(texture);
+    public ShadersSwitchButton(String fileName) {
+        super(getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
         shaderFileName = fileName;
     }
 
@@ -67,7 +67,7 @@ public class ShadersSwitchButton extends STexturedButton {
 
     public String getShaderFileName() {return shaderFileName;}
 
-    private void defineTextures() {
+    public void defineTextures() {
         initOptionSaver();
         if (Objects.equals(shaderOptionsSaver.get(selectedShaderKey), shaderFileName)) {
             super.setTexture(textureOn);
@@ -111,9 +111,9 @@ public class ShadersSwitchButton extends STexturedButton {
         int i = 0;
 
         ArrayList<ShadersSwitchButton> enabledShadersButtonsList = new ArrayList<>();
-        while (i != shadersButtonsList.length) {
-            if (shadersButtonsList[i].isEnabled()) {
-                enabledShadersButtonsList.add(shadersButtonsList[i]);
+        while (i != shadersButtonsList.toArray().length) {
+            if (shadersButtonsList.toArray(new ShadersSwitchButton[0])[i].isEnabled()) {
+                enabledShadersButtonsList.add(shadersButtonsList.toArray(new ShadersSwitchButton[0])[i]);
             }
             i++;
         }
