@@ -20,28 +20,28 @@ public class TexturedSwitchButton extends STexturedButton {
     private final boolean global;
 
     public BufferedImage getTexture() {
-        if (selectedSaver.get(saverKey).contains("true")) {
+        if (getSelectedSaver().get(saverKey).contains("true")) {
             return(textureOn);
         }
         return textureOff;
     }
 
     public BufferedImage getTextureHover() {
-        if (selectedSaver.get(saverKey).contains("true")) {
+        if (getSelectedSaver().get(saverKey).contains("true")) {
             return(textureHoverOn);
         }
         return textureHoverOff;
     }
 
     public BufferedImage getTextureDisabled() {
-        if (selectedSaver.get(saverKey).contains("true")) {
+        if (getSelectedSaver().get(saverKey).contains("true")) {
             return(textureDisabledOn);
         }
         return textureDisabledOff;
     }
 
     protected void defineTextures() {
-        if (selectedSaver.get(saverKey).contains("true")) {
+        if (getSelectedSaver().get(saverKey).contains("true")) {
             super.setTexture(textureOn);
             super.setTextureHover(textureHoverOn);
             super.setTextureDisabled(textureDisabledOn);
@@ -75,46 +75,46 @@ public class TexturedSwitchButton extends STexturedButton {
 
     @Override
     public void setEnabled(boolean aFlag) {
-        String value = selectedSaver.get(saverKey);
+        String value = getSelectedSaver().get(saverKey);
 
         if(aFlag) {
             if (Objects.equals(value, "trueDisabled")) {
-                selectedSaver.set(saverKey, "false");
+                getSelectedSaver().set(saverKey, "false");
             } else if (Objects.equals(value, "falseDisabled")) {
-                selectedSaver.set(saverKey, "true");
+                getSelectedSaver().set(saverKey, "true");
             }
             super.setEnabled(aFlag);
         } else {
             if (Objects.equals(value, "true")) {
-                selectedSaver.set(saverKey, "falseDisabled");
+                getSelectedSaver().set(saverKey, "falseDisabled");
             } else if (Objects.equals(value, "false")) {
-                selectedSaver.set(saverKey, "trueDisabled");
+                getSelectedSaver().set(saverKey, "trueDisabled");
             }
             super.setEnabled(aFlag);
         }
     }
 
     public void toggleButton() {
-        String value = selectedSaver.get(saverKey);
+        String value = getSelectedSaver().get(saverKey);
 
         Saver saverNotSelect1 = null;
         Saver saverNotSelect2 = null;
-        if (selectedSaver == firstProfileSaver) {
+        if (getSelectedSaver() == firstProfileSaver) {
             saverNotSelect1 = secondProfileSaver;
             saverNotSelect2 = thirdProfileSaver;
-        } else if (selectedSaver == secondProfileSaver) {
+        } else if (getSelectedSaver() == secondProfileSaver) {
             saverNotSelect1 = firstProfileSaver;
             saverNotSelect2 = thirdProfileSaver;
-        } else if (selectedSaver == thirdProfileSaver) {
+        } else if (getSelectedSaver() == thirdProfileSaver) {
             saverNotSelect1 = firstProfileSaver;
             saverNotSelect2 = secondProfileSaver;
         }
 
         if (Objects.equals(value, "true")) {
-            selectedSaver.set(this.getSaverKey(), "false");
+            getSelectedSaver().set(this.getSaverKey(), "false");
             if (global) {firstProfileSaver.set(this.getSaverKey(), "true");}
         } else if (Objects.equals(value, "false")) {
-            selectedSaver.set(this.getSaverKey(), "true");
+            getSelectedSaver().set(this.getSaverKey(), "true");
             if (global) {
                 saverNotSelect1.set(this.getSaverKey(), "false");
                 saverNotSelect2.set(this.getSaverKey(), "false");

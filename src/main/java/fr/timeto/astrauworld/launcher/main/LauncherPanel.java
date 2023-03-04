@@ -68,8 +68,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           thirdProfileButton.initButton();
 
           try {
-               if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                    profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+               if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                     enablePlayButtons(true);
                } else {
@@ -336,9 +336,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final STexturedButton profileModsSoundphysicsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
 
           public static final STexturedButton profileShadersSeeComparisonButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-hover.png"));
-          public static final STexturedButton profileShadersChocapicV6PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
-          public static final STexturedButton profileShadersChocapicV7_1PlusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
-          public static final STexturedButton profileShadersChocapicV9PlusButton =new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
+          public static final ShaderPanel profileShadersChocapicV6PlusButton = new ShaderPanel("Chocapic V6", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6);
+          public static final ShaderPanel profileShadersChocapicV7_1PlusButton = new ShaderPanel("Chocapic V7.1", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7);
+          public static final ShaderPanel profileShadersChocapicV9PlusButton = new ShaderPanel("Chocapic V9", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9);
           public static final ShaderPanel profileShadersSeusRenewedPanel = new ShaderPanel("SEUS Renewed", shaderSeusRenewed);
 
           public static final ShaderPanel profileShadersChocapicV6LitePanel = new ShaderPanel("Chocapic13 V6 Lite", shaderChocapicV6Lite);
@@ -753,18 +753,15 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileShadersSeeComparisonButton);
           profileShadersSeeComparisonButton.setVisible(false);
 
-          profileShadersChocapicV6PlusButton.setBounds(490, 210);
-          profileShadersChocapicV6PlusButton.addEventListener(this);
+          profileShadersChocapicV6PlusButton.setBounds(185, 195);
           this.add(profileShadersChocapicV6PlusButton);
           profileShadersChocapicV6PlusButton.setVisible(false);
 
-          profileShadersChocapicV7_1PlusButton.setBounds(892, 210);
-          profileShadersChocapicV7_1PlusButton.addEventListener(this);
+          profileShadersChocapicV7_1PlusButton.setBounds(595, 195);
           this.add(profileShadersChocapicV7_1PlusButton);
           profileShadersChocapicV7_1PlusButton.setVisible(false);
 
-          profileShadersChocapicV9PlusButton.setBounds(490, 269);
-          profileShadersChocapicV9PlusButton.addEventListener(this);
+          profileShadersChocapicV9PlusButton.setBounds(185, 255);
           this.add(profileShadersChocapicV9PlusButton);
           profileShadersChocapicV9PlusButton.setVisible(false);
 
@@ -959,7 +956,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(aboutEastereggsLabel);
           aboutEastereggsLabel.setVisible(false);
 
-          setProfilePage(true, ProfileSaver.getActualMainProfile(), TAB_KEY.profileHome);
+          setPage(true, PageName.PROFILE_HOME, ProfileSaver.getActualMainProfile());
 
      }
 

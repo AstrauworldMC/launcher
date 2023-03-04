@@ -7,6 +7,7 @@ import fr.timeto.astrauworld.launcher.customelements.ZoneWindowMover;
 import fr.timeto.astrauworld.launcher.discordrpc.DiscordManager;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.timutilslib.CustomFonts;
 import fr.timeto.timutilslib.PopUpMessages;
@@ -225,7 +226,7 @@ public class LauncherFrame extends JFrame {
                 getInstance().setName("Astrauworld Launcher");
                 getInstance().setVisible(true);
                 initLauncherSystemTray();
-                PageChange.setProfilePage(true, profileAfterMcExit, PageChange.TAB_KEY.profileHome);
+                PageChange.setPage(true, PageName.PROFILE_HOME, profileAfterMcExit);
                 DiscordManager.setLauncherPresence();
             }
 

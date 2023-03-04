@@ -196,7 +196,7 @@ public class Launcher {
         System.out.println(authInfos.getClientId());
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER); // ah oui il est en decimal dans le fichier
-        noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM))) + "G");
+        noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM))) + "G");
         if (connectToServer) {
             noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
         }

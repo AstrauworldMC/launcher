@@ -32,7 +32,7 @@ public class ShadersSwitchButton extends STexturedButton {
     private final String shaderFileName;
 
     private void initOptionSaver() {
-        initCustomFilesFolder(selectedSaver);
+        initCustomFilesFolder(getSelectedSaver());
         shaderOptionsSaver = new Saver(Paths.get(optionsShadersProfileTextfile.toString()));
     }
 
@@ -79,7 +79,7 @@ public class ShadersSwitchButton extends STexturedButton {
             super.setTextureDisabled(textureDisabledOff);
         }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_OPTIFINE), "true") && new File(shaderpacksProfileFolder + File.separator + shaderFileName).exists()) {
+        if (Objects.equals(getSelectedSaver().get(KEY.MOD_OPTIFINE), "true") && new File(shaderpacksProfileFolder + File.separator + shaderFileName).exists()) {
             this.setEnabled(true);
         } else {
             shaderOptionsSaver.set(selectedShaderKey, "");
@@ -127,7 +127,7 @@ public class ShadersSwitchButton extends STexturedButton {
     }
 
     public Thread installShader() {
-        initCustomFilesFolder(selectedSaver);
+        initCustomFilesFolder(getSelectedSaver());
         if (LauncherPanel.inDownload) {
             LauncherPanel.inDownloadError();
             return null;

@@ -36,19 +36,28 @@ public class ProfileSaver {
     /**
      * Le profil sélectionné
      */
-    public static String selectedProfile = "";
+    private static String selectedProfile = "";
     /**
      * Le Saver sélectionné
      */
-    public static Saver selectedSaver;
+    private static Saver selectedSaver;
 
-    /**
-     * Initialise {@link ProfileSaver#selectedSaver} d'après le numéro de profil spécifié
-     * @param profile Le numéro du profil spécifié en String
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-     * @since Beta2.2.0
-     */
-    public static void initSelectedProfile(String profile) {
+    public static void setSelectedSaver(Saver saver) {
+        selectedSaver = saver;
+        if (saver == firstProfileSaver) {
+            selectedProfile = "1";
+        } else if (saver == secondProfileSaver) {
+            selectedProfile = "2";
+        } else if (saver == thirdProfileSaver) {
+            selectedProfile = "3";
+        } else {
+            throw new ExceptionInInitializerError("Saver non reconnu");
+        }
+    }
+
+    public static Saver getSelectedSaver() {return selectedSaver;}
+
+    public static void setSelectedProfile(String profile) {
         selectedProfile = profile;
         if (Objects.equals(profile, "1")) {
             selectedSaver = firstProfileSaver;
@@ -57,6 +66,13 @@ public class ProfileSaver {
         } else if (Objects.equals(profile, "3")) {
             selectedSaver = thirdProfileSaver;
         }
+    }
+
+    public static String getSelectedProfile() {
+        if (selectedProfile == null) {
+            throw new NullPointerException("selectedProfile est nul");
+        }
+        return selectedProfile;
     }
 
     /**

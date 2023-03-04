@@ -81,10 +81,6 @@ public class OnButtonEvent {
 
         profilePageButtons.add(profileShadersSeeComparisonButton);
 
-        profilePageButtons.add(profileShadersChocapicV6PlusButton);
-        profilePageButtons.add(profileShadersChocapicV7_1PlusButton);
-        profilePageButtons.add(profileShadersChocapicV9PlusButton);
-
         profilePageButtons.add(profileSettingsHelmIconSwitchButton);
         profilePageButtons.add(profileSettingsMainProfileSwitchButton);
         profilePageButtons.add(profileSettingsSaveSettings);
@@ -167,22 +163,22 @@ public class OnButtonEvent {
      * @since Beta2.2.0
      */
     private static void onProfilePageEvent(Object src) {
-        String eventSelectedProfile = getSelectedProfile(selectedSaver);
+        String eventSelectedProfile = getSelectedProfile(getSelectedSaver());
 
         // Actions des boutons du haut des profilePage
         if (src == profilePlayTabButton) {
-            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileHome);
+            setPage(true, PageName.PROFILE_HOME, eventSelectedProfile);
         } else if (src == profileAccountTabButton) {
-            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAccount);
+            setPage(true, PageName.PROFILE_ACCOUNT, eventSelectedProfile);
         } else if (src == profileAddonsTabButton) {
-            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsMods);
+            setPage(true, PageName.PROFILE_ADDONS_MODS, eventSelectedProfile);
         } else if (src == profileSettingsTabButton) {
-            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileSettings);
+            setPage(true, PageName.PROFILE_SETTINGS, eventSelectedProfile);
         }
 
         // Actions des boutons de la profilePage - Home
         else if (src == profilePlayButton) {
-            Saver saver = selectedSaver;
+            Saver saver = getSelectedSaver();
             enablePlayButtons(false);
 
             if (inDownload) {
@@ -206,7 +202,7 @@ public class OnButtonEvent {
                         infosLabel.setVisible(false);
                         return;
                     }
-                    infosLabel.setText("Connect\u00e9 avec " + selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                    infosLabel.setText("Connect\u00e9 avec " + getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
 
                     try {
                         Launcher.update(saver);
@@ -244,9 +240,9 @@ public class OnButtonEvent {
         } else if (src == profileServerInfosButton) {
             ServerInfosFrame.openServerInfos();
         } else if (src == profileNewsButton) {
-            setNewsPage(true);
+            setPage(true, PageName.NEWS);
         } else if (src == profileLaunchToMenuButton) {
-            Saver saver = selectedSaver;
+            Saver saver = getSelectedSaver();
             enablePlayButtons(false);
 
             if (inDownload) {
@@ -295,7 +291,7 @@ public class OnButtonEvent {
             launchThread.start();
 
         } else if (src == profileDownloadButton) {
-            Saver saver = selectedSaver;
+            Saver saver = getSelectedSaver();
             enablePlayButtons(false);
 
             if (inDownload) {
@@ -333,7 +329,7 @@ public class OnButtonEvent {
 
         // Actions des boutons de la profilePage - Account
         else if (src == profileAccountConnectionButton) {
-            Saver saver = selectedSaver;
+            Saver saver = getSelectedSaver();
             String oldAccount = saver.get(KEY.INFOS_NAME);
 
             if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
@@ -366,7 +362,7 @@ public class OnButtonEvent {
 
 
         } else if (src == profileAccountConnectionMicrosoftButton) {
-            Saver saver = selectedSaver;
+            Saver saver = getSelectedSaver();
             String oldAccount = saver.get(KEY.INFOS_NAME);
 
             Thread connect = new Thread(() -> {
@@ -392,8 +388,8 @@ public class OnButtonEvent {
             connect.start();
         } else if (src == profileAccountResetButton) {
             Thread ifYes = new Thread(() -> {
-                selectedSaver.set(ProfileSaver.KEY.FILECREATED, "");
-                initializeDataFiles(selectedSaver);
+                getSelectedSaver().set(ProfileSaver.KEY.FILECREATED, "");
+                initializeDataFiles(getSelectedSaver());
                 profileAccountTextField.setText("");
                 doneMessage("Compte supprim\u00e9", "Donn\u00e9es du compte r\u00e9initialis\u00e9es");
                 initProfileButtons();
@@ -407,16 +403,16 @@ public class OnButtonEvent {
 
         // Actions des boutons de la profilePage - Mods
         else if (src == profileAddonsShadersButton) {
-            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsShaders);
+            setPage(true, PageName.PROFILE_ADDONS_SHADERS, eventSelectedProfile);
         } else if (src == profileAddonsResourcePacksButton) {
-            initCustomFilesFolder(selectedSaver);
+            initCustomFilesFolder(getSelectedSaver());
             try {
                 Desktop.getDesktop().open(resourcepacksProfileFolder); // TODO Temporaire jusqu'à pouvoir le faire depuis le assets
             } catch (IOException ignored) {}
         } else if (src == profileAddonsModsButton) {
-            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsMods);
+            setPage(true, PageName.PROFILE_ADDONS_MODS, eventSelectedProfile);
         } else if (src == profileAddonsGoToFolderButton) {
-            initCustomFilesFolder(selectedSaver);
+            initCustomFilesFolder(getSelectedSaver());
             if (subTitleLabel.getText().toLowerCase().contains("shader")) {
                 try {
                     Desktop.getDesktop().open(shaderpacksProfileFolder);
@@ -463,12 +459,6 @@ public class OnButtonEvent {
             } catch (IOException | URISyntaxException e) {
                 throw new RuntimeException(e);
             }
-        } else if (src == profileShadersChocapicV6PlusButton) {
-            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsShaders + " ChocapicV6");
-        } else if (src == profileShadersChocapicV7_1PlusButton) {
-            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsShaders + " ChocapicV7");
-        } else if (src == profileShadersChocapicV9PlusButton) {
-            setProfilePage(true, eventSelectedProfile, PageChange.TAB_KEY.profileAddonsShaders + " ChocapicV9");
         }
 
         // Actions des boutons de la profilePage - Reglages
@@ -478,8 +468,8 @@ public class OnButtonEvent {
         } else if (src == profileSettingsMainProfileSwitchButton) {
             profileSettingsMainProfileSwitchButton.toggleButton();
         } else if (src == profileSettingsSaveSettings) {
-            selectedSaver.set(ProfileSaver.KEY.SETTINGS_RAM, profileSettingsAllowedRamSpinner.getValue().toString());
-            selectedSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());
+            getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_RAM, profileSettingsAllowedRamSpinner.getValue().toString());
+            getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());
             initProfileButtons();
             doneMessage("Enregistr\u00e9 !", "Param\u00e8tres           enregistr\u00e9s");
             LauncherSystemTray.changeTrayTooltip();
@@ -497,9 +487,9 @@ public class OnButtonEvent {
     private static void onAboutPageEvent(Object src) {
         // Actions des boutons de l'aboutPage - Up
         if (src == aboutInfosTabButton) {
-            setAboutPage(true, PageChange.TAB_KEY.aboutInfos);
+            setPage(true, PageName.ABOUT_INFOS);
         } else if (src == aboutModsTabButton) {
-            setAboutPage(true, PageChange.TAB_KEY.aboutMods);
+            setPage(true, PageName.ABOUT_MODS);
         }
 
         // Actions des boutons de l'aboutPage - Infos

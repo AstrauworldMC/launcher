@@ -5,12 +5,9 @@ import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.timutilslib.CustomFonts;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
@@ -29,8 +26,8 @@ public class NewsOpenPanel extends JScrollPane {
             new News("test", "Ceci est un article de test", "Cyril.04", "28/06/2023")};
 
     static Box[] boxes;
-    private static JPanel container = new JPanel();
-    private static JPanel inside = new JPanel();
+    private static final JPanel container = new JPanel();
+    private static final JPanel inside = new JPanel();
 
     static JLabel imageLabel = new JLabel();
     static JLabel titleLabel = new JLabel();
@@ -84,10 +81,10 @@ public class NewsOpenPanel extends JScrollPane {
     }
 
     public static void setNewsPage(News news) {
-        PageChange.setNewsPage(false);
-        setProfilePage(false, null, "all");
-        setChangesPage(false);
-        setAboutPage(false, null);
+        setPage(false, PageName.NEWS);
+        setPage(false,PageName.PROFILE_ALL, null);
+        setPage(false, PageName.CHANGELOGS);
+        setPage(false, PageName.ABOUT);
 
         LauncherPanel.Components.titleLabel.setText("Actualit\u00e9s");
         subTitleLabel.setText(news.getTitle());

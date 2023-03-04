@@ -26,7 +26,7 @@ public class ShadersDownloadButton extends STexturedButton {
     }
 
     public void defineTextures() {
-        initCustomFilesFolder(selectedSaver);
+        initCustomFilesFolder(getSelectedSaver());
         if (new File(shaderpacksProfileFolder + File.separator + shadersSwitchButton.getShaderFileName()).exists()) {
             this.setTexture(downloadedNormal);
             this.setTextureHover(downloadedHover);

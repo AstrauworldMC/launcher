@@ -4,6 +4,7 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 
 import java.awt.*;
@@ -118,52 +119,52 @@ public class LauncherSystemTray {
             if (src == exitItem) {
                 System.exit(0);
             } else if (src == newsPageItem) {
-                PageChange.setNewsPage(true);
+                PageChange.setPage(true, PageName.NEWS);
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfilePlayPageItem) {
-                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileHome);
+                PageChange.setPage(true, PageName.PROFILE_HOME, "1");
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileAccountPageItem) {
-                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileAccount);
+                PageChange.setPage(true, PageName.PROFILE_ACCOUNT, "1");
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileModsPageItem) {
-                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileAddonsMods);
+                PageChange.setPage(true, PageName.PROFILE_ADDONS_MODS, "1");
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileSettingsPageItem) {
-                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileSettings);
+                PageChange.setPage(true, PageName.PROFILE_SETTINGS, "1");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfilePlayPageItem) {
-                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileHome);
+                PageChange.setPage(true, PageName.PROFILE_HOME, "2");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileAccountPageItem) {
-                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileAccount);
+                PageChange.setPage(true, PageName.PROFILE_ACCOUNT, "2");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileModsPageItem) {
-                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileAddonsMods);
+                PageChange.setPage(true, PageName.PROFILE_ADDONS_MODS, "2");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileSettingsPageItem) {
-                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileSettings);
+                PageChange.setPage(true, PageName.PROFILE_SETTINGS, "2");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfilePlayPageItem) {
-                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileHome);
+                PageChange.setPage(true, PageName.PROFILE_HOME, "3");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileAccountPageItem) {
-                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileAccount);
+                PageChange.setPage(true, PageName.PROFILE_ACCOUNT, "3");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileModsPageItem) {
-                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileAddonsMods);
+                PageChange.setPage(true, PageName.PROFILE_ADDONS_MODS, "3");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileSettingsPageItem) {
-                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileSettings);
+                PageChange.setPage(true, PageName.PROFILE_SETTINGS, "3");
                 LauncherFrame.getInstance().toFront();
             } else if (src == changelogsPageItem) {
-                PageChange.setChangesPage(true);
+                PageChange.setPage(true, PageName.CHANGELOGS);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutInfosPageItem) {
-                PageChange.setAboutPage(true, PageChange.TAB_KEY.aboutInfos);
+                PageChange.setPage(true, PageName.ABOUT_INFOS);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutModsPageItem) {
-                PageChange.setAboutPage(true, PageChange.TAB_KEY.aboutMods);
+                PageChange.setPage(true, PageName.ABOUT_MODS);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutEasterEggItem) {
                 if (numberOfTrolled[0] < 8) {
@@ -450,8 +451,8 @@ public class LauncherSystemTray {
         popup.add(closeMc);
         popup.add(exitItem);
 
-        ProfileSaver.initSelectedProfile(profile);
-        Saver saver = ProfileSaver.selectedSaver;
+        ProfileSaver.setSelectedProfile(profile);
+        Saver saver = ProfileSaver.getSelectedSaver();
 
         /* Création de l'icône */
         trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH), "Astrauworld - Profil " + saver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + " (" + saver.get(ProfileSaver.KEY.INFOS_NAME) + ")");
@@ -472,7 +473,7 @@ public class LauncherSystemTray {
         String subtitleText = Launcher.parseUnicode(LauncherPanel.Components.subTitleLabel.getText());
 
         if (titleText.contains("Profil")) {
-            trayIcon.setToolTip("Astrauworld Launcher | " + titleText + " - " + subtitleText + " (" + ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + ")");
+            trayIcon.setToolTip("Astrauworld Launcher | " + titleText + " - " + subtitleText + " (" + ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + ")");
         } else if (titleText.contains("Changelogs")) {
             trayIcon.setToolTip("Astrauworld Launcher | " + LauncherPanel.Components.titleLabel.getText() + " - " + LauncherPanel.Components.changelogsVersionComboBox.getSelectedItem().toString());
         } else if (Objects.equals(subtitleText, "") || Objects.equals(subtitleText, " ")) {

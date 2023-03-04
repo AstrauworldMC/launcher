@@ -26,30 +26,41 @@ import static java.lang.Float.parseFloat;
  */
 public class PageChange {
 
-    public static class TAB_KEY {
+    public static void setPage(boolean e, PageName page) {
+        if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
+            setNewsPage(e);
+        } else if (Objects.equals(page.getPage1(), PageName.PROFILE_HOME.getPage1())) {
+            setProfilePage(e, getSelectedProfile(), page);
+        }else if (Objects.equals(page.getPage1(), PageName.CHANGELOGS.getPage1())) {
+            setChangesPage(e);
+        } else if (Objects.equals(page.getPage1(), PageName.ABOUT_INFOS.getPage1())) {
+            setAboutPage(e, page);
+        }
+    }
 
-        public static final String profileHome = "home";
-        public static final String profileAccount = "account";
-        private static final String profileAddons = "addons";
-        public static final String profileAddonsMods = profileAddons + "-mods";
-        public static final String profileAddonsShaders = profileAddons + "-shaders";
-        public static final String profileAddonsResourcesPacks = profileAddons + "-resourcespacks";
-        public static final String profileSettings = "settings";
-
-        public static final String aboutInfos = "infos";
-        public static final String aboutMods = "addons";
+    public static void setPage(boolean e, PageName page, String profileNum) {
+        if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
+            setNewsPage(e);
+        } else if (Objects.equals(page.getPage1(), PageName.PROFILE_HOME.getPage1())) {
+            setProfilePage(e, profileNum, page);
+        } else if (Objects.equals(page.getPage1(), PageName.CHANGELOGS.getPage1())) {
+            setChangesPage(e);
+        } else if (Objects.equals(page.getPage1(), PageName.ABOUT_INFOS.getPage1())) {
+            setAboutPage(e, page);
+        }
     }
 
     /**
      * Change la page pour la page principale des actualités
+     *
      * @param enabled Si {@code true}, affiche la page et tous ces composants. Si false, fait disparaitre tous ces composants
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static void setNewsPage(boolean enabled) {
+    private static void setNewsPage(boolean enabled) {
         if (enabled) {
-            setProfilePage(false, null, "all");
+            setProfilePage(false, null, PageName.PROFILE_ALL);
             setChangesPage(false);
-            setAboutPage(false, null);
+            setAboutPage(false, PageName.ABOUT);
 
             leftMenuSelector.moveTo(newsButton);
             newsButton.getButton().setEnabled(false);
@@ -82,76 +93,79 @@ public class PageChange {
      * Change la page pour la page d'un profil
      * @param enabled Si {@code true}, affiche la page et tous ces composants. {@code Si false}, fait disparaitre tous ces composants
      * @param profileNumber Le numéro du profil sélectionné
-     * @param tab Quel onglet est selectionné. Si {@code null} -> changement de page, si "null" → aucun changement de profil, si "all" → fait toutes les pages
+     * @param page Quel onglet est selectionné. Si {@code null} -> changement de page, si "null" → aucun changement de profil, si "all" → fait toutes les pages
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static void setProfilePage(boolean enabled, String profileNumber, String tab) {
+    private static void setProfilePage(boolean enabled, String profileNumber, PageName page) {
+
         JPanel profilePanelSelected = null;
         SColoredButton profileSelected = null;
         SColoredButton profileNotSelected1 = firstProfileButton.getProfileButton();
         SColoredButton profileNotSelected2 = secondProfileButton.getProfileButton();
         Saver selectedSaver = firstProfileSaver;
 
-        ProfileSaver.initSelectedProfile(profileNumber);
+        if (profileNumber != null) {
+            ProfileSaver.setSelectedProfile(profileNumber);
 
-        if (enabled && !Objects.equals(tab, "all")) {
-            if (Objects.equals(profileNumber, "1")) {
-                profileSelected = firstProfileButton.getProfileButton();
-                profilePanelSelected = firstProfileButton;
-                profileNotSelected1 = secondProfileButton.getProfileButton();
-                profileNotSelected2 = thirdProfileButton.getProfileButton();
-                titleLabel.setText("Profil 1");
-                selectedSaver = firstProfileSaver;
-                selectedProfile = "1";
-            } else if (Objects.equals(profileNumber, "2")) {
-                profileSelected = secondProfileButton.getProfileButton();
-                profilePanelSelected = secondProfileButton;
-                profileNotSelected2 = thirdProfileButton.getProfileButton();
-                titleLabel.setText("Profil 2");
-                selectedSaver = secondProfileSaver;
-                selectedProfile = "2";
-            } else if (Objects.equals(profileNumber, "3")) {
-                profileSelected = thirdProfileButton.getProfileButton();
-                profilePanelSelected = thirdProfileButton;
-                profileNotSelected1 = secondProfileButton.getProfileButton();
-                profileNotSelected2 = firstProfileButton.getProfileButton();
-                titleLabel.setText("Profil 3");
-                selectedSaver = thirdProfileSaver;
-                selectedProfile = "3";
-            } else if (Objects.equals(profileNumber, "null")) {
-                if (Objects.equals(titleLabel.getText(), "Profil 1")) {
+            if (enabled && !Objects.equals(page.getTab2(), "all")) {
+                if (Objects.equals(profileNumber, "1")) {
                     profileSelected = firstProfileButton.getProfileButton();
                     profilePanelSelected = firstProfileButton;
                     profileNotSelected1 = secondProfileButton.getProfileButton();
                     profileNotSelected2 = thirdProfileButton.getProfileButton();
+                    titleLabel.setText("Profil 1");
                     selectedSaver = firstProfileSaver;
-                } else if (Objects.equals(titleLabel.getText(), "Profil 2")) {
+                    setSelectedProfile("1");
+                } else if (Objects.equals(profileNumber, "2")) {
                     profileSelected = secondProfileButton.getProfileButton();
                     profilePanelSelected = secondProfileButton;
-                    profileNotSelected1 = firstProfileButton.getProfileButton();
                     profileNotSelected2 = thirdProfileButton.getProfileButton();
+                    titleLabel.setText("Profil 2");
                     selectedSaver = secondProfileSaver;
-                } else if (Objects.equals(titleLabel.getText(), "Profil 3")) {
+                    setSelectedProfile("2");
+                } else if (Objects.equals(profileNumber, "3")) {
                     profileSelected = thirdProfileButton.getProfileButton();
                     profilePanelSelected = thirdProfileButton;
                     profileNotSelected1 = secondProfileButton.getProfileButton();
                     profileNotSelected2 = firstProfileButton.getProfileButton();
+                    titleLabel.setText("Profil 3");
                     selectedSaver = thirdProfileSaver;
+                    setSelectedProfile("3");
+                } else if (Objects.equals(profileNumber, "null")) {
+                    if (Objects.equals(titleLabel.getText(), "Profil 1")) {
+                        profileSelected = firstProfileButton.getProfileButton();
+                        profilePanelSelected = firstProfileButton;
+                        profileNotSelected1 = secondProfileButton.getProfileButton();
+                        profileNotSelected2 = thirdProfileButton.getProfileButton();
+                        selectedSaver = firstProfileSaver;
+                    } else if (Objects.equals(titleLabel.getText(), "Profil 2")) {
+                        profileSelected = secondProfileButton.getProfileButton();
+                        profilePanelSelected = secondProfileButton;
+                        profileNotSelected1 = firstProfileButton.getProfileButton();
+                        profileNotSelected2 = thirdProfileButton.getProfileButton();
+                        selectedSaver = secondProfileSaver;
+                    } else if (Objects.equals(titleLabel.getText(), "Profil 3")) {
+                        profileSelected = thirdProfileButton.getProfileButton();
+                        profilePanelSelected = thirdProfileButton;
+                        profileNotSelected1 = secondProfileButton.getProfileButton();
+                        profileNotSelected2 = firstProfileButton.getProfileButton();
+                        selectedSaver = thirdProfileSaver;
+                    }
                 }
+                leftMenuSelector.moveTo(profilePanelSelected);
+                ProfileSaver.setSelectedSaver(selectedSaver);
             }
-            leftMenuSelector.moveTo(profilePanelSelected);
-            ProfileSaver.selectedSaver = selectedSaver;
         }
 
-        if(Objects.equals(tab, TAB_KEY.profileHome)) {
+        if(Objects.equals(page.getTab2(), PageName.PROFILE_HOME.getTab2())) {
             if (enabled) {
-                setProfilePage(false, "null", "all");
+                setProfilePage(false, getSelectedProfile(), PageName.PROFILE_ALL);
 
                 setNewsPage(false);
                 setChangesPage(false);
-                setAboutPage(false, null);
+                setAboutPage(false, PageName.ABOUT);
 
-                if(tab.equals("all")) {
+                if(page.getTab2().equals("all")) {
                 } else {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -182,8 +196,8 @@ public class PageChange {
                 profileAccountLabel.setVisible(true);
                 profileAccountConnectedLabel.setBounds(192, 470, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
-                if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                    profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                     enablePlayButtons(true);
                 } else {
@@ -228,14 +242,14 @@ public class PageChange {
                     thirdProfileButton.setEnabled(true);
                 }
             }
-        } else if (Objects.equals(tab, TAB_KEY.profileAccount)) {
+        } else if (Objects.equals(page.getTab2(), PageName.PROFILE_ACCOUNT.getTab2())) {
             if (enabled) {
-                setProfilePage(false, "null", "all");
+                setProfilePage(false, getSelectedProfile(), PageName.PROFILE_ALL);
                 setNewsPage(false);
                 setChangesPage(false);
-                setAboutPage(false, null);
+                setAboutPage(false, PageName.ABOUT);
 
-                if (tab.equals("all")) {
+                if (page.getTab2().equals("all")) {
                 } else {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -260,16 +274,16 @@ public class PageChange {
                 profileAccountTextField.setText("");
                 profileAccountPasswordField.setText("");
 
-                if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_EMAIL), "none")) {
-                    profileAccountTextField.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_EMAIL));
+                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL), "none")) {
+                    profileAccountTextField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL));
                 }
 
                 profileAccountLabel.setBounds(380, 526, 276, 31);
                 profileAccountLabel.setVisible(true);
                 profileAccountConnectedLabel.setBounds(198, 526, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
-                if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                    profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                     enablePlayButtons(true);
                 } else {
@@ -302,13 +316,13 @@ public class PageChange {
                 profileAccountConnectedLabel.setVisible(false);
             }
 
-        } else if (tab.contains(TAB_KEY.profileAddons)) {
-            if (tab.contains("mods")) {
+        } else if (page.getTab2().contains(PageName.PROFILE_ADDONS.getTab2())) {
+            if (page.getSubTab3().contains(PageName.PROFILE_ADDONS_MODS.getSubTab3())) {
                 if (enabled) {
-                    setProfilePage(false, "null", "all");
+                    setProfilePage(false, getSelectedProfile(), PageName.PROFILE_ALL);
                     setNewsPage(false);
                     setChangesPage(false);
-                    setAboutPage(false, null);
+                    setAboutPage(false, PageName.ABOUT);
 
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -342,8 +356,8 @@ public class PageChange {
                     profileAccountLabel.setVisible(true);
                     profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
                     profileAccountConnectedLabel.setVisible(true);
-                    if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                        profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                    if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                        profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
                         profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                         enablePlayButtons(true);
                     } else {
@@ -383,12 +397,12 @@ public class PageChange {
                     profileAccountLabel.setVisible(false);
                     profileAccountConnectedLabel.setVisible(false);
                 }
-            } else if (tab.contains("shaders")) {
+            } else if (page.getSubTab3().contains(PageName.PROFILE_ADDONS_SHADERS.getSubTab3())) {
                 if (enabled) {
-                    setProfilePage(false, "null", "all");
+                    setProfilePage(false, getSelectedProfile(), PageName.PROFILE_ALL);
                     setNewsPage(false);
                     setChangesPage(false);
-                    setAboutPage(false, null);
+                    setAboutPage(false, PageName.ABOUT);
 
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -409,7 +423,7 @@ public class PageChange {
                     profileAddonsGoToFolderButton.setVisible(true);
                     profileShadersSeeComparisonButton.setVisible(true);
 
-                    if (tab.toLowerCase().contains("chocapicv6")) {
+                    if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6.getSpecialTab4())) {
                         profileAddonsShadersButton.setVisible(true);
                         profileAddonsShadersButton.setBounds(566, 128);
 
@@ -420,7 +434,7 @@ public class PageChange {
                         profileShadersChocapicV6ExtremePanel.setVisible(true);
 
                         subTitleLabel.setText("Addons - Shaders (ChocapicV6)");
-                    } else if (tab.toLowerCase().contains("chocapicv7")) {
+                    } else if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7.getSpecialTab4())) {
                         profileAddonsShadersButton.setVisible(true);
                         profileAddonsShadersButton.setBounds(566, 128);
 
@@ -432,7 +446,7 @@ public class PageChange {
                         profileShadersChocapicV7_1ExtremePanel.setVisible(true);
 
                         subTitleLabel.setText("Addons - Shaders (ChocapicV7)");
-                    } else if (tab.toLowerCase().contains("chocapicv9")) {
+                    } else if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9.getSpecialTab4())) {
                         profileAddonsShadersButton.setVisible(true);
                         profileAddonsShadersButton.setBounds(566, 128);
 
@@ -455,14 +469,14 @@ public class PageChange {
                         subTitleLabel.setText("Addons - Shaders");
                     }
 
-                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                    background = getResourceIgnorePath("/assets/launcher/profilesPage/addons/profilePage-addons-shaders.png");
 
                     profileAccountLabel.setBounds(380, 577, 276, 31);
                     profileAccountLabel.setVisible(true);
                     profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
                     profileAccountConnectedLabel.setVisible(true);
-                    if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                        profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                    if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                        profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
                         profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                         enablePlayButtons(true);
                     } else {
@@ -519,20 +533,20 @@ public class PageChange {
                 }
             }
 
-        } else if (Objects.equals(tab, TAB_KEY.profileSettings)) {
+        } else if (Objects.equals(page.getTab2(), PageName.PROFILE_SETTINGS.getTab2())) {
             if (enabled) {
-                setProfilePage(false, "null", "all");
+                setProfilePage(false, "null", PageName.PROFILE_ALL);
                 setNewsPage(false);
                 setChangesPage(false);
-                setAboutPage(false, null);
+                setAboutPage(false, PageName.ABOUT);
 
-                if(tab.equals("all")) {
+                if(page.getTab2().equals("all")) {
                 } else {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
                     profileNotSelected2.setEnabled(true);
                 }
-                lastSettingsSaver = ProfileSaver.selectedSaver;
+                lastSettingsSaver = ProfileSaver.getSelectedSaver();
 
                 profilePlayTabButton.setEnabled(true);
                 profileAccountTabButton.setEnabled(true);
@@ -545,10 +559,10 @@ public class PageChange {
                 profileSettingsTabButton.setVisible(true);
 
                 profileSettingsProfileNameTextField.setVisible(true);
-                profileSettingsProfileNameTextField.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
+                profileSettingsProfileNameTextField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
                 profileSettingsHelmIconSwitchButton.setVisible(true);
                 profileSettingsAllowedRamSpinner.setVisible(true);
-                profileSettingsAllowedRamSpinner.setValue(parseFloat(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM)));
+                profileSettingsAllowedRamSpinner.setValue(parseFloat(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM)));
                 profileSettingsMainProfileSwitchButton.setVisible(true);
                 profileSettingsSaveSettings.setVisible(true);
 
@@ -556,8 +570,8 @@ public class PageChange {
                 profileAccountLabel.setVisible(true);
                 profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
-                if (!Objects.equals(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                    profileAccountLabel.setText(ProfileSaver.selectedSaver.get(ProfileSaver.KEY.INFOS_NAME));
+                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
+                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                     enablePlayButtons(true);
                 } else {
@@ -623,18 +637,18 @@ public class PageChange {
                 profileAccountConnectedLabel.setVisible(false);
             }
 
-        } else if (Objects.equals(tab, "all")) {
+        } else if (Objects.equals(page.getTab2(), PageName.PROFILE_ALL.getTab2())) {
             firstProfileButton.getProfileButton().setEnabled(true);
             secondProfileButton.getProfileButton().setEnabled(true);
             thirdProfileButton.getProfileButton().setEnabled(true);
 
             lastSettingsProfileName = profileSettingsProfileNameTextField.getText();
             lastSettingsRam = profileSettingsAllowedRamSpinner.getValue().toString();
-            setProfilePage(enabled, null, TAB_KEY.profileHome);
-            setProfilePage(enabled, null, TAB_KEY.profileAccount);
-            setProfilePage(enabled, null, TAB_KEY.profileAddonsMods);
-            setProfilePage(enabled, null, TAB_KEY.profileAddonsShaders);
-            setProfilePage(enabled, null, TAB_KEY.profileSettings);
+            setProfilePage(enabled, null, PageName.PROFILE_HOME);
+            setProfilePage(enabled, null, PageName.PROFILE_ACCOUNT);
+            setProfilePage(enabled, null, PageName.PROFILE_ADDONS_MODS);
+            setProfilePage(enabled, null, PageName.PROFILE_ADDONS_SHADERS);
+            setProfilePage(enabled, null, PageName.PROFILE_SETTINGS);
         }
 
     }
@@ -644,11 +658,11 @@ public class PageChange {
      * @param enabled Si true, affiche la page et tous ces composants. Si false, fait disparaitre tous ces composants
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static void setChangesPage(boolean enabled) {
+    private static void setChangesPage(boolean enabled) {
         if (enabled) {
             setNewsPage(false);
-            setProfilePage(false, null, "all");
-            setAboutPage(false, null);
+            setProfilePage(false, null, PageName.PROFILE_ALL);
+            setAboutPage(false, PageName.ABOUT);
 
             leftMenuSelector.moveTo(changesButton);
             changesButton.getButton().setEnabled(false);
@@ -681,16 +695,16 @@ public class PageChange {
      * Change la page pour la page principale des contacts
      *
      * @param enabled Si true, affiche la page et tous ces composants. Si false, fait disparaitre tous ces composants
-     * @param tab     Le nom de la sous-page voulue
+     * @param page     La PageName
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static void setAboutPage(boolean enabled, String tab) {
-        if (Objects.equals(tab, TAB_KEY.aboutInfos)) {
+    private static void setAboutPage(boolean enabled, PageName page) {
+        if (Objects.equals(page.getTab2(), PageName.ABOUT_INFOS.getTab2())) {
             if (enabled) {
                 setNewsPage(false);
-                setProfilePage(false, null, "all");
+                setProfilePage(false, null, PageName.PROFILE_ALL);
                 setChangesPage(false);
-                setAboutPage(false, PageChange.TAB_KEY.aboutMods);
+                setAboutPage(false, PageName.ABOUT_MODS);
 
                 leftMenuSelector.moveTo(aboutButton);
                 aboutButton.getButton().setEnabled(false);
@@ -740,12 +754,12 @@ public class PageChange {
                 aboutButton.getButton().setEnabled(true);
                 aboutInfosTabButton.setEnabled(true);
             }
-        } else if (Objects.equals(tab, TAB_KEY.aboutMods)) {
+        } else if (Objects.equals(page.getTab2(), PageName.ABOUT_MODS.getTab2())) {
             if (enabled) {
                 setNewsPage(false);
-                setProfilePage(false, null, "all");
+                setProfilePage(false, null, PageName.PROFILE_ALL);
                 setChangesPage(false);
-                setAboutPage(false, PageChange.TAB_KEY.aboutInfos);
+                setAboutPage(false, PageName.ABOUT_INFOS);
 
                 aboutButton.setEnabled(false);
                 aboutModsTabButton.setEnabled(false);
@@ -770,8 +784,8 @@ public class PageChange {
             }
 
         } else {
-            setAboutPage(false, TAB_KEY.aboutInfos);
-            setAboutPage(false, TAB_KEY.aboutMods);
+            setAboutPage(false, PageName.ABOUT_INFOS);
+            setAboutPage(false, PageName.ABOUT_MODS);
         }
 
     }
