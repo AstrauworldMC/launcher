@@ -196,8 +196,8 @@ public class PageChange {
                 profileAccountLabel.setVisible(true);
                 profileAccountConnectedLabel.setBounds(192, 470, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
-                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
+                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                     enablePlayButtons(true);
                 } else {
@@ -274,16 +274,16 @@ public class PageChange {
                 profileAccountTextField.setText("");
                 profileAccountPasswordField.setText("");
 
-                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL), "none")) {
-                    profileAccountTextField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL));
+                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()), "none")) {
+                    profileAccountTextField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()));
                 }
 
                 profileAccountLabel.setBounds(380, 526, 276, 31);
                 profileAccountLabel.setVisible(true);
                 profileAccountConnectedLabel.setBounds(198, 526, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
-                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
+                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                     enablePlayButtons(true);
                 } else {
@@ -341,23 +341,18 @@ public class PageChange {
                     profileAddonsShadersButton.setVisible(true);
                     profileAddonsResourcePacksButton.setVisible(true);
                     profileAddonsOptifineSwitchButton.setVisible(true);
-                    profileModsFpsmodelSwitchButton.setVisible(true);
-                    profileModsFpsmodelMoreInfosButton.setVisible(true);
-                    profileModsBettertpsSwitchButton.setVisible(true);
-                    profileModsBettertpsMoreInfosButton.setVisible(true);
-                    profileModsFallingleavesSwitchButton.setVisible(true);
-                    profileModsFallingleavesMoreInfosButton.setVisible(true);
-                    profileModsAppleskinSwitchButton.setVisible(true);
-                    profileModsAppleskinMoreInfosButton.setVisible(true);
-                    profileModsSoundphysicsSwitchButton.setVisible(true);
-                    profileModsSoundphysicsMoreInfosButton.setVisible(true);
+                    profileModsFpsmodelPanel.setVisible(true);
+                    profileModsBettertpsPanel.setVisible(true);
+                    profileModsFallingleavesPanel.setVisible(true);
+                    profileModsAppleskinPanel.setVisible(true);
+                    profileModsSoundphysicsPanel.setVisible(true);
 
                     profileAccountLabel.setBounds(380, 577, 276, 31);
                     profileAccountLabel.setVisible(true);
                     profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
                     profileAccountConnectedLabel.setVisible(true);
-                    if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                        profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
+                    if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                        profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                         profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                         enablePlayButtons(true);
                     } else {
@@ -371,7 +366,7 @@ public class PageChange {
                     subTitleLabel.setText("Addons - Mods");
                     LauncherSystemTray.changeTrayTooltip();
 
-                    background = getResourceIgnorePath("/assets/launcher/profilesPage/addons/profilePage-addons-mods.png");
+                    background = getResourceIgnorePath("/assets/launcher/profilesPage/addons/profilePage-addons.png");
 
                     corner.setVisible(true);
                 } else {
@@ -383,16 +378,11 @@ public class PageChange {
                     profileAddonsShadersButton.setVisible(false);
                     profileAddonsResourcePacksButton.setVisible(false);
                     profileAddonsOptifineSwitchButton.setVisible(false);
-                    profileModsFpsmodelSwitchButton.setVisible(false);
-                    profileModsFpsmodelMoreInfosButton.setVisible(false);
-                    profileModsBettertpsSwitchButton.setVisible(false);
-                    profileModsBettertpsMoreInfosButton.setVisible(false);
-                    profileModsFallingleavesSwitchButton.setVisible(false);
-                    profileModsFallingleavesMoreInfosButton.setVisible(false);
-                    profileModsAppleskinSwitchButton.setVisible(false);
-                    profileModsAppleskinMoreInfosButton.setVisible(false);
-                    profileModsSoundphysicsSwitchButton.setVisible(false);
-                    profileModsSoundphysicsMoreInfosButton.setVisible(false);
+                    profileModsFpsmodelPanel.setVisible(false);
+                    profileModsBettertpsPanel.setVisible(false);
+                    profileModsFallingleavesPanel.setVisible(false);
+                    profileModsAppleskinPanel.setVisible(false);
+                    profileModsSoundphysicsPanel.setVisible(false);
 
                     profileAccountLabel.setVisible(false);
                     profileAccountConnectedLabel.setVisible(false);
@@ -469,14 +459,14 @@ public class PageChange {
                         subTitleLabel.setText("Addons - Shaders");
                     }
 
-                    background = getResourceIgnorePath("/assets/launcher/profilesPage/addons/profilePage-addons-shaders.png");
+                    background = getResourceIgnorePath("/assets/launcher/profilesPage/addons/profilePage-addons.png");
 
                     profileAccountLabel.setBounds(380, 577, 276, 31);
                     profileAccountLabel.setVisible(true);
                     profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
                     profileAccountConnectedLabel.setVisible(true);
-                    if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                        profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
+                    if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                        profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                         profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                         enablePlayButtons(true);
                     } else {
@@ -559,10 +549,10 @@ public class PageChange {
                 profileSettingsTabButton.setVisible(true);
 
                 profileSettingsProfileNameTextField.setVisible(true);
-                profileSettingsProfileNameTextField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
+                profileSettingsProfileNameTextField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()));
                 profileSettingsHelmIconSwitchButton.setVisible(true);
                 profileSettingsAllowedRamSpinner.setVisible(true);
-                profileSettingsAllowedRamSpinner.setValue(parseFloat(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM)));
+                profileSettingsAllowedRamSpinner.setValue(parseFloat(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get())));
                 profileSettingsMainProfileSwitchButton.setVisible(true);
                 profileSettingsSaveSettings.setVisible(true);
 
@@ -570,8 +560,8 @@ public class PageChange {
                 profileAccountLabel.setVisible(true);
                 profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
                 profileAccountConnectedLabel.setVisible(true);
-                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
+                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                     enablePlayButtons(true);
                 } else {
@@ -597,10 +587,10 @@ public class PageChange {
                     String finalLastSettingsProfileName = lastSettingsProfileName;
                     String finalLastSettingsRam = lastSettingsRam;
 
-                    if (!Objects.equals(profileSettingsProfileNameTextField.getText(), finalLastSettingsSaver.get(KEY.SETTINGS_PROFILENAME)) || !Objects.equals(profileSettingsAllowedRamSpinner.getValue().toString(), finalLastSettingsSaver.get(KEY.SETTINGS_RAM))) {
+                    if (!Objects.equals(profileSettingsProfileNameTextField.getText(), finalLastSettingsSaver.get(KEY.SETTINGS_PROFILENAME.get())) || !Objects.equals(profileSettingsAllowedRamSpinner.getValue().toString(), finalLastSettingsSaver.get(KEY.SETTINGS_RAM.get()))) {
                         Thread yes = new Thread(() -> {
-                            finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME, finalLastSettingsProfileName);
-                            finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_RAM, finalLastSettingsRam);
+                            finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME.get(), finalLastSettingsProfileName);
+                            finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_RAM.get(), finalLastSettingsRam);
                             profileSettingsProfileNameTextField.setText(finalLastSettingsProfileName);
                             profileSettingsAllowedRamSpinner.setValue(parseFloat(finalLastSettingsRam));
                             lastSettingsProfileName = finalLastSettingsProfileName;
@@ -610,10 +600,10 @@ public class PageChange {
                             PopUpMessages.doneMessage("Sauvegard\u00e9", "Param\u00e8tres           sauvegard\u00e9s");
                         });
                         Thread no = new Thread(() -> {
-                            profileSettingsProfileNameTextField.setText(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME));
-                            profileSettingsAllowedRamSpinner.setValue(parseFloat(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM)));
-                            lastSettingsProfileName = finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME);
-                            lastSettingsRam = finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM);
+                            profileSettingsProfileNameTextField.setText(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()));
+                            profileSettingsAllowedRamSpinner.setValue(parseFloat(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM.get())));
+                            lastSettingsProfileName = finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get());
+                            lastSettingsRam = finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM.get());
 
                             PopUpMessages.errorMessage("Non sauvegard\u00e9", "Param\u00e8tres non       sauvegard\u00e9s");
                         });

@@ -8,10 +8,7 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.*;
 import fr.timeto.astrauworld.launcher.pagesutilities.*;
-import fr.timeto.astrauworld.launcher.panels.LeftMenuButton;
-import fr.timeto.astrauworld.launcher.panels.LeftMenuSelector;
-import fr.timeto.astrauworld.launcher.panels.ProfileButton;
-import fr.timeto.astrauworld.launcher.panels.ShaderPanel;
+import fr.timeto.astrauworld.launcher.panels.*;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
@@ -68,8 +65,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           thirdProfileButton.initButton();
 
           try {
-               if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME), "")) {
-                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
+               if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
                     enablePlayButtons(true);
                } else {
@@ -83,7 +80,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
      public static void verifyNoAccountBefore(String oldAccount, Saver saver) {
           if (oldAccount.replaceAll(" ", "").equals("")) {
-               saver.set(KEY.SETTINGS_PROFILENAME, saver.get(KEY.INFOS_NAME));
+               saver.set(KEY.SETTINGS_PROFILENAME.get(), saver.get(KEY.INFOS_NAME.get()));
           }
      }
 
@@ -273,92 +270,39 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton I/O pour Optfine
            */
-          public static TexturedSwitchButton profileAddonsOptifineSwitchButton = new TexturedSwitchButton(KEY.MOD_OPTIFINE, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
-          /**
-           * Bouton I/O pour le mod client 'First Person Model'
-           * @see KEY#MOD_FPSMODEL
-           * @see Components#profileModsFpsmodelMoreInfosButton
-           */
-          public static final TexturedSwitchButton profileModsFpsmodelSwitchButton = new TexturedSwitchButton(KEY.MOD_FPSMODEL, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
-          /**
-           * Bouton pour avoir plus d'informations sur le mod client 'First Person Model', revoie à la page CurseForge
-           * @see KEY#MOD_FPSMODEL
-           * @see Components#profileModsFpsmodelSwitchButton
-           */
-          public static final STexturedButton profileModsFpsmodelMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
-          /**
-           * Bouton I/O pour le mod client 'Better Third Person'
-           * @see KEY#MOD_BETTERTPS
-           * @see Components#profileModsBettertpsMoreInfosButton
-           */
-          public static final TexturedSwitchButton profileModsBettertpsSwitchButton = new TexturedSwitchButton(KEY.MOD_BETTERTPS, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
-          /**
-           * Bouton pour avoir plus d'informations sur le mod client 'Better Third Person', revoie à la page CurseForge
-           * @see KEY#MOD_BETTERTPS
-           * @see Components#profileModsBettertpsSwitchButton
-           */
-          public static final STexturedButton profileModsBettertpsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
-          /**
-           * Bouton I/O pour le mod client 'Falling Leaves'
-           * @see KEY#MOD_FALLINGLEAVES
-           * @see Components#profileModsFallingleavesMoreInfosButton
-           */
-          public static final TexturedSwitchButton profileModsFallingleavesSwitchButton = new TexturedSwitchButton(KEY.MOD_FALLINGLEAVES, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
-          /**
-           * Bouton pour avoir plus d'informations sur le mod client 'Falling Leaves', revoie à la page CurseForge
-           * @see KEY#MOD_FALLINGLEAVES
-           * @see Components#profileModsFallingleavesSwitchButton
-           */
-          public static final STexturedButton profileModsFallingleavesMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
-          /**
-           * Bouton I/O pour le mod client 'AppleSkin'
-           * @see KEY#MOD_APPLESKIN
-           * @see Components#profileModsAppleskinMoreInfosButton
-           */
-          public static final TexturedSwitchButton profileModsAppleskinSwitchButton = new TexturedSwitchButton(KEY.MOD_APPLESKIN, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
-          /**
-           * Bouton pour avoir plus d'informations sur le mod client 'AppleSkin', revoie à la page CurseForge
-           * @see KEY#MOD_APPLESKIN
-           * @see Components#profileModsAppleskinSwitchButton
-           */
-          public static final STexturedButton profileModsAppleskinMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
-          /**
-           * Bouton I/O pour le mod client 'Sound Physics Remastered'
-           * @see KEY#MOD_SOUNDPHYSICS
-           * @see Components#profileModsSoundphysicsMoreInfosButton
-           */
-          public static final TexturedSwitchButton profileModsSoundphysicsSwitchButton = new TexturedSwitchButton(KEY.MOD_SOUNDPHYSICS, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
-          /**
-           * Bouton pour avoir plus d'informations sur le mod client 'Sound Physics Remastered', revoie à la page CurseForge
-           * @see KEY#MOD_SOUNDPHYSICS
-           * @see Components#profileModsSoundphysicsSwitchButton
-           */
-          public static final STexturedButton profileModsSoundphysicsMoreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
+          public static TexturedSwitchButton profileAddonsOptifineSwitchButton = new TexturedSwitchButton(KEY.MOD_OPTIFINE, false);
+
+
+          public static final ModPanel profileModsFpsmodelPanel = new ModPanel("First Person Model", KEY.MOD_FPSMODEL, "https://www.curseforge.com/minecraft/mc-mods/first-person-model");
+          public static final ModPanel profileModsBettertpsPanel = new ModPanel("Better First Person", KEY.MOD_BETTERTPS, "https://www.curseforge.com/minecraft/mc-mods/better-third-person");
+          public static final ModPanel profileModsFallingleavesPanel = new ModPanel("Falling Leaves", KEY.MOD_FALLINGLEAVES, "https://www.curseforge.com/minecraft/mc-mods/falling-leaves-forge");
+          public static final ModPanel profileModsAppleskinPanel = new ModPanel("Apple Skin", KEY.MOD_APPLESKIN, "https://www.curseforge.com/minecraft/mc-mods/appleskin");
+          public static final ModPanel profileModsSoundphysicsPanel = new ModPanel("Sound Physics Remastered", KEY.MOD_SOUNDPHYSICS, "https://www.curseforge.com/minecraft/mc-mods/sound-physics-remastered");
 
           public static final STexturedButton profileShadersSeeComparisonButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-hover.png"));
           public static final ShaderPanel profileShadersChocapicV6PlusButton = new ShaderPanel("Chocapic V6", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6);
           public static final ShaderPanel profileShadersChocapicV7_1PlusButton = new ShaderPanel("Chocapic V7.1", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7);
           public static final ShaderPanel profileShadersChocapicV9PlusButton = new ShaderPanel("Chocapic V9", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9);
-          public static final ShaderPanel profileShadersSeusRenewedPanel = new ShaderPanel("SEUS Renewed", shaderSeusRenewed);
+          public static final ShaderPanel profileShadersSeusRenewedPanel = new ShaderPanel("SEUS Renewed", Shader.SEUS_RENEWED);
 
-          public static final ShaderPanel profileShadersChocapicV6LitePanel = new ShaderPanel("Chocapic13 V6 Lite", shaderChocapicV6Lite);
-          public static final ShaderPanel profileShadersChocapicV6LowPanel = new ShaderPanel("Chocapic13 V6 Low", shaderChocapicV6Low);
-          public static final ShaderPanel profileShadersChocapicV6MediumPanel = new ShaderPanel("Chocapic13 V6 Medium", shaderChocapicV6Medium);
-          public static final ShaderPanel profileShadersChocapicV6UltraPanel = new ShaderPanel("Chocapic13 V6 Ultra", shaderChocapicV6Ultra);
-          public static final ShaderPanel profileShadersChocapicV6ExtremePanel = new ShaderPanel("Chocapic13 V6 Extreme", shaderChocapicV6Ultra);
+          public static final ShaderPanel profileShadersChocapicV6LitePanel = new ShaderPanel("Chocapic13 V6 Lite", Shader.CHOCAPICV6_LITE);
+          public static final ShaderPanel profileShadersChocapicV6LowPanel = new ShaderPanel("Chocapic13 V6 Low", Shader.CHOCAPICV6_LOW);
+          public static final ShaderPanel profileShadersChocapicV6MediumPanel = new ShaderPanel("Chocapic13 V6 Medium", Shader.CHOCAPICV6_MEDIUM);
+          public static final ShaderPanel profileShadersChocapicV6UltraPanel = new ShaderPanel("Chocapic13 V6 Ultra", Shader.CHOCAPICV6_ULTRA);
+          public static final ShaderPanel profileShadersChocapicV6ExtremePanel = new ShaderPanel("Chocapic13 V6 Extreme", Shader.CHOCAPICV6_EXTREME);
 
-          public static final ShaderPanel profileShadersChocapicV7_1ToasterPanel = new ShaderPanel("V7.1.1 Toaster Edition", shaderChocapicV7_1Toaster);
-          public static final ShaderPanel profileShadersChocapicV7_1LitePanel = new ShaderPanel("Chocapic13 V7.1 Lite", shaderChocapicV7_1Lite);
-          public static final ShaderPanel profileShadersChocapicV7_1LowPanel = new ShaderPanel("Chocapic13 V7.1 Low", shaderChocapicV7_1Low);
-          public static final ShaderPanel profileShadersChocapicV7_1MediumPanel = new ShaderPanel("Chocapic13 V7.1 Medium", shaderChocapicV7_1Medium);
-          public static final ShaderPanel profileShadersChocapicV7_1UltraPanel = new ShaderPanel("Chocapic13 V7.1 Ultra", shaderChocapicV7_1Ultra);
-          public static final ShaderPanel profileShadersChocapicV7_1ExtremePanel = new ShaderPanel("Chocapic13 V7.1 Extreme", shaderChocapicV7_1Extreme);
+          public static final ShaderPanel profileShadersChocapicV7_1ToasterPanel = new ShaderPanel("V7.1.1 Toaster Edition", Shader.CHOCAPICV7_1_TOASTER);
+          public static final ShaderPanel profileShadersChocapicV7_1LitePanel = new ShaderPanel("Chocapic13 V7.1 Lite", Shader.CHOCAPICV7_1_LITE);
+          public static final ShaderPanel profileShadersChocapicV7_1LowPanel = new ShaderPanel("Chocapic13 V7.1 Low", Shader.CHOCAPICV7_1_LOW);
+          public static final ShaderPanel profileShadersChocapicV7_1MediumPanel = new ShaderPanel("Chocapic13 V7.1 Medium", Shader.CHOCAPICV7_1_MEDIUM);
+          public static final ShaderPanel profileShadersChocapicV7_1UltraPanel = new ShaderPanel("Chocapic13 V7.1 Ultra", Shader.CHOCAPICV7_1_ULTRA);
+          public static final ShaderPanel profileShadersChocapicV7_1ExtremePanel = new ShaderPanel("Chocapic13 V7.1 Extreme", Shader.CHOCAPICV7_1_EXTREME);
 
-          public static final ShaderPanel profileShadersChocapicV9LowPanel = new ShaderPanel("Chocapic13 V9 Low", shaderChocapicV9Low);
-          public static final ShaderPanel profileShadersChocapicV9MediumPanel = new ShaderPanel("Chocapic13 V9 Medium", shaderChocapicV9Medium);
-          public static final ShaderPanel profileShadersChocapicV9HighPanel = new ShaderPanel("Chocapic13 V9 High", shaderChocapicV9High);
-          public static final ShaderPanel profileShadersChocapicV9ExtremePanel = new ShaderPanel("Chocapic13 V9 Extreme", shaderChocapicV9Extreme);
-          public static final ShaderPanel profileShadersChocapicV9_1ExtremePanel = new ShaderPanel("V9.1 Extreme Beta 5", shaderChocapicV9_1Extreme);
+          public static final ShaderPanel profileShadersChocapicV9LowPanel = new ShaderPanel("Chocapic13 V9 Low", Shader.CHOCAPICV9_LOW);
+          public static final ShaderPanel profileShadersChocapicV9MediumPanel = new ShaderPanel("Chocapic13 V9 Medium", Shader.CHOCAPICV9_MEDIUM);
+          public static final ShaderPanel profileShadersChocapicV9HighPanel = new ShaderPanel("Chocapic13 V9 High", Shader.CHOCAPICV9_HIGH);
+          public static final ShaderPanel profileShadersChocapicV9ExtremePanel = new ShaderPanel("Chocapic13 V9 Extreme", Shader.CHOCAPICV9_EXTREME);
+          public static final ShaderPanel profileShadersChocapicV9_1ExtremePanel = new ShaderPanel("V9.1 Extreme Beta 5", Shader.CHOCAPICV9_1_EXTREMEBETA5);
 
 
           // Profiles components - reglages
@@ -369,12 +313,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           /**
            * Bouton I/O pour avoir la 2e couche sur l'avatar du profil dans la page profil - réglages
            */
-          public static final TexturedSwitchButton profileSettingsHelmIconSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_HELMICON, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), false);
+          public static final TexturedSwitchButton profileSettingsHelmIconSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_HELMICON, false);
           /**
            * Spinner pour sélectionner la ram allouée au jeu au lancement dans la page profil - réglages
            */
           public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 256.00, 1));
-          public static TexturedSwitchButton profileSettingsMainProfileSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_MAINPROFILE, getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"), true);
+          public static TexturedSwitchButton profileSettingsMainProfileSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_MAINPROFILE, true);
           /**
            * Bouton pour sauvegarder les paramètres du profil
            */
@@ -697,55 +641,25 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileAddonsOptifineSwitchButton);
           profileAddonsOptifineSwitchButton.setVisible(false);
 
-          profileModsFpsmodelSwitchButton.setBounds(496, 200);
-          profileModsFpsmodelSwitchButton.addEventListener(this);
-          this.add(profileModsFpsmodelSwitchButton);
-          profileModsFpsmodelSwitchButton.setVisible(false);
+          profileModsFpsmodelPanel.setBounds(185, 195);
+          this.add(profileModsFpsmodelPanel);
+          profileModsFpsmodelPanel.setVisible(false);
 
-          profileModsFpsmodelMoreInfosButton.setBounds(397, 239);
-          profileModsFpsmodelMoreInfosButton.addEventListener(this);
-          this.add(profileModsFpsmodelMoreInfosButton);
-          profileModsFpsmodelMoreInfosButton.setVisible(false);
+          profileModsBettertpsPanel.setBounds(595, 195);
+          this.add(profileModsBettertpsPanel);
+          profileModsBettertpsPanel.setVisible(false);
 
-          profileModsBettertpsSwitchButton.setBounds(892, 200);
-          profileModsBettertpsSwitchButton.addEventListener(this);
-          this.add(profileModsBettertpsSwitchButton);
-          profileModsBettertpsSwitchButton.setVisible(false);
+          profileModsFallingleavesPanel.setBounds(185, 255);
+          this.add(profileModsFallingleavesPanel);
+          profileModsFallingleavesPanel.setVisible(false);
 
-          profileModsBettertpsMoreInfosButton.setBounds(796, 239);
-          profileModsBettertpsMoreInfosButton.addEventListener(this);
-          this.add(profileModsBettertpsMoreInfosButton);
-          profileModsBettertpsMoreInfosButton.setVisible(false);
+          profileModsAppleskinPanel.setBounds(595, 255);
+          this.add(profileModsAppleskinPanel);
+          profileModsAppleskinPanel.setVisible(false);
 
-          profileModsFallingleavesSwitchButton.setBounds(496, 260);
-          profileModsFallingleavesSwitchButton.addEventListener(this);
-          this.add(profileModsFallingleavesSwitchButton);
-          profileModsFallingleavesSwitchButton.setVisible(false);
-
-          profileModsFallingleavesMoreInfosButton.setBounds(397, 299);
-          profileModsFallingleavesMoreInfosButton.addEventListener(this);
-          this.add(profileModsFallingleavesMoreInfosButton);
-          profileModsFallingleavesMoreInfosButton.setVisible(false);
-
-          profileModsAppleskinSwitchButton.setBounds(892, 260);
-          profileModsAppleskinSwitchButton.addEventListener(this);
-          this.add(profileModsAppleskinSwitchButton);
-          profileModsAppleskinSwitchButton.setVisible(false);
-
-          profileModsAppleskinMoreInfosButton.setBounds(796, 299);
-          profileModsAppleskinMoreInfosButton.addEventListener(this);
-          this.add(profileModsAppleskinMoreInfosButton);
-          profileModsAppleskinMoreInfosButton.setVisible(false);
-
-          profileModsSoundphysicsSwitchButton.setBounds(496, 320);
-          profileModsSoundphysicsSwitchButton.addEventListener(this);
-          this.add(profileModsSoundphysicsSwitchButton);
-          profileModsSoundphysicsSwitchButton.setVisible(false);
-
-          profileModsSoundphysicsMoreInfosButton.setBounds(397, 359);
-          profileModsSoundphysicsMoreInfosButton.addEventListener(this);
-          this.add(profileModsSoundphysicsMoreInfosButton);
-          profileModsSoundphysicsMoreInfosButton.setVisible(false);
+          profileModsSoundphysicsPanel.setBounds(185, 315);
+          this.add(profileModsSoundphysicsPanel);
+          profileModsSoundphysicsPanel.setVisible(false);
 
 
           profileShadersSeeComparisonButton.setBounds(630, 582);

@@ -29,9 +29,9 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
     private final STexturedButton plusButton;
     private final JLabel shaderNameLabel;
 
-    public ShaderPanel(String name, String fileName) {
+    public ShaderPanel(String name, ProfileSaver.Shader fileName) {
         this.name = name;
-        this.fileName = fileName;
+        this.fileName = fileName.get();
         this.toPage = null;
 
         CustomFonts.initFonts();
@@ -54,11 +54,11 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
         switchButton.addEventListener(this);
         add(switchButton);
 
-        downloadButton.setBounds(213, 44);
+        downloadButton.setBounds(223, 36);
         downloadButton.addEventListener(this);
         add(downloadButton);
 
-        shaderNameLabel.setBounds(0, 21, 270, 24);
+        shaderNameLabel.setBounds(0, 13, 280, 24);
         shaderNameLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(22f));
         shaderNameLabel.setForeground(Color.WHITE);
         add(shaderNameLabel);
@@ -83,11 +83,11 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
         plusButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/plus-hover.png"));
         shaderNameLabel = new JLabel(name, SwingConstants.RIGHT);
 
-        plusButton.setBounds(314, 14);
+        plusButton.setBounds(298, 14);
         plusButton.addEventListener(this);
         add(plusButton);
 
-        shaderNameLabel.setBounds(0, 21, 270, 24);
+        shaderNameLabel.setBounds(0, 21, 280, 24);
         shaderNameLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(22f));
         shaderNameLabel.setForeground(Color.WHITE);
         add(shaderNameLabel);

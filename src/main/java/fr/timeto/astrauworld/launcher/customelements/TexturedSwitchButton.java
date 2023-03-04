@@ -40,7 +40,7 @@ public class TexturedSwitchButton extends STexturedButton {
         return textureDisabledOff;
     }
 
-    protected void defineTextures() {
+    public void defineTextures() {
         if (getSelectedSaver().get(saverKey).contains("true")) {
             super.setTexture(textureOn);
             super.setTextureHover(textureHoverOn);
@@ -56,9 +56,9 @@ public class TexturedSwitchButton extends STexturedButton {
         return saverKey;
     }
 
-    public TexturedSwitchButton(String saverKey, BufferedImage texture, boolean global) {
-        super(texture);
-        this.saverKey = saverKey;
+    public TexturedSwitchButton(KEY saverKey, boolean global) {
+        super(getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+        this.saverKey = saverKey.get();
         this.global = global;
 
     }

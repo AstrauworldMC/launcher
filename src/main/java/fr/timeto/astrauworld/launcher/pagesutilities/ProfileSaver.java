@@ -5,9 +5,7 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.customelements.ShadersSwitchButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 
-import java.awt.*;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,9 +121,9 @@ public class ProfileSaver {
     }
 
     public static String getActualMainProfile() {
-        if (Objects.equals(thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE), "true")) {
+        if (Objects.equals(thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()), "true")) {
             return "3";
-        } else if (Objects.equals(secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE), "true")) {
+        } else if (Objects.equals(secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()), "true")) {
             return "2";
         } else {
             return "1";
@@ -139,27 +137,27 @@ public class ProfileSaver {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void initializeDataFiles(Saver saver) {
-        if(!Objects.equals(saver.get(KEY.FILECREATED), "true")) {
+        if(!Objects.equals(saver.get(KEY.FILECREATED.get()), "true")) {
             // Informations générales
-            saver.set(KEY.INFOS_NAME, "");
-            saver.set(KEY.INFOS_EMAIL, "none");
-            saver.set(KEY.INFOS_UUID, "none");
-            saver.set(KEY.INFOS_ACCESSTOKEN, "none");
-            saver.set(KEY.INFOS_REFRESHTOKEN, "none");
+            saver.set(KEY.INFOS_NAME.get(), "");
+            saver.set(KEY.INFOS_EMAIL.get(), "none");
+            saver.set(KEY.INFOS_UUID.get(), "none");
+            saver.set(KEY.INFOS_ACCESSTOKEN.get(), "none");
+            saver.set(KEY.INFOS_REFRESHTOKEN.get(), "none");
             // Configuration de Minecraft, si la key commence par 'mod' -> mod client
-            saver.set(KEY.MOD_OPTIFINE, "false");
-            saver.set(KEY.MOD_FPSMODEL, "false");
-            saver.set(KEY.MOD_BETTERTPS, "false");
-            saver.set(KEY.MOD_FALLINGLEAVES, "false");
-            saver.set(KEY.MOD_APPLESKIN, "false");
-            saver.set(KEY.MOD_SOUNDPHYSICS, "false");
+            saver.set(KEY.MOD_OPTIFINE.get(), "false");
+            saver.set(KEY.MOD_FPSMODEL.get(), "false");
+            saver.set(KEY.MOD_BETTERTPS.get(), "false");
+            saver.set(KEY.MOD_FALLINGLEAVES.get(), "false");
+            saver.set(KEY.MOD_APPLESKIN.get(), "false");
+            saver.set(KEY.MOD_SOUNDPHYSICS.get(), "false");
 
-            saver.set(KEY.SETTINGS_PROFILENAME, "Vide");
-            saver.set(KEY.SETTINGS_HELMICON, "true");
-            saver.set(KEY.SETTINGS_RAM, "3.0");
-            saver.set(KEY.SETTINGS_MAINPROFILE, "false");
+            saver.set(KEY.SETTINGS_PROFILENAME.get(), "Vide");
+            saver.set(KEY.SETTINGS_HELMICON.get(), "true");
+            saver.set(KEY.SETTINGS_RAM.get(), "3.0");
+            saver.set(KEY.SETTINGS_MAINPROFILE.get(), "false");
 
-            saver.set(KEY.FILECREATED, "true");
+            saver.set(KEY.FILECREATED.get(), "true");
         }
     }
 
@@ -215,30 +213,30 @@ public class ProfileSaver {
      */
     public static void initProfileIcon(Saver saver) throws IOException {
         String url;
-        if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("")) {
+        if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("")) {
             url = "https://user-images.githubusercontent.com/97166376/214735612-abc155df-6535-4852-aad5-cd97901f5e86.png";
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("frisk")) {
+        } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("frisk")) {
             url = "https://user-images.githubusercontent.com/97166376/209479948-9077d6d4-1254-4423-914b-d8b7ecf895d0.png";
             EasterEggs.setEatereggAsFound(EasterEggs.friskName);
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("chara")) {
+        } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("chara")) {
             url = "https://user-images.githubusercontent.com/97166376/209479945-0b181aaa-f3bd-436c-8274-83f68302c93e.png";
             EasterEggs.setEatereggAsFound(EasterEggs.charaName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON).contains("true"))) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
             url = "https://user-images.githubusercontent.com/97166376/214740385-07f6ded5-fdca-44b9-87ae-bd0446557c7f.png";
             EasterEggs.setEatereggAsFound(EasterEggs.asrielName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON).contains("false"))) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
             url = "https://user-images.githubusercontent.com/97166376/214734249-9d5e1055-c68f-4ee3-8d93-1a19b37c9410.png";
             EasterEggs.setEatereggAsFound(EasterEggs.trueAsrielName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON).contains("true"))) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
             url = "https://user-images.githubusercontent.com/97166376/209479944-e76fbf8f-6aba-462f-afc5-08829af3f9c8.png";
             EasterEggs.setEatereggAsFound(EasterEggs.floweyName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON).contains("false"))) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
             url = "https://user-images.githubusercontent.com/97166376/209480184-79318022-8ba0-46c9-9773-504a63c2ee47.png";
             EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
-        } else if (saver.get(KEY.SETTINGS_HELMICON).contains("true")) {
-            url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID) + "/35.png";
+        } else if (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true")) {
+            url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID.get()) + "/35.png";
         } else {
-            url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID) + "/35.png";
+            url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID.get()) + "/35.png";
         }
 
         if (saver == firstProfileSaver) {
@@ -269,65 +267,26 @@ public class ProfileSaver {
      */
     public static void initClientMods(Saver selectedSaver, List modList) {
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL), "true")) {
+        if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL.get()), "true")) {
             modList.add(new CurseFileInfo(333287, 4327736)); // First Peron Model 2.2.2 - Forge
         }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS), "true")) {
+        if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS.get()), "true")) {
             modList.add(new CurseFileInfo(435044, 4177087)); // Better Third Person 1.9.0
         }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES), "true")) {
+        if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES.get()), "true")) {
             modList.add(new CurseFileInfo(463155, 3705945)); // Falling Leaves 1.3.2
         }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN), "true")) {
+        if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN.get()), "true")) {
             modList.add(new CurseFileInfo(248787, 3927564)); // Apple Skin 2.4.1
         }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS), "true")) {
+        if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS.get()), "true")) {
             modList.add(new CurseFileInfo(535489, 3775919)); // Sound Physics Remastered 1.0.6
         }
 
-    }
-
-    /**
-     * Les différents URLs pour en savoir plus sur les addons clients puis l'ouvre dans une nouvelle page du navigateur par défault
-     * @param key La key du mod client
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-     */
-    public static void openMoreInfosUrl(String key) {
-        if (Objects.equals(key, KEY.MOD_FPSMODEL)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/first-person-model").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        } else if (Objects.equals(key, KEY.MOD_BETTERTPS)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/better-third-person").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        } else if (Objects.equals(key, KEY.MOD_FALLINGLEAVES)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/falling-leaves-forge").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        } else if (Objects.equals(key, KEY.MOD_APPLESKIN)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/appleskin").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        } else if (Objects.equals(key, KEY.MOD_SOUNDPHYSICS)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/sound-physics-remastered").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
     /*  Liste des fichiers custom à sauvegarder dans GameFiles
@@ -420,26 +379,36 @@ public class ProfileSaver {
      */
     public static File optionsShadersProfileTextfile = null;
 
-    public static final String shaderChocapicV6Lite = "Chocapic13_V6_Lite.zip";
-    public static final String shaderChocapicV6Low = "Chocapic13_V6_Low.zip";
-    public static final String shaderChocapicV6Medium = "Chocapic13_V6_Medium.zip";
-    public static final String shaderChocapicV6Ultra = "Chocapic13_V6_Ultra.zip";
-    public static final String shaderChocapicV6Extreme = "Chocapic13_V6_Extreme.zip";
+    public static enum Shader {
+        CHOCAPICV6_LITE("Chocapic13_V6_Lite.zip"),
+        CHOCAPICV6_LOW("Chocapic13_V6_Low.zip"),
+        CHOCAPICV6_MEDIUM("Chocapic13_V6_Medium.zip"),
+        CHOCAPICV6_ULTRA("Chocapic13_V6_Ultra.zip"),
+        CHOCAPICV6_EXTREME("Chocapic13_V6_Extreme.zip"),
 
-    public static final String shaderChocapicV7_1Toaster = "Chocapic13_V7.1.1_Toaster_Edition.zip";
-    public static final String shaderChocapicV7_1Lite = "Chocapic13_V7.1.1_Lite.zip";
-    public static final String shaderChocapicV7_1Low = "Chocapic13_V7.1_Low.zip";
-    public static final String shaderChocapicV7_1Medium = "Chocapic13_V7.1_Medium.zip";
-    public static final String shaderChocapicV7_1Ultra = "Chocapic13_V7.1_Ultra.zip";
-    public static final String shaderChocapicV7_1Extreme = "Chocapic13_V7.1_Extreme.zip";
+        CHOCAPICV7_1_TOASTER("Chocapic13_V7.1.1_Toaster_Edition.zip"),
+        CHOCAPICV7_1_LITE("Chocapic13_V7.1.1_Lite.zip"),
+        CHOCAPICV7_1_LOW("Chocapic13_V7.1_Low.zip"),
+        CHOCAPICV7_1_MEDIUM("Chocapic13_V7.1_Medium.zip"),
+        CHOCAPICV7_1_ULTRA("Chocapic13_V7.1_Ultra.zip"),
+        CHOCAPICV7_1_EXTREME("Chocapic13_V7.1_Extreme.zip"),
 
-    public static final String shaderChocapicV9Low = "Chocapic13_V9_Low.zip";
-    public static final String shaderChocapicV9Medium = "Chocapic13_V9_Medium.zip";
-    public static final String shaderChocapicV9High = "Chocapic13_V9_High.zip";
-    public static final String shaderChocapicV9Extreme = "Chocapic13_V9_Extreme.zip";
-    public static final String shaderChocapicV9_1Extreme = "Chocapic13_V9.1_Extreme_beta_5.zip";
+        CHOCAPICV9_LOW("Chocapic13_V9_Low.zip"),
+        CHOCAPICV9_MEDIUM("Chocapic13_V9_Medium.zip"),
+        CHOCAPICV9_HIGH("Chocapic13_V9_High.zip"),
+        CHOCAPICV9_EXTREME("Chocapic13_V9_Extreme.zip"),
+        CHOCAPICV9_1_EXTREMEBETA5("Chocapic13_V9.1_Extreme_beta_5.zip"),
 
-    public static final String shaderSeusRenewed = "SEUS-Renewed-v1.0.1.zip";
+        SEUS_RENEWED("SEUS-Renewed-v1.0.1.zip");
+
+        private final String name;
+
+        Shader(String name) {this.name = name;}
+
+        public String get() {
+            return name;
+        }
+    }
 
     public static final ArrayList<ShadersSwitchButton> shadersButtonsList = new ArrayList<ShadersSwitchButton>();
 
@@ -576,72 +545,80 @@ public class ProfileSaver {
      * La classe qui regroupe les key des savers
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static class KEY {
+    public static enum KEY {
         /**
          * Le pseudo du compte enregistré
          * <br> A ne pas confondre avec {@link KEY#SETTINGS_PROFILENAME}
          */
-        public static final String INFOS_NAME = "infos|name";
+        INFOS_NAME("infos|name"),
         /**
          * L'email du compte enregistré
          */
-        public static final String INFOS_EMAIL = "infos|email";
+        INFOS_EMAIL("infos|email"),
         /**
          * L'UUID du compte enregistré
          */
-        public static final String INFOS_UUID = "infos|UUID";
+        INFOS_UUID("infos|UUID"),
         /**
          * L'access token du compte enregistré
          */
-        public static final String INFOS_ACCESSTOKEN = "infos|accessToken";
+        INFOS_ACCESSTOKEN("infos|accessToken"),
         /**
          * Le refresh token du compte enregistré
          */
-        public static final String INFOS_REFRESHTOKEN = "infos|refreshToken";
+        INFOS_REFRESHTOKEN("infos|refreshToken"),
 
         /**
          * Optifine
          */
-        public static final String MOD_OPTIFINE = "mod|Optifine";
+        MOD_OPTIFINE("mod|Optifine"),
         /**
          * Mod client 'First Person Model'
          */
-        public static final String MOD_FPSMODEL = "mod|FirstPersonModel";
+        MOD_FPSMODEL("mod|FirstPersonModel"),
         /**
          * Mod client 'Better Third Person'
          */
-        public static final String MOD_BETTERTPS = "mod|BetterThirdPerson";
+        MOD_BETTERTPS("mod|BetterThirdPerson"),
         /**
          * Mod client 'Falling Leaves'
          */
-        public static final String MOD_FALLINGLEAVES = "mod|FallingLeaves";
+        MOD_FALLINGLEAVES("mod|FallingLeaves"),
         /**
          * Mod client 'Apple Skin'
          */
-        public static final String MOD_APPLESKIN = "mod|AppleSkin";
+        MOD_APPLESKIN("mod|AppleSkin"),
         /**
          * Mod client 'Sound Physics Remastered'
          */
-        public static final String MOD_SOUNDPHYSICS = "mod|SoundPhysicsRemastered";
+        MOD_SOUNDPHYSICS("mod|SoundPhysicsRemastered"),
 
         /**
          * Le nom du profil
          * <br> A ne pas confondre avec {@link KEY#INFOS_NAME}
          */
-        public static final String SETTINGS_PROFILENAME = "settings|ProfileName";
+        SETTINGS_PROFILENAME("settings|ProfileName"),
         /**
          * La seconde couche sur l'icône du profil
          */
-        public static final String SETTINGS_HELMICON = "settings|HelmIcon";
+        SETTINGS_HELMICON("settings|HelmIcon"),
         /**
          * La RAM allouée
          */
-        public static final String SETTINGS_RAM = "settings|AllowedRam";
-        public static final String SETTINGS_MAINPROFILE = "settings|MainProfile";
+        SETTINGS_RAM("settings|AllowedRam"),
+        SETTINGS_MAINPROFILE("settings|MainProfile"),
 
         /**
          * Si le fichier est créé
          */
-        public static final String FILECREATED = "fileCreated";
+        FILECREATED("fileCreated");
+
+        private final String key;
+
+        KEY(String key) {this.key = key;}
+
+        public String get() {
+            return key;
+        }
     }
 }

@@ -68,17 +68,6 @@ public class OnButtonEvent {
         profilePageButtons.add(profileAddonsOptifineSwitchButton);
         profilePageButtons.add(profileAddonsGoToFolderButton);
 
-        profilePageButtons.add(profileModsFpsmodelSwitchButton);
-        profilePageButtons.add(profileModsFpsmodelMoreInfosButton);
-        profilePageButtons.add(profileModsBettertpsSwitchButton);
-        profilePageButtons.add(profileModsBettertpsMoreInfosButton);
-        profilePageButtons.add(profileModsFallingleavesSwitchButton);
-        profilePageButtons.add(profileModsFallingleavesMoreInfosButton);
-        profilePageButtons.add(profileModsAppleskinSwitchButton);
-        profilePageButtons.add(profileModsAppleskinMoreInfosButton);
-        profilePageButtons.add(profileModsSoundphysicsSwitchButton);
-        profilePageButtons.add(profileModsSoundphysicsMoreInfosButton);
-
         profilePageButtons.add(profileShadersSeeComparisonButton);
 
         profilePageButtons.add(profileSettingsHelmIconSwitchButton);
@@ -202,7 +191,7 @@ public class OnButtonEvent {
                         infosLabel.setVisible(false);
                         return;
                     }
-                    infosLabel.setText("Connect\u00e9 avec " + getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME));
+                    infosLabel.setText("Connect\u00e9 avec " + getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
 
                     try {
                         Launcher.update(saver);
@@ -330,7 +319,7 @@ public class OnButtonEvent {
         // Actions des boutons de la profilePage - Account
         else if (src == profileAccountConnectionButton) {
             Saver saver = getSelectedSaver();
-            String oldAccount = saver.get(KEY.INFOS_NAME);
+            String oldAccount = saver.get(KEY.INFOS_NAME.get());
 
             if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
                 errorMessage("Erreur de connexion", "Erreur, veuillez     entrer un email et un   mot de passe valides");
@@ -363,7 +352,7 @@ public class OnButtonEvent {
 
         } else if (src == profileAccountConnectionMicrosoftButton) {
             Saver saver = getSelectedSaver();
-            String oldAccount = saver.get(KEY.INFOS_NAME);
+            String oldAccount = saver.get(KEY.INFOS_NAME.get());
 
             Thread connect = new Thread(() -> {
                 try {
@@ -388,7 +377,7 @@ public class OnButtonEvent {
             connect.start();
         } else if (src == profileAccountResetButton) {
             Thread ifYes = new Thread(() -> {
-                getSelectedSaver().set(ProfileSaver.KEY.FILECREATED, "");
+                getSelectedSaver().set(ProfileSaver.KEY.FILECREATED.get(), "");
                 initializeDataFiles(getSelectedSaver());
                 profileAccountTextField.setText("");
                 doneMessage("Compte supprim\u00e9", "Donn\u00e9es du compte r\u00e9initialis\u00e9es");
@@ -430,26 +419,6 @@ public class OnButtonEvent {
             }
         } else if (src == profileAddonsOptifineSwitchButton) {
             profileAddonsOptifineSwitchButton.toggleButton();
-        } else if (src == profileModsFpsmodelSwitchButton) {
-            profileModsFpsmodelSwitchButton.toggleButton();
-        } else if (src == profileModsFpsmodelMoreInfosButton) {
-            openMoreInfosUrl(KEY.MOD_FPSMODEL);
-        } else if (src == profileModsBettertpsSwitchButton) {
-            profileModsBettertpsSwitchButton.toggleButton();
-        } else if (src == profileModsBettertpsMoreInfosButton) {
-            openMoreInfosUrl(KEY.MOD_BETTERTPS);
-        } else if (src == profileModsFallingleavesSwitchButton) {
-            profileModsFallingleavesSwitchButton.toggleButton();
-        } else if (src == profileModsFallingleavesMoreInfosButton) {
-            openMoreInfosUrl(KEY.MOD_FALLINGLEAVES);
-        } else if (src == profileModsAppleskinSwitchButton) {
-            profileModsAppleskinSwitchButton.toggleButton();
-        } else if (src == profileModsAppleskinMoreInfosButton) {
-            openMoreInfosUrl(KEY.MOD_APPLESKIN);
-        } else if (src == profileModsSoundphysicsSwitchButton) {
-            profileModsSoundphysicsSwitchButton.toggleButton();
-        } else if (src == profileModsSoundphysicsMoreInfosButton) {
-            openMoreInfosUrl(KEY.MOD_SOUNDPHYSICS);
         }
         
         // Actions des boutons de la profilePage - Shaders
@@ -468,8 +437,8 @@ public class OnButtonEvent {
         } else if (src == profileSettingsMainProfileSwitchButton) {
             profileSettingsMainProfileSwitchButton.toggleButton();
         } else if (src == profileSettingsSaveSettings) {
-            getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_RAM, profileSettingsAllowedRamSpinner.getValue().toString());
-            getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_PROFILENAME, profileSettingsProfileNameTextField.getText());
+            getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_RAM.get(), profileSettingsAllowedRamSpinner.getValue().toString());
+            getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_PROFILENAME.get(), profileSettingsProfileNameTextField.getText());
             initProfileButtons();
             doneMessage("Enregistr\u00e9 !", "Param\u00e8tres           enregistr\u00e9s");
             LauncherSystemTray.changeTrayTooltip();

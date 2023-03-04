@@ -132,18 +132,18 @@ public class Launcher {
     }
 
     public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result, String oldAccount){
-        saver.set(KEY.INFOS_EMAIL, profileAccountTextField.getText());
-        saver.set(KEY.INFOS_NAME, result.getProfile().getName());
-        saver.set(KEY.INFOS_ACCESSTOKEN, result.getAccessToken());
-        saver.set(KEY.INFOS_REFRESHTOKEN, result.getRefreshToken());
-        saver.set(KEY.INFOS_UUID, result.getProfile().getId());
+        saver.set(KEY.INFOS_EMAIL.get(), profileAccountTextField.getText());
+        saver.set(KEY.INFOS_NAME.get(), result.getProfile().getName());
+        saver.set(KEY.INFOS_ACCESSTOKEN.get(), result.getAccessToken());
+        saver.set(KEY.INFOS_REFRESHTOKEN.get(), result.getRefreshToken());
+        saver.set(KEY.INFOS_UUID.get(), result.getProfile().getId());
         if (Objects.equals(oldAccount, "no")) {
-            saver.set(KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
+            saver.set(KEY.SETTINGS_PROFILENAME.get(), result.getProfile().getName());
         }
     }
 
     public static void microsoftAuth(String email, String password, Saver saver) throws MicrosoftAuthenticationException {
-        String oldAccount = saver.get(KEY.INFOS_NAME);
+        String oldAccount = saver.get(KEY.INFOS_NAME.get());
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithCredentials(email, password);
 
@@ -154,7 +154,7 @@ public class Launcher {
     }
 
     public static void microsoftAuthWebview(Saver saver) throws MicrosoftAuthenticationException {
-        String oldAccount = saver.get(KEY.INFOS_NAME);
+        String oldAccount = saver.get(KEY.INFOS_NAME.get());
         Launcher.println("webview?");
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithWebview();
@@ -175,15 +175,15 @@ public class Launcher {
 
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result;
-        if (Objects.equals(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN), null)) {
+        if (Objects.equals(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN.get()), null)) {
             throw new MicrosoftAuthenticationException("Aucun compte connecté");
         } else {
-            result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
+            result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN.get()));
         }
 
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
-        Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
-        infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
+        Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME.get()));
+        infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME.get()));
 
     }
 
@@ -196,7 +196,7 @@ public class Launcher {
         System.out.println(authInfos.getClientId());
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER); // ah oui il est en decimal dans le fichier
-        noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM))) + "G");
+        noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get()))) + "G");
         if (connectToServer) {
             noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
         }
@@ -223,7 +223,7 @@ public class Launcher {
     public static void localLaunch(Saver saver) throws Exception {
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", saver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
+        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", saver.get(ProfileSaver.KEY.SETTINGS_RAM.get()) + "G"));
 
         getInstance().setVisible(false);
 
@@ -423,7 +423,7 @@ public class Launcher {
 
         AbstractForgeVersion forge;
 
-        if (Objects.equals(saver.get(KEY.MOD_OPTIFINE), "true")) {
+        if (Objects.equals(saver.get(KEY.MOD_OPTIFINE.get()), "true")) {
             forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
                     .withForgeVersion(mcVersion + "-" + forgeVersion)
                     .withOptiFine(new OptiFineInfo(optifineVersion))

@@ -52,10 +52,10 @@ public class LauncherSystemTray {
         MenuItem newsPageItem = new MenuItem("Actualit\u00e9s");
 
         String firstProfileName;
-        if ((Objects.equals(ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "no")) | (Objects.equals(ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "none"))) {
+        if ((Objects.equals(ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "no")) | (Objects.equals(ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "none"))) {
             firstProfileName = "Vide";
         } else {
-            firstProfileName = ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME);
+            firstProfileName = ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get());
         }
         Menu firstProfileMenu = new Menu("Profil 1 - " + firstProfileName);
         MenuItem firstProfilePlayPageItem = new MenuItem("Jouer");
@@ -64,10 +64,10 @@ public class LauncherSystemTray {
         MenuItem firstProfileSettingsPageItem = new MenuItem("Param\u00e8tres");
 
         String secondProfileName;
-        if ((Objects.equals(ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "no")) | (Objects.equals(ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "none"))) {
+        if ((Objects.equals(ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "no")) | (Objects.equals(ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "none"))) {
             secondProfileName = "Vide";
         } else {
-            secondProfileName = ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME);
+            secondProfileName = ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get());
         }
         Menu secondProfileMenu = new Menu("Profil 2 - " + secondProfileName);
         MenuItem secondProfilePlayPageItem = new MenuItem("Jouer");
@@ -76,10 +76,10 @@ public class LauncherSystemTray {
         MenuItem secondProfileSettingsPageItem = new MenuItem("Param\u00e8tres");
 
         String thirdProfileName;
-        if ((Objects.equals(ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "no")) | (Objects.equals(ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "none"))) {
+        if ((Objects.equals(ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "no")) | (Objects.equals(ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "none"))) {
             thirdProfileName = "Vide";
         } else {
-            thirdProfileName = ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME);
+            thirdProfileName = ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get());
         }
         Menu thirdProfileMenu = new Menu("Profil 3 - " + thirdProfileName);
         MenuItem thirdProfilePlayPageItem = new MenuItem("Jouer");
@@ -455,7 +455,7 @@ public class LauncherSystemTray {
         Saver saver = ProfileSaver.getSelectedSaver();
 
         /* Création de l'icône */
-        trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH), "Astrauworld - Profil " + saver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + " (" + saver.get(ProfileSaver.KEY.INFOS_NAME) + ")");
+        trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH), "Astrauworld - Profil " + saver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()) + " (" + saver.get(ProfileSaver.KEY.INFOS_NAME.get()) + ")");
         trayIcon.setPopupMenu(popup);
 
         /* récupère la zone de notification */
@@ -473,7 +473,7 @@ public class LauncherSystemTray {
         String subtitleText = Launcher.parseUnicode(LauncherPanel.Components.subTitleLabel.getText());
 
         if (titleText.contains("Profil")) {
-            trayIcon.setToolTip("Astrauworld Launcher | " + titleText + " - " + subtitleText + " (" + ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + ")");
+            trayIcon.setToolTip("Astrauworld Launcher | " + titleText + " - " + subtitleText + " (" + ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()) + ")");
         } else if (titleText.contains("Changelogs")) {
             trayIcon.setToolTip("Astrauworld Launcher | " + LauncherPanel.Components.titleLabel.getText() + " - " + LauncherPanel.Components.changelogsVersionComboBox.getSelectedItem().toString());
         } else if (Objects.equals(subtitleText, "") || Objects.equals(subtitleText, " ")) {

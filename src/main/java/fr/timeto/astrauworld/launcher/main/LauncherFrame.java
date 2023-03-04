@@ -137,17 +137,17 @@ public class LauncherFrame extends JFrame {
 
             initializeDataFiles();
 
-            if (firstProfileSaver.get(KEY.INFOS_NAME).toLowerCase().replaceAll(" ", "").equals("no")) {
-                firstProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
-                firstProfileSaver.set(KEY.INFOS_NAME, "");
+            if (firstProfileSaver.get(KEY.INFOS_NAME.get()).toLowerCase().replaceAll(" ", "").equals("no")) {
+                firstProfileSaver.set(KEY.SETTINGS_PROFILENAME.get(), "Vide");
+                firstProfileSaver.set(KEY.INFOS_NAME.get(), "");
             }
-            if (secondProfileSaver.get(KEY.INFOS_NAME).toLowerCase().replaceAll(" ", "").equals("no")) {
-                secondProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
-                secondProfileSaver.set(KEY.INFOS_NAME, "");
+            if (secondProfileSaver.get(KEY.INFOS_NAME.get()).toLowerCase().replaceAll(" ", "").equals("no")) {
+                secondProfileSaver.set(KEY.SETTINGS_PROFILENAME.get(), "Vide");
+                secondProfileSaver.set(KEY.INFOS_NAME.get(), "");
             }
-            if (thirdProfileSaver.get(KEY.INFOS_NAME).toLowerCase().replaceAll(" ", "").equals("no")) {
-                thirdProfileSaver.set(KEY.SETTINGS_PROFILENAME, "Vide");
-                thirdProfileSaver.set(KEY.INFOS_NAME, "");
+            if (thirdProfileSaver.get(KEY.INFOS_NAME.get()).toLowerCase().replaceAll(" ", "").equals("no")) {
+                thirdProfileSaver.set(KEY.SETTINGS_PROFILENAME.get(), "Vide");
+                thirdProfileSaver.set(KEY.INFOS_NAME.get(), "");
             }
 
             initProfileIcon();
@@ -183,10 +183,10 @@ public class LauncherFrame extends JFrame {
                 EasterEggs.initEastereggs();
                 new File(Launcher.dataFolder + "eastereggs.properties").delete();
 
-                if (firstProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null && secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null && thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE) == null) {
-                    firstProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "true");
-                    secondProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
-                    thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE, "false");
+                if (firstProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()) == null && secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()) == null && thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()) == null) {
+                    firstProfileSaver.set(KEY.SETTINGS_MAINPROFILE.get(), "true");
+                    secondProfileSaver.set(KEY.SETTINGS_MAINPROFILE.get(), "false");
+                    thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE.get(), "false");
                 }
 
                 PageChange.lastSettingsSaver = null;
