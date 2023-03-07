@@ -52,12 +52,6 @@ public class OnButtonEvent {
         profilePageButtons.add(profileAddonsTabButton);
         profilePageButtons.add(profileSettingsTabButton);
 
-        profilePageButtons.add(profilePlayButton);
-        profilePageButtons.add(profileServerInfosButton);
-        profilePageButtons.add(profileNewsButton);
-        profilePageButtons.add(profileLaunchToMenuButton);
-        profilePageButtons.add(profileDownloadButton);
-
         profilePageButtons.add(profileAccountConnectionButton);
         profilePageButtons.add(profileAccountConnectionMicrosoftButton);
         profilePageButtons.add(profileAccountResetButton);
@@ -165,157 +159,6 @@ public class OnButtonEvent {
             setPage(true, PageName.PROFILE_SETTINGS, eventSelectedProfile);
         }
 
-        // Actions des boutons de la profilePage - Home
-        else if (src == profilePlayButton) {
-            Saver saver = getSelectedSaver();
-            enablePlayButtons(false);
-
-            if (inDownload) {
-                inDownloadError();
-                return;
-            }
-            //     if (profilePlayButtonIsPlayStatus) {
-            launchThread = new Thread(() -> {
-                try {
-                    //               togglePlayButtonStatus(false);
-                    loadingBar.setVisible(true);
-                    infosLabel.setVisible(true);
-                    infosLabel.setText("Connexion...");
-                    try {
-                        Launcher.connect(saver);
-                    } catch (MicrosoftAuthenticationException m) {
-                        enablePlayButtons(true);
-                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                        infosLabel.setText("Connexion \u00e9chou\u00e9e");
-                        loadingBar.setVisible(false);
-                        infosLabel.setVisible(false);
-                        return;
-                    }
-                    infosLabel.setText("Connect\u00e9 avec " + getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
-
-                    try {
-                        Launcher.update(saver);
-                    } catch (Exception ex) {
-                        enablePlayButtons(true);
-                        throw new RuntimeException(ex);
-                    }
-                    updatePostExecutions();
-
-                    try {
-                        Launcher.launch(true, saver);
-                    } catch (Exception ex) {
-                        enablePlayButtons(true);
-                        throw new RuntimeException(ex);
-                    }
-                    enablePlayButtons(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Thread t = new Thread(() -> {
-                        System.exit(1);
-                    });
-                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
-                }
-
-            });
-            launchThread.start();
-
-            //          togglePlayButtonStatus(false);
-            //     } else {
-            //     stopUpdate();
-
-            //          togglePlayButtonStatus(true);
-            //     }
-
-        } else if (src == profileServerInfosButton) {
-            ServerInfosFrame.openServerInfos();
-        } else if (src == profileNewsButton) {
-            setPage(true, PageName.NEWS);
-        } else if (src == profileLaunchToMenuButton) {
-            Saver saver = getSelectedSaver();
-            enablePlayButtons(false);
-
-            if (inDownload) {
-                inDownloadError();
-                return;
-            }
-            launchThread = new Thread(() -> {
-                try {
-                    //          togglePlayButtonStatus(false);
-
-                    try {
-                        Launcher.connect(saver);
-                    } catch (MicrosoftAuthenticationException m) {
-                        enablePlayButtons(true);
-                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                        infosLabel.setText("Connexion \u00e9chou\u00e9e");
-                        loadingBar.setVisible(false);
-                        infosLabel.setVisible(false);
-                        return;
-                    }
-
-                    try {
-                        Launcher.update(saver);
-                    } catch (Exception ex) {
-                        enablePlayButtons(true);
-                        throw new RuntimeException(ex);
-                    }
-                    updatePostExecutions();
-
-                    try {
-                        Launcher.launch(false, saver);
-                    } catch (Exception ex) {
-                        enablePlayButtons(true);
-                        throw new RuntimeException(ex);
-                    }
-                    enablePlayButtons(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Thread t = new Thread(() -> {
-                        System.exit(1);
-                    });
-                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
-                }
-
-            });
-            launchThread.start();
-
-        } else if (src == profileDownloadButton) {
-            Saver saver = getSelectedSaver();
-            enablePlayButtons(false);
-
-            if (inDownload) {
-                inDownloadError();
-                return;
-            }
-            updateThread = new Thread(() -> {
-                try {
-                    //          togglePlayButtonStatus(false);
-                    try {
-                        Launcher.update(saver);
-                    } catch (InterruptedException e1) {
-                        enablePlayButtons(true);
-                        updatePostExecutions();
-                    } catch (Exception ex) {
-                        enablePlayButtons(true);
-                        throw new RuntimeException(ex);
-                    }
-                    enablePlayButtons(true);
-                    updatePostExecutions();
-                    doneMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Thread t = new Thread(() -> {
-                        System.exit(1);
-                    });
-                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
-                }
-
-            });
-
-            updateThread.start();
-
-        }
-
         // Actions des boutons de la profilePage - Account
         else if (src == profileAccountConnectionButton) {
             Saver saver = getSelectedSaver();
@@ -377,7 +220,6 @@ public class OnButtonEvent {
             connect.start();
         } else if (src == profileAccountResetButton) {
             Thread ifYes = new Thread(() -> {
-                getSelectedSaver().set(ProfileSaver.KEY.FILECREATED.get(), "");
                 initializeDataFiles(getSelectedSaver());
                 profileAccountTextField.setText("");
                 doneMessage("Compte supprim\u00e9", "Donn\u00e9es du compte r\u00e9initialis\u00e9es");

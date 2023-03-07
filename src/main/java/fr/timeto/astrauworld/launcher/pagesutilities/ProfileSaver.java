@@ -137,28 +137,35 @@ public class ProfileSaver {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void initializeDataFiles(Saver saver) {
-        if(!Objects.equals(saver.get(KEY.FILECREATED.get()), "true")) {
-            // Informations générales
-            saver.set(KEY.INFOS_NAME.get(), "");
-            saver.set(KEY.INFOS_EMAIL.get(), "none");
-            saver.set(KEY.INFOS_UUID.get(), "none");
-            saver.set(KEY.INFOS_ACCESSTOKEN.get(), "none");
-            saver.set(KEY.INFOS_REFRESHTOKEN.get(), "none");
-            // Configuration de Minecraft, si la key commence par 'mod' -> mod client
-            saver.set(KEY.MOD_OPTIFINE.get(), "false");
-            saver.set(KEY.MOD_FPSMODEL.get(), "false");
-            saver.set(KEY.MOD_BETTERTPS.get(), "false");
-            saver.set(KEY.MOD_FALLINGLEAVES.get(), "false");
-            saver.set(KEY.MOD_APPLESKIN.get(), "false");
-            saver.set(KEY.MOD_SOUNDPHYSICS.get(), "false");
+        KEY[] keysList = new KEY[]{
+                KEY.INFOS_NAME,
+                KEY.INFOS_EMAIL,
+                KEY.INFOS_UUID,
+                KEY.INFOS_ACCESSTOKEN,
+                KEY.INFOS_REFRESHTOKEN,
+                KEY.MOD_OPTIFINE,
+                KEY.MOD_FPSMODEL,
+                KEY.MOD_BETTERTPS,
+                KEY.MOD_FALLINGLEAVES,
+                KEY.MOD_APPLESKIN,
+                KEY.MOD_SOUNDPHYSICS,
+                KEY.MOD_WAVEYCAPES,
+                KEY.MOD_3DSKINLAYERS,
+                KEY.SETTINGS_PROFILENAME,
+                KEY.SETTINGS_HELMICON,
+                KEY.SETTINGS_RAM,
+                KEY.SETTINGS_MAINPROFILE,
+        };
 
-            saver.set(KEY.SETTINGS_PROFILENAME.get(), "Vide");
-            saver.set(KEY.SETTINGS_HELMICON.get(), "true");
-            saver.set(KEY.SETTINGS_RAM.get(), "3.0");
-            saver.set(KEY.SETTINGS_MAINPROFILE.get(), "false");
-
-            saver.set(KEY.FILECREATED.get(), "true");
+        int i = 0;
+        while (i != keysList.length) {
+            if (saver.get(keysList[i].get()) == null) {
+                saver.set(keysList[i].get(), keysList[i].getDefaultValue());
+            };
+            i++;
         }
+
+        Launcher.println("Fichier de données pour le saver du profil " + getSelectedProfile(saver) + " initialisé");
     }
 
     /**
@@ -550,75 +557,80 @@ public class ProfileSaver {
          * Le pseudo du compte enregistré
          * <br> A ne pas confondre avec {@link KEY#SETTINGS_PROFILENAME}
          */
-        INFOS_NAME("infos|name"),
+        INFOS_NAME("infos|name", "no"),
         /**
          * L'email du compte enregistré
          */
-        INFOS_EMAIL("infos|email"),
+        INFOS_EMAIL("infos|email", "none"),
         /**
          * L'UUID du compte enregistré
          */
-        INFOS_UUID("infos|UUID"),
+        INFOS_UUID("infos|UUID", "none"),
         /**
          * L'access token du compte enregistré
          */
-        INFOS_ACCESSTOKEN("infos|accessToken"),
+        INFOS_ACCESSTOKEN("infos|accessToken", "none"),
         /**
          * Le refresh token du compte enregistré
          */
-        INFOS_REFRESHTOKEN("infos|refreshToken"),
+        INFOS_REFRESHTOKEN("infos|refreshToken", "none"),
 
         /**
          * Optifine
          */
-        MOD_OPTIFINE("mod|Optifine"),
+        MOD_OPTIFINE("mod|Optifine", "false"),
         /**
          * Mod client 'First Person Model'
          */
-        MOD_FPSMODEL("mod|FirstPersonModel"),
+        MOD_FPSMODEL("mod|FirstPersonModel", "false"),
         /**
          * Mod client 'Better Third Person'
          */
-        MOD_BETTERTPS("mod|BetterThirdPerson"),
+        MOD_BETTERTPS("mod|BetterThirdPerson", "false"),
         /**
          * Mod client 'Falling Leaves'
          */
-        MOD_FALLINGLEAVES("mod|FallingLeaves"),
+        MOD_FALLINGLEAVES("mod|FallingLeaves", "false"),
         /**
          * Mod client 'Apple Skin'
          */
-        MOD_APPLESKIN("mod|AppleSkin"),
+        MOD_APPLESKIN("mod|AppleSkin", "false"),
         /**
          * Mod client 'Sound Physics Remastered'
          */
-        MOD_SOUNDPHYSICS("mod|SoundPhysicsRemastered"),
+        MOD_SOUNDPHYSICS("mod|SoundPhysicsRemastered", "false"),
+        MOD_WAVEYCAPES("mod|WaveyCapes", "false"),
+        MOD_3DSKINLAYERS("mod|3DSkinLayers", "false"),
 
         /**
          * Le nom du profil
          * <br> A ne pas confondre avec {@link KEY#INFOS_NAME}
          */
-        SETTINGS_PROFILENAME("settings|ProfileName"),
+        SETTINGS_PROFILENAME("settings|ProfileName", "Vide"),
         /**
          * La seconde couche sur l'icône du profil
          */
-        SETTINGS_HELMICON("settings|HelmIcon"),
+        SETTINGS_HELMICON("settings|HelmIcon", "true"),
         /**
          * La RAM allouée
          */
-        SETTINGS_RAM("settings|AllowedRam"),
-        SETTINGS_MAINPROFILE("settings|MainProfile"),
-
-        /**
-         * Si le fichier est créé
-         */
-        FILECREATED("fileCreated");
+        SETTINGS_RAM("settings|AllowedRam", "3.0"),
+        SETTINGS_MAINPROFILE("settings|MainProfile", "false");
 
         private final String key;
+        private final String defaultValue;
 
-        KEY(String key) {this.key = key;}
+        KEY(String key, String defaultValue) {
+            this.key = key;
+            this.defaultValue = defaultValue;
+        }
 
         public String get() {
             return key;
+        }
+
+        public String getDefaultValue() {
+            return defaultValue;
         }
     }
 }

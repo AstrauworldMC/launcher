@@ -1,11 +1,9 @@
-package fr.timeto.astrauworld.launcher.panels;
+package fr.timeto.astrauworld.launcher.customelements;
 
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
-import fr.timeto.astrauworld.launcher.customelements.ShadersDownloadButton;
-import fr.timeto.astrauworld.launcher.customelements.ShadersSwitchButton;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;

@@ -16,49 +16,60 @@ public class TexturedSwitchButton extends STexturedButton {
     private final BufferedImage textureHoverOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-hover_on.png");
     private final BufferedImage textureDisabledOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_off.png");
     private final BufferedImage textureDisabledOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_on.png");
-    private final String saverKey;
+    private final String saverKeyStr;
+    private final KEY saverKey;
     private final boolean global;
 
     public BufferedImage getTexture() {
-        if (getSelectedSaver().get(saverKey).contains("true")) {
+        if (getSelectedSaver().get(saverKeyStr).contains("true")) {
             return(textureOn);
         }
         return textureOff;
     }
 
     public BufferedImage getTextureHover() {
-        if (getSelectedSaver().get(saverKey).contains("true")) {
+        if (getSelectedSaver().get(saverKeyStr).contains("true")) {
             return(textureHoverOn);
         }
         return textureHoverOff;
     }
 
     public BufferedImage getTextureDisabled() {
-        if (getSelectedSaver().get(saverKey).contains("true")) {
+        if (getSelectedSaver().get(saverKeyStr).contains("true")) {
             return(textureDisabledOn);
         }
         return textureDisabledOff;
     }
 
     public void defineTextures() {
-        if (getSelectedSaver().get(saverKey).contains("true")) {
-            super.setTexture(textureOn);
-            super.setTextureHover(textureHoverOn);
-            super.setTextureDisabled(textureDisabledOn);
-        } else {
-            super.setTexture(textureOff);
-            super.setTextureHover(textureHoverOff);
-            super.setTextureDisabled(textureDisabledOff);
+        try {
+            if (getSelectedSaver().get(saverKeyStr).contains("true")) {
+                super.setTexture(textureOn);
+                super.setTextureHover(textureHoverOn);
+                super.setTextureDisabled(textureDisabledOn);
+            } else {
+                super.setTexture(textureOff);
+                super.setTextureHover(textureHoverOff);
+                super.setTextureDisabled(textureDisabledOff);
+            }
+        } catch (NullPointerException e) {
+            getSelectedSaver().set(saverKeyStr, saverKey.getDefaultValue());
+            defineTextures();
         }
     }
 
     public String getSaverKey() {
+        return saverKeyStr;
+    }
+
+    public KEY getKey() {
         return saverKey;
     }
 
     public TexturedSwitchButton(KEY saverKey, boolean global) {
         super(getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-        this.saverKey = saverKey.get();
+        this.saverKeyStr = saverKey.get();
+        this.saverKey = saverKey;
         this.global = global;
 
     }
@@ -75,27 +86,27 @@ public class TexturedSwitchButton extends STexturedButton {
 
     @Override
     public void setEnabled(boolean aFlag) {
-        String value = getSelectedSaver().get(saverKey);
+        String value = getSelectedSaver().get(saverKeyStr);
 
         if(aFlag) {
             if (Objects.equals(value, "trueDisabled")) {
-                getSelectedSaver().set(saverKey, "false");
+                getSelectedSaver().set(saverKeyStr, "false");
             } else if (Objects.equals(value, "falseDisabled")) {
-                getSelectedSaver().set(saverKey, "true");
+                getSelectedSaver().set(saverKeyStr, "true");
             }
             super.setEnabled(aFlag);
         } else {
             if (Objects.equals(value, "true")) {
-                getSelectedSaver().set(saverKey, "falseDisabled");
+                getSelectedSaver().set(saverKeyStr, "falseDisabled");
             } else if (Objects.equals(value, "false")) {
-                getSelectedSaver().set(saverKey, "trueDisabled");
+                getSelectedSaver().set(saverKeyStr, "trueDisabled");
             }
             super.setEnabled(aFlag);
         }
     }
 
     public void toggleButton() {
-        String value = getSelectedSaver().get(saverKey);
+        String value = getSelectedSaver().get(saverKeyStr);
 
         Saver saverNotSelect1 = null;
         Saver saverNotSelect2 = null;

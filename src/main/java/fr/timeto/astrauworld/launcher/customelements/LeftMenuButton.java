@@ -1,4 +1,4 @@
-package fr.timeto.astrauworld.launcher.panels;
+package fr.timeto.astrauworld.launcher.customelements;
 
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.colored.SColoredButton;

@@ -1,14 +1,13 @@
 package fr.timeto.astrauworld.launcher.main;
 
 import fr.theshark34.openlauncherlib.util.Saver;
-import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.colored.SColoredBar;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.*;
 import fr.timeto.astrauworld.launcher.pagesutilities.*;
-import fr.timeto.astrauworld.launcher.panels.*;
+import fr.timeto.astrauworld.launcher.panels.profile.ProfileHomePage;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
@@ -68,11 +67,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                     profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    enablePlayButtons(true);
+                    profileHomePage.enablePlayButtons(true);
                } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    enablePlayButtons(false);
+                    profileHomePage.enablePlayButtons(false);
                }
           } catch (NullPointerException ignored) {}
 
@@ -139,9 +138,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
                public void setVisible(boolean aFlag) {
                     super.setVisible(aFlag);
                     if (aFlag) {
-                         profileNewsButton.setLocation(profileNewsButton.getX(), 575);
+                         profileHomePage.newsButton.setLocation(profileHomePage.newsButton.getX(), 462);
                     } else {
-                         profileNewsButton.setLocation(profileNewsButton.getX(), 578);
+                         profileHomePage.newsButton.setLocation(profileHomePage.newsButton.getX(), 465);
                     }
                }
           };
@@ -196,6 +195,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-selected.png"));
 
           // Profiles components - home
+          public static final ProfileHomePage profileHomePage = new ProfileHomePage();
           /**
            * Booléen de si le bouton de lancement est dans le statut de lancement
            */
@@ -205,31 +205,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            */
           public static boolean isUpdating = false;
           /**
-           * Bouton pour lancer une update puis le jeu directement vers le serveur
-           */
-          public static final STexturedButton profilePlayButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/playButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/playButton-disabled.png"));
-          public static final STexturedButton profileServerInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/serverInfosButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/serverInfosButton-hover.png"));
-          /**
-           * Bouton pour voir les actualités
-           */
-          public static final STexturedButton profileNewsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/newsButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/newsButton-hover.png"));
-          /**
-           * Bouton pour lancer une update puis le jeu
-           */
-          public static final STexturedButton profileLaunchToMenuButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/launchToMenuButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/launchToMenuButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/launchToMenuButton-disabled.png"));
-          /**
-           * Bouton pour lancer une update des fichiers du jeu
-           */
-          public static final STexturedButton profileDownloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/downloadButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/downloadButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/downloadButton-disabled.png"));
-          /**
            * Label du nom du compte connecté du profil
            */
           public static final JLabel profileAccountLabel = new JLabel("", SwingConstants.LEFT);
           public static final JLabel profileAccountConnectedLabel = new JLabel("Connecté en tant que: ");
-          public static final JPanel profileDiapoPanel = new JPanel();
-          public static final JLabel profileTextLogo = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/logo-texte.png")));
-          public static JLabel profileDiapoImage1 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png")));
-          public static JLabel profileDiapoImage2 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/townHall-day.png")));
 
           // Profiles components - compte
           /**
@@ -278,6 +257,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final ModPanel profileModsFallingleavesPanel = new ModPanel("Falling Leaves", KEY.MOD_FALLINGLEAVES, "https://www.curseforge.com/minecraft/mc-mods/falling-leaves-forge");
           public static final ModPanel profileModsAppleskinPanel = new ModPanel("Apple Skin", KEY.MOD_APPLESKIN, "https://www.curseforge.com/minecraft/mc-mods/appleskin");
           public static final ModPanel profileModsSoundphysicsPanel = new ModPanel("Sound Physics Remastered", KEY.MOD_SOUNDPHYSICS, "https://www.curseforge.com/minecraft/mc-mods/sound-physics-remastered");
+          public static final ModPanel profileModsWaveyCapesPanel = new ModPanel("Wavey Capes", KEY.MOD_WAVEYCAPES, "https://www.curseforge.com/minecraft/mc-mods/waveycapes");
+          public static final ModPanel profileMods3dSkinLayersPanel = new ModPanel("3D Skin Layers", KEY.MOD_3DSKINLAYERS, "https://www.curseforge.com/minecraft/mc-mods/skin-layers-3d");
 
           public static final STexturedButton profileShadersSeeComparisonButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-hover.png"));
           public static final ShaderPanel profileShadersChocapicV6PlusButton = new ShaderPanel("Chocapic V6", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6);
@@ -406,6 +387,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            * @since Beta2.1.2
            */
           public static JLabel aboutEastereggsLabel = new JLabel("", SwingConstants.LEFT);
+
+     //     public static PageCreator testPageCreator = new PageCreator();
      }
 
      /**
@@ -416,6 +399,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.setLayout(null);
 
           initFonts();
+
+     /*     testPageCreator.setBounds(178, 113);
+          this.add(testPageCreator); */
 
           // Common components
           quitButton.setBounds(970, 4);
@@ -491,7 +477,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           launcherVersionLabel.setBounds(9, 39, 150, 50);
           launcherVersionLabel.setForeground(new Color(100, 100, 100));
           launcherVersionLabel.setFont(kollektifBoldFont.deriveFont(14f));
-          launcherVersionLabel.setEditable(false);
+          launcherVersionLabel.setSelectionColor(new Color(255, 20, 20, 200));
           launcherVersionLabel.setOpaque(false);
           this.add(launcherVersionLabel);
 
@@ -530,56 +516,19 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileSettingsTabButton);
           profileSettingsTabButton.setVisible(false);
 
-          //Profiles components - home
-          profilePlayButton.setBounds(728, 436);
-          profilePlayButton.addEventListener(this);
-          this.add(profilePlayButton);
-          profilePlayButton.setVisible(false);
-
-          profileNewsButton.setBounds(229, 578);
-          profileNewsButton.addEventListener(this);
-          this.add(profileNewsButton);
-          profileNewsButton.setVisible(false);
-
-          profileServerInfosButton.setBounds(246, 528);
-          profileServerInfosButton.addEventListener(this);
-          this.add(profileServerInfosButton);
-          profileServerInfosButton.setVisible(false);
-
-          profileLaunchToMenuButton.setBounds(495, 541);
-          profileLaunchToMenuButton.addEventListener(this);
-          this.add(profileLaunchToMenuButton);
-          profileLaunchToMenuButton.setVisible(false);
-
-          profileDownloadButton.setBounds(764, 553);
-          profileDownloadButton.addEventListener(this);
-          this.add(profileDownloadButton);
-          profileDownloadButton.setVisible(false);
-
           profileAccountLabel.setBounds(386, 468, 276, 31);
           profileAccountLabel.setForeground(Color.WHITE);
           profileAccountLabel.setFont(titleLabel.getFont().deriveFont(17f));
           this.add(profileAccountLabel);
-          profileAccountLabel.setVisible(false);
 
           profileAccountConnectedLabel.setBounds(192, 472, 191, 19);
           profileAccountConnectedLabel.setForeground(new Color(179, 179, 179));
           profileAccountConnectedLabel.setFont(titleLabel.getFont().deriveFont(17f));
-          this.add(profileAccountConnectedLabel);
-          profileAccountConnectedLabel.setVisible(false);
+          add(profileAccountConnectedLabel);
 
-          profileTextLogo.setBounds(420, 138, 338, 83);
-          this.add(profileTextLogo);
-          profileTextLogo.setVisible(false);
-
-          profileDiapoPanel.setLayout(null);
-          this.add(profileDiapoPanel);
-          profileDiapoPanel.setBounds(178, 113, 822, 343);
-          profileDiapoPanel.setVisible(false);
-          profileDiapoImage1.setBounds(0, 0, 822, 343);
-          profileDiapoPanel.add(profileDiapoImage1);
-          profileDiapoImage2.setBounds(0, 0, 822, 343);
-          profileDiapoPanel.add(profileDiapoImage2);
+          profileHomePage.setBounds(178, 113);
+          this.add(profileHomePage);
+          profileHomePage.setVisible(false);
 
           // Profiles components - compte
           profileAccountConnectionButton.setBounds(301, 359);
@@ -600,6 +549,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileAccountTextField.setForeground(Color.WHITE);
           profileAccountTextField.setFont(titleLabel.getFont().deriveFont(25f));
           profileAccountTextField.setCaretColor(Color.RED);
+          profileAccountTextField.setSelectionColor(new Color(255, 20, 20, 200));
           profileAccountTextField.setOpaque(false);
           profileAccountTextField.setBorder(null);
           profileAccountTextField.setBounds(222, 168, 386, 60);
@@ -609,6 +559,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileAccountPasswordField.setForeground(Color.WHITE);
           profileAccountPasswordField.setFont(profileAccountTextField.getFont());
           profileAccountPasswordField.setCaretColor(Color.RED);
+          profileAccountPasswordField.setSelectionColor(new Color(255, 20, 20, 200));
           profileAccountPasswordField.setOpaque(false);
           profileAccountPasswordField.setBorder(null);
           profileAccountPasswordField.setBounds(222, 262, 386, 60);
@@ -660,6 +611,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileModsSoundphysicsPanel.setBounds(185, 315);
           this.add(profileModsSoundphysicsPanel);
           profileModsSoundphysicsPanel.setVisible(false);
+
+          profileModsWaveyCapesPanel.setBounds(595, 315);
+          this.add(profileModsWaveyCapesPanel);
+          profileModsWaveyCapesPanel.setVisible(false);
+
+          profileMods3dSkinLayersPanel.setBounds(185, 375);
+          this.add(profileMods3dSkinLayersPanel);
+          profileMods3dSkinLayersPanel.setVisible(false);
 
 
           profileShadersSeeComparisonButton.setBounds(630, 582);
@@ -754,6 +713,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileSettingsProfileNameTextField.setForeground(Color.WHITE);
           profileSettingsProfileNameTextField.setFont(titleLabel.getFont().deriveFont(25f));
           profileSettingsProfileNameTextField.setCaretColor(Color.RED);
+          profileSettingsProfileNameTextField.setSelectionColor(new Color(255, 20, 20, 200));
           profileSettingsProfileNameTextField.setOpaque(false);
           profileSettingsProfileNameTextField.setBorder(null);
           profileSettingsProfileNameTextField.setBounds(496, 138, 310, 63);
@@ -775,6 +735,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           profileSettingsAllowedRamSpinner.getEditor().setOpaque(false);
           ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setOpaque(false);
           ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setForeground(Color.WHITE);
+          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setSelectionColor(new Color(255, 20, 20, 200));
           ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setBorder(new EmptyBorder(5, 0, 0, 4));
           this.add(profileSettingsAllowedRamSpinner);
           profileSettingsAllowedRamSpinner.setVisible(false);
@@ -807,6 +768,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           changelogsTextArea.setBounds(199, 133, 787, 484);
           changelogsTextArea.setForeground(Color.WHITE);
           changelogsTextArea.setFont(kollektifBoldFont.deriveFont(14f));
+          changelogsTextArea.setSelectionColor(new Color(255, 20, 20, 200));
           changelogsTextArea.setEditable(false);
           changelogsTextArea.setOpaque(false);
           this.add(changelogsTextArea);
@@ -875,47 +837,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
      }
 
      /**
-      * Pour activer/désactiver les boutons de la page principale des profils
-      * @param e {@code true} si activation, {@code false} si désactivation
-      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-      */
-     public static void enablePlayButtons(boolean e) {
-
-          profilePlayButton.setEnabled(e);
-
-          profileLaunchToMenuButton.setEnabled(e);
-          profileDownloadButton.setEnabled(e);
-     }
-
-     /**
-      * Pour changer le statut du bouton de lancement
-      * @param toPlayStatus en statut de lancement
-      * @see Components#profilePlayButtonIsPlayStatus
-      */
-     public static void togglePlayButtonStatus(boolean toPlayStatus) {
-          if (toPlayStatus) {
-               profilePlayButton.setTexture(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-normal.png"));
-               profilePlayButton.setTextureHover(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-hover.png"));
-               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-disabled.png"));
-
-               enablePlayButtons(true);
-
-               profilePlayButtonIsPlayStatus = true;
-               isUpdating = false;
-          } else {
-               profilePlayButton.setTexture(getResourceIgnorePath("/assets/launcher/profilesPage/stopButton-normal.png"));
-               profilePlayButton.setTextureHover(getResourceIgnorePath("/assets/launcher/profilesPage/stopButton-hover.png"));
-               profilePlayButton.setTextureDisabled(getResourceIgnorePath("/assets/launcher/profilesPage/stopButton-disabled.png"));
-
-               enablePlayButtons(false);
-
-               profilePlayButtonIsPlayStatus = false;
-               isUpdating = true;
-          }
-
-     }
-
-     /**
       * Background
       * @param g the <code>Graphics</code> object to protect
       */
@@ -935,7 +856,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           barLabel.setText("");
           percentLabel.setText("");
           infosLabel.setText("");
-          togglePlayButtonStatus(true);
      }
 
      /**

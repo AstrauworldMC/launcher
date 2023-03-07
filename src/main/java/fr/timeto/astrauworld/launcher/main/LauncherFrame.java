@@ -67,6 +67,7 @@ public class LauncherFrame extends JFrame {
         @Override
         public void windowClosing(WindowEvent e) {
             DiscordManager.stop();
+            LauncherSystemTray.stop();
             System.exit(0);
         }
     };

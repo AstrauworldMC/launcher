@@ -37,6 +37,10 @@ public class LauncherSystemTray {
     /* récupère la zone de notification */
     static SystemTray tray = SystemTray.getSystemTray();
 
+    public static void stop() {
+        tray.remove(trayIcon);
+    }
+
     public static void initLauncherSystemTray() {
         tray.remove(trayIcon);
 

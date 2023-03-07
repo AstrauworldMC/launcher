@@ -1,49 +1,58 @@
 package fr.timeto.astrauworld.launcher.panels;
 
-import fr.theshark34.swinger.event.SwingerEvent;
-import fr.theshark34.swinger.event.SwingerEventListener;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
-public class PageCreator extends JPanel implements SwingerEventListener {
-    String title;
-    String subtitle;
+public class PageCreator extends JPanel {
+    protected String title;
+    protected String subtitle;
 
-    BufferedImage bg;
+    protected final PageName pageName;
+    protected final Background bg;
 
-    ArrayList<?> componentsList;
+    protected PageCreator(PageName pageName, String title, String subtitle) {
+        this.pageName = pageName;
+        this.bg = pageName.getBackground();
+        this.title = title;
+        this.subtitle = subtitle;
+    }
 
-    public static class Builder {
-        private PageCreator p;
+    public void setBounds(int x, int y) {
+        setBounds(x, y, 822, 517);
+    }
 
-        public Builder(String title, String subtitle) {
-            p.title = title;
-            p.subtitle = subtitle;
+    public void setVisible(boolean aFlag) {
+        if (aFlag) {
+            LauncherPanel.Components.titleLabel.setText(title);
+            LauncherPanel.Components.subTitleLabel.setText(subtitle);
         }
-
-        public Builder setBackground(BufferedImage bg) {
-            p.bg = bg;
-            return this;
-        }
-
-        public PageCreator build() {
-          return p;
-        };
-
+        super.setVisible(aFlag);
     }
 
-    @Override
-    public void onEvent(SwingerEvent swingerEvent) {
-
+    public String getTitle() {
+        return title;
     }
 
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), this);
-
+    public String getSubtitle() {
+        return subtitle;
     }
+
+    public PageName getPageName() {
+        return pageName;
+    }
+
+    public Background getBg() {
+        return bg;
+    }
+
+    protected void setTitle(String title) {
+        this.title = title;
+    }
+
+    protected void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
 }

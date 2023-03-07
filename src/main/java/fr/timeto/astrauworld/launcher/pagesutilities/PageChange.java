@@ -7,10 +7,6 @@ import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
@@ -182,15 +178,7 @@ public class PageChange {
                 profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
-                profilePlayButton.setVisible(true);
-                profileServerInfosButton.setVisible(true);
-                profileNewsButton.setVisible(true);
-                profileLaunchToMenuButton.setVisible(true);
-                profileDownloadButton.setVisible(true);
-
-                profileDiapoPanel.setVisible(true);
-                profileTextLogo.setVisible(true);
-                profileDiaporama(true);
+                profileHomePage.setVisible(true);
 
                 profileAccountLabel.setBounds(374, 470, 276, 31);
                 profileAccountLabel.setVisible(true);
@@ -199,21 +187,19 @@ public class PageChange {
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                     profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    enablePlayButtons(true);
+                    profileHomePage.enablePlayButtons(true);
                 } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    enablePlayButtons(false);
+                    profileHomePage.enablePlayButtons(false);
                 }
-
-                //          togglePlayButtonStatus(profilePlayButtonIsPlayStatus);
 
                 corner.setVisible(false);
 
                 subTitleLabel.setText("Jouer");
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/profilesPage/profilePage.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
                  
                 corner.setVisible(true);
 
@@ -226,15 +212,7 @@ public class PageChange {
                 profileAddonsTabButton.setVisible(false);
                 profileSettingsTabButton.setVisible(false);
 
-                profilePlayButton.setVisible(false);
-                profileServerInfosButton.setVisible(false);
-                profileNewsButton.setVisible(false);
-                profileLaunchToMenuButton.setVisible(false);
-                profileDownloadButton.setVisible(false);
-
-                profileDiapoPanel.setVisible(false);
-                profileTextLogo.setVisible(false);
-                profileDiaporama(false);
+                profileHomePage.setVisible(false);
 
                 profileAccountLabel.setVisible(false);
                 profileAccountConnectedLabel.setVisible(false);
@@ -285,11 +263,11 @@ public class PageChange {
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                     profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    enablePlayButtons(true);
+                    profileHomePage.enablePlayButtons(true);
                 } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    enablePlayButtons(false);
+                    profileHomePage.enablePlayButtons(false);
                 }
 
                 corner.setVisible(false);
@@ -346,6 +324,8 @@ public class PageChange {
                     profileModsFallingleavesPanel.setVisible(true);
                     profileModsAppleskinPanel.setVisible(true);
                     profileModsSoundphysicsPanel.setVisible(true);
+                    profileModsWaveyCapesPanel.setVisible(true);
+                    profileMods3dSkinLayersPanel.setVisible(true);
 
                     profileAccountLabel.setBounds(380, 577, 276, 31);
                     profileAccountLabel.setVisible(true);
@@ -354,11 +334,11 @@ public class PageChange {
                     if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                         profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                         profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                        enablePlayButtons(true);
+                        profileHomePage.enablePlayButtons(true);
                     } else {
                         profileAccountLabel.setText("");
                         profileAccountConnectedLabel.setText("Non connect\u00e9");
-                        enablePlayButtons(false);
+                        profileHomePage.enablePlayButtons(false);
                     }
 
                     corner.setVisible(false);
@@ -383,6 +363,8 @@ public class PageChange {
                     profileModsFallingleavesPanel.setVisible(false);
                     profileModsAppleskinPanel.setVisible(false);
                     profileModsSoundphysicsPanel.setVisible(false);
+                    profileModsWaveyCapesPanel.setVisible(false);
+                    profileMods3dSkinLayersPanel.setVisible(false);
 
                     profileAccountLabel.setVisible(false);
                     profileAccountConnectedLabel.setVisible(false);
@@ -468,11 +450,11 @@ public class PageChange {
                     if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                         profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                         profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                        enablePlayButtons(true);
+                        profileHomePage.enablePlayButtons(true);
                     } else {
                         profileAccountLabel.setText("");
                         profileAccountConnectedLabel.setText("Non connect\u00e9");
-                        enablePlayButtons(false);
+                        profileHomePage.enablePlayButtons(false);
                     }
 
                     corner.setVisible(false);
@@ -563,11 +545,11 @@ public class PageChange {
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                     profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    enablePlayButtons(true);
+                    profileHomePage.enablePlayButtons(true);
                 } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    enablePlayButtons(false);
+                    profileHomePage.enablePlayButtons(false);
                 }
 
                 corner.setVisible(false);
@@ -778,258 +760,5 @@ public class PageChange {
             setAboutPage(false, PageName.ABOUT_MODS);
         }
 
-    }
-
-    private static boolean inDiaporama;
-    private static Thread tDiapo = null;
-    public static void profileDiaporama(boolean active) {
-        if (active) {
-            inDiaporama = true;
-
-            corner.setVisible(true);
-            corner.setVisible(false);
-
-            if (tDiapo == null) {
-                tDiapo = new Thread(() -> {
-                    BufferedImage lakeImage;
-                    BufferedImage townHallImage;
-                    BufferedImage churchImage;
-                    BufferedImage villageImage;
-
-                    String check = "dayCycle";
-                    try {
-                        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-                        Date date_from = formatter.parse("20:00");
-                        Date date_to = formatter.parse("08:00");
-                        Date dateNow = formatter.parse(formatter.format(new Date()));
-
-                        if (date_from.before(date_to)) { // they are on the same day
-                            if (dateNow.after(date_from) && dateNow.before(date_to)) {
-                                check = "nightCycle";
-                            } else {
-                                check = "dayCycle";
-                            }
-                        } else { // interval crossing midnight
-                            if (dateNow.before(date_to) || dateNow.after(date_from)) {
-                                check = "nightCycle";
-                            } else {
-                                check = "dayCycle";
-                            }
-                        }
-                    } catch (ParseException ignored) {
-                    }
-                    if (check.equals("nightCycle")) {
-                        lakeImage = getResourceIgnorePath("/assets/launcher/profilesPage/lake-night.png");
-                        townHallImage = getResourceIgnorePath("/assets/launcher/profilesPage/townHall-night.png");
-                        churchImage = getResourceIgnorePath("/assets/launcher/profilesPage/church-night.png");
-                        villageImage = getResourceIgnorePath("/assets/launcher/profilesPage/village-night.png");
-                    } else {
-                        lakeImage = getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png");
-                        townHallImage = getResourceIgnorePath("/assets/launcher/profilesPage/townHall-day.png");
-                        churchImage = getResourceIgnorePath("/assets/launcher/profilesPage/church-day.png");
-                        villageImage = getResourceIgnorePath("/assets/launcher/profilesPage/village-day.png");
-                    }
-
-                    final int xAllView = 0;
-                    final int xAllLeft = -822;
-                    final int xALlRight = 822;
-
-                    int x1;
-                    int x2;
-
-                    while (inDiaporama) {
-                        profileDiapoImage1.setIcon(new ImageIcon(lakeImage));
-                        profileDiapoImage2.setIcon(new ImageIcon(townHallImage));
-
-                        if (!inDiaporama) {
-                            return;
-                        }
-
-                        x2 = xALlRight;
-                        x1 = xAllView;
-                        profileDiapoImage2.setLocation(x2, 0);
-                        profileDiapoImage1.setLocation(x1, 0);
-
-                        for(int i = 0; i == 1; i++) {
-                            if (!inDiaporama) {
-                                return;
-                            }
-
-                            if (i==0) {
-                                x1 -= 3;
-                                x2 -= 3;
-                            } else {
-                                x1 = xALlRight;
-                                x2 = xAllLeft;
-                            }
-                            corner.setVisible(true);
-                            profileDiapoImage1.setLocation(x1, 0);
-                            profileDiapoImage2.setLocation(x2, 0);
-                            corner.setVisible(false);
-
-                            try {
-                                Thread.sleep(5);
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-
-                        try {
-                            Thread.sleep(6000);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        corner.setVisible(true);
-                        corner.setVisible(false);
-                        if (!inDiaporama) {
-                            return;
-                        }
-
-                        while (x1 != xAllLeft && x2 != xAllView) {
-                            if (!inDiaporama) {
-                                return;
-                            }
-
-                            x1 -= 3;
-                            x2 -= 3;
-                            corner.setVisible(true);
-                            profileDiapoImage1.setLocation(x1, 0);
-                            profileDiapoImage2.setLocation(x2, 0);
-                            corner.setVisible(false);
-                            try {
-                                Thread.sleep(5);
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-
-                        x1 = xALlRight;
-                        profileDiapoImage1.setLocation(x1, 0);
-                        if (!inDiaporama) {
-                            return;
-                        }
-                        try {
-                            Thread.sleep(6000);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        corner.setVisible(true);
-                        corner.setVisible(false);
-                        if (!inDiaporama) {
-                            return;
-                        }
-
-                        profileDiapoImage1.setIcon(new ImageIcon(churchImage));
-
-                        while (x2 != xAllLeft && x1 != xAllView) {
-                            if (!inDiaporama) {
-                                return;
-                            }
-
-                            x1 -= 3;
-                            x2 -= 3;
-                            corner.setVisible(true);
-                            profileDiapoImage1.setLocation(x1, 0);
-                            profileDiapoImage2.setLocation(x2, 0);
-                            corner.setVisible(false);
-                            try {
-                                Thread.sleep(5);
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-
-                        profileDiapoImage2.setIcon(new ImageIcon(villageImage));
-
-                        x2 = xALlRight;
-                        profileDiapoImage2.setLocation(x2, 0);
-                        if (!inDiaporama) {
-                            return;
-                        }
-                        try {
-                            Thread.sleep(6000);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        if (!inDiaporama) {
-                            return;
-                        }
-                        corner.setVisible(true);
-                        corner.setVisible(false);
-
-                        while (x1 != xAllLeft && x2 != xAllView) {
-                            if (!inDiaporama) {
-                                return;
-                            }
-                            x1 -= 3;
-                            x2 -= 3;
-                            corner.setVisible(true);
-                            profileDiapoImage1.setLocation(x1, 0);
-                            profileDiapoImage2.setLocation(x2, 0);
-                            corner.setVisible(false);
-                            try {
-                                Thread.sleep(5);
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-
-                        x1 = xALlRight;
-                        profileDiapoImage1.setLocation(x1, 0);
-                        if (!inDiaporama) {
-                            return;
-                        }
-                        try {
-                            Thread.sleep(6000);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        corner.setVisible(true);
-                        corner.setVisible(false);
-                        if (!inDiaporama) {
-                            return;
-                        }
-
-                        profileDiapoImage1.setIcon(new ImageIcon(lakeImage));
-
-                        while (x2 != xAllLeft && x1 != xAllView) {
-                            if (!inDiaporama) {
-                                return;
-                            }
-                            x1 -= 3;
-                            x2 -= 3;
-                            corner.setVisible(true);
-                            profileDiapoImage1.setLocation(x1, 0);
-                            profileDiapoImage2.setLocation(x2, 0);
-                            corner.setVisible(false);
-                            try {
-                                Thread.sleep(5);
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-
-                        corner.setVisible(true);
-                        corner.setVisible(false);
-                    }
-
-                });
-                tDiapo.start();
-
-                Thread t = new Thread(() -> {
-                    try {
-                        tDiapo.join();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    tDiapo = null;
-                });
-                t.start();
-            }
-
-        } else {
-            inDiaporama = false;
-        }
     }
 }
