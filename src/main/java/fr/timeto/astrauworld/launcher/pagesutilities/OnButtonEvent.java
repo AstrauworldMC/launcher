@@ -16,7 +16,6 @@ import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.*;
 import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
-import static fr.timeto.timutilslib.PopUpMessages.*;
 
 /**
  * La classe qui regroupe tous les événements des {@link STexturedButton} du {@link LauncherPanel}
@@ -49,10 +48,6 @@ public class OnButtonEvent {
         profilePageButtons.add(profileAccountTabButton);
         profilePageButtons.add(profileAddonsTabButton);
         profilePageButtons.add(profileSettingsTabButton);
-
-        profilePageButtons.add(profileSettingsHelmIconSwitchButton);
-        profilePageButtons.add(profileSettingsMainProfileSwitchButton);
-        profilePageButtons.add(profileSettingsSaveSettings);
 
         aboutPageButtons.add(aboutInfosTabButton);
         aboutPageButtons.add(aboutModsTabButton);
@@ -143,20 +138,6 @@ public class OnButtonEvent {
             setPage(true, PageName.PROFILE_ADDONS_MODS, eventSelectedProfile);
         } else if (src == profileSettingsTabButton) {
             setPage(true, PageName.PROFILE_SETTINGS, eventSelectedProfile);
-        }
-
-        // Actions des boutons de la profilePage - Reglages
-        else if (src == profileSettingsHelmIconSwitchButton) {
-            profileSettingsHelmIconSwitchButton.toggleButton();
-            initProfileButtons();
-        } else if (src == profileSettingsMainProfileSwitchButton) {
-            profileSettingsMainProfileSwitchButton.toggleButton();
-        } else if (src == profileSettingsSaveSettings) {
-            getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_RAM.get(), profileSettingsAllowedRamSpinner.getValue().toString());
-            getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_PROFILENAME.get(), profileSettingsProfileNameTextField.getText());
-            initProfileButtons();
-            doneMessage("Enregistr\u00e9 !", "Param\u00e8tres           enregistr\u00e9s");
-            LauncherSystemTray.changeTrayTooltip();
         }
 
     }

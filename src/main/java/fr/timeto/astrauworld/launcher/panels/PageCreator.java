@@ -6,6 +6,8 @@ import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 
 import javax.swing.*;
 
+import static fr.timeto.astrauworld.launcher.main.Launcher.parseUnicode;
+
 public class PageCreator extends JPanel {
     protected String title;
     protected String subtitle;
@@ -26,8 +28,8 @@ public class PageCreator extends JPanel {
 
     public void setVisible(boolean aFlag) {
         if (aFlag && pageName == PageChange.actualPage) {
-            LauncherPanel.Components.titleLabel.setText(title);
-            LauncherPanel.Components.subTitleLabel.setText(subtitle);
+            LauncherPanel.Components.titleLabel.setText(parseUnicode(title));
+            LauncherPanel.Components.subTitleLabel.setText(parseUnicode(subtitle));
         }
         super.setVisible(aFlag);
     }

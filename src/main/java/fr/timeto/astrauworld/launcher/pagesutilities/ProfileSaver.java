@@ -589,7 +589,7 @@ public class ProfileSaver {
          * Le pseudo du compte enregistré
          * <br> A ne pas confondre avec {@link KEY#SETTINGS_PROFILENAME}
          */
-        INFOS_NAME("infos|name", "no"),
+        INFOS_NAME("infos|name", ""),
         /**
          * L'email du compte enregistré
          */

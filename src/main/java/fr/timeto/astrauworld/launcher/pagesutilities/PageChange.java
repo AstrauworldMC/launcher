@@ -425,7 +425,7 @@ public class PageChange {
 
         } else if (Objects.equals(page.getTab2(), PageName.PROFILE_SETTINGS.getTab2())) {
             if (enabled) {
-                setProfilePage(false, "null", PageName.PROFILE_ALL);
+                setProfilePage(false, getSelectedProfile(), PageName.PROFILE_ALL);
                 setNewsPage(false);
                 setChangesPage(false);
                 setAboutPage(false, PageName.ABOUT);
@@ -448,13 +448,7 @@ public class PageChange {
                 profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
-                profileSettingsProfileNameTextField.setVisible(true);
-                profileSettingsProfileNameTextField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()));
-                profileSettingsHelmIconSwitchButton.setVisible(true);
-                profileSettingsAllowedRamSpinner.setVisible(true);
-                profileSettingsAllowedRamSpinner.setValue(parseFloat(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get())));
-                profileSettingsMainProfileSwitchButton.setVisible(true);
-                profileSettingsSaveSettings.setVisible(true);
+                profileSettingsPage.setVisible(true);
 
                 profileAccountLabel.setBounds(380, 577, 276, 31);
                 profileAccountLabel.setVisible(true);
@@ -472,27 +466,26 @@ public class PageChange {
 
                 corner.setVisible(false);
 
-                subTitleLabel.setText("R\u00e9glages");
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/profilesPage/reglages/profilePage-reglages.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
 
                 corner.setVisible(true);
 
-                lastSettingsProfileName = profileSettingsProfileNameTextField.getText();
-                lastSettingsRam = profileSettingsAllowedRamSpinner.getValue().toString();
+                lastSettingsProfileName = profileSettingsPage.profileNameTextField.getText();
+                lastSettingsRam = profileSettingsPage.allowedRamSpinner.getValue().toString();
             } else {
                 if (lastSettingsSaver != null) {
                     Saver finalLastSettingsSaver = lastSettingsSaver;
                     String finalLastSettingsProfileName = lastSettingsProfileName;
                     String finalLastSettingsRam = lastSettingsRam;
 
-                    if (!Objects.equals(profileSettingsProfileNameTextField.getText(), finalLastSettingsSaver.get(KEY.SETTINGS_PROFILENAME.get())) || !Objects.equals(profileSettingsAllowedRamSpinner.getValue().toString(), finalLastSettingsSaver.get(KEY.SETTINGS_RAM.get()))) {
+                    if (!Objects.equals(profileSettingsPage.profileNameTextField.getText(), finalLastSettingsSaver.get(KEY.SETTINGS_PROFILENAME.get())) || !Objects.equals(profileSettingsPage.allowedRamSpinner.getValue().toString(), finalLastSettingsSaver.get(KEY.SETTINGS_RAM.get()))) {
                         Thread yes = new Thread(() -> {
                             finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME.get(), finalLastSettingsProfileName);
                             finalLastSettingsSaver.set(ProfileSaver.KEY.SETTINGS_RAM.get(), finalLastSettingsRam);
-                            profileSettingsProfileNameTextField.setText(finalLastSettingsProfileName);
-                            profileSettingsAllowedRamSpinner.setValue(parseFloat(finalLastSettingsRam));
+                            profileSettingsPage.profileNameTextField.setText(finalLastSettingsProfileName);
+                            profileSettingsPage.allowedRamSpinner.setValue(parseFloat(finalLastSettingsRam));
                             lastSettingsProfileName = finalLastSettingsProfileName;
                             lastSettingsRam = finalLastSettingsRam;
                             initProfileButtons();
@@ -500,8 +493,8 @@ public class PageChange {
                             PopUpMessages.doneMessage("Sauvegard\u00e9", "Param\u00e8tres           sauvegard\u00e9s");
                         });
                         Thread no = new Thread(() -> {
-                            profileSettingsProfileNameTextField.setText(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()));
-                            profileSettingsAllowedRamSpinner.setValue(parseFloat(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM.get())));
+                            profileSettingsPage.profileNameTextField.setText(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()));
+                            profileSettingsPage.allowedRamSpinner.setValue(parseFloat(finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM.get())));
                             lastSettingsProfileName = finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get());
                             lastSettingsRam = finalLastSettingsSaver.get(ProfileSaver.KEY.SETTINGS_RAM.get());
 
@@ -517,11 +510,7 @@ public class PageChange {
                 profileAddonsTabButton.setVisible(false);
                 profileSettingsTabButton.setVisible(false);
 
-                profileSettingsProfileNameTextField.setVisible(false);
-                profileSettingsHelmIconSwitchButton.setVisible(false);
-                profileSettingsAllowedRamSpinner.setVisible(false);
-                profileSettingsMainProfileSwitchButton.setVisible(false);
-                profileSettingsSaveSettings.setVisible(false);
+                profileSettingsPage.setVisible(false);
 
                 profileAccountLabel.setVisible(false);
                 profileAccountConnectedLabel.setVisible(false);
@@ -532,8 +521,8 @@ public class PageChange {
             secondProfileButton.getProfileButton().setEnabled(true);
             thirdProfileButton.getProfileButton().setEnabled(true);
 
-            lastSettingsProfileName = profileSettingsProfileNameTextField.getText();
-            lastSettingsRam = profileSettingsAllowedRamSpinner.getValue().toString();
+            lastSettingsProfileName = profileSettingsPage.profileNameTextField.getText();
+            lastSettingsRam = profileSettingsPage.allowedRamSpinner.getValue().toString();
             setProfilePage(enabled, null, PageName.PROFILE_HOME);
             setProfilePage(enabled, null, PageName.PROFILE_ACCOUNT);
             setProfilePage(enabled, null, PageName.PROFILE_ADDONS_MODS);

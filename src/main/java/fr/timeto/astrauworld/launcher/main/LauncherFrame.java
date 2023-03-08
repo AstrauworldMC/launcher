@@ -123,6 +123,7 @@ public class LauncherFrame extends JFrame {
 
             Launcher.println("Chargement...");
 
+            Launcher.println("[Lancement] Création des dossiers");
             Launcher.AW_DIR.mkdir();
             Launcher.AW_DATA_FOLDER.mkdir();
             Launcher.AW_GAMEFILES_FOLDER.mkdir();
@@ -132,12 +133,14 @@ public class LauncherFrame extends JFrame {
             Launcher.AW_SECONDPROFILE_CUSTOMFILES_FOLDER.mkdir();
             Launcher.AW_THIRDPROFILE_CUSTOMFILES_FOLDER.mkdir();
 
+            Launcher.println("[Lancement] Création des fichiers d'image de profil");
             Launcher.AW_FIRSTPROFILE_ICON.createNewFile();
 
             Launcher.AW_SECONDPROFILE_ICON.createNewFile();
 
             Launcher.AW_THIRDPROFILE_ICON.createNewFile();
 
+            Launcher.println("[Lancement] Initialisation des fichiers de données");
             initializeDataFiles();
 
             if (firstProfileSaver.get(KEY.INFOS_NAME.get()).toLowerCase().replaceAll(" ", "").equals("no")) {
@@ -153,6 +156,7 @@ public class LauncherFrame extends JFrame {
                 thirdProfileSaver.set(KEY.INFOS_NAME.get(), "");
             }
 
+            Launcher.println("[Lancement] Initialisation des images de profil");
             initProfileIcon();
 
             CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
@@ -160,6 +164,7 @@ public class LauncherFrame extends JFrame {
             Swinger.setResourcePath("/assets/launcher/");
             Swinger.setSystemLookNFeel();
 
+            Launcher.println("[Lancement] Vérification des arguments");
             try {
                 if (Objects.equals(args[0], Launcher.afterMcExitArg)) {
                     Saver saver = null;
@@ -172,30 +177,39 @@ public class LauncherFrame extends JFrame {
                     }
                     profileAfterMcExit = args[1];
 
+                    Launcher.println("[Lancement] Relancement après la sortie du jeu avec le profil " + args[1] + " détecté, enregistrement des fichiers");
+
                     ProfileSaver.saveCustomFiles(saver);
                 } else if (Objects.equals(args[0], Launcher.devEnvArg)) {
                     devEnv = true;
+                    Launcher.println("[Lancement] Environnement de développement détecté");
                 }
             } catch (Exception ignored) {
             }
 
             if (profileAfterMcExit == null) {
+                Launcher.println("[Lancement] Lancement du DiscordRPC");
                 DiscordManager.start();
                 DiscordManager.setLauncherPresence();
 
+                Launcher.println("[Lancement] Initialisation des easters eggs");
                 EasterEggs.initEastereggs();
                 new File(Launcher.dataFolder + "eastereggs.properties").delete();
 
                 if (firstProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()) == null && secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()) == null && thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()) == null) {
+                    Launcher.println("[Lancement] Initialisation du profil principal");
                     firstProfileSaver.set(KEY.SETTINGS_MAINPROFILE.get(), "true");
                     secondProfileSaver.set(KEY.SETTINGS_MAINPROFILE.get(), "false");
                     thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE.get(), "false");
                 }
 
                 PageChange.lastSettingsSaver = null;
+
+                Launcher.println("[Lancement] Lancement du system tray icon");
                 initLauncherSystemTray();
                 instance = new LauncherFrame();
 
+                Launcher.println("[Lancement] Vérifications de problèmes de fichiers d'anciennes versions");
                 shaderpacksFolder.mkdir();
                 optionsShadersTextfile.createNewFile();
 
@@ -218,14 +232,18 @@ public class LauncherFrame extends JFrame {
 
                 File serverDat = new File(Launcher.AW_GAMEFILES_FOLDER + File.separator + "servers.dat");
                 if (!serverDat.exists()) {
+                    Launcher.println("[Lancement] Téléchargement du servers.dat");
                     TimFilesUtils.downloadFromInternet("https://github.com/AstrauworldMC/resources/raw/main/servers.dat", serverDat);
                     Launcher.println("servers.dat file downloaded");
                 }
 
                 if (!devEnv) {
+                    Launcher.println("[Lancement] Vérification de la version");
                     verifyLauncherVersion(false, false);
                 }
             } else {
+                Launcher.println("[Lancement] Relancement du launcher");
+
                 getInstance().setName("Astrauworld Launcher");
                 getInstance().setVisible(true);
                 initLauncherSystemTray();

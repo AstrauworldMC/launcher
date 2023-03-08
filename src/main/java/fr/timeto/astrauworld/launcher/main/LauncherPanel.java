@@ -10,10 +10,10 @@ import fr.timeto.astrauworld.launcher.pagesutilities.*;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileAccountPage;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileAddonsPage;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileHomePage;
+import fr.timeto.astrauworld.launcher.panels.profile.ProfileSettingsPage;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -211,25 +211,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final ProfileAddonsPage profileAddonsShadersChocapicv6Page = new ProfileAddonsPage(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6);
           public static final ProfileAddonsPage profileAddonsShadersChocapicv7Page = new ProfileAddonsPage(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7);
           public static final ProfileAddonsPage profileAddonsShadersChocapicv9Page = new ProfileAddonsPage(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9);
-
-          // Profiles components - reglages
-          /**
-           * Text field pour changer le nom du profil dans la page profil - réglages
-           */
-          public static JTextField profileSettingsProfileNameTextField = new JTextField();
-          /**
-           * Bouton I/O pour avoir la 2e couche sur l'avatar du profil dans la page profil - réglages
-           */
-          public static final TexturedSwitchButton profileSettingsHelmIconSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_HELMICON, false);
-          /**
-           * Spinner pour sélectionner la ram allouée au jeu au lancement dans la page profil - réglages
-           */
-          public static JSpinner profileSettingsAllowedRamSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 256.00, 1));
-          public static TexturedSwitchButton profileSettingsMainProfileSwitchButton = new TexturedSwitchButton(KEY.SETTINGS_MAINPROFILE, true);
-          /**
-           * Bouton pour sauvegarder les paramètres du profil
-           */
-          public static STexturedButton profileSettingsSaveSettings = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton-hover.png"));
+          public static final ProfileSettingsPage profileSettingsPage = new ProfileSettingsPage();
 
           // Changelogs components
           /**
@@ -480,46 +462,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileAddonsShadersChocapicv9Page);
           profileAddonsShadersChocapicv9Page.setVisible(false);
 
-          // Profile components - reglages
-          profileSettingsProfileNameTextField.setForeground(Color.WHITE);
-          profileSettingsProfileNameTextField.setFont(titleLabel.getFont().deriveFont(25f));
-          profileSettingsProfileNameTextField.setCaretColor(Color.RED);
-          profileSettingsProfileNameTextField.setSelectionColor(new Color(255, 20, 20, 200));
-          profileSettingsProfileNameTextField.setOpaque(false);
-          profileSettingsProfileNameTextField.setBorder(null);
-          profileSettingsProfileNameTextField.setBounds(496, 138, 310, 63);
-          this.add(profileSettingsProfileNameTextField);
-          profileSettingsProfileNameTextField.setVisible(false);
-
-          profileSettingsHelmIconSwitchButton.setBounds(491, 230);
-          profileSettingsHelmIconSwitchButton.addEventListener(this);
-          this.add(profileSettingsHelmIconSwitchButton);
-          profileSettingsHelmIconSwitchButton.setVisible(false);
-
-          profileSettingsAllowedRamSpinner.setUI(new CustomSpinnerUI());
-          profileSettingsAllowedRamSpinner.setForeground(Color.WHITE);
-          profileSettingsAllowedRamSpinner.setFont(titleLabel.getFont().deriveFont(25f));
-          profileSettingsAllowedRamSpinner.setOpaque(false);
-          profileSettingsAllowedRamSpinner.setBorder(null);
-          profileSettingsAllowedRamSpinner.setBounds(491, 306, 93, 58);
-          profileSettingsAllowedRamSpinner.setOpaque(false);
-          profileSettingsAllowedRamSpinner.getEditor().setOpaque(false);
-          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setOpaque(false);
-          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setForeground(Color.WHITE);
-          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setSelectionColor(new Color(255, 20, 20, 200));
-          ((JSpinner.NumberEditor)profileSettingsAllowedRamSpinner.getEditor()).getTextField().setBorder(new EmptyBorder(5, 0, 0, 4));
-          this.add(profileSettingsAllowedRamSpinner);
-          profileSettingsAllowedRamSpinner.setVisible(false);
-
-          profileSettingsMainProfileSwitchButton.setBounds(491, 381);
-          profileSettingsMainProfileSwitchButton.addEventListener(this);
-          this.add(profileSettingsMainProfileSwitchButton);
-          profileSettingsMainProfileSwitchButton.setVisible(false);
-
-          profileSettingsSaveSettings.setBounds(824, 543);
-          profileSettingsSaveSettings.addEventListener(this);
-          this.add(profileSettingsSaveSettings);
-          profileSettingsSaveSettings.setVisible(false);
+          profileSettingsPage.setBounds(178, 113);
+          this.add(profileSettingsPage);
+          profileSettingsPage.setVisible(false);
 
           // Changelogs components
           changelogsVersionComboBox.setBounds(189, 84, 150, 24);
