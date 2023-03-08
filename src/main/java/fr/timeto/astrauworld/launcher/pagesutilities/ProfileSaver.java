@@ -161,11 +161,41 @@ public class ProfileSaver {
         while (i != keysList.length) {
             if (saver.get(keysList[i].get()) == null) {
                 saver.set(keysList[i].get(), keysList[i].getDefaultValue());
-            };
+            }
             i++;
         }
 
         Launcher.println("Fichier de données pour le saver du profil " + getSelectedProfile(saver) + " initialisé");
+    }
+
+    public static void resetDataFiles(Saver saver) {
+        KEY[] keysList = new KEY[]{
+                KEY.INFOS_NAME,
+                KEY.INFOS_EMAIL,
+                KEY.INFOS_UUID,
+                KEY.INFOS_ACCESSTOKEN,
+                KEY.INFOS_REFRESHTOKEN,
+                KEY.MOD_OPTIFINE,
+                KEY.MOD_FPSMODEL,
+                KEY.MOD_BETTERTPS,
+                KEY.MOD_FALLINGLEAVES,
+                KEY.MOD_APPLESKIN,
+                KEY.MOD_SOUNDPHYSICS,
+                KEY.MOD_WAVEYCAPES,
+                KEY.MOD_3DSKINLAYERS,
+                KEY.SETTINGS_PROFILENAME,
+                KEY.SETTINGS_HELMICON,
+                KEY.SETTINGS_RAM,
+                KEY.SETTINGS_MAINPROFILE,
+        };
+
+        int i = 0;
+        while (i != keysList.length) {
+            saver.set(keysList[i].get(), keysList[i].getDefaultValue());
+            i++;
+        }
+
+        Launcher.println("Fichier de données pour le saver du profil " + getSelectedProfile(saver) + " réinitialisé");
     }
 
     /**

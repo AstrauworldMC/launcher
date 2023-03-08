@@ -244,16 +244,10 @@ public class PageChange {
                 profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
-                profileAccountConnectionButton.setVisible(true);
-                profileAccountConnectionMicrosoftButton.setVisible(true);
-                profileAccountResetButton.setVisible(true);
-                profileAccountTextField.setVisible(true);
-                profileAccountPasswordField.setVisible(true);
-                profileAccountTextField.setText("");
-                profileAccountPasswordField.setText("");
+                profileAccountPage.setVisible(true);
 
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()), "none")) {
-                    profileAccountTextField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()));
+                    profileAccountPage.textField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()));
                 }
 
                 profileAccountLabel.setBounds(380, 526, 276, 31);
@@ -275,7 +269,7 @@ public class PageChange {
                 subTitleLabel.setText("Compte");
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/profilesPage/compte/profilePage-compte.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
 
                 corner.setVisible(true);
 
@@ -284,11 +278,8 @@ public class PageChange {
                 profileAccountTabButton.setVisible(false);
                 profileAddonsTabButton.setVisible(false);
                 profileSettingsTabButton.setVisible(false);
-                profileAccountConnectionButton.setVisible(false);
-                profileAccountConnectionMicrosoftButton.setVisible(false);
-                profileAccountResetButton.setVisible(false);
-                profileAccountTextField.setVisible(false);
-                profileAccountPasswordField.setVisible(false);
+
+                profileAccountPage.setVisible(false);
 
                 profileAccountLabel.setVisible(false);
                 profileAccountConnectedLabel.setVisible(false);

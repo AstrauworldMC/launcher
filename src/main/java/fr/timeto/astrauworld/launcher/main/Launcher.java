@@ -132,7 +132,7 @@ public class Launcher {
     }
 
     public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result, String oldAccount){
-        saver.set(KEY.INFOS_EMAIL.get(), profileAccountTextField.getText());
+        saver.set(KEY.INFOS_EMAIL.get(), profileAccountPage.textField.getText());
         saver.set(KEY.INFOS_NAME.get(), result.getProfile().getName());
         saver.set(KEY.INFOS_ACCESSTOKEN.get(), result.getAccessToken());
         saver.set(KEY.INFOS_REFRESHTOKEN.get(), result.getRefreshToken());

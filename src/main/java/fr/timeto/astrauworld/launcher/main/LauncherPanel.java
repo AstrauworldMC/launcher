@@ -7,6 +7,7 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.*;
 import fr.timeto.astrauworld.launcher.pagesutilities.*;
+import fr.timeto.astrauworld.launcher.panels.profile.ProfileAccountPage;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileHomePage;
 import fr.timeto.timutilslib.PopUpMessages;
 
@@ -30,7 +31,7 @@ import static fr.timeto.timutilslib.CustomFonts.*;
  * @see LauncherFrame
  */
 @SuppressWarnings("InstantiatingAThreadWithDefaultRunMethod")
-public class LauncherPanel extends JPanel implements SwingerEventListener, ActionListener { // TODO faire une belle doc en utilisant la run assets [javadoc] pour voir où y'a rien
+public class LauncherPanel extends JPanel implements SwingerEventListener, ActionListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
 
      /**
       * La variable du background, change à changement de page
@@ -194,8 +195,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
            */
           public static final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-selected.png"));
 
-          // Profiles components - home
-          public static final ProfileHomePage profileHomePage = new ProfileHomePage();
+
           /**
            * Booléen de si le bouton de lancement est dans le statut de lancement
            */
@@ -210,30 +210,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final JLabel profileAccountLabel = new JLabel("", SwingConstants.LEFT);
           public static final JLabel profileAccountConnectedLabel = new JLabel("Connecté en tant que: ");
 
-          // Profiles components - compte
-          /**
-           * Bouton de connexion classique dans la page des profils - compte
-           * @see Components#profileAccountConnectionMicrosoftButton
-           */
-          public static final STexturedButton profileAccountConnectionButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/compte/connectionButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/compte/connectionButton-hover.png"));
-          /**
-           * Bouton de connexion avec une webview de Microsoft dans la page des profils - compte
-           * @see Components#profileAccountConnectionButton
-           */
-          public static final STexturedButton profileAccountConnectionMicrosoftButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/compte/connectionWithMicrosoftButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/compte/connectionWithMicrosoftButton-hover.png"));
-          /**
-           * Bouton pour réinitialiser les informations du compte connecté
-           */
-          public static final STexturedButton profileAccountResetButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/compte/resetButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/compte/resetButton-hover.png"));
-          /**
-           * TextField pour entrer l'adresse email pour la connexion
-           */
-          public static final JTextField profileAccountTextField = new JTextField("");
-
-          /**
-           * PasswordField pour entrer le mot de passe pour la connexion
-           */
-          public static final JPasswordField profileAccountPasswordField = new JPasswordField();
+          public static final ProfileHomePage profileHomePage = new ProfileHomePage();
+          public static final ProfileAccountPage profileAccountPage = new ProfileAccountPage();
 
           // Profiles components - addons
           /**
@@ -530,41 +508,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileHomePage);
           profileHomePage.setVisible(false);
 
-          // Profiles components - compte
-          profileAccountConnectionButton.setBounds(301, 359);
-          profileAccountConnectionButton.addEventListener(this);
-          this.add(profileAccountConnectionButton);
-          profileAccountConnectionButton.setVisible(false);
-
-          profileAccountConnectionMicrosoftButton.setBounds(690, 233);
-          profileAccountConnectionMicrosoftButton.addEventListener(this);
-          this.add(profileAccountConnectionMicrosoftButton);
-          profileAccountConnectionMicrosoftButton.setVisible(false);
-
-          profileAccountResetButton.setBounds(853, 500);
-          profileAccountResetButton.addEventListener(this);
-          this.add(profileAccountResetButton);
-          profileAccountResetButton.setVisible(false);
-
-          profileAccountTextField.setForeground(Color.WHITE);
-          profileAccountTextField.setFont(titleLabel.getFont().deriveFont(25f));
-          profileAccountTextField.setCaretColor(Color.RED);
-          profileAccountTextField.setSelectionColor(new Color(255, 20, 20, 200));
-          profileAccountTextField.setOpaque(false);
-          profileAccountTextField.setBorder(null);
-          profileAccountTextField.setBounds(222, 168, 386, 60);
-          this.add(profileAccountTextField);
-          profileAccountTextField.setVisible(false);
-
-          profileAccountPasswordField.setForeground(Color.WHITE);
-          profileAccountPasswordField.setFont(profileAccountTextField.getFont());
-          profileAccountPasswordField.setCaretColor(Color.RED);
-          profileAccountPasswordField.setSelectionColor(new Color(255, 20, 20, 200));
-          profileAccountPasswordField.setOpaque(false);
-          profileAccountPasswordField.setBorder(null);
-          profileAccountPasswordField.setBounds(222, 262, 386, 60);
-          this.add(profileAccountPasswordField);
-          profileAccountPasswordField.setVisible(false);
+          profileAccountPage.setBounds(178, 113);
+          this.add(profileAccountPage);
+          profileAccountPage.setVisible(false);
 
           // Profile components - addons
           profileAddonsShadersButton.setBounds(566, 128);

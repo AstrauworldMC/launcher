@@ -1,7 +1,5 @@
 package fr.timeto.astrauworld.launcher.pagesutilities;
 
-import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
-import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.*;
@@ -51,10 +49,6 @@ public class OnButtonEvent {
         profilePageButtons.add(profileAccountTabButton);
         profilePageButtons.add(profileAddonsTabButton);
         profilePageButtons.add(profileSettingsTabButton);
-
-        profilePageButtons.add(profileAccountConnectionButton);
-        profilePageButtons.add(profileAccountConnectionMicrosoftButton);
-        profilePageButtons.add(profileAccountResetButton);
 
         profilePageButtons.add(profileAddonsShadersButton);
         profilePageButtons.add(profileAddonsResourcePacksButton);
@@ -157,79 +151,6 @@ public class OnButtonEvent {
             setPage(true, PageName.PROFILE_ADDONS_MODS, eventSelectedProfile);
         } else if (src == profileSettingsTabButton) {
             setPage(true, PageName.PROFILE_SETTINGS, eventSelectedProfile);
-        }
-
-        // Actions des boutons de la profilePage - Account
-        else if (src == profileAccountConnectionButton) {
-            Saver saver = getSelectedSaver();
-            String oldAccount = saver.get(KEY.INFOS_NAME.get());
-
-            if (profileAccountTextField.getText().replaceAll(" ", "").length() == 0 || profileAccountPasswordField.getPassword().length == 0) {
-                errorMessage("Erreur de connexion", "Erreur, veuillez     entrer un email et un   mot de passe valides");
-                return;
-            }
-
-            Thread connect = new Thread(() -> {
-                try {
-                    try {
-                        Launcher.println("Connexion...");
-                        Launcher.microsoftAuth(profileAccountTextField.getText(), new String(profileAccountPasswordField.getPassword()), saver);
-                    } catch (MicrosoftAuthenticationException m) {
-                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                        return;
-                    }
-                    doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
-                    verifyNoAccountBefore(oldAccount, saver);
-                    initProfileButtons();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Thread t = new Thread(() -> {
-                        System.exit(1);
-                    });
-                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
-                }
-            });
-
-            connect.start();
-
-
-        } else if (src == profileAccountConnectionMicrosoftButton) {
-            Saver saver = getSelectedSaver();
-            String oldAccount = saver.get(KEY.INFOS_NAME.get());
-
-            Thread connect = new Thread(() -> {
-                try {
-                    try {
-                        Launcher.println("Connexion...");
-                        Launcher.microsoftAuthWebview(saver);
-                    } catch (MicrosoftAuthenticationException m) {
-                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                        return;
-                    }
-                    doneMessage("Connexion r\u00e9ussie", "Connexion r\u00e9ussie");
-                    verifyNoAccountBefore(oldAccount, saver);
-                    initProfileButtons();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Thread t = new Thread(() -> {
-                        System.exit(1);
-                    });
-                    PopUpMessages.errorMessage("Erreur", e.getLocalizedMessage(), t);
-                }
-            });
-            connect.start();
-        } else if (src == profileAccountResetButton) {
-            Thread ifYes = new Thread(() -> {
-                initializeDataFiles(getSelectedSaver());
-                profileAccountTextField.setText("");
-                doneMessage("Compte supprim\u00e9", "Donn\u00e9es du compte r\u00e9initialis\u00e9es");
-                initProfileButtons();
-            });
-
-            Thread ifNo = new Thread();
-
-            yesNoMessage("R\u00e9initialisation du compte", "Voulez vous vraiment r\u00e9initialiser le compte ?", ifYes, ifNo);
-
         }
 
         // Actions des boutons de la profilePage - Mods
