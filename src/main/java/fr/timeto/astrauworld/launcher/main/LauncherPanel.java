@@ -8,6 +8,7 @@ import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.*;
 import fr.timeto.astrauworld.launcher.pagesutilities.*;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileAccountPage;
+import fr.timeto.astrauworld.launcher.panels.profile.ProfileAddonsPage;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileHomePage;
 import fr.timeto.timutilslib.PopUpMessages;
 
@@ -197,14 +198,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
 
 
           /**
-           * Booléen de si le bouton de lancement est dans le statut de lancement
-           */
-          public static boolean profilePlayButtonIsPlayStatus = true;
-          /**
-           * Booléen de si les fichiers du jeu sont en update
-           */
-          public static boolean isUpdating = false;
-          /**
            * Label du nom du compte connecté du profil
            */
           public static final JLabel profileAccountLabel = new JLabel("", SwingConstants.LEFT);
@@ -213,56 +206,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final ProfileHomePage profileHomePage = new ProfileHomePage();
           public static final ProfileAccountPage profileAccountPage = new ProfileAccountPage();
 
-          // Profiles components - addons
-          /**
-           * Bouton pour les shaders
-           */
-          public static STexturedButton profileAddonsShadersButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/shadersButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/shadersButton-hover.png"));
-          /**
-           * Bouton pour les resource packs
-           */
-          public static STexturedButton profileAddonsResourcePacksButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/resourcePacksButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/resourcePacksButton-hover.png"));
-          public static STexturedButton profileAddonsModsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/modsButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/modsButton-hover.png"));
-          public static STexturedButton profileAddonsGoToFolderButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/goToFolder-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/goToFolder-hover.png"));
-          /**
-           * Bouton I/O pour Optfine
-           */
-          public static TexturedSwitchButton profileAddonsOptifineSwitchButton = new TexturedSwitchButton(KEY.MOD_OPTIFINE, false);
-
-
-          public static final ModPanel profileModsFpsmodelPanel = new ModPanel("First Person Model", KEY.MOD_FPSMODEL, "https://www.curseforge.com/minecraft/mc-mods/first-person-model");
-          public static final ModPanel profileModsBettertpsPanel = new ModPanel("Better First Person", KEY.MOD_BETTERTPS, "https://www.curseforge.com/minecraft/mc-mods/better-third-person");
-          public static final ModPanel profileModsFallingleavesPanel = new ModPanel("Falling Leaves", KEY.MOD_FALLINGLEAVES, "https://www.curseforge.com/minecraft/mc-mods/falling-leaves-forge");
-          public static final ModPanel profileModsAppleskinPanel = new ModPanel("Apple Skin", KEY.MOD_APPLESKIN, "https://www.curseforge.com/minecraft/mc-mods/appleskin");
-          public static final ModPanel profileModsSoundphysicsPanel = new ModPanel("Sound Physics Remastered", KEY.MOD_SOUNDPHYSICS, "https://www.curseforge.com/minecraft/mc-mods/sound-physics-remastered");
-          public static final ModPanel profileModsWaveyCapesPanel = new ModPanel("Wavey Capes", KEY.MOD_WAVEYCAPES, "https://www.curseforge.com/minecraft/mc-mods/waveycapes");
-          public static final ModPanel profileMods3dSkinLayersPanel = new ModPanel("3D Skin Layers", KEY.MOD_3DSKINLAYERS, "https://www.curseforge.com/minecraft/mc-mods/skin-layers-3d");
-
-          public static final STexturedButton profileShadersSeeComparisonButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/seeComparison-hover.png"));
-          public static final ShaderPanel profileShadersChocapicV6PlusButton = new ShaderPanel("Chocapic V6", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6);
-          public static final ShaderPanel profileShadersChocapicV7_1PlusButton = new ShaderPanel("Chocapic V7.1", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7);
-          public static final ShaderPanel profileShadersChocapicV9PlusButton = new ShaderPanel("Chocapic V9", PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9);
-          public static final ShaderPanel profileShadersSeusRenewedPanel = new ShaderPanel("SEUS Renewed", Shader.SEUS_RENEWED);
-
-          public static final ShaderPanel profileShadersChocapicV6LitePanel = new ShaderPanel("Chocapic13 V6 Lite", Shader.CHOCAPICV6_LITE);
-          public static final ShaderPanel profileShadersChocapicV6LowPanel = new ShaderPanel("Chocapic13 V6 Low", Shader.CHOCAPICV6_LOW);
-          public static final ShaderPanel profileShadersChocapicV6MediumPanel = new ShaderPanel("Chocapic13 V6 Medium", Shader.CHOCAPICV6_MEDIUM);
-          public static final ShaderPanel profileShadersChocapicV6UltraPanel = new ShaderPanel("Chocapic13 V6 Ultra", Shader.CHOCAPICV6_ULTRA);
-          public static final ShaderPanel profileShadersChocapicV6ExtremePanel = new ShaderPanel("Chocapic13 V6 Extreme", Shader.CHOCAPICV6_EXTREME);
-
-          public static final ShaderPanel profileShadersChocapicV7_1ToasterPanel = new ShaderPanel("V7.1.1 Toaster Edition", Shader.CHOCAPICV7_1_TOASTER);
-          public static final ShaderPanel profileShadersChocapicV7_1LitePanel = new ShaderPanel("Chocapic13 V7.1 Lite", Shader.CHOCAPICV7_1_LITE);
-          public static final ShaderPanel profileShadersChocapicV7_1LowPanel = new ShaderPanel("Chocapic13 V7.1 Low", Shader.CHOCAPICV7_1_LOW);
-          public static final ShaderPanel profileShadersChocapicV7_1MediumPanel = new ShaderPanel("Chocapic13 V7.1 Medium", Shader.CHOCAPICV7_1_MEDIUM);
-          public static final ShaderPanel profileShadersChocapicV7_1UltraPanel = new ShaderPanel("Chocapic13 V7.1 Ultra", Shader.CHOCAPICV7_1_ULTRA);
-          public static final ShaderPanel profileShadersChocapicV7_1ExtremePanel = new ShaderPanel("Chocapic13 V7.1 Extreme", Shader.CHOCAPICV7_1_EXTREME);
-
-          public static final ShaderPanel profileShadersChocapicV9LowPanel = new ShaderPanel("Chocapic13 V9 Low", Shader.CHOCAPICV9_LOW);
-          public static final ShaderPanel profileShadersChocapicV9MediumPanel = new ShaderPanel("Chocapic13 V9 Medium", Shader.CHOCAPICV9_MEDIUM);
-          public static final ShaderPanel profileShadersChocapicV9HighPanel = new ShaderPanel("Chocapic13 V9 High", Shader.CHOCAPICV9_HIGH);
-          public static final ShaderPanel profileShadersChocapicV9ExtremePanel = new ShaderPanel("Chocapic13 V9 Extreme", Shader.CHOCAPICV9_EXTREME);
-          public static final ShaderPanel profileShadersChocapicV9_1ExtremePanel = new ShaderPanel("V9.1 Extreme Beta 5", Shader.CHOCAPICV9_1_EXTREMEBETA5);
-
+          public static final ProfileAddonsPage profileAddonsModsPage = new ProfileAddonsPage(PageName.PROFILE_ADDONS_MODS);
+          public static final ProfileAddonsPage profileAddonsShadersPage = new ProfileAddonsPage(PageName.PROFILE_ADDONS_SHADERS);
+          public static final ProfileAddonsPage profileAddonsShadersChocapicv6Page = new ProfileAddonsPage(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6);
+          public static final ProfileAddonsPage profileAddonsShadersChocapicv7Page = new ProfileAddonsPage(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7);
+          public static final ProfileAddonsPage profileAddonsShadersChocapicv9Page = new ProfileAddonsPage(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9);
 
           // Profiles components - reglages
           /**
@@ -473,7 +421,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(newsOpenScrollPanel);
           newsOpenScrollPanel.setVisible(false);
 
-          // Profiles components - up
+          // Profiles components
           profilePlayTabButton.setBounds(178, 89);
           profilePlayTabButton.addEventListener(this);
           this.add(profilePlayTabButton);
@@ -512,148 +460,25 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileAccountPage);
           profileAccountPage.setVisible(false);
 
-          // Profile components - addons
-          profileAddonsShadersButton.setBounds(566, 128);
-          profileAddonsShadersButton.addEventListener(this);
-          this.add(profileAddonsShadersButton);
-          profileAddonsShadersButton.setVisible(false);
+          profileAddonsModsPage.setBounds(178, 113);
+          this.add(profileAddonsModsPage);
+          profileAddonsModsPage.setVisible(false);
 
-          profileAddonsResourcePacksButton.setBounds(735, 128);
-          profileAddonsResourcePacksButton.addEventListener(this);
-          this.add(profileAddonsResourcePacksButton);
-          profileAddonsResourcePacksButton.setVisible(false);
+          profileAddonsShadersPage.setBounds(178, 113);
+          this.add(profileAddonsShadersPage);
+          profileAddonsShadersPage.setVisible(false);
 
-          profileAddonsModsButton.setBounds(566, 128);
-          profileAddonsModsButton.addEventListener(this);
-          this.add(profileAddonsModsButton);
-          profileAddonsModsButton.setVisible(false);
+          profileAddonsShadersChocapicv6Page.setBounds(178, 113);
+          this.add(profileAddonsShadersChocapicv6Page);
+          profileAddonsShadersChocapicv6Page.setVisible(false);
 
-          profileAddonsGoToFolderButton.setBounds(804, 561);
-          profileAddonsGoToFolderButton.addEventListener(this);
-          this.add(profileAddonsGoToFolderButton);
-          profileAddonsGoToFolderButton.setVisible(false);
+          profileAddonsShadersChocapicv7Page.setBounds(178, 113);
+          this.add(profileAddonsShadersChocapicv7Page);
+          profileAddonsShadersChocapicv7Page.setVisible(false);
 
-          profileAddonsOptifineSwitchButton.setBounds(402, 120);
-          profileAddonsOptifineSwitchButton.addEventListener(this);
-          this.add(profileAddonsOptifineSwitchButton);
-          profileAddonsOptifineSwitchButton.setVisible(false);
-
-          profileModsFpsmodelPanel.setBounds(185, 195);
-          this.add(profileModsFpsmodelPanel);
-          profileModsFpsmodelPanel.setVisible(false);
-
-          profileModsBettertpsPanel.setBounds(595, 195);
-          this.add(profileModsBettertpsPanel);
-          profileModsBettertpsPanel.setVisible(false);
-
-          profileModsFallingleavesPanel.setBounds(185, 255);
-          this.add(profileModsFallingleavesPanel);
-          profileModsFallingleavesPanel.setVisible(false);
-
-          profileModsAppleskinPanel.setBounds(595, 255);
-          this.add(profileModsAppleskinPanel);
-          profileModsAppleskinPanel.setVisible(false);
-
-          profileModsSoundphysicsPanel.setBounds(185, 315);
-          this.add(profileModsSoundphysicsPanel);
-          profileModsSoundphysicsPanel.setVisible(false);
-
-          profileModsWaveyCapesPanel.setBounds(595, 315);
-          this.add(profileModsWaveyCapesPanel);
-          profileModsWaveyCapesPanel.setVisible(false);
-
-          profileMods3dSkinLayersPanel.setBounds(185, 375);
-          this.add(profileMods3dSkinLayersPanel);
-          profileMods3dSkinLayersPanel.setVisible(false);
-
-
-          profileShadersSeeComparisonButton.setBounds(630, 582);
-          profileShadersSeeComparisonButton.addEventListener(this);
-          this.add(profileShadersSeeComparisonButton);
-          profileShadersSeeComparisonButton.setVisible(false);
-
-          profileShadersChocapicV6PlusButton.setBounds(185, 195);
-          this.add(profileShadersChocapicV6PlusButton);
-          profileShadersChocapicV6PlusButton.setVisible(false);
-
-          profileShadersChocapicV7_1PlusButton.setBounds(595, 195);
-          this.add(profileShadersChocapicV7_1PlusButton);
-          profileShadersChocapicV7_1PlusButton.setVisible(false);
-
-          profileShadersChocapicV9PlusButton.setBounds(185, 255);
-          this.add(profileShadersChocapicV9PlusButton);
-          profileShadersChocapicV9PlusButton.setVisible(false);
-
-          profileShadersSeusRenewedPanel.setBounds(595, 255);
-          this.add(profileShadersSeusRenewedPanel);
-          profileShadersSeusRenewedPanel.setVisible(false);
-
-
-          profileShadersChocapicV6LitePanel.setBounds(185, 195);
-          this.add(profileShadersChocapicV6LitePanel);
-          profileShadersChocapicV6LitePanel.setVisible(false);
-
-          profileShadersChocapicV6LowPanel.setBounds(595, 195);
-          this.add(profileShadersChocapicV6LowPanel);
-          profileShadersChocapicV6LowPanel.setVisible(false);
-
-          profileShadersChocapicV6MediumPanel.setBounds(185, 255);
-          this.add(profileShadersChocapicV6MediumPanel);
-          profileShadersChocapicV6MediumPanel.setVisible(false);
-
-          profileShadersChocapicV6UltraPanel.setBounds(595, 255);
-          this.add(profileShadersChocapicV6UltraPanel);
-          profileShadersChocapicV6UltraPanel.setVisible(false);
-
-          profileShadersChocapicV6ExtremePanel.setBounds(185, 315);
-          this.add(profileShadersChocapicV6ExtremePanel);
-          profileShadersChocapicV6ExtremePanel.setVisible(false);
-
-
-          profileShadersChocapicV7_1ToasterPanel.setBounds(185, 195);
-          this.add(profileShadersChocapicV7_1ToasterPanel);
-          profileShadersChocapicV7_1ToasterPanel.setVisible(false);
-
-          profileShadersChocapicV7_1LitePanel.setBounds(595, 195);
-          this.add(profileShadersChocapicV7_1LitePanel);
-          profileShadersChocapicV7_1LitePanel.setVisible(false);
-
-          profileShadersChocapicV7_1LowPanel.setBounds(185, 255);
-          this.add(profileShadersChocapicV7_1LowPanel);
-          profileShadersChocapicV7_1LowPanel.setVisible(false);
-
-          profileShadersChocapicV7_1MediumPanel.setBounds(595, 255);
-          this.add(profileShadersChocapicV7_1MediumPanel);
-          profileShadersChocapicV7_1MediumPanel.setVisible(false);
-
-          profileShadersChocapicV7_1UltraPanel.setBounds(185, 315);
-          this.add(profileShadersChocapicV7_1UltraPanel);
-          profileShadersChocapicV7_1UltraPanel.setVisible(false);
-
-          profileShadersChocapicV7_1ExtremePanel.setBounds(595, 315);
-          this.add(profileShadersChocapicV7_1ExtremePanel);
-          profileShadersChocapicV7_1ExtremePanel.setVisible(false);
-
-
-          profileShadersChocapicV9LowPanel.setBounds(185, 195);
-          this.add(profileShadersChocapicV9LowPanel);
-          profileShadersChocapicV9LowPanel.setVisible(false);
-
-          profileShadersChocapicV9MediumPanel.setBounds(595, 195);
-          this.add(profileShadersChocapicV9MediumPanel);
-          profileShadersChocapicV9MediumPanel.setVisible(false);
-
-          profileShadersChocapicV9HighPanel.setBounds(185, 255);
-          this.add(profileShadersChocapicV9HighPanel);
-          profileShadersChocapicV9HighPanel.setVisible(false);
-
-          profileShadersChocapicV9ExtremePanel.setBounds(595, 255);
-          this.add(profileShadersChocapicV9ExtremePanel);
-          profileShadersChocapicV9ExtremePanel.setVisible(false);
-
-          profileShadersChocapicV9_1ExtremePanel.setBounds(185, 315);
-          this.add(profileShadersChocapicV9_1ExtremePanel);
-          profileShadersChocapicV9_1ExtremePanel.setVisible(false);
+          profileAddonsShadersChocapicv9Page.setBounds(178, 113);
+          this.add(profileAddonsShadersChocapicv9Page);
+          profileAddonsShadersChocapicv9Page.setVisible(false);
 
           // Profile components - reglages
           profileSettingsProfileNameTextField.setForeground(Color.WHITE);
@@ -778,6 +603,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(aboutEastereggsLabel);
           aboutEastereggsLabel.setVisible(false);
 
+          Launcher.println("Affichage...");
           setPage(true, PageName.PROFILE_HOME, ProfileSaver.getActualMainProfile());
 
      }

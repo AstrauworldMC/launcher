@@ -158,14 +158,16 @@ public class ProfileSaver {
         };
 
         int i = 0;
+        boolean modified = false;
         while (i != keysList.length) {
             if (saver.get(keysList[i].get()) == null) {
                 saver.set(keysList[i].get(), keysList[i].getDefaultValue());
+                modified = true;
             }
             i++;
         }
 
-        Launcher.println("Fichier de données pour le saver du profil " + getSelectedProfile(saver) + " initialisé");
+        if (modified) Launcher.println("Fichier de données pour le saver du profil " + getSelectedProfile(saver) + " initialisé");
     }
 
     public static void resetDataFiles(Saver saver) {

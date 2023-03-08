@@ -1,6 +1,7 @@
 package fr.timeto.astrauworld.launcher.panels;
 
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 
 import javax.swing.*;
@@ -24,7 +25,7 @@ public class PageCreator extends JPanel {
     }
 
     public void setVisible(boolean aFlag) {
-        if (aFlag) {
+        if (aFlag && pageName == PageChange.actualPage) {
             LauncherPanel.Components.titleLabel.setText(title);
             LauncherPanel.Components.subTitleLabel.setText(subtitle);
         }

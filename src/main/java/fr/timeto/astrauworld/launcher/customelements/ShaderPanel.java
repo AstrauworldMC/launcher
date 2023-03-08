@@ -92,6 +92,11 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
 
     }
 
+    public void defineTextures() {
+        switchButton.defineTextures();
+        downloadButton.defineTextures();
+    }
+
     public void setBounds(int x, int y) {
         setBounds(x, y, getPreferredSize().width, getPreferredSize().height);
     }

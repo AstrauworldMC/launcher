@@ -49,8 +49,8 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
     public final JPasswordField passwordField = new JPasswordField();
     public final JLabel passwordFieldLabel = new JLabel("Mot de passe");
 
-    public final JTextArea infosLabel = new JTextArea(parseUnicode("Vos informations de connexion sont stockées dans votre ordinateur seulement, elles ne sont en aucun cas partagées avec la \n" +
-            "team Astrauworld ou n'importe qui d'autre. Ne partagez vos identifiants à personne."));
+    public final JTextArea infosLabel = new JTextArea(parseUnicode("Vos informations de connexion sont stockées dans votre ordinateur seulement, elles ne sont en aucun cas \n" +
+            "partagées avec la team Astrauworld ou n'importe qui d'autre. Ne partagez vos identifiants à personne."));
 
     public ProfileAccountPage() {
         super(PageName.PROFILE_ACCOUNT, "Profil " + ProfileSaver.getSelectedProfile(), "Compte");
@@ -99,7 +99,7 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         add(passwordFieldLabel);
 
         infosLabel.setForeground(new Color(109, 109, 109));
-        infosLabel.setFont(CustomFonts.kollektifFont.deriveFont(14.5f));
+        infosLabel.setFont(CustomFonts.kollektifFont.deriveFont(16f));
         infosLabel.setCaretColor(Color.RED);
         infosLabel.setSelectionColor(new Color(255, 20, 20, 200));
         infosLabel.setOpaque(false);

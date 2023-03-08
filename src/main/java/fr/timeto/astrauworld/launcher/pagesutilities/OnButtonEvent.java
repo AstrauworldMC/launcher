@@ -50,14 +50,6 @@ public class OnButtonEvent {
         profilePageButtons.add(profileAddonsTabButton);
         profilePageButtons.add(profileSettingsTabButton);
 
-        profilePageButtons.add(profileAddonsShadersButton);
-        profilePageButtons.add(profileAddonsResourcePacksButton);
-        profilePageButtons.add(profileAddonsModsButton);
-        profilePageButtons.add(profileAddonsOptifineSwitchButton);
-        profilePageButtons.add(profileAddonsGoToFolderButton);
-
-        profilePageButtons.add(profileShadersSeeComparisonButton);
-
         profilePageButtons.add(profileSettingsHelmIconSwitchButton);
         profilePageButtons.add(profileSettingsMainProfileSwitchButton);
         profilePageButtons.add(profileSettingsSaveSettings);
@@ -151,46 +143,6 @@ public class OnButtonEvent {
             setPage(true, PageName.PROFILE_ADDONS_MODS, eventSelectedProfile);
         } else if (src == profileSettingsTabButton) {
             setPage(true, PageName.PROFILE_SETTINGS, eventSelectedProfile);
-        }
-
-        // Actions des boutons de la profilePage - Mods
-        else if (src == profileAddonsShadersButton) {
-            setPage(true, PageName.PROFILE_ADDONS_SHADERS, eventSelectedProfile);
-        } else if (src == profileAddonsResourcePacksButton) {
-            initCustomFilesFolder(getSelectedSaver());
-            try {
-                Desktop.getDesktop().open(resourcepacksProfileFolder); // TODO Temporaire jusqu'à pouvoir le faire depuis le assets
-            } catch (IOException ignored) {}
-        } else if (src == profileAddonsModsButton) {
-            setPage(true, PageName.PROFILE_ADDONS_MODS, eventSelectedProfile);
-        } else if (src == profileAddonsGoToFolderButton) {
-            initCustomFilesFolder(getSelectedSaver());
-            if (subTitleLabel.getText().toLowerCase().contains("shader")) {
-                try {
-                    Desktop.getDesktop().open(shaderpacksProfileFolder);
-                } catch (Exception e) {
-                    shaderpacksProfileFolder.mkdir();
-                    Launcher.println("Folder created: " + shaderpacksProfileFolder);
-                    try {
-                        Desktop.getDesktop().open(shaderpacksProfileFolder);
-                    } catch (IOException ignored) {}
-                }
-            } else if (subTitleLabel.getText().toLowerCase().contains("resource")) {
-                try {
-                    Desktop.getDesktop().open(resourcepacksProfileFolder);
-                } catch (IOException ignored) {}
-            }
-        } else if (src == profileAddonsOptifineSwitchButton) {
-            profileAddonsOptifineSwitchButton.toggleButton();
-        }
-        
-        // Actions des boutons de la profilePage - Shaders
-        else if (src == profileShadersSeeComparisonButton) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://github.com/AstrauworldMC/launcher/wiki/Comparaison-des-shaders").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
         }
 
         // Actions des boutons de la profilePage - Reglages

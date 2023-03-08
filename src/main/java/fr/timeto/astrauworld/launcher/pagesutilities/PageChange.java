@@ -21,8 +21,10 @@ import static java.lang.Float.parseFloat;
  * @since Beta2.2.0
  */
 public class PageChange {
+    public static PageName actualPage;
 
     public static void setPage(boolean e, PageName page) {
+        actualPage = page;
         if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
             setNewsPage(e);
         } else if (Objects.equals(page.getPage1(), PageName.PROFILE_HOME.getPage1())) {
@@ -35,6 +37,7 @@ public class PageChange {
     }
 
     public static void setPage(boolean e, PageName page, String profileNum) {
+        actualPage = page;
         if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
             setNewsPage(e);
         } else if (Objects.equals(page.getPage1(), PageName.PROFILE_HOME.getPage1())) {
@@ -307,16 +310,7 @@ public class PageChange {
                     profileAddonsTabButton.setVisible(true);
                     profileSettingsTabButton.setVisible(true);
 
-                    profileAddonsShadersButton.setVisible(true);
-                    profileAddonsResourcePacksButton.setVisible(true);
-                    profileAddonsOptifineSwitchButton.setVisible(true);
-                    profileModsFpsmodelPanel.setVisible(true);
-                    profileModsBettertpsPanel.setVisible(true);
-                    profileModsFallingleavesPanel.setVisible(true);
-                    profileModsAppleskinPanel.setVisible(true);
-                    profileModsSoundphysicsPanel.setVisible(true);
-                    profileModsWaveyCapesPanel.setVisible(true);
-                    profileMods3dSkinLayersPanel.setVisible(true);
+                    profileAddonsModsPage.setVisible(true);
 
                     profileAccountLabel.setBounds(380, 577, 276, 31);
                     profileAccountLabel.setVisible(true);
@@ -337,7 +331,7 @@ public class PageChange {
                     subTitleLabel.setText("Addons - Mods");
                     LauncherSystemTray.changeTrayTooltip();
 
-                    background = getResourceIgnorePath("/assets/launcher/profilesPage/addons/profilePage-addons.png");
+                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
 
                     corner.setVisible(true);
                 } else {
@@ -346,16 +340,7 @@ public class PageChange {
                     profileAddonsTabButton.setVisible(false);
                     profileSettingsTabButton.setVisible(false);
 
-                    profileAddonsShadersButton.setVisible(false);
-                    profileAddonsResourcePacksButton.setVisible(false);
-                    profileAddonsOptifineSwitchButton.setVisible(false);
-                    profileModsFpsmodelPanel.setVisible(false);
-                    profileModsBettertpsPanel.setVisible(false);
-                    profileModsFallingleavesPanel.setVisible(false);
-                    profileModsAppleskinPanel.setVisible(false);
-                    profileModsSoundphysicsPanel.setVisible(false);
-                    profileModsWaveyCapesPanel.setVisible(false);
-                    profileMods3dSkinLayersPanel.setVisible(false);
+                    profileAddonsModsPage.setVisible(false);
 
                     profileAccountLabel.setVisible(false);
                     profileAccountConnectedLabel.setVisible(false);
@@ -381,58 +366,25 @@ public class PageChange {
                     profileAddonsTabButton.setVisible(true);
                     profileSettingsTabButton.setVisible(true);
 
-                    profileAddonsResourcePacksButton.setVisible(true);
-                    profileAddonsOptifineSwitchButton.setVisible(true);
-                    profileAddonsGoToFolderButton.setVisible(true);
-                    profileShadersSeeComparisonButton.setVisible(true);
-
                     if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6.getSpecialTab4())) {
-                        profileAddonsShadersButton.setVisible(true);
-                        profileAddonsShadersButton.setBounds(566, 128);
 
-                        profileShadersChocapicV6LitePanel.setVisible(true);
-                        profileShadersChocapicV6LowPanel.setVisible(true);
-                        profileShadersChocapicV6MediumPanel.setVisible(true);
-                        profileShadersChocapicV6UltraPanel.setVisible(true);
-                        profileShadersChocapicV6ExtremePanel.setVisible(true);
+                        profileAddonsShadersChocapicv6Page.setVisible(true);
 
-                        subTitleLabel.setText("Addons - Shaders (ChocapicV6)");
                     } else if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7.getSpecialTab4())) {
-                        profileAddonsShadersButton.setVisible(true);
-                        profileAddonsShadersButton.setBounds(566, 128);
 
-                        profileShadersChocapicV7_1ToasterPanel.setVisible(true);
-                        profileShadersChocapicV7_1LitePanel.setVisible(true);
-                        profileShadersChocapicV7_1LowPanel.setVisible(true);
-                        profileShadersChocapicV7_1MediumPanel.setVisible(true);
-                        profileShadersChocapicV7_1UltraPanel.setVisible(true);
-                        profileShadersChocapicV7_1ExtremePanel.setVisible(true);
+                        profileAddonsShadersChocapicv7Page.setVisible(true);
 
-                        subTitleLabel.setText("Addons - Shaders (ChocapicV7)");
                     } else if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9.getSpecialTab4())) {
-                        profileAddonsShadersButton.setVisible(true);
-                        profileAddonsShadersButton.setBounds(566, 128);
 
-                        profileShadersChocapicV9LowPanel.setVisible(true);
-                        profileShadersChocapicV9MediumPanel.setVisible(true);
-                        profileShadersChocapicV9HighPanel.setVisible(true);
-                        profileShadersChocapicV9ExtremePanel.setVisible(true);
-                        profileShadersChocapicV9_1ExtremePanel.setVisible(true);
+                        profileAddonsShadersChocapicv9Page.setVisible(true);
 
-                        subTitleLabel.setText("Addons - Shaders (ChocapicV9)");
                     } else {
-                        profileAddonsModsButton.setVisible(true);
-                        profileAddonsModsButton.setBounds(566, 128);
 
-                        profileShadersChocapicV6PlusButton.setVisible(true);
-                        profileShadersChocapicV7_1PlusButton.setVisible(true);
-                        profileShadersChocapicV9PlusButton.setVisible(true);
-                        profileShadersSeusRenewedPanel.setVisible(true);
+                        profileAddonsShadersPage.setVisible(true);
 
-                        subTitleLabel.setText("Addons - Shaders");
                     }
 
-                    background = getResourceIgnorePath("/assets/launcher/profilesPage/addons/profilePage-addons.png");
+                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
 
                     profileAccountLabel.setBounds(380, 577, 276, 31);
                     profileAccountLabel.setVisible(true);
@@ -460,36 +412,11 @@ public class PageChange {
                     profileAddonsTabButton.setVisible(false);
                     profileSettingsTabButton.setVisible(false);
 
-                    profileAddonsModsButton.setVisible(false);
-                    profileAddonsResourcePacksButton.setVisible(false);
-                    profileAddonsOptifineSwitchButton.setVisible(false);
-                    profileAddonsShadersButton.setVisible(false);
-                    profileAddonsGoToFolderButton.setVisible(false);
-                    profileShadersSeeComparisonButton.setVisible(false);
-
-                    profileShadersChocapicV6PlusButton.setVisible(false);
-                    profileShadersChocapicV7_1PlusButton.setVisible(false);
-                    profileShadersChocapicV9PlusButton.setVisible(false);
-                    profileShadersSeusRenewedPanel.setVisible(false);
-
-                    profileShadersChocapicV6LitePanel.setVisible(false);
-                    profileShadersChocapicV6LowPanel.setVisible(false);
-                    profileShadersChocapicV6MediumPanel.setVisible(false);
-                    profileShadersChocapicV6UltraPanel.setVisible(false);
-                    profileShadersChocapicV6ExtremePanel.setVisible(false);
-
-                    profileShadersChocapicV7_1ToasterPanel.setVisible(false);
-                    profileShadersChocapicV7_1LitePanel.setVisible(false);
-                    profileShadersChocapicV7_1LowPanel.setVisible(false);
-                    profileShadersChocapicV7_1MediumPanel.setVisible(false);
-                    profileShadersChocapicV7_1UltraPanel.setVisible(false);
-                    profileShadersChocapicV7_1ExtremePanel.setVisible(false);
-
-                    profileShadersChocapicV9LowPanel.setVisible(false);
-                    profileShadersChocapicV9MediumPanel.setVisible(false);
-                    profileShadersChocapicV9HighPanel.setVisible(false);
-                    profileShadersChocapicV9ExtremePanel.setVisible(false);
-                    profileShadersChocapicV9_1ExtremePanel.setVisible(false);
+                    profileAddonsModsPage.setVisible(false);
+                    profileAddonsShadersPage.setVisible(false);
+                    profileAddonsShadersChocapicv6Page.setVisible(false);
+                    profileAddonsShadersChocapicv7Page.setVisible(false);
+                    profileAddonsShadersChocapicv9Page.setVisible(false);
 
                     profileAccountLabel.setVisible(false);
                     profileAccountConnectedLabel.setVisible(false);

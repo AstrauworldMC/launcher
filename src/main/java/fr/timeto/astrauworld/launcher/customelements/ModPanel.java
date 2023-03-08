@@ -71,6 +71,10 @@ public class ModPanel extends JPanel implements SwingerEventListener {
         super.setVisible(aFlag);
     }
 
+    public void defineTextures() {
+        switchButton.defineTextures();
+    }
+
     public String getName() {
         return name;
     }

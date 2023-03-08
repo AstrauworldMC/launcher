@@ -121,6 +121,8 @@ public class LauncherFrame extends JFrame {
                 Launcher.println("Sorry nope");
             }
 
+            Launcher.println("Chargement...");
+
             Launcher.AW_DIR.mkdir();
             Launcher.AW_DATA_FOLDER.mkdir();
             Launcher.AW_GAMEFILES_FOLDER.mkdir();
