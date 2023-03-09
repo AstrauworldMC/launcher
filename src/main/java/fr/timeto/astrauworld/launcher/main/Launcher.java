@@ -51,7 +51,6 @@ public class Launcher {
     public static final String crashFolder = filesFolder + separatorChar + "crashes";
     public static final String gameFilesFolder = filesFolder + separatorChar + "GameFiles";
     public static final String dataFolder = filesFolder + separatorChar + "data";
-    public static final String logsFile = filesFolder + separatorChar + "logs.txt";
 
     public static final String firstProfileData = dataFolder + separatorChar + "firstProfile.properties";
     public static final String firstProfileIcon = dataFolder + separatorChar + "firstProfile.png";
@@ -100,7 +99,6 @@ public class Launcher {
     public static final Path awCrashFolder = Paths.get(crashFolder);
     public static final Path awGameFilesFolder = Paths.get(gameFilesFolder);
     public static final Path awDataFolder = Paths.get(dataFolder);
-    public static final Path awLogsFile = Paths.get(logsFile);
 
     public static final Path awFirstProfileData = Paths.get(firstProfileData);
     public static final Path awFirstProfileIcon = Paths.get(firstProfileIcon);
@@ -320,7 +318,6 @@ public class Launcher {
     public static void update(Saver saver) throws Exception {
         updateSaver = saver;
 
-        Logger logger = new Logger("[Astrauworld Launcher]", awLogsFile);
         loadingBar.setVisible(true);
 
         IProgressCallback callback = new IProgressCallback() {
@@ -440,7 +437,6 @@ public class Launcher {
 
         final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
                 .withVanillaVersion(vanillaVersion)
-                .withLogger(logger)
                 .withProgressCallback(callback)
                 .withModLoaderVersion(forge)
                 .withPostExecutions(Collections.singletonList(postExecutions))
