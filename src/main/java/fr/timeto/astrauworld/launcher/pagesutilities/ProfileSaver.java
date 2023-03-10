@@ -326,6 +326,14 @@ public class ProfileSaver {
             modList.add(new CurseFileInfo(535489, 3775919)); // Sound Physics Remastered 1.0.6
         }
 
+        if (Objects.equals(selectedSaver.get(KEY.MOD_WAVEYCAPES.get()), "true")) {
+            modList.add(new CurseFileInfo(521594, 4391958)); // Wavey Capes 1.3.2
+        }
+
+        if (Objects.equals(selectedSaver.get(KEY.MOD_3DSKINLAYERS.get()), "true")) {
+            modList.add(new CurseFileInfo(521480, 4001976)); // Skin Layers 3D 1.5.2
+        }
+
     }
 
     /*  Liste des fichiers custom à sauvegarder dans GameFiles

@@ -2,7 +2,6 @@ package fr.timeto.astrauworld.launcher.main;
 
 import br.com.azalim.mcserverping.MCPingOptions;
 import fr.flowarg.flowlogger.ILogger;
-import fr.flowarg.flowlogger.Logger;
 import fr.flowarg.flowupdater.FlowUpdater;
 import fr.flowarg.flowupdater.download.DownloadList;
 import fr.flowarg.flowupdater.download.IProgressCallback;
@@ -415,6 +414,9 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(308989, 3650485)); //   |_> Caelus API 1.18.1-3.0.0.2
         modInfos.add(new CurseFileInfo(517167, 3760573)); // Flash's NPCs 1.18.1-1.1.4v2
     //    modInfos.add(new CurseFileInfo(273771, 4367403)); // AstikorCarts 1.1.2
+        modInfos.add(new CurseFileInfo(403422, 3955900)); // EmoteCraft 2.2.5-forge
+        modInfos.add(new CurseFileInfo(658587, 4418152)); //   |_> PlayerAnimator 1.0.2
+        modInfos.add(new CurseFileInfo(623373, 3955900)); //         |_> Bendy-lib 2.1.1
 
         initClientMods(saver, modInfos);
 
