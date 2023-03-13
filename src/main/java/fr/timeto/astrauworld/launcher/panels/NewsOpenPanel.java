@@ -1,9 +1,9 @@
-package fr.timeto.astrauworld.launcher.pagesutilities;
+package fr.timeto.astrauworld.launcher.panels;
 
 import fr.theshark34.swinger.Swinger;
 import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
-import fr.timeto.astrauworld.launcher.panels.PageCreator;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
@@ -73,6 +73,7 @@ public class NewsOpenPanel extends PageCreator {
     //    textArea.setContentType("text/html");
         textArea.setFont(CustomFonts.kollektifFont.deriveFont(16f));
         textArea.setForeground(Color.WHITE);
+        textArea.setSelectionColor(new Color(255, 20, 20, 200));
         textArea.setOpaque(false);
         textArea.setEditable(false);
         inside.add(textArea);
@@ -81,7 +82,7 @@ public class NewsOpenPanel extends PageCreator {
 
     public void setNewsPage(News news) {
         setPage(false, PageName.NEWS);
-        setPage(false,PageName.PROFILE_ALL, null);
+        setPage(false, PageName.PROFILE_ALL, null);
         setPage(false, PageName.CHANGELOGS);
         setPage(false, PageName.ABOUT);
 

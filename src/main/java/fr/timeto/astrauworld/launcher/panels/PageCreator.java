@@ -1,7 +1,7 @@
 package fr.timeto.astrauworld.launcher.panels;
 
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
-import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
+import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 
 import javax.swing.*;
@@ -20,6 +20,9 @@ public class PageCreator extends JPanel {
         this.bg = pageName.getBackground();
         this.title = title;
         this.subtitle = subtitle;
+
+        setOpaque(false);
+        setLayout(null);
     }
 
     public void setBounds(int x, int y) {
@@ -27,9 +30,10 @@ public class PageCreator extends JPanel {
     }
 
     public void setVisible(boolean aFlag) {
-        if (aFlag && pageName == PageChange.actualPage) {
+        if (aFlag) {
             LauncherPanel.Components.titleLabel.setText(parseUnicode(title));
             LauncherPanel.Components.subTitleLabel.setText(parseUnicode(subtitle));
+            LauncherSystemTray.changeTrayTooltip();
         }
         super.setVisible(aFlag);
     }

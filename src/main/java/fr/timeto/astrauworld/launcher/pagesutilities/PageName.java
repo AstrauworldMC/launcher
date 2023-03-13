@@ -19,7 +19,7 @@ public enum PageName {
     PROFILE_SETTINGS("profile-settings", new Background().addProfileSettingsFields()),
     PROFILE_ALL("profile-all", new Background()),
 
-    CHANGELOGS("changelogs", new Background().addBigTextArea()),
+    CHANGELOGS("changelogs", new Background().addBigTextArea().addComboboxUpField()),
 
     ABOUT_INFOS("about-infos", new Background()),
     ABOUT_MODS("about-mods", new Background()),

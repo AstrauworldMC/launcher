@@ -1,11 +1,11 @@
-package fr.timeto.astrauworld.launcher.pagesutilities;
+package fr.timeto.astrauworld.launcher.panels;
 
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.colored.SColoredButton;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
-import fr.timeto.astrauworld.launcher.panels.PageCreator;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;

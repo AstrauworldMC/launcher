@@ -7,6 +7,9 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.*;
 import fr.timeto.astrauworld.launcher.pagesutilities.*;
+import fr.timeto.astrauworld.launcher.panels.ChangelogsPage;
+import fr.timeto.astrauworld.launcher.panels.NewsOpenPanel;
+import fr.timeto.astrauworld.launcher.panels.NewsPanel;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileAccountPage;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileAddonsPage;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileHomePage;
@@ -15,8 +18,6 @@ import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Objects;
 
@@ -32,7 +33,7 @@ import static fr.timeto.timutilslib.CustomFonts.*;
  * @see LauncherFrame
  */
 @SuppressWarnings("InstantiatingAThreadWithDefaultRunMethod")
-public class LauncherPanel extends JPanel implements SwingerEventListener, ActionListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
+public class LauncherPanel extends JPanel implements SwingerEventListener { // TODO faire une belle doc en utilisant la run launcher [javadoc] pour voir où y'a rien
 
      /**
       * La variable du background, change à changement de page
@@ -213,25 +214,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           public static final ProfileAddonsPage profileAddonsShadersChocapicv9Page = new ProfileAddonsPage(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9);
           public static final ProfileSettingsPage profileSettingsPage = new ProfileSettingsPage();
 
-          // Changelogs components
-          /**
-           * La liste des versions des changelogs
-           * @since Beta2.1.2
-           * @see Changelogs#getChangelogsVersionsList()
-           */
-          public static final String[] changelogsVersionsArrayList = Changelogs.getChangelogsVersionsList();
-          /**
-           * La combo-box pour sélectionner la version du changelog voulu
-           * @since Beta2.1.2
-           * @see Changelogs
-           */
-          public static JComboBox<Object> changelogsVersionComboBox = new JComboBox<>(changelogsVersionsArrayList);
-          /**
-           * La text area non éditable où apparait le texte du changelog
-           * @since Beta2.1.2
-           * @see Changelogs
-           */
-          public static JTextArea changelogsTextArea = new JTextArea();
+          public static final ChangelogsPage changelogsPage = new ChangelogsPage();
 
           // About components - up
           /**
@@ -466,29 +449,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
           this.add(profileSettingsPage);
           profileSettingsPage.setVisible(false);
 
-          // Changelogs components
-          changelogsVersionComboBox.setBounds(189, 84, 150, 24);
-          changelogsVersionComboBox.setFont(kollektifFont.deriveFont(14f));
-          changelogsVersionComboBox.addActionListener(this);
-          changelogsVersionComboBox.setForeground(Color.WHITE);
-
-          changelogsVersionComboBox.setOpaque(false);
-          changelogsVersionComboBox.setEditable(true);
-          changelogsVersionComboBox.setRenderer(new CustomComboBoxRenderer());
-          changelogsVersionComboBox.setEditor(new CustomComboBoxEditor());
-          changelogsVersionComboBox.setUI(ColorArrowComboBoxUI.createUI(changelogsVersionComboBox));
-          changelogsVersionComboBox.setBorder(null);
-          this.add(changelogsVersionComboBox);
-          changelogsVersionComboBox.setVisible(false);
-
-          changelogsTextArea.setBounds(199, 133, 787, 484);
-          changelogsTextArea.setForeground(Color.WHITE);
-          changelogsTextArea.setFont(kollektifBoldFont.deriveFont(14f));
-          changelogsTextArea.setSelectionColor(new Color(255, 20, 20, 200));
-          changelogsTextArea.setEditable(false);
-          changelogsTextArea.setOpaque(false);
-          this.add(changelogsTextArea);
-          changelogsTextArea.setVisible(false);
+          changelogsPage.setBounds(178, 113);
+          this.add(changelogsPage);
+          changelogsPage.setVisible(false);
 
           // About components - up
           aboutInfosTabButton.setBounds(178, 89);
@@ -591,33 +554,5 @@ public class LauncherPanel extends JPanel implements SwingerEventListener, Actio
      @Override
      public void onEvent(SwingerEvent e) {
           OnButtonEvent.onButtonEvent(e);
-     }
-
-     /**
-      * Vérifie la version sélectionnée des changelogs
-      * @return le numéro dans la liste
-      */
-     public static int verifyVersionChangelog() {
-          String val = Objects.requireNonNull(changelogsVersionComboBox.getSelectedItem()).toString();
-          String[] T = changelogsVersionsArrayList;
-
-          int i;
-          for(i = 0; i<T.length;i++){
-               val = val.replaceAll("\\[", "").replaceAll("]", "");
-               changelogsVersionComboBox.setSelectedItem(val);
-               if(val.contains(T[i]))
-                    //retourner la position courante
-                    return i;
-          }
-          return i-1;
-     }
-
-     @Override
-     public void actionPerformed(ActionEvent e) {
-          if (e.getSource() == changelogsVersionComboBox) {
-               int i = verifyVersionChangelog();
-               changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i]);
-
-          }
      }
 }

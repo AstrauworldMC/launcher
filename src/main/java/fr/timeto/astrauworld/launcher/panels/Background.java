@@ -7,6 +7,7 @@ public class Background {
     private boolean aboveMiniSection = false;
     private boolean middleVerticalLine = false;
     private boolean loginFields = false;
+    private boolean comboboxUpField = false;
     private boolean bigTextArea = false;
     private boolean profileSettingsFields = false;
     private boolean belowReliefRectangle = false;
@@ -27,6 +28,11 @@ public class Background {
 
     public Background setLoginFields(boolean e) {
         loginFields = e;
+        return this;
+    }
+
+    public Background setComboboxUpField(boolean e) {
+        comboboxUpField = e;
         return this;
     }
 
@@ -57,6 +63,11 @@ public class Background {
 
     public Background addLoginFields() {
         loginFields = true;
+        return this;
+    }
+
+    public Background addComboboxUpField() {
+        comboboxUpField = true;
         return this;
     }
 
@@ -116,7 +127,12 @@ public class Background {
 
                 if (bigTextArea) {
                     g2d.setColor(new Color(33, 33, 33));
-                    g2d.fillRect(11, 10, 797, 494);
+                    g2d.fillRect(11, 44, 797, 460);
+                }
+
+                if (comboboxUpField) {
+                    g2d.setColor(new Color(25, 25, 25));
+                    g2d.fillRect(11, 10, 150, 24);
                 }
 
                 if (profileSettingsFields) {

@@ -2,7 +2,6 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.colored.SColoredButton;
-import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.timutilslib.PopUpMessages;
 
@@ -69,8 +68,6 @@ public class PageChange {
 
             corner.setVisible(false);
 
-            titleLabel.setText("Actualit\u00e9s");
-            subTitleLabel.setText("");
             LauncherSystemTray.changeTrayTooltip();
 
             background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
@@ -546,25 +543,21 @@ public class PageChange {
             leftMenuSelector.moveTo(changesButton);
             changesButton.getButton().setEnabled(false);
 
-            changelogsVersionComboBox.setVisible(true);
-            changelogsTextArea.setVisible(true);
+            changelogsPage.setVisible(true);
 
             corner.setVisible(false);
 
-            subTitleLabel.setText(" ");
-            titleLabel.setText("Changelogs");
             LauncherSystemTray.changeTrayTooltip();
 
-            int i = LauncherPanel.verifyVersionChangelog();
-            changelogsVersionComboBox.setSelectedIndex(i);
-            changelogsTextArea.setText(Changelogs.getChangelogsTextsList()[i]);
+            int i = changelogsPage.verifyVersionChangelog();
+            changelogsPage.versionComboBox.setSelectedIndex(i);
+            changelogsPage.textArea.setText(Changelogs.getChangelogsTextsList()[i]);
 
-            background = getResourceIgnorePath("/assets/launcher/changelogsPage/changelogsPage.png");
+            background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
              
             corner.setVisible(true);
         }else {
-            changelogsVersionComboBox.setVisible(false);
-            changelogsTextArea.setVisible(false);
+            changelogsPage.setVisible(false);
 
             changesButton.getButton().setEnabled(true);
         }

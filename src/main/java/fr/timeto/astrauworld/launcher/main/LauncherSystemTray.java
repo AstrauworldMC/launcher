@@ -478,8 +478,6 @@ public class LauncherSystemTray {
 
         if (titleText.contains("Profil")) {
             trayIcon.setToolTip("Astrauworld Launcher | " + titleText + " - " + subtitleText + " (" + ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()) + ")");
-        } else if (titleText.contains("Changelogs")) {
-            trayIcon.setToolTip("Astrauworld Launcher | " + LauncherPanel.Components.titleLabel.getText() + " - " + LauncherPanel.Components.changelogsVersionComboBox.getSelectedItem().toString());
         } else if (Objects.equals(subtitleText, "") || Objects.equals(subtitleText, " ")) {
             trayIcon.setToolTip("Astrauworld Launcher | " + titleText);
         } else {
@@ -491,8 +489,7 @@ public class LauncherSystemTray {
         if (withAppName) {
             return trayIcon.getToolTip();
         } else {
-            String str = trayIcon.getToolTip().replaceFirst("Astrauworld Launcher \\| ", "");
-            return str;
+            return trayIcon.getToolTip().replaceFirst("Astrauworld Launcher \\| ", "");
         }
     }
 
