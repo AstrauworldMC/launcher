@@ -50,6 +50,7 @@ public class Launcher {
     public static final String crashFolder = filesFolder + separatorChar + "crashes";
     public static final String gameFilesFolder = filesFolder + separatorChar + "GameFiles";
     public static final String dataFolder = filesFolder + separatorChar + "data";
+    public static final String globalSettingsData = dataFolder + separatorChar + "settings.properties";
 
     public static final String firstProfileData = dataFolder + separatorChar + "firstProfile.properties";
     public static final String firstProfileIcon = dataFolder + separatorChar + "firstProfile.png";
@@ -80,6 +81,7 @@ public class Launcher {
     public static final File AW_CRASH_FOLDER = new File(crashFolder);
     public static final File AW_GAMEFILES_FOLDER = new File(gameFilesFolder);
     public static final File AW_DATA_FOLDER = new File(dataFolder);
+    public static final File AW_SETTINGS_DATA = new File(globalSettingsData);
 
     public static final File AW_FIRSTPROFILE_DATA = new File(firstProfileData);
     public static final File AW_FIRSTPROFILE_ICON = new File(firstProfileIcon);
@@ -98,6 +100,7 @@ public class Launcher {
     public static final Path awCrashFolder = Paths.get(crashFolder);
     public static final Path awGameFilesFolder = Paths.get(gameFilesFolder);
     public static final Path awDataFolder = Paths.get(dataFolder);
+    public static final Path awSettingsData = Paths.get(globalSettingsData);
 
     public static final Path awFirstProfileData = Paths.get(firstProfileData);
     public static final Path awFirstProfileIcon = Paths.get(firstProfileIcon);

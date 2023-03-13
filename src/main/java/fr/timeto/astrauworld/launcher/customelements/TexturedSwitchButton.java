@@ -4,7 +4,6 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.textured.STexturedButton;
 
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
@@ -21,7 +20,12 @@ public class TexturedSwitchButton extends STexturedButton {
     private final boolean global;
 
     public BufferedImage getTexture() {
-        if (getSelectedSaver().get(saverKeyStr).contains("true")) {
+        Saver saver;
+        if (global) {
+            saver = globalSettingsSaver;
+        } else saver = getSelectedSaver();
+
+        if (Boolean.parseBoolean(saver.get(saverKeyStr))) {
             return(textureOn);
         }
         return textureOff;
@@ -42,8 +46,13 @@ public class TexturedSwitchButton extends STexturedButton {
     }
 
     public void defineTextures() {
+        Saver saver;
+        if (global) {
+            saver = globalSettingsSaver;
+        } else saver = getSelectedSaver();
+
         try {
-            if (getSelectedSaver().get(saverKeyStr).contains("true")) {
+            if (Boolean.parseBoolean(saver.get(saverKeyStr))) {
                 super.setTexture(textureOn);
                 super.setTextureHover(textureHoverOn);
                 super.setTextureDisabled(textureDisabledOn);
@@ -53,7 +62,7 @@ public class TexturedSwitchButton extends STexturedButton {
                 super.setTextureDisabled(textureDisabledOff);
             }
         } catch (NullPointerException e) {
-            getSelectedSaver().set(saverKeyStr, saverKey.getDefaultValue());
+            saver.set(saverKeyStr, saverKey.getDefaultValue());
             defineTextures();
         }
     }
@@ -84,52 +93,15 @@ public class TexturedSwitchButton extends STexturedButton {
         }
     }
 
-    @Override
-    public void setEnabled(boolean aFlag) {
-        String value = getSelectedSaver().get(saverKeyStr);
-
-        if(aFlag) {
-            if (Objects.equals(value, "trueDisabled")) {
-                getSelectedSaver().set(saverKeyStr, "false");
-            } else if (Objects.equals(value, "falseDisabled")) {
-                getSelectedSaver().set(saverKeyStr, "true");
-            }
-            super.setEnabled(aFlag);
-        } else {
-            if (Objects.equals(value, "true")) {
-                getSelectedSaver().set(saverKeyStr, "falseDisabled");
-            } else if (Objects.equals(value, "false")) {
-                getSelectedSaver().set(saverKeyStr, "trueDisabled");
-            }
-            super.setEnabled(aFlag);
-        }
-    }
-
     public void toggleButton() {
-        String value = getSelectedSaver().get(saverKeyStr);
+        String value;
 
-        Saver saverNotSelect1 = null;
-        Saver saverNotSelect2 = null;
-        if (getSelectedSaver() == firstProfileSaver) {
-            saverNotSelect1 = secondProfileSaver;
-            saverNotSelect2 = thirdProfileSaver;
-        } else if (getSelectedSaver() == secondProfileSaver) {
-            saverNotSelect1 = firstProfileSaver;
-            saverNotSelect2 = thirdProfileSaver;
-        } else if (getSelectedSaver() == thirdProfileSaver) {
-            saverNotSelect1 = firstProfileSaver;
-            saverNotSelect2 = secondProfileSaver;
-        }
-
-        if (Objects.equals(value, "true")) {
-            getSelectedSaver().set(this.getSaverKey(), "false");
-            if (global) {firstProfileSaver.set(this.getSaverKey(), "true");}
-        } else if (Objects.equals(value, "false")) {
-            getSelectedSaver().set(this.getSaverKey(), "true");
-            if (global) {
-                saverNotSelect1.set(this.getSaverKey(), "false");
-                saverNotSelect2.set(this.getSaverKey(), "false");
-            }
+        if (global) {
+            value = globalSettingsSaver.get(saverKeyStr);
+            globalSettingsSaver.set(getSaverKey(), String.valueOf(!Boolean.parseBoolean(value)));
+        } else {
+            value = getSelectedSaver().get(saverKeyStr);
+            getSelectedSaver().set(getSaverKey(), String.valueOf(!Boolean.parseBoolean(value)));
         }
         defineTextures();
     }

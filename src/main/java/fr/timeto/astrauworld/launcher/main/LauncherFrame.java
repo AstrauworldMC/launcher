@@ -196,18 +196,17 @@ public class LauncherFrame extends JFrame {
                 EasterEggs.initEastereggs();
                 new File(Launcher.dataFolder + "eastereggs.properties").delete();
 
-                if (firstProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()) == null && secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()) == null && thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()) == null) {
+                if (firstProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()) == null && secondProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()) == null && thirdProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()) == null) {
                     Launcher.println("[Lancement] Initialisation du profil principal");
-                    firstProfileSaver.set(KEY.SETTINGS_MAINPROFILE.get(), "true");
-                    secondProfileSaver.set(KEY.SETTINGS_MAINPROFILE.get(), "false");
-                    thirdProfileSaver.set(KEY.SETTINGS_MAINPROFILE.get(), "false");
+                    firstProfileSaver.set(KEY.GLOBALSETTINGS_MAINPROFILE.get(), "true");
+                    secondProfileSaver.set(KEY.GLOBALSETTINGS_MAINPROFILE.get(), "false");
+                    thirdProfileSaver.set(KEY.GLOBALSETTINGS_MAINPROFILE.get(), "false");
                 }
 
                 PageChange.lastSettingsSaver = null;
 
                 Launcher.println("[Lancement] Lancement du system tray icon");
                 initLauncherSystemTray();
-                instance = new LauncherFrame();
 
                 Launcher.println("[Lancement] Vérifications de problèmes de fichiers d'anciennes versions");
                 shaderpacksFolder.mkdir();
@@ -241,6 +240,8 @@ public class LauncherFrame extends JFrame {
                     Launcher.println("[Lancement] Vérification de la version");
                     verifyLauncherVersion(false, false);
                 }
+
+                instance = new LauncherFrame();
             } else {
                 Launcher.println("[Lancement] Relancement du launcher");
 

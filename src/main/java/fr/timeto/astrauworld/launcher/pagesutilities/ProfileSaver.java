@@ -31,6 +31,8 @@ public class ProfileSaver {
      */
     public static Saver thirdProfileSaver = new Saver(Launcher.awThirdProfileData);
 
+    public static final Saver globalSettingsSaver = new Saver(Launcher.awSettingsData);
+
     /**
      * Le profil sélectionné
      */
@@ -121,9 +123,9 @@ public class ProfileSaver {
     }
 
     public static String getActualMainProfile() {
-        if (Objects.equals(thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()), "true")) {
+        if (Objects.equals(thirdProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()), "true")) {
             return "3";
-        } else if (Objects.equals(secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE.get()), "true")) {
+        } else if (Objects.equals(secondProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()), "true")) {
             return "2";
         } else {
             return "1";
@@ -154,7 +156,7 @@ public class ProfileSaver {
                 KEY.SETTINGS_PROFILENAME,
                 KEY.SETTINGS_HELMICON,
                 KEY.SETTINGS_RAM,
-                KEY.SETTINGS_MAINPROFILE,
+                KEY.GLOBALSETTINGS_MAINPROFILE,
         };
 
         int i = 0;
@@ -187,8 +189,7 @@ public class ProfileSaver {
                 KEY.MOD_3DSKINLAYERS,
                 KEY.SETTINGS_PROFILENAME,
                 KEY.SETTINGS_HELMICON,
-                KEY.SETTINGS_RAM,
-                KEY.SETTINGS_MAINPROFILE,
+                KEY.SETTINGS_RAM
         };
 
         int i = 0;
@@ -592,7 +593,7 @@ public class ProfileSaver {
      * La classe qui regroupe les key des savers
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static enum KEY {
+    public enum KEY {
         /**
          * Le pseudo du compte enregistré
          * <br> A ne pas confondre avec {@link KEY#SETTINGS_PROFILENAME}
@@ -655,7 +656,7 @@ public class ProfileSaver {
          * La RAM allouée
          */
         SETTINGS_RAM("settings|AllowedRam", "3.0"),
-        SETTINGS_MAINPROFILE("settings|MainProfile", "false");
+        GLOBALSETTINGS_MAINPROFILE("settings|MainProfile", "1");
 
         private final String key;
         private final String defaultValue;

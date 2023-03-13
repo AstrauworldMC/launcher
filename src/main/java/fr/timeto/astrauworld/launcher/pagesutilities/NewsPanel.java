@@ -5,6 +5,7 @@ import fr.theshark34.swinger.colored.SColoredButton;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
+import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
@@ -20,8 +21,7 @@ import java.util.Date;
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 
-public class NewsPanel extends JScrollPane {
-    JPanel panel = new JPanel();
+public class NewsPanel extends PageCreator {
 
     public static News[] newsList = {
             new News("test", "Ceci est un article de test", "TimEtOff", "24/01/2023")
@@ -29,11 +29,22 @@ public class NewsPanel extends JScrollPane {
 
     static Box[] boxes;
     static JPanel container;
+    private static JScrollPane scrollPane;
 
     public NewsPanel() {
+        super(PageName.NEWS, "Actualit\u00e9s", "");
+
+        setLayout(null);
+        setOpaque(false);
+
+        scrollPane = new JScrollPane();
+
+        scrollPane.setBounds(0, 0, 822, 517);
+        add(scrollPane);
+
         CustomFonts.initFonts();
 
-        setOpaque(false);
+        scrollPane.setOpaque(false);
 
         container = new JPanel();
         LayoutManager layout = new BoxLayout(container, BoxLayout.Y_AXIS);
@@ -42,15 +53,15 @@ public class NewsPanel extends JScrollPane {
         container.setBackground(Swinger.getTransparentWhite(10));
         container.setOpaque(false);
 
-        setViewportView(container);
-        setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        getVerticalScrollBar().setUnitIncrement(14);
+        scrollPane.setViewportView(container);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        scrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        scrollPane.getVerticalScrollBar().setUnitIncrement(14);
 
-        getViewport().setOpaque(false);
-        setBorder(null);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
 
         int i = 0;
         boxes = new Box[newsList.length];
@@ -64,8 +75,8 @@ public class NewsPanel extends JScrollPane {
             } else {
                 container.add(Box.createRigidArea(new Dimension(1000, 30)));
             }
-            JPanel panel1 = new NewsButton(ii);
-            boxes[ii].add(((NewsButton) panel1).getButton());
+            NewsButton panel1 = new NewsButton(ii);
+            boxes[ii].add(panel1.getButton());
         }
 
     }

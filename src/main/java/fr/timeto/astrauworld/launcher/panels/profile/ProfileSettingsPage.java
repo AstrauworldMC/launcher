@@ -32,7 +32,7 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
     public JSpinner allowedRamSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 256.00, 1));
     public JLabel allowedRamSpinnerLabel1 = new JLabel(parseUnicode("RAM allouée au jeu"), SwingConstants.RIGHT);
     public JLabel allowedRamSpinnerLabel2 = new JLabel(parseUnicode("En Go (3Go conseillé)"), SwingConstants.RIGHT);
-    public TexturedSwitchButton mainProfileSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.SETTINGS_MAINPROFILE, true);
+    public TexturedSwitchButton mainProfileSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.GLOBALSETTINGS_MAINPROFILE, true);
     public JLabel mainProfileSwitchButtonLabel = new JLabel(parseUnicode("Profil principal"));
     public STexturedButton saveSettings = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton-hover.png"));
 

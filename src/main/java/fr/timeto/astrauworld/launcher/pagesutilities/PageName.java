@@ -5,6 +5,7 @@ import fr.timeto.astrauworld.launcher.panels.Background;
 
 public enum PageName {
     NEWS("news", new Background()),
+    NEWS_OPEN("news-open", new Background()),
 
     PROFILE_HOME("profile-home", new Background().addBelowReliefRectangle()),
     PROFILE_ACCOUNT("profile-account", new Background().addLoginFields().addMiddleVerticalLine()),

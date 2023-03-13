@@ -2,8 +2,8 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.swinger.Swinger;
 import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
-import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
+import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
@@ -14,31 +14,30 @@ import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.background;
 import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
 
-public class NewsOpenPanel extends JScrollPane {
-    JPanel panel = new JPanel();
+public class NewsOpenPanel extends PageCreator {
 
-    public static News[] newsList = {
-            new News("test", "Ceci est un article de test", "TimEtOff", "23/01/2023"),
-            new News("test", "Ceci est un article de test", "Astrauwolf", "24/02/2023"),
-            new News("test", "Ceci est un article de test", "Thomasdu332", "25/03/2023"),
-            new News("test", "Ceci est un article de test", "Capitenzo674", "26/04/2023"),
-            new News("test", "Ceci est un article de test", "ThunderFurax", "27/05/2023"),
-            new News("test", "Ceci est un article de test", "Cyril.04", "28/06/2023")};
+    private final JScrollPane scrollPane;
+    private  final JPanel container = new JPanel();
+    private  final JPanel inside = new JPanel();
 
-    static Box[] boxes;
-    private static final JPanel container = new JPanel();
-    private static final JPanel inside = new JPanel();
-
-    static JLabel imageLabel = new JLabel();
-    static JLabel titleLabel = new JLabel();
+     JLabel imageLabel = new JLabel();
+     JLabel titleLabel = new JLabel();
  //   private static WebView browser = new WebView();
  //   static WebEngine textArea = browser.getEngine();
-    static JTextArea textArea = new JTextArea();
+     JTextArea textArea = new JTextArea();
 
     public NewsOpenPanel() {
-        CustomFonts.initFonts();
+        super(PageName.NEWS_OPEN, "Actualit\u00e9s", "");
 
+        setLayout(null);
         setOpaque(false);
+
+        scrollPane = new JScrollPane();
+
+        scrollPane.setBounds(0, 0, 822, 517);
+        add(scrollPane);
+
+        scrollPane.setOpaque(false);
 
         container.setLayout(new GridLayout(1,1));
         container.setPreferredSize(new Dimension(822, 1500));
@@ -50,15 +49,15 @@ public class NewsOpenPanel extends JScrollPane {
         inside.setBackground(Swinger.getTransparentWhite(10));
         inside.setOpaque(false);
 
-        setViewportView(container);
-        setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        getVerticalScrollBar().setUnitIncrement(14);
+        scrollPane.setViewportView(container);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        scrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        scrollPane.getVerticalScrollBar().setUnitIncrement(14);
 
-        getViewport().setOpaque(false);
-        setBorder(null);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
 
         container.add(inside);
 
@@ -80,14 +79,14 @@ public class NewsOpenPanel extends JScrollPane {
 
     }
 
-    public static void setNewsPage(News news) {
+    public void setNewsPage(News news) {
         setPage(false, PageName.NEWS);
         setPage(false,PageName.PROFILE_ALL, null);
         setPage(false, PageName.CHANGELOGS);
         setPage(false, PageName.ABOUT);
 
-        LauncherPanel.Components.titleLabel.setText("Actualit\u00e9s");
-        subTitleLabel.setText(news.getTitle());
+        setSubtitle(news.getTitle());
+
         LauncherSystemTray.changeTrayTooltip();
 
         imageLabel.setIcon(new ImageIcon(news.getImage()));
