@@ -32,8 +32,6 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
     public JSpinner allowedRamSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 256.00, 1));
     public JLabel allowedRamSpinnerLabel1 = new JLabel(parseUnicode("RAM allouée au jeu"), SwingConstants.RIGHT);
     public JLabel allowedRamSpinnerLabel2 = new JLabel(parseUnicode("En Go (3Go conseillé)"), SwingConstants.RIGHT);
-    public TexturedSwitchButton mainProfileSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.GLOBALSETTINGS_MAINPROFILE, true);
-    public JLabel mainProfileSwitchButtonLabel = new JLabel(parseUnicode("Profil principal"));
     public STexturedButton saveSettings = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton-hover.png"));
 
 
@@ -95,15 +93,6 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         allowedRamSpinnerLabel2.setBounds(48, 211, 238, 43);
         add(allowedRamSpinnerLabel2);
 
-        mainProfileSwitchButton.setBounds(313, 268);
-        mainProfileSwitchButton.addEventListener(this);
-        add(mainProfileSwitchButton);
-
-        mainProfileSwitchButtonLabel.setForeground(Color.WHITE);
-        mainProfileSwitchButtonLabel.setFont(profileNameTextFieldLabel.getFont());
-        mainProfileSwitchButtonLabel.setBounds(118, 274, 254, 44);
-        add(mainProfileSwitchButtonLabel);
-
         saveSettings.setBounds(646, 430);
         saveSettings.addEventListener(this);
         add(saveSettings);
@@ -117,7 +106,6 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
             profileNameTextField.setText(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()));
             helmIconSwitchButton.defineTextures();
             allowedRamSpinner.setValue(Float.parseFloat(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get())));
-            mainProfileSwitchButton.defineTextures();
         }
         super.setVisible(aFlag);
     }
@@ -129,8 +117,6 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         if (src == helmIconSwitchButton) {
             helmIconSwitchButton.toggleButton();
             initProfileButtons();
-        } else if (src == mainProfileSwitchButton) {
-            mainProfileSwitchButton.toggleButton();
         } else if (src == saveSettings) {
             getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_RAM.get(), allowedRamSpinner.getValue().toString());
             getSelectedSaver().set(ProfileSaver.KEY.SETTINGS_PROFILENAME.get(), profileNameTextField.getText());

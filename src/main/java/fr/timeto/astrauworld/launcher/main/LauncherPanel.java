@@ -326,13 +326,18 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(corner);
           corner.setEnabled(false);
 
+          JPanel panel = new JPanel();
+          panel.setOpaque(false);
+          panel.setLayout(null);
+          panel.setBounds(178, 113, 822, 517);
+
           // News components
-          newsScrollPanel.setBounds(178, 113, 822, 517);
-          this.add(newsScrollPanel);
+          newsScrollPanel.setBounds(0, 0);
+          panel.add(newsScrollPanel);
           newsScrollPanel.setVisible(false);
 
-          newsOpenScrollPanel.setBounds(178, 113, 822, 517);
-          this.add(newsOpenScrollPanel);
+          newsOpenScrollPanel.setBounds(0, 0);
+          panel.add(newsOpenScrollPanel);
           newsOpenScrollPanel.setVisible(false);
 
           // Profiles components
@@ -366,40 +371,40 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileAccountConnectedLabel.setFont(titleLabel.getFont().deriveFont(17f));
           add(profileAccountConnectedLabel);
 
-          profileHomePage.setBounds(178, 113);
-          this.add(profileHomePage);
+          profileHomePage.setBounds(0, 0);
+          panel.add(profileHomePage);
           profileHomePage.setVisible(false);
 
-          profileAccountPage.setBounds(178, 113);
-          this.add(profileAccountPage);
+          profileAccountPage.setBounds(0, 0);
+          panel.add(profileAccountPage);
           profileAccountPage.setVisible(false);
 
-          profileAddonsModsPage.setBounds(178, 113);
-          this.add(profileAddonsModsPage);
+          profileAddonsModsPage.setBounds(0, 0);
+          panel.add(profileAddonsModsPage);
           profileAddonsModsPage.setVisible(false);
 
-          profileAddonsShadersPage.setBounds(178, 113);
-          this.add(profileAddonsShadersPage);
+          profileAddonsShadersPage.setBounds(0, 0);
+          panel.add(profileAddonsShadersPage);
           profileAddonsShadersPage.setVisible(false);
 
-          profileAddonsShadersChocapicv6Page.setBounds(178, 113);
-          this.add(profileAddonsShadersChocapicv6Page);
+          profileAddonsShadersChocapicv6Page.setBounds(0, 0);
+          panel.add(profileAddonsShadersChocapicv6Page);
           profileAddonsShadersChocapicv6Page.setVisible(false);
 
-          profileAddonsShadersChocapicv7Page.setBounds(178, 113);
-          this.add(profileAddonsShadersChocapicv7Page);
+          profileAddonsShadersChocapicv7Page.setBounds(0, 0);
+          panel.add(profileAddonsShadersChocapicv7Page);
           profileAddonsShadersChocapicv7Page.setVisible(false);
 
-          profileAddonsShadersChocapicv9Page.setBounds(178, 113);
-          this.add(profileAddonsShadersChocapicv9Page);
+          profileAddonsShadersChocapicv9Page.setBounds(0, 0);
+          panel.add(profileAddonsShadersChocapicv9Page);
           profileAddonsShadersChocapicv9Page.setVisible(false);
 
-          profileSettingsPage.setBounds(178, 113);
-          this.add(profileSettingsPage);
+          profileSettingsPage.setBounds(0, 0);
+          panel.add(profileSettingsPage);
           profileSettingsPage.setVisible(false);
 
-          changelogsPage.setBounds(178, 113);
-          this.add(changelogsPage);
+          changelogsPage.setBounds(0, 0);
+          panel.add(changelogsPage);
           changelogsPage.setVisible(false);
 
           // About components
@@ -413,9 +418,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(aboutModsTabButton);
           aboutModsTabButton.setVisible(false);
 
-          aboutInfosPage.setBounds(178, 113);
-          this.add(aboutInfosPage);
+          aboutInfosPage.setBounds(0, 0);
+          panel.add(aboutInfosPage);
           aboutInfosPage.setVisible(false);
+
+          this.add(panel);
 
           Launcher.println("Affichage...");
           setPage(true, PageName.PROFILE_HOME, ProfileSaver.getActualMainProfile());

@@ -3,6 +3,7 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.colored.SColoredButton;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
+import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ import static java.lang.Float.parseFloat;
  */
 public class PageChange {
     public static PageName actualPage;
+    public static PageCreator actualPagePanel;
 
     public static void setPage(boolean e, PageName page) {
         actualPage = page;
@@ -36,7 +38,9 @@ public class PageChange {
     }
 
     public static void setPage(boolean e, PageName page, String profileNum) {
-        actualPage = page;
+        if (e) actualPage = page;
+
+        actualPagePanel = null;
         if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
             setNewsPage(e);
         } else if (Objects.equals(page.getPage1(), PageName.PROFILE_HOME.getPage1())) {
@@ -65,6 +69,7 @@ public class PageChange {
 
             newsScrollPanel.setVisible(true);
             newsOpenScrollPanel.setVisible(false);
+            actualPagePanel = newsScrollPanel;
 
             corner.setVisible(false);
 
@@ -184,6 +189,7 @@ public class PageChange {
                 profileSettingsTabButton.setVisible(true);
 
                 profileHomePage.setVisible(true);
+                actualPagePanel = profileHomePage;
 
                 profileAccountLabel.setBounds(374, 470, 276, 31);
                 profileAccountLabel.setVisible(true);
@@ -201,7 +207,6 @@ public class PageChange {
 
                 corner.setVisible(false);
 
-                subTitleLabel.setText("Jouer");
                 LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
@@ -250,6 +255,7 @@ public class PageChange {
                 profileSettingsTabButton.setVisible(true);
 
                 profileAccountPage.setVisible(true);
+                actualPagePanel = profileHomePage;
 
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()), "none")) {
                     profileAccountPage.textField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()));
@@ -313,6 +319,7 @@ public class PageChange {
                     profileSettingsTabButton.setVisible(true);
 
                     profileAddonsModsPage.setVisible(true);
+                    actualPagePanel = profileAddonsModsPage;
 
                     profileAccountLabel.setBounds(380, 577, 276, 31);
                     profileAccountLabel.setVisible(true);
@@ -371,18 +378,22 @@ public class PageChange {
                     if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6.getSpecialTab4())) {
 
                         profileAddonsShadersChocapicv6Page.setVisible(true);
+                        actualPagePanel = profileAddonsShadersChocapicv6Page;
 
                     } else if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7.getSpecialTab4())) {
 
                         profileAddonsShadersChocapicv7Page.setVisible(true);
+                        actualPagePanel = profileAddonsShadersChocapicv7Page;
 
                     } else if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9.getSpecialTab4())) {
 
                         profileAddonsShadersChocapicv9Page.setVisible(true);
+                        actualPagePanel = profileAddonsShadersChocapicv9Page;
 
                     } else {
 
                         profileAddonsShadersPage.setVisible(true);
+                        actualPagePanel = profileAddonsShadersPage;
 
                     }
 
@@ -451,6 +462,7 @@ public class PageChange {
                 profileSettingsTabButton.setVisible(true);
 
                 profileSettingsPage.setVisible(true);
+                actualPagePanel = profileSettingsPage;
 
                 profileAccountLabel.setBounds(380, 577, 276, 31);
                 profileAccountLabel.setVisible(true);
@@ -549,6 +561,7 @@ public class PageChange {
             changesButton.getButton().setEnabled(false);
 
             changelogsPage.setVisible(true);
+            actualPagePanel = changelogsPage;
 
             corner.setVisible(false);
 
@@ -592,6 +605,7 @@ public class PageChange {
 
                 aboutInfosPage.setVisible(true);
                 aboutInfosPage.eastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
+                actualPagePanel = aboutInfosPage;
 
                 corner.setVisible(false);
 
