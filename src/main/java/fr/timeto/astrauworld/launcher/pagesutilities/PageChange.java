@@ -104,49 +104,54 @@ public class PageChange {
             ProfileSaver.setSelectedProfile(profileNumber);
 
             if (enabled && !Objects.equals(page.getTab2(), "all")) {
-                if (Objects.equals(profileNumber, "1")) {
-                    profileSelected = firstProfileButton.getProfileButton();
-                    profilePanelSelected = firstProfileButton;
-                    profileNotSelected1 = secondProfileButton.getProfileButton();
-                    profileNotSelected2 = thirdProfileButton.getProfileButton();
-                    titleLabel.setText("Profil 1");
-                    selectedSaver = firstProfileSaver;
-                    setSelectedProfile("1");
-                } else if (Objects.equals(profileNumber, "2")) {
-                    profileSelected = secondProfileButton.getProfileButton();
-                    profilePanelSelected = secondProfileButton;
-                    profileNotSelected2 = thirdProfileButton.getProfileButton();
-                    titleLabel.setText("Profil 2");
-                    selectedSaver = secondProfileSaver;
-                    setSelectedProfile("2");
-                } else if (Objects.equals(profileNumber, "3")) {
-                    profileSelected = thirdProfileButton.getProfileButton();
-                    profilePanelSelected = thirdProfileButton;
-                    profileNotSelected1 = secondProfileButton.getProfileButton();
-                    profileNotSelected2 = firstProfileButton.getProfileButton();
-                    titleLabel.setText("Profil 3");
-                    selectedSaver = thirdProfileSaver;
-                    setSelectedProfile("3");
-                } else if (Objects.equals(profileNumber, "null")) {
-                    if (Objects.equals(titleLabel.getText(), "Profil 1")) {
+                switch (profileNumber) {
+                    case "1":
                         profileSelected = firstProfileButton.getProfileButton();
                         profilePanelSelected = firstProfileButton;
                         profileNotSelected1 = secondProfileButton.getProfileButton();
                         profileNotSelected2 = thirdProfileButton.getProfileButton();
+                        titleLabel.setText("Profil 1");
                         selectedSaver = firstProfileSaver;
-                    } else if (Objects.equals(titleLabel.getText(), "Profil 2")) {
+                        setSelectedProfile("1");
+                        break;
+                    case "2":
                         profileSelected = secondProfileButton.getProfileButton();
                         profilePanelSelected = secondProfileButton;
-                        profileNotSelected1 = firstProfileButton.getProfileButton();
                         profileNotSelected2 = thirdProfileButton.getProfileButton();
+                        titleLabel.setText("Profil 2");
                         selectedSaver = secondProfileSaver;
-                    } else if (Objects.equals(titleLabel.getText(), "Profil 3")) {
+                        setSelectedProfile("2");
+                        break;
+                    case "3":
                         profileSelected = thirdProfileButton.getProfileButton();
                         profilePanelSelected = thirdProfileButton;
                         profileNotSelected1 = secondProfileButton.getProfileButton();
                         profileNotSelected2 = firstProfileButton.getProfileButton();
+                        titleLabel.setText("Profil 3");
                         selectedSaver = thirdProfileSaver;
-                    }
+                        setSelectedProfile("3");
+                        break;
+                    case "null":
+                        if (Objects.equals(titleLabel.getText(), "Profil 1")) {
+                            profileSelected = firstProfileButton.getProfileButton();
+                            profilePanelSelected = firstProfileButton;
+                            profileNotSelected1 = secondProfileButton.getProfileButton();
+                            profileNotSelected2 = thirdProfileButton.getProfileButton();
+                            selectedSaver = firstProfileSaver;
+                        } else if (Objects.equals(titleLabel.getText(), "Profil 2")) {
+                            profileSelected = secondProfileButton.getProfileButton();
+                            profilePanelSelected = secondProfileButton;
+                            profileNotSelected1 = firstProfileButton.getProfileButton();
+                            profileNotSelected2 = thirdProfileButton.getProfileButton();
+                            selectedSaver = secondProfileSaver;
+                        } else if (Objects.equals(titleLabel.getText(), "Profil 3")) {
+                            profileSelected = thirdProfileButton.getProfileButton();
+                            profilePanelSelected = thirdProfileButton;
+                            profileNotSelected1 = secondProfileButton.getProfileButton();
+                            profileNotSelected2 = firstProfileButton.getProfileButton();
+                            selectedSaver = thirdProfileSaver;
+                        }
+                        break;
                 }
                 leftMenuSelector.moveTo(profilePanelSelected);
                 ProfileSaver.setSelectedSaver(selectedSaver);
@@ -585,18 +590,8 @@ public class PageChange {
                 aboutInfosTabButton.setVisible(true);
                 aboutModsTabButton.setVisible(true);
 
-                aboutTextLogo.setVisible(true);
-                aboutAstrauwolfLogo.setVisible(true);
-                aboutCapitenzoLogo.setVisible(true);
-                aboutTimEtOLogo.setVisible(true);
-
-                aboutGithubButton.setVisible(true);
-                aboutMailButton.setVisible(true);
-                aboutDiscordButton.setVisible(true);
-                aboutTwitterButton.setVisible(true);
-
-                aboutEastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
-                aboutEastereggsLabel.setVisible(true);
+                aboutInfosPage.setVisible(true);
+                aboutInfosPage.eastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
 
                 corner.setVisible(false);
 
@@ -604,24 +599,14 @@ public class PageChange {
                 titleLabel.setText("\u00c0 propos");
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/aboutPage/aboutPage-infos.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
                  
                 corner.setVisible(true);
             } else {
                 aboutInfosTabButton.setVisible(false);
                 aboutModsTabButton.setVisible(false);
 
-                aboutTextLogo.setVisible(false);
-                aboutAstrauwolfLogo.setVisible(false);
-                aboutCapitenzoLogo.setVisible(false);
-                aboutTimEtOLogo.setVisible(false);
-
-                aboutGithubButton.setVisible(false);
-                aboutMailButton.setVisible(false);
-                aboutDiscordButton.setVisible(false);
-                aboutTwitterButton.setVisible(false);
-
-                aboutEastereggsLabel.setVisible(false);
+                aboutInfosPage.setVisible(false);
 
                 aboutButton.getButton().setEnabled(true);
                 aboutInfosTabButton.setEnabled(true);

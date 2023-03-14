@@ -10,6 +10,7 @@ import fr.timeto.astrauworld.launcher.pagesutilities.*;
 import fr.timeto.astrauworld.launcher.panels.ChangelogsPage;
 import fr.timeto.astrauworld.launcher.panels.NewsOpenPanel;
 import fr.timeto.astrauworld.launcher.panels.NewsPanel;
+import fr.timeto.astrauworld.launcher.panels.about.AboutInfosPage;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileAccountPage;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileAddonsPage;
 import fr.timeto.astrauworld.launcher.panels.profile.ProfileHomePage;
@@ -227,59 +228,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            * @since Beta2.1.2
            */
           public static final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-selected.png"));
-
-          // About components - infos
-          /**
-           * Bouton du logo Astrauworld avec le texte qui renvoie au site dans la page à propos - infos
-           * @since Beta2.1.2
-           */
-          public static final STexturedButton aboutTextLogo = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/logo-texte.png"), getResourceIgnorePath("/assets/launcher/aboutPage/logo-texte.png"));
-          /**
-           * Bouton du logo d'Astrauwolf dans la page à propos - infos (easter egg) dans la page à propos - infos
-           *
-           * @since Beta2.1.2
-           * @see EasterEggs#polishCow
-           */
-          public static final STexturedButton aboutAstrauwolfLogo = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/aboutLogoAstrau.png"), getResourceIgnorePath("/assets/launcher/aboutPage/aboutLogoAstrau.png"));
-          /**
-           * Bouton du logo de Capitenzo974 dans la page à propos - infos (easter egg) dans la page à propos - infos
-           * @since Beta2.1.2
-           * @see EasterEggs#frogWalking
-           */
-          public static final STexturedButton aboutCapitenzoLogo = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/capitenzoPfp.png"), getResourceIgnorePath("/assets/launcher/aboutPage/capitenzoPfp.png"));
-          /**
-           * Bouton du logo de TimEtO dans la page à propos - infos (easter egg) dans la page à propos - infos
-           * @since Beta2.1.2
-           * @see EasterEggs#rickroll
-           */
-          public static final STexturedButton aboutTimEtOLogo = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/aboutLogoTim.png"), getResourceIgnorePath("/assets/launcher/aboutPage/aboutLogoTim.png"));
-          /**
-           * Bouton qui envoie à la page GitHub de AstrauworldMC dans la page à propos - infos
-           * @since Beta2.1.2
-           */
-          public static final STexturedButton aboutGithubButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/github-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/github-hover.png"));
-          /**
-           * Bouton qui renvoie à un mailto:[l'adresse mail d'Astrauworld] dans la page à propos - infos
-           * @since Beta2.1.2
-           */
-          public static final STexturedButton aboutMailButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/mail-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/mail-hover.png"));
-          /**
-           * Bouton qui envoie à la page d'invitation au serveur Discord d'Astrauworld dans la page à propos - infos
-           * @since Beta2.1.2
-           */
-          public static final STexturedButton aboutDiscordButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/discord-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/discord-hover.png"));
-          /**
-           * Bouton qui envoie à la page du compte Twitter d'@AstrauworldMC dans la page à propos - infos
-           * @since Beta2.1.2
-           */
-          public static final STexturedButton aboutTwitterButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/twitter-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/twitter-hover.png"));
-          /**
-           * Label où est écrit le nombre d'easter eggs trouvés dans la page à propos - infos
-           * @since Beta2.1.2
-           */
-          public static JLabel aboutEastereggsLabel = new JLabel("", SwingConstants.LEFT);
-
-     //     public static PageCreator testPageCreator = new PageCreator();
+          public static final AboutInfosPage aboutInfosPage = new AboutInfosPage();
      }
 
      /**
@@ -453,7 +402,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(changelogsPage);
           changelogsPage.setVisible(false);
 
-          // About components - up
+          // About components
           aboutInfosTabButton.setBounds(178, 89);
           aboutInfosTabButton.addEventListener(this);
           this.add(aboutInfosTabButton);
@@ -464,52 +413,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(aboutModsTabButton);
           aboutModsTabButton.setVisible(false);
 
-          aboutTextLogo.setBounds(190, 123);
-          aboutTextLogo.addEventListener(this);
-          this.add(aboutTextLogo);
-          aboutTextLogo.setVisible(false);
-
-          aboutAstrauwolfLogo.setBounds(488, 234);
-          aboutAstrauwolfLogo.addEventListener(this);
-          this.add(aboutAstrauwolfLogo);
-          aboutAstrauwolfLogo.setVisible(false);
-
-          aboutCapitenzoLogo.setBounds(639, 235);
-          aboutCapitenzoLogo.addEventListener(this);
-          this.add(aboutCapitenzoLogo);
-          aboutCapitenzoLogo.setVisible(false);
-
-          aboutTimEtOLogo.setBounds(742, 235);
-          aboutTimEtOLogo.addEventListener(this);
-          this.add(aboutTimEtOLogo);
-          aboutTimEtOLogo.setVisible(false);
-
-          aboutGithubButton.setBounds(338, 462);
-          aboutGithubButton.addEventListener(this);
-          this.add(aboutGithubButton);
-          aboutGithubButton.setVisible(false);
-
-          aboutMailButton.setBounds(398, 465);
-          aboutMailButton.addEventListener(this);
-          this.add(aboutMailButton);
-          aboutMailButton.setVisible(false);
-
-          aboutDiscordButton.setBounds(457, 465);
-          aboutDiscordButton.addEventListener(this);
-          this.add(aboutDiscordButton);
-          aboutDiscordButton.setVisible(false);
-
-          aboutTwitterButton.setBounds(518, 466);
-          aboutTwitterButton.addEventListener(this);
-          this.add(aboutTwitterButton);
-          aboutTwitterButton.setVisible(false);
-
-          aboutEastereggsLabel.setBounds(286, 605, 91, 16);
-          aboutEastereggsLabel.setForeground(new Color(151, 151, 151));
-          aboutEastereggsLabel.setFont(kollektifBoldFont.deriveFont(16f));
-          aboutEastereggsLabel.setOpaque(false);
-          this.add(aboutEastereggsLabel);
-          aboutEastereggsLabel.setVisible(false);
+          aboutInfosPage.setBounds(178, 113);
+          this.add(aboutInfosPage);
+          aboutInfosPage.setVisible(false);
 
           Launcher.println("Affichage...");
           setPage(true, PageName.PROFILE_HOME, ProfileSaver.getActualMainProfile());

@@ -6,10 +6,6 @@ import fr.timeto.astrauworld.launcher.main.*;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
@@ -51,15 +47,6 @@ public class OnButtonEvent {
 
         aboutPageButtons.add(aboutInfosTabButton);
         aboutPageButtons.add(aboutModsTabButton);
-
-        aboutPageButtons.add(aboutTextLogo);
-        aboutPageButtons.add(aboutAstrauwolfLogo);
-        aboutPageButtons.add(aboutCapitenzoLogo);
-        aboutPageButtons.add(aboutTimEtOLogo);
-        aboutPageButtons.add(aboutGithubButton);
-        aboutPageButtons.add(aboutMailButton);
-        aboutPageButtons.add(aboutDiscordButton);
-        aboutPageButtons.add(aboutTwitterButton);
 
     }
 
@@ -155,44 +142,6 @@ public class OnButtonEvent {
             setPage(true, PageName.ABOUT_INFOS);
         } else if (src == aboutModsTabButton) {
             setPage(true, PageName.ABOUT_MODS);
-        }
-
-        // Actions des boutons de l'aboutPage - Infos
-        else if (src == aboutTextLogo) {
-            try {
-                Desktop.getDesktop().browse(new URL(LauncherFrame.launcherProperties.getProperty("blueMapLink")).toURI());
-            } catch (IOException | URISyntaxException ignored) {}
-        } else if (src == aboutAstrauwolfLogo) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://youtu.be/rRPQs_kM_nw").toURI());
-            } catch (IOException | URISyntaxException ignored) {}
-            EasterEggs.setEatereggAsFound(EasterEggs.polishCow);
-        } else if (src == aboutCapitenzoLogo) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://youtu.be/vyPjz2QbFT4").toURI());
-            } catch (IOException | URISyntaxException ignored) {}
-            EasterEggs.setEatereggAsFound(EasterEggs.frogWalking);
-        } else if (src == aboutTimEtOLogo) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://youtu.be/dQw4w9WgXcQ").toURI());
-            } catch (IOException | URISyntaxException ignored) {}
-            EasterEggs.setEatereggAsFound(EasterEggs.rickroll);
-        } else if (src == aboutGithubButton) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://github.com/AstrauworldMC").toURI());
-            } catch (IOException | URISyntaxException ignored) {}
-        } else if (src == aboutMailButton) {
-            try {
-                Desktop.getDesktop().mail(new URL("mailto:astrauworld.minecraft@gmail.com").toURI());
-            } catch (IOException | URISyntaxException ignored) {}
-        } else if (src == aboutDiscordButton) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://discord.gg/GpqB5eES5r").toURI());
-            } catch (IOException | URISyntaxException ignored) {}
-        } else if (src == aboutTwitterButton) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://twitter.com/AstrauworldMC").toURI());
-            } catch (IOException | URISyntaxException ignored) {}
         }
 
     }

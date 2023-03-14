@@ -170,6 +170,6 @@ public class EasterEggs {
      */
     public static void setEatereggAsFound(String easterEggs) {
         easterEggsSaver.set(easterEggs, "true");
-        aboutEastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
+        aboutInfosPage.eastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
     }
 }
