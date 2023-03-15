@@ -22,6 +22,7 @@ import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.discordrpc.DiscordManager;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
+import net.harawata.appdirs.AppDirsFactory;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -40,13 +41,12 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 public class Launcher {
 
     public static final String separatorChar = File.separator;
-    public static final String userAppDataDir = System.getenv("APPDATA");
 
     public static final String afterMcExitArg = "--afterMcExit";
     public static final String devEnvArg = "--dev";
 
     // String des les path dont on a besoin
-    public static final String filesFolder = userAppDataDir + separatorChar + "Astrauworld Launcher";
+    public static final String filesFolder =  AppDirsFactory.getInstance().getUserDataDir("Astrauworld Launcher", null, null, true);
     public static final String crashFolder = filesFolder + separatorChar + "crashes";
     public static final String gameFilesFolder = filesFolder + separatorChar + "GameFiles";
     public static final String dataFolder = filesFolder + separatorChar + "data";
