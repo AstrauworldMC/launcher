@@ -9,7 +9,10 @@ public class PageAnimation {
     private static final int LEFT_X = -178;
 
     public static void animFromTo(PageCreator actualPage, PageCreator nextPage) {
+        Thread t = new Thread(() -> {
 
+        });
+        t.start();
     }
 
     public static void animTo(PageCreator nextPage) {

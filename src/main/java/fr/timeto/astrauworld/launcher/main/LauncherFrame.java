@@ -24,8 +24,7 @@ import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;
 
-import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.initLauncherSystemTray;
-import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.verifyLauncherVersion;
+import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.*;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 /**
@@ -113,6 +112,10 @@ public class LauncherFrame extends JFrame {
 
             if (OS.toLowerCase().contains("win")) {
                 Launcher.println("Windows OK");
+            } else if (OS.toLowerCase().contains("mac")) {
+                Launcher.println("MacOS OK");
+            } else if (OS.toLowerCase().contains("nix") || OS.toLowerCase().contains("nux") || OS.toLowerCase().contains("aix")) {
+                Launcher.println("Unix OK");
             } else {
                 Thread ok = new Thread(() -> {
                     System.exit(1);
@@ -249,7 +252,7 @@ public class LauncherFrame extends JFrame {
                 getInstance().setVisible(true);
                 initLauncherSystemTray();
                 PageChange.setPage(true, PageName.PROFILE_HOME, profileAfterMcExit);
-                DiscordManager.setLauncherPresence();
+            //    DiscordManager.setLauncherPresence();
             }
 
         } catch (Exception e) {

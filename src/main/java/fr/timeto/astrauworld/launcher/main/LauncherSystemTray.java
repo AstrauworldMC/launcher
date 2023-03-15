@@ -6,6 +6,7 @@ import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
+import net.harawata.appdirs.AppDirsFactory;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -493,13 +494,11 @@ public class LauncherSystemTray {
         }
     }
 
-    static String separatorChar = File.separator;
-    static String userAppDataDir = System.getenv("APPDATA");
-    static String astrauworldDir = userAppDataDir + separatorChar + "Astrauworld Launcher";
+    static String astrauworldDir = AppDirsFactory.getInstance().getUserDataDir("Astrauworld Launcher", null, null, true);
 
-    static String currentPropertiesDir = astrauworldDir + separatorChar + "currentLauncher.properties";
-    static String newPropertiesDir = astrauworldDir + separatorChar + "newLauncher.properties";
-    static String launcherJar = astrauworldDir + separatorChar + "launcher.jar";
+    static String currentPropertiesDir = astrauworldDir + File.separator + "currentLauncher.properties";
+    static String newPropertiesDir = astrauworldDir + File.separator + "newLauncher.properties";
+    static String launcherJar = astrauworldDir + File.separator + "launcher.jar";
 
     static File currentPropertiesFile = new File(currentPropertiesDir);
     static File newPropertiesFile = new File(newPropertiesDir);
