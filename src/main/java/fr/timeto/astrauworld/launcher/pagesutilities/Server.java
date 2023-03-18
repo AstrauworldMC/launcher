@@ -19,10 +19,7 @@ import fr.theshark34.openlauncherlib.JavaUtil;
 import fr.theshark34.openlauncherlib.minecraft.AuthInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;
 import fr.theshark34.openlauncherlib.util.Saver;
-import fr.timeto.astrauworld.launcher.main.Launcher;
-import fr.timeto.astrauworld.launcher.main.LauncherFrame;
-import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
-import fr.timeto.astrauworld.launcher.main.Main;
+import fr.timeto.astrauworld.launcher.main.*;
 import fr.timeto.astrauworld.launcher.secret.DiscordManager;
 import fr.timeto.timutilslib.PopUpMessages;
 import fr.timeto.timutilslib.TimFilesUtils;
@@ -120,7 +117,7 @@ public class Server extends ArrayList<Mod> {
 
         final List<CurseFileInfo> modInfos = new ArrayList<>();
 
-        initClientMods(saver, modInfos);
+        initClientMods(saver, modInfos, mcVersion);
 
         AbstractForgeVersion forge;
         FabricVersion fabric;
@@ -241,26 +238,39 @@ public class Server extends ArrayList<Mod> {
             noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", mcPingOptions.getHostname()));
         }
         LauncherFrame.getInstance().setVisible(false);
+        infosLabel.setVisible(false);
+        percentLabel.setVisible(false);
+        loadingBar.setVisible(false);
+        barLabel.setVisible(false);
 
-        Process process;
         if (modLoader == MODLOADER_FORGE) {
-            process = noFramework.launch(mcVersion, modLoaderVersion, NoFramework.ModLoader.FORGE);
+            Launcher.process = noFramework.launch(mcVersion, modLoaderVersion, NoFramework.ModLoader.FORGE);
         } else if (modLoader == MODLOADER_FABRIC) {
-            process = noFramework.launch(mcVersion, modLoaderVersion, NoFramework.ModLoader.FABRIC);
+            Launcher.process = noFramework.launch(mcVersion, modLoaderVersion, NoFramework.ModLoader.FABRIC);
         } else {
-            process = noFramework.launch(mcVersion, null, NoFramework.ModLoader.VANILLA);
+            Launcher.process = noFramework.launch(mcVersion, null, NoFramework.ModLoader.VANILLA);
         }
 
         LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
         getInstance().setName("AstrauworldMC");
         DiscordManager.setGamePresence(authInfos);
 
-        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(Launcher.process.getInputStream()));
 
         String s;
         while ((s = stdInput.readLine()) != null) {
             System.out.println(s);
+            if (s.contains("Connecting to ")) {
+                if (s.contains(this.mcPingOptions.getHostname())) {
+                    DiscordManager.setGamePresence(authInfos, this);
+                }
+            } else if (s.contains("[voicechat/]: Clearing audio channels") || s.contains("Stopping JEI GUI")) {
+                DiscordManager.setGamePresence(authInfos);
+            }
         }
+
+        Launcher.println("");
+        Launcher.println("");
 
         File whitelistResourcePacksFolder = new File(path.toString(), "resourcePacks");
         File whitelistShaderPacksFolder = new File(path.toString(), "shaderpacks");

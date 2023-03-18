@@ -332,34 +332,68 @@ public class ProfileSaver {
      * @param selectedSaver Le Saver où les données seront cherchées
      * @param modList La liste où les addons seront ajoutés
      */
-    public static void initClientMods(Saver selectedSaver, List modList) {
+    public static void initClientMods(Saver selectedSaver, List modList, String mcVersion) {
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL.get()), "true")) {
-            modList.add(new CurseFileInfo(333287, 4327736)); // First Peron Model 2.2.2 - Forge
+        // MINECRAFT 1.18.2
+        if (Objects.equals(mcVersion, "1.18.2")) {
+            if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL.get()), "true")) {
+                modList.add(new CurseFileInfo(333287, 4327736)); // First Peron Model 2.2.2 - Forge
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS.get()), "true")) {
+                modList.add(new CurseFileInfo(435044, 4177087)); // Better Third Person 1.9.0
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES.get()), "true")) {
+                modList.add(new CurseFileInfo(463155, 3705945)); // Falling Leaves 1.3.2
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN.get()), "true")) {
+                modList.add(new CurseFileInfo(248787, 3927564)); // Apple Skin 2.4.1
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS.get()), "true")) {
+                modList.add(new CurseFileInfo(535489, 3775919)); // Sound Physics Remastered 1.0.6
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_WAVEYCAPES.get()), "true")) {
+                modList.add(new CurseFileInfo(521594, 4391958)); // Wavey Capes 1.3.2
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_3DSKINLAYERS.get()), "true")) {
+                modList.add(new CurseFileInfo(521480, 4001976)); // Skin Layers 3D 1.5.2
+            }
         }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS.get()), "true")) {
-            modList.add(new CurseFileInfo(435044, 4177087)); // Better Third Person 1.9.0
-        }
+        // MINECRAFT 1.19.2
+        else if (Objects.equals(mcVersion, "1.19.2")) {
+            if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL.get()), "true")) {
+                modList.add(new CurseFileInfo(333287, 4018928)); // First Peron Model 2.2.0 - Forge
+            }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES.get()), "true")) {
-            modList.add(new CurseFileInfo(463155, 3705945)); // Falling Leaves 1.3.2
-        }
+            if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS.get()), "true")) {
+                modList.add(new CurseFileInfo(435044, 3834422)); // Better Third Person 1.8.1
+            }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN.get()), "true")) {
-            modList.add(new CurseFileInfo(248787, 3927564)); // Apple Skin 2.4.1
-        }
+            if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES.get()), "true")) {
+                modList.add(new CurseFileInfo(463155, 3965374)); // Falling Leaves 1.3.1
+            }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS.get()), "true")) {
-            modList.add(new CurseFileInfo(535489, 3775919)); // Sound Physics Remastered 1.0.6
-        }
+            if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN.get()), "true")) {
+                modList.add(new CurseFileInfo(248787, 3872808)); // Apple Skin 2.4.2
+            }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_WAVEYCAPES.get()), "true")) {
-            modList.add(new CurseFileInfo(521594, 4391958)); // Wavey Capes 1.3.2
-        }
+            if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS.get()), "true")) {
+                modList.add(new CurseFileInfo(535489, 4199798)); // Sound Physics Remastered 1.0.18
+            }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_3DSKINLAYERS.get()), "true")) {
-            modList.add(new CurseFileInfo(521480, 4001976)); // Skin Layers 3D 1.5.2
+            if (Objects.equals(selectedSaver.get(KEY.MOD_WAVEYCAPES.get()), "true")) {
+                modList.add(new CurseFileInfo(521594, 4391903)); // Wavey Capes 1.3.2
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_3DSKINLAYERS.get()), "true")) {
+                modList.add(new CurseFileInfo(521480, 4001980)); // Skin Layers 3D 1.5.2
+            }
         }
 
     }

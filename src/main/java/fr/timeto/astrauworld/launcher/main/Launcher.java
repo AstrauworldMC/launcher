@@ -77,6 +77,7 @@ public class Launcher {
 
     // Version du launcher
     public static final String version = launcherProperties.getProperty("launcherVersion");
+    private static final String voiceChatConnectServerIP = "????????????";
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -131,6 +132,13 @@ public class Launcher {
         LocalDateTime now = LocalDateTime.now();
         
         System.out.println("[" + dtf.format(now) + "] [Astrauworld Launcher] " + str);
+    }
+
+    public static String convertStringArrayToString(String[] strArr, String delimiter) {
+        StringBuilder sb = new StringBuilder();
+        for (String str : strArr)
+            sb.append(str).append(delimiter);
+        return sb.substring(0, sb.length() - 1);
     }
 
     public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result, String oldAccount){
@@ -221,7 +229,20 @@ public class Launcher {
         String s;
         while ((s = stdInput.readLine()) != null) {
             System.out.println(s);
+            if (voiceChatConnectServerIP != null) {
+                if (s.contains("Connecting to server:")) {
+                    String[] split = s.split("\'");
+                    if (Objects.equals(split[s.length() - 2], voiceChatConnectServerIP)) {
+                        DiscordManager.setGamePresence(authInfos, "AstrauworldMC");
+                    }
+                } else if (s.contains("Disconnecting voicechat")) {
+                    DiscordManager.setGamePresence(authInfos);
+                }
+            }
         }
+
+        Launcher.println("");
+        Launcher.println("");
 
         String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
         Main.main(args);
@@ -435,7 +456,7 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(658587, 4418152)); //   |_> PlayerAnimator 1.0.2
         modInfos.add(new CurseFileInfo(623373, 3955900)); //         |_> Bendy-lib 2.1.1
 
-        initClientMods(saver, modInfos);
+        initClientMods(saver, modInfos, mcVersion);
 
         AbstractForgeVersion forge;
 

@@ -166,12 +166,12 @@ public class Main {
                 getInstance().setName("Astrauworld Launcher");
                 getInstance().setVisible(true);
                 initLauncherSystemTray();
+                DiscordManager.setLauncherPresence();
                 if (Integer.parseInt(profileAfterMcExit) == 0) {
                     PageChange.setPage(true, PageName.PROFILE_HOME, getActualMainProfile());
                 } else {
                     PageChange.setPage(true, PageName.PROFILE_HOME, profileAfterMcExit);
                 }
-                //    DiscordManager.setLauncherPresence();
             }
 
         } catch (Exception e) {
