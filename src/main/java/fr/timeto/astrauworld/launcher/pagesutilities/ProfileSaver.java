@@ -5,15 +5,13 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.customelements.ShadersSwitchButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 
-import java.awt.*;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static fr.timeto.timutilslib.TimFilesUtils.*;
-import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 
 /**
  * La classe qui regroupe tous les éléments en rapport avec les savers des profils
@@ -33,22 +31,33 @@ public class ProfileSaver {
      */
     public static Saver thirdProfileSaver = new Saver(Launcher.awThirdProfileData);
 
+    public static final Saver globalSettingsSaver = new Saver(Launcher.awSettingsData);
+
     /**
      * Le profil sélectionné
      */
-    public static String selectedProfile = "";
+    private static String selectedProfile = "";
     /**
      * Le Saver sélectionné
      */
-    public static Saver selectedSaver;
+    private static Saver selectedSaver;
 
-    /**
-     * Initialise {@link ProfileSaver#selectedSaver} d'après le numéro de profil spécifié
-     * @param profile Le numéro du profil spécifié en String
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-     * @since Beta2.2.0
-     */
-    public static void initSelectedProfile(String profile) {
+    public static void setSelectedSaver(Saver saver) {
+        selectedSaver = saver;
+        if (saver == firstProfileSaver) {
+            selectedProfile = "1";
+        } else if (saver == secondProfileSaver) {
+            selectedProfile = "2";
+        } else if (saver == thirdProfileSaver) {
+            selectedProfile = "3";
+        } else {
+            throw new ExceptionInInitializerError("Saver non reconnu");
+        }
+    }
+
+    public static Saver getSelectedSaver() {return selectedSaver;}
+
+    public static void setSelectedProfile(String profile) {
         selectedProfile = profile;
         if (Objects.equals(profile, "1")) {
             selectedSaver = firstProfileSaver;
@@ -57,6 +66,13 @@ public class ProfileSaver {
         } else if (Objects.equals(profile, "3")) {
             selectedSaver = thirdProfileSaver;
         }
+    }
+
+    public static String getSelectedProfile() {
+        if (selectedProfile == null) {
+            throw new NullPointerException("selectedProfile est nul");
+        }
+        return selectedProfile;
     }
 
     /**
@@ -107,13 +123,7 @@ public class ProfileSaver {
     }
 
     public static String getActualMainProfile() {
-        if (Objects.equals(thirdProfileSaver.get(KEY.SETTINGS_MAINPROFILE), "true")) {
-            return "3";
-        } else if (Objects.equals(secondProfileSaver.get(KEY.SETTINGS_MAINPROFILE), "true")) {
-            return "2";
-        } else {
-            return "1";
-        }
+        return globalSettingsSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get());
     }
 
     /**
@@ -123,28 +133,98 @@ public class ProfileSaver {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void initializeDataFiles(Saver saver) {
-        if(!Objects.equals(saver.get(KEY.FILECREATED), "true")) {
-            // Informations générales
-            saver.set(KEY.INFOS_NAME, "no");
-            saver.set(KEY.INFOS_EMAIL, "none");
-            saver.set(KEY.INFOS_UUID, "none");
-            saver.set(KEY.INFOS_ACCESSTOKEN, "none");
-            saver.set(KEY.INFOS_REFRESHTOKEN, "none");
-            // Configuration de Minecraft, si la key commence par 'mod' -> mod client
-            saver.set(KEY.MOD_OPTIFINE, "false");
-            saver.set(KEY.MOD_FPSMODEL, "false");
-            saver.set(KEY.MOD_BETTERTPS, "false");
-            saver.set(KEY.MOD_FALLINGLEAVES, "false");
-            saver.set(KEY.MOD_APPLESKIN, "false");
-            saver.set(KEY.MOD_SOUNDPHYSICS, "false");
+        KEY[] keysList = new KEY[]{
+                KEY.INFOS_NAME,
+                KEY.INFOS_EMAIL,
+                KEY.INFOS_UUID,
+                KEY.INFOS_ACCESSTOKEN,
+                KEY.INFOS_REFRESHTOKEN,
+                KEY.MOD_OPTIFINE,
+                KEY.MOD_FPSMODEL,
+                KEY.MOD_BETTERTPS,
+                KEY.MOD_FALLINGLEAVES,
+                KEY.MOD_APPLESKIN,
+                KEY.MOD_SOUNDPHYSICS,
+                KEY.MOD_WAVEYCAPES,
+                KEY.MOD_3DSKINLAYERS,
+                KEY.SETTINGS_PROFILENAME,
+                KEY.SETTINGS_HELMICON,
+                KEY.SETTINGS_RAM,
+        };
 
-            saver.set(KEY.SETTINGS_PROFILENAME, "Vide");
-            saver.set(KEY.SETTINGS_HELMICON, "true");
-            saver.set(KEY.SETTINGS_RAM, "3");
-            saver.set(KEY.SETTINGS_MAINPROFILE, "false");
-
-            saver.set(KEY.FILECREATED, "true");
+        int i = 0;
+        boolean modified = false;
+        while (i != keysList.length) {
+            if (saver.get(keysList[i].get()) == null) {
+                saver.set(keysList[i].get(), keysList[i].getDefaultValue());
+                modified = true;
+            }
+            i++;
         }
+
+        if (modified) Launcher.println("Fichier de données pour le saver du profil " + getSelectedProfile(saver) + " initialisé");
+    }
+
+    public static void resetDataFiles(Saver saver) {
+        KEY[] keysList = new KEY[]{
+                KEY.INFOS_NAME,
+                KEY.INFOS_EMAIL,
+                KEY.INFOS_UUID,
+                KEY.INFOS_ACCESSTOKEN,
+                KEY.INFOS_REFRESHTOKEN,
+                KEY.MOD_OPTIFINE,
+                KEY.MOD_FPSMODEL,
+                KEY.MOD_BETTERTPS,
+                KEY.MOD_FALLINGLEAVES,
+                KEY.MOD_APPLESKIN,
+                KEY.MOD_SOUNDPHYSICS,
+                KEY.MOD_WAVEYCAPES,
+                KEY.MOD_3DSKINLAYERS,
+                KEY.SETTINGS_PROFILENAME,
+                KEY.SETTINGS_HELMICON,
+                KEY.SETTINGS_RAM
+        };
+
+        int i = 0;
+        while (i != keysList.length) {
+            saver.set(keysList[i].get(), keysList[i].getDefaultValue());
+            i++;
+        }
+
+        Launcher.println("Fichier de données pour le saver du profil " + getSelectedProfile(saver) + " réinitialisé");
+    }
+
+    public static void initializeGlobalDataFile() {
+        KEY[] keysList = new KEY[]{
+                KEY.GLOBALSETTINGS_MAINPROFILE
+        };
+
+        int i = 0;
+        boolean modified = false;
+        while (i != keysList.length) {
+            if (globalSettingsSaver.get(keysList[i].get()) == null) {
+                globalSettingsSaver.set(keysList[i].get(), keysList[i].getDefaultValue());
+                modified = true;
+            }
+            i++;
+        }
+
+        if (modified) Launcher.println("Fichier de données globales initialisé");
+    }
+
+    public static void resetGlobalDataFile() {
+        KEY[] keysList = new KEY[]{
+                KEY.GLOBALSETTINGS_MAINPROFILE
+        };
+
+        int i = 0;
+        boolean modified = false;
+        while (i != keysList.length) {
+            globalSettingsSaver.set(keysList[i].get(), keysList[i].getDefaultValue());
+            i++;
+        }
+
+        Launcher.println("Fichier de données globales réinitialisé");
     }
 
     /**
@@ -155,6 +235,7 @@ public class ProfileSaver {
         initializeDataFiles(firstProfileSaver);
         initializeDataFiles(secondProfileSaver);
         initializeDataFiles(thirdProfileSaver);
+        initializeGlobalDataFile();
     }
 
     /**
@@ -199,30 +280,30 @@ public class ProfileSaver {
      */
     public static void initProfileIcon(Saver saver) throws IOException {
         String url;
-        if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("")) {
+        if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("")) {
             url = "https://user-images.githubusercontent.com/97166376/214735612-abc155df-6535-4852-aad5-cd97901f5e86.png";
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("frisk")) {
+        } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("frisk")) {
             url = "https://user-images.githubusercontent.com/97166376/209479948-9077d6d4-1254-4423-914b-d8b7ecf895d0.png";
             EasterEggs.setEatereggAsFound(EasterEggs.friskName);
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("chara")) {
+        } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("chara")) {
             url = "https://user-images.githubusercontent.com/97166376/209479945-0b181aaa-f3bd-436c-8274-83f68302c93e.png";
             EasterEggs.setEatereggAsFound(EasterEggs.charaName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON).contains("true"))) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
             url = "https://user-images.githubusercontent.com/97166376/214740385-07f6ded5-fdca-44b9-87ae-bd0446557c7f.png";
             EasterEggs.setEatereggAsFound(EasterEggs.asrielName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON).contains("false"))) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
             url = "https://user-images.githubusercontent.com/97166376/214734249-9d5e1055-c68f-4ee3-8d93-1a19b37c9410.png";
             EasterEggs.setEatereggAsFound(EasterEggs.trueAsrielName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON).contains("true"))) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
             url = "https://user-images.githubusercontent.com/97166376/209479944-e76fbf8f-6aba-462f-afc5-08829af3f9c8.png";
             EasterEggs.setEatereggAsFound(EasterEggs.floweyName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON).contains("false"))) {
+        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
             url = "https://user-images.githubusercontent.com/97166376/209480184-79318022-8ba0-46c9-9773-504a63c2ee47.png";
             EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
-        } else if (saver.get(KEY.SETTINGS_HELMICON).contains("true")) {
-            url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID) + "/35.png";
+        } else if (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true")) {
+            url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID.get()) + "/35.png";
         } else {
-            url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID) + "/35.png";
+            url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID.get()) + "/35.png";
         }
 
         if (saver == firstProfileSaver) {
@@ -251,67 +332,70 @@ public class ProfileSaver {
      * @param selectedSaver Le Saver où les données seront cherchées
      * @param modList La liste où les addons seront ajoutés
      */
-    public static void initClientMods(Saver selectedSaver, List modList) {
+    public static void initClientMods(Saver selectedSaver, List modList, String mcVersion) {
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL), "true")) {
-            modList.add(new CurseFileInfo(333287, 4327736)); // First Peron Model 2.2.2 - Forge
-        }
-
-        if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS), "true")) {
-            modList.add(new CurseFileInfo(435044, 4177087)); // Better Third Person 1.9.0
-        }
-
-        if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES), "true")) {
-            modList.add(new CurseFileInfo(463155, 3705945)); // Falling Leaves 1.3.2
-        }
-
-        if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN), "true")) {
-            modList.add(new CurseFileInfo(248787, 3927564)); // Apple Skin 2.4.1
-        }
-
-        if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS), "true")) {
-            modList.add(new CurseFileInfo(535489, 3775919)); // Sound Physics Remastered 1.0.6
-        }
-
-    }
-
-    /**
-     * Les différents URLs pour en savoir plus sur les addons clients puis l'ouvre dans une nouvelle page du navigateur par défault
-     * @param key La key du mod client
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-     */
-    public static void openMoreInfosUrl(String key) {
-        if (Objects.equals(key, KEY.MOD_FPSMODEL)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/first-person-model").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
+        // MINECRAFT 1.18.2
+        if (Objects.equals(mcVersion, "1.18.2")) {
+            if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL.get()), "true")) {
+                modList.add(new CurseFileInfo(333287, 4327736)); // First Peron Model 2.2.2 - Forge
             }
-        } else if (Objects.equals(key, KEY.MOD_BETTERTPS)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/better-third-person").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS.get()), "true")) {
+                modList.add(new CurseFileInfo(435044, 4177087)); // Better Third Person 1.9.0
             }
-        } else if (Objects.equals(key, KEY.MOD_FALLINGLEAVES)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/falling-leaves-forge").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES.get()), "true")) {
+                modList.add(new CurseFileInfo(463155, 3705945)); // Falling Leaves 1.3.2
             }
-        } else if (Objects.equals(key, KEY.MOD_APPLESKIN)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/appleskin").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN.get()), "true")) {
+                modList.add(new CurseFileInfo(248787, 3927564)); // Apple Skin 2.4.1
             }
-        } else if (Objects.equals(key, KEY.MOD_SOUNDPHYSICS)) {
-            try {
-                Desktop.getDesktop().browse(new URL("https://www.curseforge.com/minecraft/mc-mods/sound-physics-remastered").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS.get()), "true")) {
+                modList.add(new CurseFileInfo(535489, 3775919)); // Sound Physics Remastered 1.0.6
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_WAVEYCAPES.get()), "true")) {
+                modList.add(new CurseFileInfo(521594, 4391958)); // Wavey Capes 1.3.2
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_3DSKINLAYERS.get()), "true")) {
+                modList.add(new CurseFileInfo(521480, 4001976)); // Skin Layers 3D 1.5.2
             }
         }
+
+        // MINECRAFT 1.19.2
+        else if (Objects.equals(mcVersion, "1.19.2")) {
+            if (Objects.equals(selectedSaver.get(KEY.MOD_FPSMODEL.get()), "true")) {
+                modList.add(new CurseFileInfo(333287, 4018928)); // First Peron Model 2.2.0 - Forge
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_BETTERTPS.get()), "true")) {
+                modList.add(new CurseFileInfo(435044, 3834422)); // Better Third Person 1.8.1
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_FALLINGLEAVES.get()), "true")) {
+                modList.add(new CurseFileInfo(463155, 3965374)); // Falling Leaves 1.3.1
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_APPLESKIN.get()), "true")) {
+                modList.add(new CurseFileInfo(248787, 3872808)); // Apple Skin 2.4.2
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_SOUNDPHYSICS.get()), "true")) {
+                modList.add(new CurseFileInfo(535489, 4199798)); // Sound Physics Remastered 1.0.18
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_WAVEYCAPES.get()), "true")) {
+                modList.add(new CurseFileInfo(521594, 4391903)); // Wavey Capes 1.3.2
+            }
+
+            if (Objects.equals(selectedSaver.get(KEY.MOD_3DSKINLAYERS.get()), "true")) {
+                modList.add(new CurseFileInfo(521480, 4001980)); // Skin Layers 3D 1.5.2
+            }
+        }
+
     }
 
     /*  Liste des fichiers custom à sauvegarder dans GameFiles
@@ -404,45 +488,38 @@ public class ProfileSaver {
      */
     public static File optionsShadersProfileTextfile = null;
 
-    public static final String shaderChocapicV6Lite = "Chocapic13_V6_Lite.zip";
-    public static final String shaderChocapicV6Low = "Chocapic13_V6_Low.zip";
-    public static final String shaderChocapicV6Medium = "Chocapic13_V6_Medium.zip";
-    public static final String shaderChocapicV6Ultra = "Chocapic13_V6_Ultra.zip";
-    public static final String shaderChocapicV6Extreme = "Chocapic13_V6_Extreme.zip";
+    public static enum Shader {
+        CHOCAPICV6_LITE("Chocapic13_V6_Lite.zip"),
+        CHOCAPICV6_LOW("Chocapic13_V6_Low.zip"),
+        CHOCAPICV6_MEDIUM("Chocapic13_V6_Medium.zip"),
+        CHOCAPICV6_ULTRA("Chocapic13_V6_Ultra.zip"),
+        CHOCAPICV6_EXTREME("Chocapic13_V6_Extreme.zip"),
 
-    public static final String shaderChocapicV7_1Toaster = "Chocapic13_V7.1.1_Toaster_Edition.zip";
-    public static final String shaderChocapicV7_1Lite = "Chocapic13_V7.1.1_Lite.zip";
-    public static final String shaderChocapicV7_1Low = "Chocapic13_V7.1_Low.zip";
-    public static final String shaderChocapicV7_1Medium = "Chocapic13_V7.1_Medium.zip";
-    public static final String shaderChocapicV7_1Ultra = "Chocapic13_V7.1_Ultra.zip";
-    public static final String shaderChocapicV7_1Extreme = "Chocapic13_V7.1_Extreme.zip";
+        CHOCAPICV7_1_TOASTER("Chocapic13_V7.1.1_Toaster_Edition.zip"),
+        CHOCAPICV7_1_LITE("Chocapic13_V7.1.1_Lite.zip"),
+        CHOCAPICV7_1_LOW("Chocapic13_V7.1_Low.zip"),
+        CHOCAPICV7_1_MEDIUM("Chocapic13_V7.1_Medium.zip"),
+        CHOCAPICV7_1_ULTRA("Chocapic13_V7.1_Ultra.zip"),
+        CHOCAPICV7_1_EXTREME("Chocapic13_V7.1_Extreme.zip"),
 
-    public static final String shaderChocapicV9Low = "Chocapic13_V9_Low.zip";
-    public static final String shaderChocapicV9Medium = "Chocapic13_V9_Medium.zip";
-    public static final String shaderChocapicV9High = "Chocapic13_V9_High.zip";
-    public static final String shaderChocapicV9Extreme = "Chocapic13_V9_Extreme.zip";
-    public static final String shaderChocapicV9_1Extreme = "Chocapic13_V9.1_Extreme_beta_5.zip";
+        CHOCAPICV9_LOW("Chocapic13_V9_Low.zip"),
+        CHOCAPICV9_MEDIUM("Chocapic13_V9_Medium.zip"),
+        CHOCAPICV9_HIGH("Chocapic13_V9_High.zip"),
+        CHOCAPICV9_EXTREME("Chocapic13_V9_Extreme.zip"),
+        CHOCAPICV9_1_EXTREMEBETA5("Chocapic13_V9.1_Extreme_beta_5.zip"),
 
-    public static final String shaderSeusRenewed = "SEUS-Renewed-v1.0.1.zip";
+        SEUS_RENEWED("SEUS-Renewed-v1.0.1.zip");
 
-    public static final ShadersSwitchButton[] shadersButtonsList = {
-            profileShadersSeusRenewedSwitchButton,
-            profileShadersChocapicV6LiteSwitchButton,
-            profileShadersChocapicV6LowSwitchButton,
-            profileShadersChocapicV6MediumSwitchButton,
-            profileShadersChocapicV6UltraSwitchButton,
-            profileShadersChocapicV6ExtremeSwitchButton,
-            profileShadersChocapicV7_1ToasterSwitchButton,
-            profileShadersChocapicV7_1LiteSwitchButton,
-            profileShadersChocapicV7_1LowSwitchButton,
-            profileShadersChocapicV7_1MediumSwitchButton,
-            profileShadersChocapicV7_1UltraSwitchButton,
-            profileShadersChocapicV7_1ExtremeSwitchButton,
-            profileShadersChocapicV9LowSwitchButton,
-            profileShadersChocapicV9MediumSwitchButton,
-            profileShadersChocapicV9HighSwitchButton,
-            profileShadersChocapicV9ExtremeSwitchButton,
-            profileShadersChocapicV9_1ExtremeSwitchButton};
+        private final String name;
+
+        Shader(String name) {this.name = name;}
+
+        public String get() {
+            return name;
+        }
+    }
+
+    public static final ArrayList<ShadersSwitchButton> shadersButtonsList = new ArrayList<ShadersSwitchButton>();
 
     /**
      * Initialise les dossiers customs
@@ -480,29 +557,29 @@ public class ProfileSaver {
 
         try {
             if (saver != null) {
-                if (savesFolder.exists()) {savesProfileFolder.mkdir(); copyFiles(savesFolder, savesProfileFolder);}
-                if (resourcepacksFolder.exists()) {resourcepacksProfileFolder.mkdir(); copyFiles(resourcepacksFolder, resourcepacksProfileFolder);}
-                if (shaderpacksFolder.exists()) {shaderpacksProfileFolder.mkdir(); copyFiles(shaderpacksFolder, shaderpacksProfileFolder);}
-                if (musicsheetsFolder.exists()) {musicsheetsProfileFolder.mkdir(); copyFiles(musicsheetsFolder, musicsheetsProfileFolder);}
-                if (schematicsFolder.exists()) {schematicsProfileFolder.mkdir(); copyFiles(schematicsFolder, schematicsProfileFolder);}
-                if (configFolder.exists()) {configProfileFolder.mkdir(); copyFiles(configFolder, configProfileFolder);}
+                if (savesFolder.exists()) {savesProfileFolder.mkdir(); copyFiles(savesFolder, savesProfileFolder, false);}
+                if (resourcepacksFolder.exists()) {resourcepacksProfileFolder.mkdir(); copyFiles(resourcepacksFolder, resourcepacksProfileFolder, false);}
+                if (shaderpacksFolder.exists()) {shaderpacksProfileFolder.mkdir(); copyFiles(shaderpacksFolder, shaderpacksProfileFolder, false);}
+                if (musicsheetsFolder.exists()) {musicsheetsProfileFolder.mkdir(); copyFiles(musicsheetsFolder, musicsheetsProfileFolder, false);}
+                if (schematicsFolder.exists()) {schematicsProfileFolder.mkdir(); copyFiles(schematicsFolder, schematicsProfileFolder, false);}
+                if (configFolder.exists()) {configProfileFolder.mkdir(); copyFiles(configFolder, configProfileFolder, false);}
             }
         } catch (IOException ignored) {}
 
         try {
-            copyFile(optionsTextfile, optionsProfileTextfile);
+            copyFile(optionsTextfile, optionsProfileTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy options file");
         }
 
         try {
-            copyFile(optionsOFTextfile, optionsOFProfileTextfile);
+            copyFile(optionsOFTextfile, optionsOFProfileTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy optifine options file");
         }
 
         try {
-            copyFile(optionsShadersTextfile, optionsShadersProfileTextfile);
+            copyFile(optionsShadersTextfile, optionsShadersProfileTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy options shader file");
         }
@@ -518,55 +595,55 @@ public class ProfileSaver {
         initCustomFilesFolder(saver);
 
         try {
-            deleteDirectory(savesFolder);
+            deleteDirectory(savesFolder, false);
             savesFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(musicsheetsFolder);
+            deleteDirectory(musicsheetsFolder, false);
             musicsheetsFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(schematicsFolder);
+            deleteDirectory(schematicsFolder, false);
             schematicsFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(configFolder);
+            deleteDirectory(configFolder, false);
             configFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(resourcepacksFolder);
+            deleteDirectory(resourcepacksFolder, false);
             resourcepacksFolder.mkdir();
         } catch (NullPointerException ignored) {}
         try {
-            deleteDirectory(shaderpacksFolder);
+            deleteDirectory(shaderpacksFolder, false);
             shaderpacksFolder.mkdir();
         } catch (NullPointerException ignored) {}
 
         try {
             if (saver != null) {
-                if (savesProfileFolder.exists()) {savesFolder.mkdir(); copyFiles(savesProfileFolder, savesFolder);}
-                if (resourcepacksProfileFolder.exists()) {resourcepacksFolder.mkdir(); copyFiles(resourcepacksProfileFolder, resourcepacksFolder);}
-                if (shaderpacksProfileFolder.exists()) {shaderpacksFolder.mkdir(); copyFiles(shaderpacksProfileFolder, shaderpacksFolder);}
-                if (musicsheetsProfileFolder.exists()) {musicsheetsFolder.mkdir(); copyFiles(musicsheetsProfileFolder, musicsheetsFolder);}
-                if (schematicsProfileFolder.exists()) {schematicsFolder.mkdir(); copyFiles(schematicsProfileFolder, schematicsFolder);}
-                if (configProfileFolder.exists()) {configFolder.mkdir(); copyFiles(configProfileFolder, configFolder);}
+                if (savesProfileFolder.exists()) {savesFolder.mkdir(); copyFiles(savesProfileFolder, savesFolder, false);}
+                if (resourcepacksProfileFolder.exists()) {resourcepacksFolder.mkdir(); copyFiles(resourcepacksProfileFolder, resourcepacksFolder, false);}
+                if (shaderpacksProfileFolder.exists()) {shaderpacksFolder.mkdir(); copyFiles(shaderpacksProfileFolder, shaderpacksFolder, false);}
+                if (musicsheetsProfileFolder.exists()) {musicsheetsFolder.mkdir(); copyFiles(musicsheetsProfileFolder, musicsheetsFolder, false);}
+                if (schematicsProfileFolder.exists()) {schematicsFolder.mkdir(); copyFiles(schematicsProfileFolder, schematicsFolder, false);}
+                if (configProfileFolder.exists()) {configFolder.mkdir(); copyFiles(configProfileFolder, configFolder, false);}
             }
         } catch (IOException ignored) {}
 
         try {
-            copyFile(optionsProfileTextfile, optionsTextfile);
+            copyFile(optionsProfileTextfile, optionsTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy options file");
         }
 
         try {
-            copyFile(optionsOFProfileTextfile, optionsOFTextfile);
+            copyFile(optionsOFProfileTextfile, optionsOFTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy optifine options file");
         }
 
         try {
-            copyFile(optionsShadersProfileTextfile, optionsShadersTextfile);
+            copyFile(optionsShadersProfileTextfile, optionsShadersTextfile, true);
         } catch (IOException e) {
             Launcher.println("Failed copy options shader file");
         }
@@ -577,72 +654,85 @@ public class ProfileSaver {
      * La classe qui regroupe les key des savers
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static class KEY {
+    public enum KEY {
         /**
          * Le pseudo du compte enregistré
          * <br> A ne pas confondre avec {@link KEY#SETTINGS_PROFILENAME}
          */
-        public static final String INFOS_NAME = "infos|name";
+        INFOS_NAME("infos|name", ""),
         /**
          * L'email du compte enregistré
          */
-        public static final String INFOS_EMAIL = "infos|email";
+        INFOS_EMAIL("infos|email", "none"),
         /**
          * L'UUID du compte enregistré
          */
-        public static final String INFOS_UUID = "infos|UUID";
+        INFOS_UUID("infos|UUID", "none"),
         /**
          * L'access token du compte enregistré
          */
-        public static final String INFOS_ACCESSTOKEN = "infos|accessToken";
+        INFOS_ACCESSTOKEN("infos|accessToken", "none"),
         /**
          * Le refresh token du compte enregistré
          */
-        public static final String INFOS_REFRESHTOKEN = "infos|refreshToken";
+        INFOS_REFRESHTOKEN("infos|refreshToken", "none"),
 
         /**
          * Optifine
          */
-        public static final String MOD_OPTIFINE = "mod|Optifine";
+        MOD_OPTIFINE("mod|Optifine", "false"),
         /**
          * Mod client 'First Person Model'
          */
-        public static final String MOD_FPSMODEL = "mod|FirstPersonModel";
+        MOD_FPSMODEL("mod|FirstPersonModel", "false"),
         /**
          * Mod client 'Better Third Person'
          */
-        public static final String MOD_BETTERTPS = "mod|BetterThirdPerson";
+        MOD_BETTERTPS("mod|BetterThirdPerson", "false"),
         /**
          * Mod client 'Falling Leaves'
          */
-        public static final String MOD_FALLINGLEAVES = "mod|FallingLeaves";
+        MOD_FALLINGLEAVES("mod|FallingLeaves", "false"),
         /**
          * Mod client 'Apple Skin'
          */
-        public static final String MOD_APPLESKIN = "mod|AppleSkin";
+        MOD_APPLESKIN("mod|AppleSkin", "false"),
         /**
          * Mod client 'Sound Physics Remastered'
          */
-        public static final String MOD_SOUNDPHYSICS = "mod|SoundPhysicsRemastered";
+        MOD_SOUNDPHYSICS("mod|SoundPhysicsRemastered", "false"),
+        MOD_WAVEYCAPES("mod|WaveyCapes", "false"),
+        MOD_3DSKINLAYERS("mod|3DSkinLayers", "false"),
 
         /**
          * Le nom du profil
          * <br> A ne pas confondre avec {@link KEY#INFOS_NAME}
          */
-        public static final String SETTINGS_PROFILENAME = "settings|ProfileName";
+        SETTINGS_PROFILENAME("settings|ProfileName", "Vide"),
         /**
          * La seconde couche sur l'icône du profil
          */
-        public static final String SETTINGS_HELMICON = "settings|HelmIcon";
+        SETTINGS_HELMICON("settings|HelmIcon", "true"),
         /**
          * La RAM allouée
          */
-        public static final String SETTINGS_RAM = "settings|AllowedRam";
-        public static final String SETTINGS_MAINPROFILE = "settings|MainProfile";
+        SETTINGS_RAM("settings|AllowedRam", "3.0"),
+        GLOBALSETTINGS_MAINPROFILE("settings|MainProfile", "1");
 
-        /**
-         * Si le fichier est créé
-         */
-        public static final String FILECREATED = "fileCreated";
+        private final String key;
+        private final String defaultValue;
+
+        KEY(String key, String defaultValue) {
+            this.key = key;
+            this.defaultValue = defaultValue;
+        }
+
+        public String get() {
+            return key;
+        }
+
+        public String getDefaultValue() {
+            return defaultValue;
+        }
     }
 }

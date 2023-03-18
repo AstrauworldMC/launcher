@@ -2,6 +2,7 @@ package fr.timeto.astrauworld.launcher.customelements;
 
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.timutilslib.TimFilesUtils;
 
 import java.awt.image.BufferedImage;
@@ -31,13 +32,13 @@ public class ShadersSwitchButton extends STexturedButton {
     private final String shaderFileName;
 
     private void initOptionSaver() {
-        initCustomFilesFolder(selectedSaver);
+        initCustomFilesFolder(getSelectedSaver());
         shaderOptionsSaver = new Saver(Paths.get(optionsShadersProfileTextfile.toString()));
     }
 
-    public ShadersSwitchButton(String fileName, BufferedImage texture) {
-        super(texture);
-        shaderFileName = fileName;
+    public ShadersSwitchButton(Shader fileName) {
+        super(getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+        shaderFileName = fileName.get();
     }
 
     public BufferedImage getTexture() {
@@ -66,7 +67,7 @@ public class ShadersSwitchButton extends STexturedButton {
 
     public String getShaderFileName() {return shaderFileName;}
 
-    private void defineTextures() {
+    public void defineTextures() {
         initOptionSaver();
         if (Objects.equals(shaderOptionsSaver.get(selectedShaderKey), shaderFileName)) {
             super.setTexture(textureOn);
@@ -78,7 +79,7 @@ public class ShadersSwitchButton extends STexturedButton {
             super.setTextureDisabled(textureDisabledOff);
         }
 
-        if (Objects.equals(selectedSaver.get(KEY.MOD_OPTIFINE), "true") && new File(shaderpacksProfileFolder + System.getProperty("file.separator") + shaderFileName).exists()) {
+        if (Objects.equals(getSelectedSaver().get(KEY.MOD_OPTIFINE.get()), "true") && new File(shaderpacksProfileFolder + File.separator + shaderFileName).exists()) {
             this.setEnabled(true);
         } else {
             shaderOptionsSaver.set(selectedShaderKey, "");
@@ -110,9 +111,9 @@ public class ShadersSwitchButton extends STexturedButton {
         int i = 0;
 
         ArrayList<ShadersSwitchButton> enabledShadersButtonsList = new ArrayList<>();
-        while (i != shadersButtonsList.length) {
-            if (shadersButtonsList[i].isEnabled()) {
-                enabledShadersButtonsList.add(shadersButtonsList[i]);
+        while (i != shadersButtonsList.toArray().length) {
+            if (shadersButtonsList.toArray(new ShadersSwitchButton[0])[i].isEnabled()) {
+                enabledShadersButtonsList.add(shadersButtonsList.toArray(new ShadersSwitchButton[0])[i]);
             }
             i++;
         }
@@ -125,23 +126,25 @@ public class ShadersSwitchButton extends STexturedButton {
 
     }
 
-    public void installShader() {
-        initCustomFilesFolder(selectedSaver);
-
+    public Thread installShader() {
+        initCustomFilesFolder(getSelectedSaver());
+        if (LauncherPanel.inDownload) {
+            LauncherPanel.inDownloadError();
+            return null;
+        }
         Thread t = new Thread(() -> {
+            LauncherPanel.inDownload = true;
             loadingBar.setValue(0);
             loadingBar.setVisible(true);
             barLabel.setText(shaderFileName);
-            percentLabel.setText("0%");
             infosLabel.setText("T\u00e9l\u00e9chargement du shader");
             infosLabel.setVisible(true);
             barLabel.setVisible(true);
             percentLabel.setVisible(true);
             infosLabel.setVisible(true);
             try {
-                TimFilesUtils.downloadFromInternet(shaderResourceFolderUrl + shaderFileName + "?raw=true", new File(shaderpacksProfileFolder + System.getProperty("file.separator") + shaderFileName));
-                loadingBar.setValue(100);
-                percentLabel.setText("100%");
+                if (!shaderpacksProfileFolder.exists()) shaderpacksProfileFolder.mkdir();
+                TimFilesUtils.downloadFromInternet(shaderResourceFolderUrl + shaderFileName + "?raw=true", new File(shaderpacksProfileFolder + File.separator + shaderFileName), loadingBar, percentLabel);
                 Thread.sleep(1500);
                 loadingBar.setVisible(false);
                 infosLabel.setVisible(false);
@@ -149,10 +152,12 @@ public class ShadersSwitchButton extends STexturedButton {
                 percentLabel.setVisible(false);
                 infosLabel.setVisible(false);
                 defineTextures();
+                LauncherPanel.inDownload = false;
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });
         t.start();
+        return t;
     }
 }

@@ -1,14 +1,12 @@
-package fr.timeto.astrauworld.launcher.pagesutilities;
+package fr.timeto.astrauworld.launcher.panels;
 
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.colored.SColoredButton;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.timutilslib.CustomFonts;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -23,8 +21,7 @@ import java.util.Date;
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 
-public class NewsPanel extends JScrollPane {
-    JPanel panel = new JPanel();
+public class NewsPanel extends PageCreator {
 
     public static News[] newsList = {
             new News("test", "Ceci est un article de test", "TimEtOff", "24/01/2023")
@@ -32,11 +29,22 @@ public class NewsPanel extends JScrollPane {
 
     static Box[] boxes;
     static JPanel container;
+    private static JScrollPane scrollPane;
 
     public NewsPanel() {
+        super(PageName.NEWS, "Actualit\u00e9s", "");
+
+        setLayout(null);
+        setOpaque(false);
+
+        scrollPane = new JScrollPane();
+
+        scrollPane.setBounds(0, 0, 822, 517);
+        add(scrollPane);
+
         CustomFonts.initFonts();
 
-        setOpaque(false);
+        scrollPane.setOpaque(false);
 
         container = new JPanel();
         LayoutManager layout = new BoxLayout(container, BoxLayout.Y_AXIS);
@@ -45,15 +53,15 @@ public class NewsPanel extends JScrollPane {
         container.setBackground(Swinger.getTransparentWhite(10));
         container.setOpaque(false);
 
-        setViewportView(container);
-        setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        getVerticalScrollBar().setUnitIncrement(14);
+        scrollPane.setViewportView(container);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        scrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        scrollPane.getVerticalScrollBar().setUnitIncrement(14);
 
-        getViewport().setOpaque(false);
-        setBorder(null);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
 
         int i = 0;
         boxes = new Box[newsList.length];
@@ -67,8 +75,8 @@ public class NewsPanel extends JScrollPane {
             } else {
                 container.add(Box.createRigidArea(new Dimension(1000, 30)));
             }
-            JPanel panel1 = new NewsButton(ii);
-            boxes[ii].add(((NewsButton) panel1).getButton());
+            NewsButton panel1 = new NewsButton(ii);
+            boxes[ii].add(panel1.getButton());
         }
 
     }
@@ -136,13 +144,13 @@ class NewsButton extends JPanel implements SwingerEventListener {
 }
 
 class News {
-    private String newsId;
-    private String title;
-    private String author;
-    private Date date;
-    private BufferedImage thumbnail;
-    private BufferedImage image;
-    private String text;
+    private final String newsId;
+    private final String title;
+    private final String author;
+    private final Date date;
+    private final BufferedImage thumbnail;
+    private final BufferedImage image;
+    private final String text;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
 
@@ -168,7 +176,7 @@ class News {
         }
         this.image = tempImage;
 
-        String fileSep = System.getProperty("file.separator");
+        String fileSep = File.separator;
         InputStream is = getFileFromResourceAsStream("assets/launcher/newsPage/" + newsId + "/text.md");
     /*    Parser parser = Parser.builder().build();
         Node document = parser.parse(getStringFromInputStream(is));

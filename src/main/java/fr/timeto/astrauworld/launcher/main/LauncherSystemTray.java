@@ -4,7 +4,9 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
+import net.harawata.appdirs.AppDirsFactory;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -15,9 +17,13 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
+import static fr.timeto.astrauworld.launcher.main.Launcher.println;
+import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.timutilslib.TimFilesUtils.copyFile;
 import static fr.timeto.timutilslib.TimFilesUtils.downloadFromInternet;
 
@@ -36,12 +42,16 @@ public class LauncherSystemTray {
     /* récupère la zone de notification */
     static SystemTray tray = SystemTray.getSystemTray();
 
+    public static void stop() {
+        tray.remove(trayIcon);
+    }
+
     public static void initLauncherSystemTray() {
         tray.remove(trayIcon);
 
         /* Vérifie si l'OS supporte la zone de notification */
         if (!SystemTray.isSupported()) {
-            Launcher.println("SystemTray is not supported");
+            println("SystemTray is not supported");
             return;
         }
 
@@ -51,10 +61,10 @@ public class LauncherSystemTray {
         MenuItem newsPageItem = new MenuItem("Actualit\u00e9s");
 
         String firstProfileName;
-        if ((Objects.equals(ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "no")) | (Objects.equals(ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "none"))) {
+        if ((Objects.equals(ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "no")) | (Objects.equals(ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "none"))) {
             firstProfileName = "Vide";
         } else {
-            firstProfileName = ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME);
+            firstProfileName = ProfileSaver.firstProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get());
         }
         Menu firstProfileMenu = new Menu("Profil 1 - " + firstProfileName);
         MenuItem firstProfilePlayPageItem = new MenuItem("Jouer");
@@ -63,10 +73,10 @@ public class LauncherSystemTray {
         MenuItem firstProfileSettingsPageItem = new MenuItem("Param\u00e8tres");
 
         String secondProfileName;
-        if ((Objects.equals(ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "no")) | (Objects.equals(ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "none"))) {
+        if ((Objects.equals(ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "no")) | (Objects.equals(ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "none"))) {
             secondProfileName = "Vide";
         } else {
-            secondProfileName = ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME);
+            secondProfileName = ProfileSaver.secondProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get());
         }
         Menu secondProfileMenu = new Menu("Profil 2 - " + secondProfileName);
         MenuItem secondProfilePlayPageItem = new MenuItem("Jouer");
@@ -75,10 +85,10 @@ public class LauncherSystemTray {
         MenuItem secondProfileSettingsPageItem = new MenuItem("Param\u00e8tres");
 
         String thirdProfileName;
-        if ((Objects.equals(ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "no")) | (Objects.equals(ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME), "none"))) {
+        if ((Objects.equals(ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "no")) | (Objects.equals(ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()), "none"))) {
             thirdProfileName = "Vide";
         } else {
-            thirdProfileName = ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME);
+            thirdProfileName = ProfileSaver.thirdProfileSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get());
         }
         Menu thirdProfileMenu = new Menu("Profil 3 - " + thirdProfileName);
         MenuItem thirdProfilePlayPageItem = new MenuItem("Jouer");
@@ -118,52 +128,52 @@ public class LauncherSystemTray {
             if (src == exitItem) {
                 System.exit(0);
             } else if (src == newsPageItem) {
-                PageChange.setNewsPage(true);
+                PageChange.setPage(true, PageName.NEWS);
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfilePlayPageItem) {
-                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileHome);
+                PageChange.setPage(true, PageName.PROFILE_HOME, "1");
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileAccountPageItem) {
-                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileAccount);
+                PageChange.setPage(true, PageName.PROFILE_ACCOUNT, "1");
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileModsPageItem) {
-                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileAddonsMods);
+                PageChange.setPage(true, PageName.PROFILE_ADDONS_MODS, "1");
                 LauncherFrame.getInstance().toFront();
             } else if (src == firstProfileSettingsPageItem) {
-                PageChange.setProfilePage(true, "1", PageChange.TAB_KEY.profileSettings);
+                PageChange.setPage(true, PageName.PROFILE_SETTINGS, "1");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfilePlayPageItem) {
-                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileHome);
+                PageChange.setPage(true, PageName.PROFILE_HOME, "2");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileAccountPageItem) {
-                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileAccount);
+                PageChange.setPage(true, PageName.PROFILE_ACCOUNT, "2");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileModsPageItem) {
-                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileAddonsMods);
+                PageChange.setPage(true, PageName.PROFILE_ADDONS_MODS, "2");
                 LauncherFrame.getInstance().toFront();
             } else if (src == secondProfileSettingsPageItem) {
-                PageChange.setProfilePage(true, "2", PageChange.TAB_KEY.profileSettings);
+                PageChange.setPage(true, PageName.PROFILE_SETTINGS, "2");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfilePlayPageItem) {
-                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileHome);
+                PageChange.setPage(true, PageName.PROFILE_HOME, "3");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileAccountPageItem) {
-                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileAccount);
+                PageChange.setPage(true, PageName.PROFILE_ACCOUNT, "3");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileModsPageItem) {
-                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileAddonsMods);
+                PageChange.setPage(true, PageName.PROFILE_ADDONS_MODS, "3");
                 LauncherFrame.getInstance().toFront();
             } else if (src == thirdProfileSettingsPageItem) {
-                PageChange.setProfilePage(true, "3", PageChange.TAB_KEY.profileSettings);
+                PageChange.setPage(true, PageName.PROFILE_SETTINGS, "3");
                 LauncherFrame.getInstance().toFront();
             } else if (src == changelogsPageItem) {
-                PageChange.setChangesPage(true);
+                PageChange.setPage(true, PageName.CHANGELOGS);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutInfosPageItem) {
-                PageChange.setAboutPage(true, PageChange.TAB_KEY.aboutInfos);
+                PageChange.setPage(true, PageName.ABOUT_INFOS);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutModsPageItem) {
-                PageChange.setAboutPage(true, PageChange.TAB_KEY.aboutMods);
+                PageChange.setPage(true, PageName.ABOUT_MODS);
                 LauncherFrame.getInstance().toFront();
             } else if (src == aboutEasterEggItem) {
                 if (numberOfTrolled[0] < 8) {
@@ -191,7 +201,7 @@ public class LauncherSystemTray {
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == mapItem) {
                 try {
-                    Desktop.getDesktop().browse(new URL("http://astrauworld.ovh:8100").toURI());
+                    Desktop.getDesktop().browse(new URL(LauncherFrame.launcherProperties.getProperty("blueMapLink")).toURI());
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == problemLauncherItem) {
                 try {
@@ -320,7 +330,7 @@ public class LauncherSystemTray {
             /* Affiche l'icône dans la zone de notification */
             tray.add(trayIcon);
         } catch (AWTException e) {
-            Launcher.println("TrayIcon could not be added.");
+            println("TrayIcon could not be added.");
         }
     }
 
@@ -329,7 +339,7 @@ public class LauncherSystemTray {
 
         /* Vérifie si l'OS supporte la zone de notification */
         if (!SystemTray.isSupported()) {
-            Launcher.println("SystemTray is not supported");
+            println("SystemTray is not supported");
             return;
         }
 
@@ -374,7 +384,7 @@ public class LauncherSystemTray {
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == mapItem) {
                 try {
-                    Desktop.getDesktop().browse(new URL("http://astrauworld.ovh:8100").toURI());
+                    Desktop.getDesktop().browse(new URL(LauncherFrame.launcherProperties.getProperty("blueMapLink")).toURI());
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == serverInfos) {
                 ServerInfosFrame.openServerInfos();
@@ -450,11 +460,11 @@ public class LauncherSystemTray {
         popup.add(closeMc);
         popup.add(exitItem);
 
-        ProfileSaver.initSelectedProfile(profile);
-        Saver saver = ProfileSaver.selectedSaver;
+        ProfileSaver.setSelectedProfile(profile);
+        Saver saver = ProfileSaver.getSelectedSaver();
 
         /* Création de l'icône */
-        trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH), "Astrauworld - Profil " + saver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + " (" + saver.get(ProfileSaver.KEY.INFOS_NAME) + ")");
+        trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH), "Astrauworld - Profil " + saver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()) + " (" + saver.get(ProfileSaver.KEY.INFOS_NAME.get()) + ")");
         trayIcon.setPopupMenu(popup);
 
         /* récupère la zone de notification */
@@ -463,29 +473,39 @@ public class LauncherSystemTray {
             /* Affiche l'icône dans la zone de notification */
             tray.add(trayIcon);
         } catch (AWTException e) {
-            Launcher.println("TrayIcon could not be added.");
+            println("TrayIcon could not be added.");
         }
     }
 
     public static void changeTrayTooltip() {
-        if (Objects.equals(LauncherPanel.Components.subTitleLabel.getText(), "") || Objects.equals(LauncherPanel.Components.subTitleLabel.getText(), " ")) {
-            trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText());
-        } else if (LauncherPanel.Components.titleLabel.getText().contains("Profil")) {
-            trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText() + " [" + ProfileSaver.selectedSaver.get(ProfileSaver.KEY.SETTINGS_PROFILENAME) + "] (" + LauncherPanel.Components.subTitleLabel.getText() + ")");
+        String titleText = Launcher.parseUnicode(LauncherPanel.Components.titleLabel.getText());
+        String subtitleText = Launcher.parseUnicode(LauncherPanel.Components.subTitleLabel.getText());
+
+        if (titleText.contains("Profil")) {
+            trayIcon.setToolTip("Astrauworld Launcher | " + titleText + " - " + subtitleText + " (" + ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()) + ")");
+        } else if (Objects.equals(subtitleText, "") || Objects.equals(subtitleText, " ")) {
+            trayIcon.setToolTip("Astrauworld Launcher | " + titleText);
         } else {
-            trayIcon.setToolTip("Astrauworld Launcher - " + LauncherPanel.Components.titleLabel.getText() + " (" + LauncherPanel.Components.subTitleLabel.getText() + ")");
+            trayIcon.setToolTip("Astrauworld Launcher | " + titleText + " - " + subtitleText);
         }
     }
 
-    static String separatorChar = System.getProperty("file.separator");
-    static String userAppDataDir = System.getenv("APPDATA");
-    static String astrauworldDir = userAppDataDir + separatorChar + "Astrauworld Launcher";
+    public static String getToolTip(boolean withAppName) {
+        if (withAppName) {
+            return trayIcon.getToolTip();
+        } else {
+            return trayIcon.getToolTip().replaceFirst("Astrauworld Launcher \\| ", "");
+        }
+    }
 
-    static String currentPropertiesDir = astrauworldDir + separatorChar + "currentLauncher.properties";
-    static String newPropertiesDir = astrauworldDir + separatorChar + "newLauncher.properties";
-    static String launcherJar = astrauworldDir + separatorChar + "launcher.jar";
+    static String astrauworldDir = AppDirsFactory.getInstance().getUserDataDir("Astrauworld Launcher", null, null, true);
+    static String customJavaDir = astrauworldDir + File.separator + "java";
 
-    static File astrauworldFolder = new File(astrauworldDir);
+    static String currentPropertiesDir = astrauworldDir + File.separator + "launcher.properties";
+    static String newPropertiesDir = astrauworldDir + File.separator + "newLauncher.properties";
+    static String launcherJar = astrauworldDir + File.separator + "launcher.jar";
+
+    static File customJavaFolder = new File(customJavaDir);
     static File currentPropertiesFile = new File(currentPropertiesDir);
     static File newPropertiesFile = new File(newPropertiesDir);
     static File launcherJarFile = new File(launcherJar);
@@ -496,7 +516,7 @@ public class LauncherSystemTray {
     static Saver currentSaver = new Saver(currentPropertiesPath);
     static Saver newSaver = new Saver(newPropertiesPath);
 
-    public static void verifyLauncherVersion(boolean download, boolean confirmNoNew) {
+    public static void verifyLauncherVersion(boolean download, boolean confirmNoNew) throws Exception {
         setPropertiesFile();
 
         Launcher.println("");
@@ -529,7 +549,7 @@ public class LauncherSystemTray {
             Launcher.println("pas égal");
 
             if (download) {
-                downloadLatest();
+                updateJar();
             } else {
                 trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour disponible" + System.getProperty("line.separator") + "T\u00e9l\u00e9chargez-la depuis le launcher", TrayIcon.MessageType.INFO);
                 LauncherPanel.Components.updateButton.setTexture(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton-red.png"));
@@ -547,80 +567,117 @@ public class LauncherSystemTray {
         }
     }
 
-    public static void downloadLatest() {
-        LauncherPanel.Components.updateButton.setEnabled(false);
-        trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour disponible, t\u00e9l\u00e9chargement...", TrayIcon.MessageType.INFO);
-        Launcher.println("Téléchargement de la maj");
-
-        LauncherPanel.Components.loadingBar.setVisible(true);
-        LauncherPanel.Components.infosLabel.setVisible(true);
-        LauncherPanel.Components.loadingBar.setValue(0);
-        LauncherPanel.Components.loadingBar.setMaximum(1);
-        LauncherPanel.Components.infosLabel.setText("Mise \u00e0 jour du launcher");
-        try {
-            downloadFromInternet(getJarLink(), launcherJarFile);
-            trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour effectu\u00e9e" + System.getProperty("line.separator") + "Veuillez relancer le launcher pour qu'elle prenne effet", TrayIcon.MessageType.INFO);
-            Launcher.println("jar downloaded");
-            LauncherPanel.Components.updateButton.setEnabled(true);
-            LauncherPanel.Components.updateButton.setTexture(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
-            LauncherPanel.Components.updateButton.setTextureHover(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover.png"));
-            LauncherPanel.Components.updateButton.setTextureDisabled(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
-
-            LauncherPanel.Components.loadingBar.setValue(1);
-            LauncherPanel.Components.loadingBar.setVisible(false);
-            LauncherPanel.Components.infosLabel.setVisible(false);
-            LauncherPanel.Components.infosLabel.setText("");
-            LauncherPanel.Components.loadingBar.setValue(0);
-
-        } catch (IOException e) {
-            LauncherPanel.Components.updateButton.setEnabled(true);
-            LauncherPanel.Components.loadingBar.setValue(1);
-            LauncherPanel.Components.loadingBar.setVisible(false);
-            LauncherPanel.Components.infosLabel.setVisible(false);
-            LauncherPanel.Components.infosLabel.setText("");
-            LauncherPanel.Components.loadingBar.setValue(0);
-
-            trayIcon.displayMessage("V\u00e9rification de la version", "Echec de la mise \u00e0 jour", TrayIcon.MessageType.ERROR);
-
-            throw new RuntimeException(e);
-        }
-
-        try {
-            copyFile(newPropertiesFile, currentPropertiesFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static String getJarLink() {
+    static String getJarLink() {
         return "https://github.com/AstrauworldMC/launcher/releases/download/" + newSaver.get("launcherVersion") + "/launcher.jar";
     }
 
-    private static void setPropertiesFile() {
+    static void setPropertiesFile() throws Exception {
+        infosLabel.setText("V\u00e9rification de la derni\u00e8re version");
 
         try {
             newPropertiesFile.createNewFile();
         } catch (IOException ignored) {}
 
-
         try {
-            downloadFromInternet("https://raw.githubusercontent.com/AstrauworldMC/launcher/main/currentLauncher.properties", newPropertiesFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            downloadFromInternet("https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/launcher.properties", newPropertiesFile);
+            //     downloadFromInternet("https://raw.githubusercontent.com/AstrauworldMC/launcher/Beta2.3.0/src/main/resources/launcher.properties", newPropertiesFile);
+        } catch (Exception e) {
+            currentPropertiesFile.delete();
+            newPropertiesFile.delete();
+            launcherJarFile.delete();
+            infosLabel.setVisible(false);
+            throw e;
         }
+
+        currentSaver.load();
+        newSaver.load();
 
         if (currentSaver.get("launcherVersion") == null) {
             try {
                 currentPropertiesFile.createNewFile();
-                System.out.println("created");
+                println("created");
             } catch (IOException ignored) {}
-            try {
-                copyFile(newPropertiesFile, currentPropertiesFile);
-                System.out.println("copied?");
-            } catch (IOException e) {
-                System.out.println("fail");
-                throw new RuntimeException(e);
+        }
+
+        infosLabel.setVisible(false);
+    }
+
+    static void updateJar() throws Exception {
+        println("");
+        println("---- JAR UPDATE ----");
+
+        infosLabel.setText("Mise \u00e0 jour du launcher");
+
+        try {
+            if (launcherJarFile.createNewFile()) {
+                currentSaver.set("launcherVersion", "");
+                println("jar created");
             }
+        } catch (IOException ignored) {
+        }
+
+        println("Current: " + currentSaver.get("launcherVersion"));
+        println("New: " + newSaver.get("launcherVersion"));
+        if (!Objects.equals(currentSaver.get("launcherVersion"), newSaver.get("launcherVersion"))) {
+            println("pas égal");
+            infosLabel.setText("T\u00e9l\u00e9chargement de la mise \u00e0 jour");
+            loadingBar.setVisible(true);
+            percentLabel.setVisible(true);
+            launcherJarFile.createNewFile();
+            try {
+                downloadFromInternet(getJarLink(), launcherJarFile, loadingBar, percentLabel);
+            } catch (Exception e) {
+                currentPropertiesFile.delete();
+                newPropertiesFile.delete();
+                launcherJarFile.delete();
+                throw e;
+            }
+            println("jar downloaded");
+            copyFile(newPropertiesFile, currentPropertiesFile, true);
+            infosLabel.setVisible(false);
+            loadingBar.setVisible(false);
+            percentLabel.setVisible(false);
+
+        } else {
+            println("Dernière version détectée");
+            infosLabel.setText("Derni\u00e8re version d\u00e9tect\u00e9e");
+        }
+    }
+
+    public static File getJava() throws Exception {
+        println("");
+        println("---- JAVA 17 VERIF ----");
+
+        infosLabel.setText("V\u00e9rification de Java 17");
+        try {
+            println("-- Vérification du %JAVA_HOME% --");
+            String javaHome = System.getenv("JAVA_HOME");
+            String[] javaHomeSplit1 = javaHome.split(";");
+            String pattern = Pattern.quote(File.separator);
+            String[] javaHomeSplit2 = javaHomeSplit1[0].split(pattern);
+            String firstReferencedJavaVersion = javaHomeSplit2[javaHomeSplit2.length - 1];
+            String[] javaHomeSplit3 = firstReferencedJavaVersion.split("\\.");
+            String firstReferencedJavaGlobalVersion = javaHomeSplit3[0];
+            println("%JAVA_HOME%: " + javaHome);
+            println("First referenced java: " + javaHomeSplit1[0]);
+            println("Last part of first referenced java: " + firstReferencedJavaVersion);
+            println("First referenced java global version: " + firstReferencedJavaGlobalVersion);
+
+            if (firstReferencedJavaGlobalVersion.contains("17")) {
+                return new File(javaHomeSplit1[0]);
+            } else {
+                throw new NoSuchElementException("Java 17 non trouvé dans %JAVA_HOME%");
+            }
+
+
+        } catch (Exception e) {
+            println("Aucun Java 17 dans %JAVA_HOME% détecté");
+
+            File jre17 = new File(customJavaDir + File.separator + "jre-17");
+            jre17.mkdirs();
+
+            return jre17;
+
         }
     }
 }

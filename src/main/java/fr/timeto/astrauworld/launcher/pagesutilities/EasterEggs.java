@@ -3,6 +3,7 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -78,7 +79,7 @@ public class EasterEggs {
      * @see Launcher#dataFolder
      * @since Beta2.1.2
      */
-    private static final String easterEggsData = Launcher.dataFolder + System.getProperty("file.separator") + "eastereggs.properties";
+    private static final String easterEggsData = Launcher.dataFolder + File.separator + "eastereggs.properties";
     /**
      * Path de {@link EasterEggs#easterEggsData}
      * @since Beta2.1.2
@@ -169,6 +170,6 @@ public class EasterEggs {
      */
     public static void setEatereggAsFound(String easterEggs) {
         easterEggsSaver.set(easterEggs, "true");
-        aboutEastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
+        aboutInfosPage.eastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
     }
 }

@@ -1,4 +1,4 @@
-package fr.timeto.astrauworld.launcher.panels;
+package fr.timeto.astrauworld.launcher.customelements;
 
 import javax.swing.*;
 import java.awt.*;

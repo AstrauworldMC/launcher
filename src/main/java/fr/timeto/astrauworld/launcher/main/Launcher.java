@@ -2,7 +2,6 @@ package fr.timeto.astrauworld.launcher.main;
 
 import br.com.azalim.mcserverping.MCPingOptions;
 import fr.flowarg.flowlogger.ILogger;
-import fr.flowarg.flowlogger.Logger;
 import fr.flowarg.flowupdater.FlowUpdater;
 import fr.flowarg.flowupdater.download.DownloadList;
 import fr.flowarg.flowupdater.download.IProgressCallback;
@@ -18,10 +17,13 @@ import fr.flowarg.openlauncherlib.NoFramework;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
+import fr.theshark34.openlauncherlib.JavaUtil;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
+import fr.timeto.astrauworld.launcher.secret.DiscordManager;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
+import net.harawata.appdirs.AppDirsFactory;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -31,39 +33,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static fr.timeto.astrauworld.launcher.main.LauncherFrame.getInstance;
+import static fr.timeto.astrauworld.launcher.main.LauncherFrame.launcherProperties;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
+import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.getJava;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 @SuppressWarnings("unused")
 public class Launcher {
 
-    public static InputStream getFileFromResourceAsStream(String fileName) {
-
-        // The class loader that loaded the class
-        ClassLoader classLoader = Launcher.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(fileName);
-
-        // the stream holding the file content
-        if (inputStream == null) {
-            throw new IllegalArgumentException("file not found! " + fileName);
-        } else {
-            return inputStream;
-        }
-
-    }
-
-    public static final String separatorChar = System.getProperty("file.separator");
-    public static final String userAppDataDir = System.getenv("APPDATA");
+    public static final String separatorChar = File.separator;
 
     public static final String afterMcExitArg = "--afterMcExit";
     public static final String devEnvArg = "--dev";
 
     // String des les path dont on a besoin
-    public static final String filesFolder = userAppDataDir + separatorChar + "Astrauworld Launcher";
+    public static final String filesFolder =  AppDirsFactory.getInstance().getUserDataDir("Astrauworld Launcher", null, null, true);
     public static final String crashFolder = filesFolder + separatorChar + "crashes";
     public static final String gameFilesFolder = filesFolder + separatorChar + "GameFiles";
     public static final String dataFolder = filesFolder + separatorChar + "data";
-    public static final String logsFile = filesFolder + separatorChar + "logs.txt";
+    public static final String globalSettingsData = dataFolder + separatorChar + "settings.properties";
 
     public static final String firstProfileData = dataFolder + separatorChar + "firstProfile.properties";
     public static final String firstProfileIcon = dataFolder + separatorChar + "firstProfile.png";
@@ -78,22 +67,24 @@ public class Launcher {
     public static final String thirdProfileCustomFilesFolder = dataFolder + separatorChar + "thirdProfileCustomFiles";
 
     // Version de Minecraft et de Forge utilisée
-    public static final String mcVersion = "1.18.2";
-    public static final String forgeVersion = "40.1.57";
-    public static final String optifineVersion = "1.18.2_HD_U_H7"; // FIXME Bug certaines textures sont unies
+    public static final String mcVersion = launcherProperties.getProperty("mcVersion");
+    public static final String forgeVersion = launcherProperties.getProperty("forgeVersion");
+    public static final String optifineVersion = launcherProperties.getProperty("optifineVersion"); // FIXME Bug certaines textures sont unies
     static MCPingOptions serverOptions = MCPingOptions.builder()
-            .hostname("207.180.196.61") // 207.180.196.61
-            .port(33542) //33542
+            .hostname(launcherProperties.getProperty("serverHostname")) // 207.180.196.61
+            .port(Integer.parseInt(launcherProperties.getProperty("serverPort"))) //33542
             .build();
 
     // Version du launcher
-    public static final String version = "Beta2.2.5"; // TODO CHANGER LA VERSION A CHAQUE FOIS
+    public static final String version = launcherProperties.getProperty("launcherVersion");
+    private static final String voiceChatConnectServerIP = "????????????";
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
     public static final File AW_CRASH_FOLDER = new File(crashFolder);
     public static final File AW_GAMEFILES_FOLDER = new File(gameFilesFolder);
     public static final File AW_DATA_FOLDER = new File(dataFolder);
+    public static final File AW_SETTINGS_DATA = new File(globalSettingsData);
 
     public static final File AW_FIRSTPROFILE_DATA = new File(firstProfileData);
     public static final File AW_FIRSTPROFILE_ICON = new File(firstProfileIcon);
@@ -112,7 +103,7 @@ public class Launcher {
     public static final Path awCrashFolder = Paths.get(crashFolder);
     public static final Path awGameFilesFolder = Paths.get(gameFilesFolder);
     public static final Path awDataFolder = Paths.get(dataFolder);
-    public static final Path awLogsFile = Paths.get(logsFile);
+    public static final Path awSettingsData = Paths.get(globalSettingsData);
 
     public static final Path awFirstProfileData = Paths.get(firstProfileData);
     public static final Path awFirstProfileIcon = Paths.get(firstProfileIcon);
@@ -143,19 +134,26 @@ public class Launcher {
         System.out.println("[" + dtf.format(now) + "] [Astrauworld Launcher] " + str);
     }
 
+    public static String convertStringArrayToString(String[] strArr, String delimiter) {
+        StringBuilder sb = new StringBuilder();
+        for (String str : strArr)
+            sb.append(str).append(delimiter);
+        return sb.substring(0, sb.length() - 1);
+    }
+
     public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result, String oldAccount){
-        saver.set(KEY.INFOS_EMAIL, profileAccountTextField.getText());
-        saver.set(KEY.INFOS_NAME, result.getProfile().getName());
-        saver.set(KEY.INFOS_ACCESSTOKEN, result.getAccessToken());
-        saver.set(KEY.INFOS_REFRESHTOKEN, result.getRefreshToken());
-        saver.set(KEY.INFOS_UUID, result.getProfile().getId());
+        saver.set(KEY.INFOS_EMAIL.get(), profileAccountPage.textField.getText());
+        saver.set(KEY.INFOS_NAME.get(), result.getProfile().getName());
+        saver.set(KEY.INFOS_ACCESSTOKEN.get(), result.getAccessToken());
+        saver.set(KEY.INFOS_REFRESHTOKEN.get(), result.getRefreshToken());
+        saver.set(KEY.INFOS_UUID.get(), result.getProfile().getId());
         if (Objects.equals(oldAccount, "no")) {
-            saver.set(KEY.SETTINGS_PROFILENAME, result.getProfile().getName());
+            saver.set(KEY.SETTINGS_PROFILENAME.get(), result.getProfile().getName());
         }
     }
 
     public static void microsoftAuth(String email, String password, Saver saver) throws MicrosoftAuthenticationException {
-        String oldAccount = saver.get(KEY.INFOS_NAME);
+        String oldAccount = saver.get(KEY.INFOS_NAME.get());
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithCredentials(email, password);
 
@@ -166,7 +164,7 @@ public class Launcher {
     }
 
     public static void microsoftAuthWebview(Saver saver) throws MicrosoftAuthenticationException {
-        String oldAccount = saver.get(KEY.INFOS_NAME);
+        String oldAccount = saver.get(KEY.INFOS_NAME.get());
         Launcher.println("webview?");
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithWebview();
@@ -187,19 +185,25 @@ public class Launcher {
 
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result;
-        if (Objects.equals(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN), null)) {
+        if (Objects.equals(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN.get()), null)) {
             throw new MicrosoftAuthenticationException("Aucun compte connecté");
         } else {
-            result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN));
+            result = authenticator.loginWithRefreshToken(saver.get(ProfileSaver.KEY.INFOS_REFRESHTOKEN.get()));
         }
 
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
-        Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
-        infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME));
+        Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME.get()));
+        infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME.get()));
 
     }
 
     public static void launch(boolean connectToServer, Saver saver) throws Exception{
+        String javaCommand;
+        final Path java = Paths.get(getJava().getAbsolutePath(), "bin", "java");
+        if (System.getProperty("os.name").toLowerCase().contains("win"))
+            javaCommand = "\"" + java + "\"";
+        else javaCommand = java.toString();
+        JavaUtil.setJavaCommand(javaCommand);
 
         System.out.println(authInfos.getUsername());
         System.out.println(authInfos.getUuid());
@@ -207,8 +211,8 @@ public class Launcher {
         System.out.println(authInfos.getAuthXUID());
         System.out.println(authInfos.getClientId());
 
-        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER); // ah oui il est en decimal dans le fichier
-        noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(selectedSaver.get(ProfileSaver.KEY.SETTINGS_RAM))) + "G");
+        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
+        noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get()))) + "G");
         if (connectToServer) {
             noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
         }
@@ -217,30 +221,50 @@ public class Launcher {
 
         process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
         LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
+        getInstance().setName("AstrauworldMC");
+        DiscordManager.setGamePresence(authInfos);
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
         String s;
         while ((s = stdInput.readLine()) != null) {
             System.out.println(s);
+            if (s.contains("Connecting to ")) {
+                if (s.contains(serverOptions.getHostname())) {
+                    DiscordManager.setGamePresence(authInfos, "AstrauworldMC");
+                }
+            } else if (s.contains("[voicechat/]: Clearing audio channels") || s.contains("Stopping JEI GUI")) {
+                DiscordManager.setGamePresence(authInfos);
+            }
         }
 
+        Launcher.println("");
+        Launcher.println("");
+
         String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
-        LauncherFrame.main(args);
+        Main.main(args);
 
     }
 
     public static void localLaunch(Saver saver) throws Exception {
+        String javaCommand;
+        final Path java = Paths.get(getJava().getAbsolutePath(), "bin", "java");
+        if (System.getProperty("os.name").toLowerCase().contains("win"))
+            javaCommand = "\"" + java + "\"";
+        else javaCommand = java.toString();
+        JavaUtil.setJavaCommand(javaCommand);
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", saver.get(ProfileSaver.KEY.SETTINGS_RAM) + "G"));
+        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", saver.get(ProfileSaver.KEY.SETTINGS_RAM.get()) + "G"));
 
-        LauncherFrame.getInstance().setVisible(false);
+        getInstance().setVisible(false);
 
         ProfileSaver.saveCustomFiles(saver);
 
         process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
         LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
+        getInstance().setName("AstrauworldMC");
+        DiscordManager.setGamePresence(authInfos);
 
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -250,8 +274,38 @@ public class Launcher {
         }
 
         String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
-        LauncherFrame.main(args);
+        Main.main(args);
 
+    }
+
+    public static String parseUnicode(String oldString) {
+        return oldString
+                .replaceAll("é", "\u00e9")
+                .replaceAll("è", "\u00e8")
+                .replaceAll("ê", "\u00ea")
+                .replaceAll("É", "\u00c9")
+                .replaceAll("È", "\u00c8")
+                .replaceAll("Ê", "\u00ca")
+                .replaceAll("à", "\u00e0")
+                .replaceAll("á", "\u00e1")
+                .replaceAll("â", "\u00e2")
+                .replaceAll("À", "\u00c0")
+                .replaceAll("Â", "\u00c2");
+    }
+
+    public static String unparseUnicode(String oldString) {
+        return oldString
+                .replaceAll("\u00e9", "é")
+                .replaceAll("\u00e8", "è")
+                .replaceAll("\u00ea", "ê")
+                .replaceAll("\u00c9", "É")
+                .replaceAll("\u00c8", "È")
+                .replaceAll("\u00ca", "Ê")
+                .replaceAll("\u00e0", "à")
+                .replaceAll("\u00e1", "á")
+                .replaceAll("\u00e2", "â")
+                .replaceAll("\u00c0", "À")
+                .replaceAll("\u00c2", "Â");
     }
 
     public enum StepInfo {
@@ -298,7 +352,6 @@ public class Launcher {
     public static void update(Saver saver) throws Exception {
         updateSaver = saver;
 
-        Logger logger = new Logger("[Astrauworld Launcher]", awLogsFile);
         loadingBar.setVisible(true);
 
         IProgressCallback callback = new IProgressCallback() {
@@ -396,12 +449,15 @@ public class Launcher {
         modInfos.add(new CurseFileInfo(308989, 3650485)); //   |_> Caelus API 1.18.1-3.0.0.2
         modInfos.add(new CurseFileInfo(517167, 3760573)); // Flash's NPCs 1.18.1-1.1.4v2
     //    modInfos.add(new CurseFileInfo(273771, 4367403)); // AstikorCarts 1.1.2
+        modInfos.add(new CurseFileInfo(403422, 3955900)); // EmoteCraft 2.2.5-forge
+        modInfos.add(new CurseFileInfo(658587, 4418152)); //   |_> PlayerAnimator 1.0.2
+        modInfos.add(new CurseFileInfo(623373, 3955900)); //         |_> Bendy-lib 2.1.1
 
-        initClientMods(saver, modInfos);
+        initClientMods(saver, modInfos, mcVersion);
 
         AbstractForgeVersion forge;
 
-        if (Objects.equals(saver.get(KEY.MOD_OPTIFINE), "true")) {
+        if (Objects.equals(saver.get(KEY.MOD_OPTIFINE.get()), "true")) {
             forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
                     .withForgeVersion(mcVersion + "-" + forgeVersion)
                     .withOptiFine(new OptiFineInfo(optifineVersion))
@@ -418,7 +474,6 @@ public class Launcher {
 
         final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
                 .withVanillaVersion(vanillaVersion)
-                .withLogger(logger)
                 .withProgressCallback(callback)
                 .withModLoaderVersion(forge)
                 .withPostExecutions(Collections.singletonList(postExecutions))
