@@ -2,6 +2,7 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.colored.SColoredButton;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.timutilslib.PopUpMessages;
@@ -198,11 +199,11 @@ public class PageChange {
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                     profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    profileHomePage.enablePlayButtons(true);
+                    LauncherPanel.enablePlayButtons(true);
                 } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    profileHomePage.enablePlayButtons(false);
+                    LauncherPanel.enablePlayButtons(false);
                 }
 
                 corner.setVisible(false);
@@ -230,6 +231,67 @@ public class PageChange {
                     thirdProfileButton.setEnabled(true);
                 }
             }
+        } else if (Objects.equals(page.getTab2(), PageName.PROFILE_WHITELIST_SERVERS.getTab2())) {
+            if (enabled) {
+                setProfilePage(false, getSelectedProfile(), PageName.PROFILE_ALL);
+                setNewsPage(false);
+                setChangesPage(false);
+                setAboutPage(false, PageName.ABOUT);
+
+                if (page.getTab2().equals("all")) {
+                } else {
+                    profileSelected.setEnabled(false);
+                    profileNotSelected1.setEnabled(true);
+                    profileNotSelected2.setEnabled(true);
+                }
+
+                profilePlayTabButton.setEnabled(true);
+                profileAccountTabButton.setEnabled(true);
+                profileAddonsTabButton.setEnabled(true);
+                profileSettingsTabButton.setEnabled(true);
+
+                profilePlayTabButton.setVisible(true);
+                profileAccountTabButton.setVisible(true);
+                profileAddonsTabButton.setVisible(true);
+                profileSettingsTabButton.setVisible(true);
+
+                profileWhitelistServersPage.setVisible(true);
+                actualPagePanel = profileWhitelistServersPage;
+
+                profileAccountLabel.setBounds(380, 577, 276, 31);
+                profileAccountLabel.setVisible(true);
+                profileAccountConnectedLabel.setBounds(198, 577, 191, 31);
+                profileAccountConnectedLabel.setVisible(true);
+                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
+                    profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                    LauncherPanel.enablePlayButtons(true);
+                } else {
+                    profileAccountLabel.setText("");
+                    profileAccountConnectedLabel.setText("Non connect\u00e9");
+                    LauncherPanel.enablePlayButtons(false);
+                }
+
+                corner.setVisible(false);
+
+                LauncherSystemTray.changeTrayTooltip();
+
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+
+                corner.setVisible(true);
+
+            } else {
+                profilePlayTabButton.setVisible(false);
+                profileAccountTabButton.setVisible(false);
+                profileAddonsTabButton.setVisible(false);
+                profileSettingsTabButton.setVisible(false);
+
+                profileWhitelistServersPage.setVisible(false);
+
+                profileAccountLabel.setVisible(false);
+                profileAccountConnectedLabel.setVisible(false);
+            }
+
         } else if (Objects.equals(page.getTab2(), PageName.PROFILE_ACCOUNT.getTab2())) {
             if (enabled) {
                 setProfilePage(false, getSelectedProfile(), PageName.PROFILE_ALL);
@@ -268,16 +330,15 @@ public class PageChange {
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                     profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    profileHomePage.enablePlayButtons(true);
+                    LauncherPanel.enablePlayButtons(true);
                 } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    profileHomePage.enablePlayButtons(false);
+                    LauncherPanel.enablePlayButtons(false);
                 }
 
                 corner.setVisible(false);
 
-                subTitleLabel.setText("Compte");
                 LauncherSystemTray.changeTrayTooltip();
 
                 background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
@@ -328,16 +389,15 @@ public class PageChange {
                     if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                         profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                         profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                        profileHomePage.enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                     } else {
                         profileAccountLabel.setText("");
                         profileAccountConnectedLabel.setText("Non connect\u00e9");
-                        profileHomePage.enablePlayButtons(false);
+                        LauncherPanel.enablePlayButtons(false);
                     }
 
                     corner.setVisible(false);
 
-                    subTitleLabel.setText("Addons - Mods");
                     LauncherSystemTray.changeTrayTooltip();
 
                     background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
@@ -406,11 +466,11 @@ public class PageChange {
                     if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                         profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                         profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                        profileHomePage.enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                     } else {
                         profileAccountLabel.setText("");
                         profileAccountConnectedLabel.setText("Non connect\u00e9");
-                        profileHomePage.enablePlayButtons(false);
+                        LauncherPanel.enablePlayButtons(false);
                     }
 
                     corner.setVisible(false);
@@ -471,11 +531,11 @@ public class PageChange {
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                     profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    profileHomePage.enablePlayButtons(true);
+                    LauncherPanel.enablePlayButtons(true);
                 } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    profileHomePage.enablePlayButtons(false);
+                    LauncherPanel.enablePlayButtons(false);
                 }
 
                 corner.setVisible(false);
@@ -538,6 +598,7 @@ public class PageChange {
             lastSettingsProfileName = profileSettingsPage.profileNameTextField.getText();
             lastSettingsRam = profileSettingsPage.allowedRamSpinner.getValue().toString();
             setProfilePage(enabled, null, PageName.PROFILE_HOME);
+            setProfilePage(enabled, null, PageName.PROFILE_WHITELIST_SERVERS);
             setProfilePage(enabled, null, PageName.PROFILE_ACCOUNT);
             setProfilePage(enabled, null, PageName.PROFILE_ADDONS_MODS);
             setProfilePage(enabled, null, PageName.PROFILE_ADDONS_SHADERS);

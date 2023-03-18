@@ -10,7 +10,9 @@ public class PageAnimation {
 
     public static void animFromTo(PageCreator actualPage, PageCreator nextPage) {
         Thread t = new Thread(() -> {
+            if (actualPage.getPageName().getPriority1() > nextPage.getPageName().getPriority1()) {
 
+            }
         });
         t.start();
     }

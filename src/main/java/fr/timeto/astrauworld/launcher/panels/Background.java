@@ -6,6 +6,7 @@ import java.awt.*;
 public class Background {
     private boolean aboveMiniSection = false;
     private boolean middleVerticalLine = false;
+    private boolean middleHorizontalLine = false;
     private boolean loginFields = false;
     private boolean comboboxUpField = false;
     private boolean bigTextArea = false;
@@ -23,6 +24,11 @@ public class Background {
 
     public Background setMiddleVerticalLine(boolean e) {
         middleVerticalLine = e;
+        return this;
+    }
+
+    public Background setMiddleHorizontalLine(boolean e) {
+        middleHorizontalLine = e;
         return this;
     }
 
@@ -58,6 +64,11 @@ public class Background {
 
     public Background addMiddleVerticalLine() {
         middleVerticalLine = true;
+        return this;
+    }
+
+    public Background addMiddleHorizontalLine() {
+        middleHorizontalLine = true;
         return this;
     }
 
@@ -160,6 +171,11 @@ public class Background {
                     } else {
                         g2d.fillRect(412, 13, 1, 488);
                     }
+                }
+
+                if (middleHorizontalLine) {
+                    g2d.setColor(new Color(112, 112, 122));
+                    g2d.fillRect(20, 259, 782, 1);
                 }
 
             }

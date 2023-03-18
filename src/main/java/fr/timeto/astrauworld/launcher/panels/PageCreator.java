@@ -29,6 +29,7 @@ public class PageCreator extends JPanel {
         setBounds(x, y, 822, 517);
     }
 
+    @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             LauncherPanel.Components.titleLabel.setText(parseUnicode(title));
@@ -36,6 +37,11 @@ public class PageCreator extends JPanel {
             LauncherSystemTray.changeTrayTooltip();
         }
         super.setVisible(aFlag);
+    }
+
+    @Override
+    public boolean isOptimizedDrawingEnabled() {
+        return false;
     }
 
     public String getTitle() {

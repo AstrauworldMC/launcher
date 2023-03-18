@@ -69,7 +69,7 @@ application {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'fr.timeto.astrauworld.launcher.main.LauncherFrame'
+        attributes 'Main-Class': 'fr.timeto.astrauworld.launcher.main.Main'
     }
     from {
         configurations.compileClasspath.collect {

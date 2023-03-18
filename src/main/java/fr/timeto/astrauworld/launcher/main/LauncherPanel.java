@@ -11,10 +11,8 @@ import fr.timeto.astrauworld.launcher.panels.ChangelogsPage;
 import fr.timeto.astrauworld.launcher.panels.NewsOpenPanel;
 import fr.timeto.astrauworld.launcher.panels.NewsPanel;
 import fr.timeto.astrauworld.launcher.panels.about.AboutInfosPage;
-import fr.timeto.astrauworld.launcher.panels.profile.ProfileAccountPage;
-import fr.timeto.astrauworld.launcher.panels.profile.ProfileAddonsPage;
-import fr.timeto.astrauworld.launcher.panels.profile.ProfileHomePage;
-import fr.timeto.astrauworld.launcher.panels.profile.ProfileSettingsPage;
+import fr.timeto.astrauworld.launcher.panels.profile.*;
+import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
@@ -71,11 +69,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
                     profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
                     profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    profileHomePage.enablePlayButtons(true);
+                    LauncherPanel.enablePlayButtons(true);
                } else {
                     profileAccountLabel.setText("");
                     profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    profileHomePage.enablePlayButtons(false);
+                    LauncherPanel.enablePlayButtons(false);
                }
           } catch (NullPointerException ignored) {}
 
@@ -206,6 +204,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           public static final JLabel profileAccountConnectedLabel = new JLabel("Connecté en tant que: ");
 
           public static final ProfileHomePage profileHomePage = new ProfileHomePage();
+          public static final ProfileWhitelistServers profileWhitelistServersPage = new ProfileWhitelistServers();
           public static final ProfileAccountPage profileAccountPage = new ProfileAccountPage();
 
           public static final ProfileAddonsPage profileAddonsModsPage = new ProfileAddonsPage(PageName.PROFILE_ADDONS_MODS);
@@ -235,10 +234,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
       * Initialise le panel de la frame (boutons, textes, images...)
       * @author <a href="https://github.com/TimEtOff">TimEtO</a>
       */
-     public LauncherPanel() {
+     public LauncherPanel() throws Exception {
           this.setLayout(null);
 
           initFonts();
+
+          WhitelistServers.registerServers();
 
      /*     testPageCreator.setBounds(178, 113);
           this.add(testPageCreator); */
@@ -375,6 +376,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           panel.add(profileHomePage);
           profileHomePage.setVisible(false);
 
+          profileWhitelistServersPage.setBounds(0, 0);
+          panel.add(profileWhitelistServersPage);
+          profileWhitelistServersPage.setVisible(false);
+
           profileAccountPage.setBounds(0, 0);
           panel.add(profileAccountPage);
           profileAccountPage.setVisible(false);
@@ -429,6 +434,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
      }
 
+     public static void enablePlayButtons(boolean e) {
+          profileHomePage.enablePlayButtons(e);
+          profileWhitelistServersPage.enablePlayButtons(e);
+     }
+
      /**
       * Background
       * @param g the <code>Graphics</code> object to protect
@@ -438,6 +448,11 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           super.paintComponent(g);
           g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), this);
 
+     }
+
+     @Override
+     public boolean isOptimizedDrawingEnabled() {
+          return false;
      }
 
      /**

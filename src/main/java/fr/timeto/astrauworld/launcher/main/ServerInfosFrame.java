@@ -3,6 +3,8 @@ package fr.timeto.astrauworld.launcher.main;
 import br.com.azalim.mcserverping.MCPing;
 import br.com.azalim.mcserverping.MCPingResponse;
 import fr.theshark34.swinger.Swinger;
+import fr.timeto.astrauworld.launcher.pagesutilities.Server;
+import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
 
@@ -18,8 +20,9 @@ public class ServerInfosFrame extends JPanel {
     private static final JLabel pingLabel = new JLabel("Connexion...", SwingConstants.RIGHT);
     private static final JLabel versionLabel = new JLabel("Connexion...", SwingConstants.RIGHT);
     private static final JLabel protocolLabel = new JLabel("Connexion...", SwingConstants.RIGHT);
+    private static final JLabel serverNameLabel = new JLabel("Connexion...", SwingConstants.RIGHT);
 
-    private static void initFrame() {
+    private static void initFrame(Server server) {
         frame.setTitle("Infos serveur");
         frame.setSize(264, 373);
         frame.setResizable(false);
@@ -30,7 +33,7 @@ public class ServerInfosFrame extends JPanel {
 
         frame.setVisible(true);
 
-        updateInfos();
+        updateInfos(server);
 
     }
 
@@ -63,11 +66,37 @@ public class ServerInfosFrame extends JPanel {
         protocolLabel.setForeground(Color.WHITE);
         this.add(protocolLabel);
 
+        serverNameLabel.setBounds(protocolLabel.getBounds());
+        serverNameLabel.setLocation(serverNameLabel.getX(), serverNameLabel.getY() + 39);
+        serverNameLabel.setFont(CustomFonts.kollektifBoldItalicFont.deriveFont(18f));
+        serverNameLabel.setForeground(Color.WHITE);
+        this.add(serverNameLabel);
+
     }
 
-    private static void updateInfos() {
+    private static boolean inThread = false;
+
+    private static void updateInfos(Server server) {
+
+        if (inThread) {
+            inThread = false;
+            Thread sleep = new Thread(() -> {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            sleep.start();
+            try {
+                sleep.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         Thread t = new Thread(() -> {
+            inThread = true;
             playersLabel.setText("Connexion...");
             playersLabel.setForeground(Color.WHITE);
             pingLabel.setText("Connexion...");
@@ -76,12 +105,19 @@ public class ServerInfosFrame extends JPanel {
             versionLabel.setForeground(Color.WHITE);
             protocolLabel.setText("Connexion...");
             protocolLabel.setForeground(Color.WHITE);
+            serverNameLabel.setText("");
+            serverNameLabel.setForeground(Color.WHITE);
 
-            while (frame.isShowing()) {
+            while (frame.isShowing() && inThread) {
                 MCPingResponse reply;
 
                 try {
-                    reply = MCPing.getPing(Launcher.serverOptions);
+                    if (server == null) {
+                        reply = MCPing.getPing(Launcher.serverOptions);
+                    } else {
+                        reply = MCPing.getPing(server.getMcPingOptions());
+                        serverNameLabel.setText("(" + server.getServerName() + ")");
+                    }
                 } catch (IOException ex) {
                     connectionImage.setIcon(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/serverInfosFrame/notConnected.png")));
                     playersLabel.setText("N/A");
@@ -115,7 +151,14 @@ public class ServerInfosFrame extends JPanel {
                 protocolLabel.setText(version.getProtocol() + "");
 
                 try {
-                    Thread.sleep(5000);
+                    int i = 0;
+                    while (i != 50) {
+                        Thread.sleep(50);
+                        if (!inThread) {
+                            return;
+                        }
+                        i++;
+                    }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -126,7 +169,10 @@ public class ServerInfosFrame extends JPanel {
     }
 
     public static void openServerInfos() {
-        initFrame();
+        initFrame(null);
+    }
+    public static void openServerInfos(Server server) {
+        initFrame(server);
     }
 
     @Override

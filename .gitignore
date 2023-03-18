@@ -22,4 +22,4 @@ build
 eclipse
 run
 installer.log
-DiscordManager.java
+src/main/java/fr/timeto/astrauworld/launcher/secret

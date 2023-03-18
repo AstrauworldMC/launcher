@@ -98,7 +98,11 @@ public class OnButtonEvent {
                 return;
             }
             Thread t = new Thread(() -> {
-                LauncherSystemTray.verifyLauncherVersion(true, true);
+                try {
+                    LauncherSystemTray.verifyLauncherVersion(true, true);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             });
             t.start();
         } else if (src == corner) {

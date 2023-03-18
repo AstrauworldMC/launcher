@@ -17,10 +17,11 @@ import fr.flowarg.openlauncherlib.NoFramework;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
+import fr.theshark34.openlauncherlib.JavaUtil;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
-import fr.timeto.astrauworld.launcher.discordrpc.DiscordManager;
+import fr.timeto.astrauworld.launcher.secret.DiscordManager;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import net.harawata.appdirs.AppDirsFactory;
 
@@ -35,6 +36,7 @@ import java.util.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherFrame.getInstance;
 import static fr.timeto.astrauworld.launcher.main.LauncherFrame.launcherProperties;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
+import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.getJava;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 @SuppressWarnings("unused")
@@ -188,6 +190,12 @@ public class Launcher {
     }
 
     public static void launch(boolean connectToServer, Saver saver) throws Exception{
+        String javaCommand;
+        final Path java = Paths.get(getJava().getAbsolutePath(), "bin", "java");
+        if (System.getProperty("os.name").toLowerCase().contains("win"))
+            javaCommand = "\"" + java + "\"";
+        else javaCommand = java.toString();
+        JavaUtil.setJavaCommand(javaCommand);
 
         System.out.println(authInfos.getUsername());
         System.out.println(authInfos.getUuid());
@@ -195,7 +203,7 @@ public class Launcher {
         System.out.println(authInfos.getAuthXUID());
         System.out.println(authInfos.getClientId());
 
-        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER); // ah oui il est en decimal dans le fichier
+        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
         noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get()))) + "G");
         if (connectToServer) {
             noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
@@ -216,11 +224,17 @@ public class Launcher {
         }
 
         String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
-        LauncherFrame.main(args);
+        Main.main(args);
 
     }
 
     public static void localLaunch(Saver saver) throws Exception {
+        String javaCommand;
+        final Path java = Paths.get(getJava().getAbsolutePath(), "bin", "java");
+        if (System.getProperty("os.name").toLowerCase().contains("win"))
+            javaCommand = "\"" + java + "\"";
+        else javaCommand = java.toString();
+        JavaUtil.setJavaCommand(javaCommand);
 
         NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
         noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", saver.get(ProfileSaver.KEY.SETTINGS_RAM.get()) + "G"));
@@ -242,7 +256,7 @@ public class Launcher {
         }
 
         String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
-        LauncherFrame.main(args);
+        Main.main(args);
 
     }
 

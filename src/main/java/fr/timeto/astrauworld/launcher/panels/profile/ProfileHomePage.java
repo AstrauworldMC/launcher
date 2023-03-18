@@ -1,16 +1,20 @@
 package fr.timeto.astrauworld.launcher.panels.profile;
 
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
+import fr.litarvan.openauth.microsoft.model.response.MinecraftProfile;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.ServerInfosFrame;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
+import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
@@ -36,6 +40,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
     public final STexturedButton newsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/newsButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/newsButton-hover.png"));
     public final STexturedButton launchToMenuButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/launchToMenuButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/launchToMenuButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/launchToMenuButton-disabled.png"));
     public final STexturedButton downloadButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/downloadButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/downloadButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/downloadButton-disabled.png"));
+    public final STexturedButton whitelistedServersButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/whitelistServers/homeButton-normal.png"), getResourceIgnorePath("/assets/launcher/whitelistServers/homeButton-hover.png"));
     public final JPanel diapoPanel = new JPanel();
     public final JLabel textLogo = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/logo-texte.png")));
     public JLabel diapoImage1 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png")));
@@ -67,6 +72,11 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
         downloadButton.addEventListener(this);
         add(downloadButton);
 
+        whitelistedServersButton.setBounds(433, 349);
+        whitelistedServersButton.addEventListener(this);
+        add(whitelistedServersButton);
+        whitelistedServersButton.setVisible(false);
+
         textLogo.setBounds(242, 25, 338, 83);
         add(textLogo);
 
@@ -84,6 +94,12 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setTitle("Profil " + ProfileSaver.getSelectedProfile());
+            MinecraftProfile mcProfile = new MinecraftProfile(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_UUID.get()), ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), null);
+            if (WhitelistServers.getPlayerWhitelistedServers(mcProfile).length > 0) {
+                whitelistedServersButton.setVisible(true);
+            }
+        } else {
+            whitelistedServersButton.setVisible(false);
         }
         profileDiaporama(aFlag);
         super.setVisible(aFlag);
@@ -100,7 +116,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
         Object src = e.getSource();
         if (src == playButton) {
             Saver saver = getSelectedSaver();
-            enablePlayButtons(false);
+            LauncherPanel.enablePlayButtons(false);
 
             if (inDownload) {
                 inDownloadError();
@@ -116,7 +132,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     try {
                         Launcher.connect(saver);
                     } catch (MicrosoftAuthenticationException m) {
-                        enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                         infosLabel.setText("Connexion \u00e9chou\u00e9e");
                         loadingBar.setVisible(false);
@@ -128,7 +144,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     try {
                         Launcher.update(saver);
                     } catch (Exception ex) {
-                        enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                         throw new RuntimeException(ex);
                     }
                     updatePostExecutions();
@@ -136,10 +152,10 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     try {
                         Launcher.launch(true, saver);
                     } catch (Exception ex) {
-                        enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                         throw new RuntimeException(ex);
                     }
-                    enablePlayButtons(true);
+                    LauncherPanel.enablePlayButtons(true);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     Thread t = new Thread(() -> {
@@ -164,7 +180,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
             setPage(true, PageName.NEWS);
         } else if (src == launchToMenuButton) {
             Saver saver = getSelectedSaver();
-            enablePlayButtons(false);
+            LauncherPanel.enablePlayButtons(false);
 
             if (inDownload) {
                 inDownloadError();
@@ -177,7 +193,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     try {
                         Launcher.connect(saver);
                     } catch (MicrosoftAuthenticationException m) {
-                        enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                         errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
                         infosLabel.setText("Connexion \u00e9chou\u00e9e");
                         loadingBar.setVisible(false);
@@ -188,7 +204,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     try {
                         Launcher.update(saver);
                     } catch (Exception ex) {
-                        enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                         throw new RuntimeException(ex);
                     }
                     updatePostExecutions();
@@ -196,10 +212,10 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     try {
                         Launcher.launch(false, saver);
                     } catch (Exception ex) {
-                        enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                         throw new RuntimeException(ex);
                     }
-                    enablePlayButtons(true);
+                    LauncherPanel.enablePlayButtons(true);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     Thread t = new Thread(() -> {
@@ -213,7 +229,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
 
         } else if (src == downloadButton) {
             Saver saver = getSelectedSaver();
-            enablePlayButtons(false);
+            LauncherPanel.enablePlayButtons(false);
 
             if (inDownload) {
                 inDownloadError();
@@ -225,13 +241,13 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     try {
                         Launcher.update(saver);
                     } catch (InterruptedException e1) {
-                        enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                         updatePostExecutions();
                     } catch (Exception ex) {
-                        enablePlayButtons(true);
+                        LauncherPanel.enablePlayButtons(true);
                         throw new RuntimeException(ex);
                     }
-                    enablePlayButtons(true);
+                    LauncherPanel.enablePlayButtons(true);
                     updatePostExecutions();
                     doneMessage("T\u00e9l\u00e9chargement", "T\u00e9l\u00e9chargement termin\u00e9");
                 } catch (Exception ex) {
@@ -246,6 +262,8 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
 
             updateThread.start();
 
+        } else if (src == whitelistedServersButton) {
+            PageChange.setPage(true, PageName.PROFILE_WHITELIST_SERVERS);
         }
     }
 
