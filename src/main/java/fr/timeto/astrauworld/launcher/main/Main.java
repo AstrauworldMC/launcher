@@ -52,6 +52,8 @@ public class Main {
             Launcher.AW_GAMEFILES_FOLDER.mkdir();
             Launcher.AW_CRASH_FOLDER.mkdir();
 
+            Launcher.AW_SETTINGS_DATA.createNewFile();
+
             Launcher.AW_FIRSTPROFILE_CUSTOMFILES_FOLDER.mkdir();
             Launcher.AW_SECONDPROFILE_CUSTOMFILES_FOLDER.mkdir();
             Launcher.AW_THIRDPROFILE_CUSTOMFILES_FOLDER.mkdir();
@@ -119,13 +121,6 @@ public class Main {
                 EasterEggs.initEastereggs();
                 new File(Launcher.dataFolder + "eastereggs.properties").delete();
 
-                if (firstProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()) == null && secondProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()) == null && thirdProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()) == null) {
-                    Launcher.println("[Lancement] Initialisation du profil principal");
-                    firstProfileSaver.set(KEY.GLOBALSETTINGS_MAINPROFILE.get(), "true");
-                    secondProfileSaver.set(KEY.GLOBALSETTINGS_MAINPROFILE.get(), "false");
-                    thirdProfileSaver.set(KEY.GLOBALSETTINGS_MAINPROFILE.get(), "false");
-                }
-
                 PageChange.lastSettingsSaver = null;
 
                 Launcher.println("[Lancement] Lancement du system tray icon");
@@ -171,7 +166,11 @@ public class Main {
                 getInstance().setName("Astrauworld Launcher");
                 getInstance().setVisible(true);
                 initLauncherSystemTray();
-                PageChange.setPage(true, PageName.PROFILE_HOME, profileAfterMcExit);
+                if (Integer.parseInt(profileAfterMcExit) == 0) {
+                    PageChange.setPage(true, PageName.PROFILE_HOME, getActualMainProfile());
+                } else {
+                    PageChange.setPage(true, PageName.PROFILE_HOME, profileAfterMcExit);
+                }
                 //    DiscordManager.setLauncherPresence();
             }
 

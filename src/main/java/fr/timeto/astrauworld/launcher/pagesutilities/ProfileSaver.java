@@ -123,13 +123,7 @@ public class ProfileSaver {
     }
 
     public static String getActualMainProfile() {
-        if (Objects.equals(thirdProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()), "true")) {
-            return "3";
-        } else if (Objects.equals(secondProfileSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get()), "true")) {
-            return "2";
-        } else {
-            return "1";
-        }
+        return globalSettingsSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get());
     }
 
     /**
@@ -156,7 +150,6 @@ public class ProfileSaver {
                 KEY.SETTINGS_PROFILENAME,
                 KEY.SETTINGS_HELMICON,
                 KEY.SETTINGS_RAM,
-                KEY.GLOBALSETTINGS_MAINPROFILE,
         };
 
         int i = 0;
@@ -201,6 +194,39 @@ public class ProfileSaver {
         Launcher.println("Fichier de données pour le saver du profil " + getSelectedProfile(saver) + " réinitialisé");
     }
 
+    public static void initializeGlobalDataFile() {
+        KEY[] keysList = new KEY[]{
+                KEY.GLOBALSETTINGS_MAINPROFILE
+        };
+
+        int i = 0;
+        boolean modified = false;
+        while (i != keysList.length) {
+            if (globalSettingsSaver.get(keysList[i].get()) == null) {
+                globalSettingsSaver.set(keysList[i].get(), keysList[i].getDefaultValue());
+                modified = true;
+            }
+            i++;
+        }
+
+        if (modified) Launcher.println("Fichier de données globales initialisé");
+    }
+
+    public static void resetGlobalDataFile() {
+        KEY[] keysList = new KEY[]{
+                KEY.GLOBALSETTINGS_MAINPROFILE
+        };
+
+        int i = 0;
+        boolean modified = false;
+        while (i != keysList.length) {
+            globalSettingsSaver.set(keysList[i].get(), keysList[i].getDefaultValue());
+            i++;
+        }
+
+        Launcher.println("Fichier de données globales réinitialisé");
+    }
+
     /**
      * Appelle {@link ProfileSaver#initializeDataFiles(Saver)} pour les trois Savers
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
@@ -209,6 +235,7 @@ public class ProfileSaver {
         initializeDataFiles(firstProfileSaver);
         initializeDataFiles(secondProfileSaver);
         initializeDataFiles(thirdProfileSaver);
+        initializeGlobalDataFile();
     }
 
     /**

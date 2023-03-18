@@ -35,7 +35,7 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.*;
 
-import static fr.timeto.astrauworld.launcher.main.Launcher.postExecutions;
+import static fr.timeto.astrauworld.launcher.main.Launcher.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherFrame.getInstance;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.loadingBar;
@@ -55,22 +55,24 @@ public class Server extends ArrayList<Mod> {
     protected final MCPingOptions mcPingOptions;
     protected final String optifineVersion;
     protected final Path path;
+    protected final boolean usePort;
 
     protected AuthInfos authInfos;
     protected ArrayList<MinecraftProfile> whitelist;
 
-    public Server(String serverName, boolean whitelist, String mcVersion, MCPingOptions mcPingOptions, Path pathFromAstrauworldFolder) {
-        this(serverName, whitelist, mcVersion, 0, null, mcPingOptions, pathFromAstrauworldFolder, null);
+    public Server(String serverName, boolean whitelist, String mcVersion, MCPingOptions mcPingOptions, boolean usePort, Path pathFromAstrauworldFolder) {
+        this(serverName, whitelist, mcVersion, 0, null, mcPingOptions, usePort, pathFromAstrauworldFolder, null);
     }
 
-    public Server(String serverName, boolean whitelist, String mcVersion, int modLoader, String modLoaderVersion, MCPingOptions mcPingOptions, Path pathFromAstrauworldFolder, String optifineVersion) {
+    public Server(String serverName, boolean whitelist, String mcVersion, int modLoader, String modLoaderVersion, MCPingOptions mcPingOptions, boolean usePort, Path pathFromAstrauworldFolder, String optifineVersion) {
         this.serverName = serverName;
         this.isWhitelist = whitelist;
         this.mcVersion = mcVersion;
         this.modLoader = modLoader;
         this.modLoaderVersion = modLoaderVersion;
         this.mcPingOptions = mcPingOptions;
-        this.path = pathFromAstrauworldFolder;
+        this.usePort = usePort;
+        this.path = Path.of(awFilesFolder.toFile() + File.separator + pathFromAstrauworldFolder.toString());
         this.optifineVersion = optifineVersion;
     }
 
@@ -171,23 +173,26 @@ public class Server extends ArrayList<Mod> {
                 .withPostExecutions(Collections.singletonList(postExecutions))
                 .build();
 
-        File whitelistResourcePacksFolder = Paths.get(path.toString(), "resourcePacks").toFile();
-        File whitelistShaderPacksFolder = Paths.get(path.toString(), "shaderpacks").toFile();
-        File whitelistOptionsFile = Paths.get(path.toString(), "options.txt").toFile();
-        File whitelistOptionsOFFile = Paths.get(path.toString(), "optionsof.txt").toFile();
-        File whitelistOptionsShadersFile = Paths.get(path.toString(), "optionsshaders.txt").toFile();
+        File whitelistResourcePacksFolder = new File(path.toString(), "resourcePacks");
+        File whitelistShaderPacksFolder = new File(path.toString(), "shaderpacks");
+        File whitelistOptionsOFFile = new File(path.toString(), "optionsof.txt");
+        File whitelistOptionsShadersFile = new File(path.toString(), "optionsshaders.txt");
 
         initCustomFilesFolder(saver);
 
+        whitelistResourcePacksFolder.mkdirs();
+        whitelistShaderPacksFolder.mkdirs();
         TimFilesUtils.deleteDirectory(whitelistResourcePacksFolder, false);
         TimFilesUtils.deleteDirectory(whitelistShaderPacksFolder, false);
         whitelistResourcePacksFolder.mkdirs();
         TimFilesUtils.copyFiles(resourcepacksProfileFolder, whitelistResourcePacksFolder, false);
-        TimFilesUtils.copyFile(optionsProfileTextfile, whitelistOptionsFile, false);
 
         if (modLoader != 0 && Objects.equals(saver.get(KEY.MOD_OPTIFINE.get()), "true")) {
             whitelistShaderPacksFolder.mkdirs();
             TimFilesUtils.copyFiles(shaderpacksProfileFolder, whitelistShaderPacksFolder, false);
+            whitelistShaderPacksFolder.mkdir();
+            whitelistOptionsOFFile.createNewFile();
+            whitelistOptionsShadersFile.createNewFile();
             TimFilesUtils.copyFile(optionsOFProfileTextfile, whitelistOptionsOFFile, false);
             TimFilesUtils.copyFile(optionsShadersProfileTextfile, whitelistOptionsShadersFile, false);
         }
@@ -230,8 +235,11 @@ public class Server extends ArrayList<Mod> {
 
         NoFramework noFramework= new NoFramework(path, authInfos, GameFolder.FLOW_UPDATER);
         noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get()))) + "G");
-        noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", mcPingOptions.getHostname(), "--port", Integer.toString(mcPingOptions.getPort())));
-
+        if (usePort) {
+            noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", mcPingOptions.getHostname(), "--port", Integer.toString(mcPingOptions.getPort())));
+        } else {
+            noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", mcPingOptions.getHostname()));
+        }
         LauncherFrame.getInstance().setVisible(false);
 
         Process process;
@@ -254,28 +262,31 @@ public class Server extends ArrayList<Mod> {
             System.out.println(s);
         }
 
-        File whitelistResourcePacksFolder = Paths.get(path.toString(), "resourcePacks").toFile();
-        File whitelistShaderPacksFolder = Paths.get(path.toString(), "shaderpacks").toFile();
-        File whitelistOptionsFile = Paths.get(path.toString(), "options.txt").toFile();
-        File whitelistOptionsOFFile = Paths.get(path.toString(), "optionsof.txt").toFile();
-        File whitelistOptionsShadersFile = Paths.get(path.toString(), "optionsshaders.txt").toFile();
+        File whitelistResourcePacksFolder = new File(path.toString(), "resourcePacks");
+        File whitelistShaderPacksFolder = new File(path.toString(), "shaderpacks");
+        File whitelistOptionsOFFile = new File(path.toString(), "optionsof.txt");
+        File whitelistOptionsShadersFile = new File(path.toString(), "optionsshaders.txt");
 
         initCustomFilesFolder(saver);
 
+        whitelistResourcePacksFolder.mkdirs();
+        whitelistShaderPacksFolder.mkdirs();
         TimFilesUtils.deleteDirectory(whitelistResourcePacksFolder, false);
         TimFilesUtils.deleteDirectory(whitelistShaderPacksFolder, false);
-        resourcepacksProfileFolder.mkdirs();
+        whitelistResourcePacksFolder.mkdirs();
         TimFilesUtils.copyFiles(whitelistResourcePacksFolder, resourcepacksProfileFolder, false);
-        TimFilesUtils.copyFile(whitelistOptionsFile, optionsProfileTextfile, false);
 
         if (modLoader != 0 && Objects.equals(saver.get(KEY.MOD_OPTIFINE.get()), "true")) {
-            shaderpacksProfileFolder.mkdirs();
+            whitelistShaderPacksFolder.mkdirs();
             TimFilesUtils.copyFiles(whitelistShaderPacksFolder, shaderpacksProfileFolder, false);
+            whitelistShaderPacksFolder.mkdir();
+            whitelistOptionsOFFile.createNewFile();
+            whitelistOptionsShadersFile.createNewFile();
             TimFilesUtils.copyFile(whitelistOptionsOFFile, optionsOFProfileTextfile, false);
             TimFilesUtils.copyFile(whitelistOptionsShadersFile, optionsShadersProfileTextfile, false);
         }
 
-        Main.main(null);
+        Main.main(new String[] {afterMcExitArg, "0"});
 
     }
 
