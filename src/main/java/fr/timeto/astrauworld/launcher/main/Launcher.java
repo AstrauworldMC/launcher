@@ -229,15 +229,12 @@ public class Launcher {
         String s;
         while ((s = stdInput.readLine()) != null) {
             System.out.println(s);
-            if (voiceChatConnectServerIP != null) {
-                if (s.contains("Connecting to server:")) {
-                    String[] split = s.split("\'");
-                    if (Objects.equals(split[s.length() - 2], voiceChatConnectServerIP)) {
-                        DiscordManager.setGamePresence(authInfos, "AstrauworldMC");
-                    }
-                } else if (s.contains("Disconnecting voicechat")) {
-                    DiscordManager.setGamePresence(authInfos);
+            if (s.contains("Connecting to ")) {
+                if (s.contains(serverOptions.getHostname())) {
+                    DiscordManager.setGamePresence(authInfos, "AstrauworldMC");
                 }
+            } else if (s.contains("[voicechat/]: Clearing audio channels") || s.contains("Stopping JEI GUI")) {
+                DiscordManager.setGamePresence(authInfos);
             }
         }
 

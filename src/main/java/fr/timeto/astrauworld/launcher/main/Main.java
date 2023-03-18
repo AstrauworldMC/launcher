@@ -34,13 +34,14 @@ public class Main {
                 Launcher.println("Windows OK");
             } else if (OS.toLowerCase().contains("mac")) {
                 Launcher.println("MacOS OK");
+                setTaskbarIcon(Swinger.getResourceIgnorePath("/assets/launcher/main/logo.png"));
             } else if (OS.toLowerCase().contains("nix") || OS.toLowerCase().contains("nux") || OS.toLowerCase().contains("aix")) {
                 Launcher.println("Unix OK");
             } else {
                 Thread ok = new Thread(() -> {
                     System.exit(1);
                 });
-                PopUpMessages.errorMessage("Erreur", "Désolé, votre système d´exploitation (" + OS + ") n'est pas compatible", ok);
+                PopUpMessages.errorMessage("Erreur", "Désolé, votre système d'exploitation (" + OS + ") n'est pas compatible", ok);
                 Launcher.println("OS non supporté");
             }
 

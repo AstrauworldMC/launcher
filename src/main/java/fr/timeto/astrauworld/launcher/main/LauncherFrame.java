@@ -11,6 +11,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Properties;
 
 /**
@@ -25,6 +27,15 @@ public class LauncherFrame extends JFrame {
     private static final Rectangle movableZone = new Rectangle(0, 0, 1000, 33);
 
     public static boolean devEnv = false;
+
+    public static void setTaskbarIcon(Image image) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        Class taskbar = Class.forName("java.awt.Taskbar");
+        Method getTaskbar = taskbar.getDeclaredMethod("getTaskbar");
+        Object instance = getTaskbar.invoke(taskbar);
+        Method setIconImage = instance.getClass().getDeclaredMethod("setIconImage", Image.class);
+        setIconImage.invoke(instance, image);
+    }
 
     /**
      * Défini comment s'affichera la frame du launcher, son contenu, puis l'affiche
