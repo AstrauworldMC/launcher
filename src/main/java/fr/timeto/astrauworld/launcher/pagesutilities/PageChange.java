@@ -26,7 +26,12 @@ public class PageChange {
     public static PageCreator actualPagePanel;
 
     public static void setPage(boolean e, PageName page) {
-        actualPage = page;
+        if (e) actualPage = page;
+
+        if (actualPagePanel == null) {
+            actualPagePanel = profileHomePage;
+        }
+
         if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
             setNewsPage(e);
         } else if (Objects.equals(page.getPage1(), PageName.PROFILE_HOME.getPage1())) {
@@ -41,7 +46,10 @@ public class PageChange {
     public static void setPage(boolean e, PageName page, String profileNum) {
         if (e) actualPage = page;
 
-        actualPagePanel = null;
+        if (actualPagePanel == null) {
+            actualPagePanel = profileHomePage;
+        }
+
         if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
             setNewsPage(e);
         } else if (Objects.equals(page.getPage1(), PageName.PROFILE_HOME.getPage1())) {
@@ -70,6 +78,7 @@ public class PageChange {
 
             newsScrollPanel.setVisible(true);
             newsOpenScrollPanel.setVisible(false);
+            PageAnimation.animTo(newsScrollPanel);
             actualPagePanel = newsScrollPanel;
 
             corner.setVisible(false);
@@ -189,7 +198,7 @@ public class PageChange {
                 profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
-                profileHomePage.setVisible(true);
+                PageAnimation.animTo(profileHomePage);
                 actualPagePanel = profileHomePage;
 
                 profileAccountLabel.setBounds(374, 470, 276, 31);
@@ -255,7 +264,7 @@ public class PageChange {
                 profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
-                profileWhitelistServersPage.setVisible(true);
+                PageAnimation.animTo(profileWhitelistServersPage);
                 actualPagePanel = profileWhitelistServersPage;
 
                 profileAccountLabel.setBounds(380, 577, 276, 31);
@@ -316,8 +325,8 @@ public class PageChange {
                 profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
-                profileAccountPage.setVisible(true);
-                actualPagePanel = profileHomePage;
+                PageAnimation.animTo(profileAccountPage);
+                actualPagePanel = profileAccountPage;
 
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()), "none")) {
                     profileAccountPage.textField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()));
@@ -379,7 +388,7 @@ public class PageChange {
                     profileAddonsTabButton.setVisible(true);
                     profileSettingsTabButton.setVisible(true);
 
-                    profileAddonsModsPage.setVisible(true);
+                    PageAnimation.animTo(profileAddonsModsPage);
                     actualPagePanel = profileAddonsModsPage;
 
                     profileAccountLabel.setBounds(380, 577, 276, 31);
@@ -437,22 +446,22 @@ public class PageChange {
 
                     if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6.getSpecialTab4())) {
 
-                        profileAddonsShadersChocapicv6Page.setVisible(true);
+                        PageAnimation.animTo(profileAddonsShadersChocapicv6Page);
                         actualPagePanel = profileAddonsShadersChocapicv6Page;
 
                     } else if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7.getSpecialTab4())) {
 
-                        profileAddonsShadersChocapicv7Page.setVisible(true);
+                        PageAnimation.animTo(profileAddonsShadersChocapicv7Page);
                         actualPagePanel = profileAddonsShadersChocapicv7Page;
 
                     } else if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9.getSpecialTab4())) {
 
-                        profileAddonsShadersChocapicv9Page.setVisible(true);
+                        PageAnimation.animTo(profileAddonsShadersChocapicv9Page);
                         actualPagePanel = profileAddonsShadersChocapicv9Page;
 
                     } else {
 
-                        profileAddonsShadersPage.setVisible(true);
+                        PageAnimation.animTo(profileAddonsShadersPage);
                         actualPagePanel = profileAddonsShadersPage;
 
                     }
@@ -521,7 +530,7 @@ public class PageChange {
                 profileAddonsTabButton.setVisible(true);
                 profileSettingsTabButton.setVisible(true);
 
-                profileSettingsPage.setVisible(true);
+                PageAnimation.animTo(profileSettingsPage);
                 actualPagePanel = profileSettingsPage;
 
                 profileAccountLabel.setBounds(380, 577, 276, 31);
@@ -621,7 +630,7 @@ public class PageChange {
             leftMenuSelector.moveTo(changesButton);
             changesButton.getButton().setEnabled(false);
 
-            changelogsPage.setVisible(true);
+            PageAnimation.animTo(changelogsPage);
             actualPagePanel = changelogsPage;
 
             corner.setVisible(false);
@@ -664,7 +673,7 @@ public class PageChange {
                 aboutInfosTabButton.setVisible(true);
                 aboutModsTabButton.setVisible(true);
 
-                aboutInfosPage.setVisible(true);
+                PageAnimation.animTo(aboutInfosPage);
                 aboutInfosPage.eastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
                 actualPagePanel = aboutInfosPage;
 

@@ -150,6 +150,10 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
                 add(shadersChocapicV6ExtremePanel);
                 shaderPanelsList.add(shadersChocapicV6ExtremePanel);
 
+                shadersButton.setBounds(388, 15);
+                shadersButton.addEventListener(this);
+                add(shadersButton);
+
             } else if (Objects.equals(pageName.getSpecialTab4(), PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV7.getSpecialTab4())) {
                 setSubtitle("Addons - Shaders (Chocapic V7)");
 
@@ -177,6 +181,10 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
                 add(shadersChocapicV7_1ExtremePanel);
                 shaderPanelsList.add(shadersChocapicV7_1ExtremePanel);
 
+                shadersButton.setBounds(388, 15);
+                shadersButton.addEventListener(this);
+                add(shadersButton);
+
             } else if (Objects.equals(pageName.getSpecialTab4(), PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV9.getSpecialTab4())) {
                 setSubtitle("Addons - Shaders (Chocapic V9)");
 
@@ -200,6 +208,10 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
                 add(shadersChocapicV9_1ExtremePanel);
                 shaderPanelsList.add(shadersChocapicV9_1ExtremePanel);
 
+                shadersButton.setBounds(388, 15);
+                shadersButton.addEventListener(this);
+                add(shadersButton);
+
             } else {
                 setSubtitle("Addons - Shaders");
 
@@ -216,11 +228,11 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
                 add(shadersSeusRenewedPanel);
                 shaderPanelsList.add(shadersSeusRenewedPanel);
 
-            }
+                modsButton.setBounds(388, 15);
+                modsButton.addEventListener(this);
+                add(modsButton);
 
-            modsButton.setBounds(388, 15);
-            modsButton.addEventListener(this);
-            add(modsButton);
+            }
 
             goToFolderButton.setBounds(626, 448);
             goToFolderButton.addEventListener(this);

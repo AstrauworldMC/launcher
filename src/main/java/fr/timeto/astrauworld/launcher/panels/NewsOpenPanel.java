@@ -78,6 +78,8 @@ public class NewsOpenPanel extends PageCreator {
         textArea.setEditable(false);
         inside.add(textArea);
 
+        add(getBg().getPanel());
+
     }
 
     public void setNewsPage(News news) {
