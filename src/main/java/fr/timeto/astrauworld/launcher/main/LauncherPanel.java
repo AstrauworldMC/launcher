@@ -65,18 +65,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           thirdProfileButton.initButton();
 
-          try {
-               if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
-                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
-                    profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    LauncherPanel.enablePlayButtons(true);
-               } else {
-                    profileAccountLabel.setText("");
-                    profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    LauncherPanel.enablePlayButtons(false);
-               }
-          } catch (NullPointerException ignored) {}
-
      }
 
      public static void verifyNoAccountBefore(String oldAccount, Saver saver) {
@@ -197,11 +185,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           public static final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-selected.png"));
 
 
-          /**
-           * Label du nom du compte connecté du profil
-           */
-          public static final JLabel profileAccountLabel = new JLabel("", SwingConstants.LEFT);
-          public static final JLabel profileAccountConnectedLabel = new JLabel("Connecté en tant que: ");
 
           public static final ProfileHomePage profileHomePage = new ProfileHomePage();
           public static final ProfileWhitelistServers profileWhitelistServersPage = new ProfileWhitelistServers();
@@ -320,6 +303,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           launcherVersionLabel.setFont(kollektifBoldFont.deriveFont(14f));
           launcherVersionLabel.setSelectionColor(new Color(255, 20, 20, 200));
           launcherVersionLabel.setOpaque(false);
+          launcherVersionLabel.setEditable(false);
           this.add(launcherVersionLabel);
 
           corner.setBounds(this.getWidth(), this.getHeight());
@@ -361,16 +345,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileSettingsTabButton.addEventListener(this);
           this.add(profileSettingsTabButton);
           profileSettingsTabButton.setVisible(false);
-
-          profileAccountLabel.setBounds(386, 468, 276, 31);
-          profileAccountLabel.setForeground(Color.WHITE);
-          profileAccountLabel.setFont(titleLabel.getFont().deriveFont(17f));
-          this.add(profileAccountLabel);
-
-          profileAccountConnectedLabel.setBounds(192, 472, 191, 19);
-          profileAccountConnectedLabel.setForeground(new Color(179, 179, 179));
-          profileAccountConnectedLabel.setFont(titleLabel.getFont().deriveFont(17f));
-          add(profileAccountConnectedLabel);
 
           profileHomePage.setBounds(0, 0);
           panel.add(profileHomePage);

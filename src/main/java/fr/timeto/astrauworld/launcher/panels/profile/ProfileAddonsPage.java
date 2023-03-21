@@ -7,6 +7,7 @@ import fr.timeto.astrauworld.launcher.customelements.ModPanel;
 import fr.timeto.astrauworld.launcher.customelements.ShaderPanel;
 import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
@@ -71,6 +72,9 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
 
     private final ArrayList<ModPanel> modPanelsList = new ArrayList<>();
     private final ArrayList<ShaderPanel> shaderPanelsList = new ArrayList<>();
+
+    public final JLabel accountLabel = new JLabel("", SwingConstants.LEFT);
+    public final JLabel accountConnectedLabel = new JLabel("Connecté en tant que: ", SwingConstants.LEFT);
 
     public ProfileAddonsPage(PageName pageName) {
         super(pageName, "Profil " + ProfileSaver.getSelectedProfile(), "Addons");
@@ -254,6 +258,16 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
             add(shadersSeeComparisonButton);
         }
 
+        accountLabel.setBounds(380 - 178, 577 - 113, 276, 31);
+        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        this.add(accountLabel);
+
+        accountConnectedLabel.setBounds(198 - 178, 577 - 113, 191, 31);
+        accountConnectedLabel.setForeground(new Color(179, 179, 179));
+        accountConnectedLabel.setFont(accountLabel.getFont());
+        add(accountConnectedLabel);
+
         add(bg.getPanel());
     }
 
@@ -280,6 +294,16 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
 
             });
             t.start();
+
+            if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                accountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
+                accountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                LauncherPanel.enablePlayButtons(true);
+            } else {
+                accountLabel.setText("");
+                accountConnectedLabel.setText("Non connect\u00e9");
+                LauncherPanel.enablePlayButtons(false);
+            }
         }
         super.setVisible(aFlag);
     }

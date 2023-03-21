@@ -6,6 +6,7 @@ import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
@@ -15,9 +16,11 @@ import fr.timeto.timutilslib.PopUpMessages;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.Launcher.parseUnicode;
+import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.initProfileButtons;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.verifyNoAccountBefore;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
@@ -51,6 +54,9 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
 
     public final JTextArea infosLabel = new JTextArea(parseUnicode("Vos informations de connexion sont stockées dans votre ordinateur seulement, elles ne sont en aucun cas \n" +
             "partagées avec la team Astrauworld ou n'importe qui d'autre. Ne partagez vos identifiants à personne."));
+
+    public final JLabel accountLabel = new JLabel("", SwingConstants.LEFT);
+    public final JLabel accountConnectedLabel = new JLabel("Connecté en tant que: ", SwingConstants.LEFT);
 
     public ProfileAccountPage() {
         super(PageName.PROFILE_ACCOUNT, "Profil " + ProfileSaver.getSelectedProfile(), "Compte");
@@ -108,12 +114,32 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         infosLabel.setBounds(10, 453, 800, 33);
         add(infosLabel);
 
+        accountLabel.setBounds(380 - 178, 526 - 113, 276, 31);
+        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        this.add(accountLabel);
+
+        accountConnectedLabel.setBounds(198 - 178, 526 - 113, 191, 31);
+        accountConnectedLabel.setForeground(new Color(179, 179, 179));
+        accountConnectedLabel.setFont(accountLabel.getFont());
+        add(accountConnectedLabel);
+
         add(getBg().getPanel());
     }
 
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setTitle("Profil " + ProfileSaver.getSelectedProfile());
+
+            if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                accountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
+                accountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                LauncherPanel.enablePlayButtons(true);
+            } else {
+                accountLabel.setText("");
+                accountConnectedLabel.setText("Non connect\u00e9");
+                LauncherPanel.enablePlayButtons(false);
+            }
         }
         super.setVisible(aFlag);
     }

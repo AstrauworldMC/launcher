@@ -15,14 +15,17 @@ import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
+import fr.timeto.timutilslib.CustomFonts;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.*;
@@ -45,6 +48,9 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
     public final JLabel textLogo = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/logo-texte.png")));
     public JLabel diapoImage1 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png")));
     public JLabel diapoImage2 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/townHall-day.png")));
+
+    public final JLabel accountLabel = new JLabel("", SwingConstants.LEFT);
+    public final JLabel accountConnectedLabel = new JLabel("Connecté en tant que: ", SwingConstants.LEFT);
 
     public ProfileHomePage() {
         super(PageName.PROFILE_HOME, "Profil " + ProfileSaver.getSelectedProfile(), "Jouer");
@@ -88,6 +94,16 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
         diapoImage2.setBounds(0, 0, 822, 343);
         diapoPanel.add(diapoImage2);
 
+        accountLabel.setBounds(374 - 178, 470 - 113, 276, 31);
+        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        this.add(accountLabel);
+
+        accountConnectedLabel.setBounds(192 - 178, 470 -113, 191, 31);
+        accountConnectedLabel.setForeground(new Color(179, 179, 179));
+        accountConnectedLabel.setFont(accountLabel.getFont());
+        add(accountConnectedLabel);
+
         add(getBg().getPanel());
     }
 
@@ -97,6 +113,16 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
             MinecraftProfile mcProfile = new MinecraftProfile(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_UUID.get()), ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), null);
             if (WhitelistServers.getPlayerWhitelistedServers(mcProfile).length > 0) {
                 whitelistedServersButton.setVisible(true);
+            }
+
+            if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                accountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
+                accountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                LauncherPanel.enablePlayButtons(true);
+            } else {
+                accountLabel.setText("");
+                accountConnectedLabel.setText("Non connect\u00e9");
+                LauncherPanel.enablePlayButtons(false);
             }
         } else {
             whitelistedServersButton.setVisible(false);

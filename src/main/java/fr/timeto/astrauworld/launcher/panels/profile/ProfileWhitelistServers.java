@@ -5,6 +5,7 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.ServerInfosFrame;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
@@ -16,6 +17,7 @@ import fr.timeto.timutilslib.CustomFonts;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 
@@ -28,6 +30,9 @@ public class ProfileWhitelistServers extends PageCreator {
     public final WhitelistServer[] serversList = new WhitelistServer[] {
       server1, server2, server3, server4
     };
+
+    public final JLabel accountLabel = new JLabel("", SwingConstants.LEFT);
+    public final JLabel accountConnectedLabel = new JLabel("Connecté en tant que: ", SwingConstants.LEFT);
 
     public ProfileWhitelistServers() {
         super(PageName.PROFILE_WHITELIST_SERVERS, "Profil " + ProfileSaver.getSelectedProfile(), "Serveurs whitelist");
@@ -48,6 +53,16 @@ public class ProfileWhitelistServers extends PageCreator {
         add(server4);
         server4.setVisible(false);
 
+        accountLabel.setBounds(386 - 178, 468 - 113, 276, 31);
+        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        this.add(accountLabel);
+
+        accountConnectedLabel.setBounds(198 - 178, 577 - 113, 191, 31);
+        accountConnectedLabel.setForeground(new Color(179, 179, 179));
+        accountConnectedLabel.setFont(accountLabel.getFont());
+        add(accountConnectedLabel);
+
         add(getBg().getPanel());
     }
 
@@ -60,6 +75,16 @@ public class ProfileWhitelistServers extends PageCreator {
                 serversList[i].setServer(WhitelistServers.getPlayerWhitelistedServers(mcProfile)[i]);
                 serversList[i].setVisible(true);
                 i++;
+            }
+
+            if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                accountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
+                accountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                LauncherPanel.enablePlayButtons(true);
+            } else {
+                accountLabel.setText("");
+                accountConnectedLabel.setText("Non connect\u00e9");
+                LauncherPanel.enablePlayButtons(false);
             }
         } else {
             server1.setVisible(false);

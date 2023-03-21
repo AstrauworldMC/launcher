@@ -4,6 +4,7 @@ import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
 
 import java.lang.module.FindException;
+import java.util.Objects;
 
 public class PageAnimation {
 
@@ -187,6 +188,7 @@ public class PageAnimation {
 
             if (actualPage.getX() < nextPage.getX()) {
                 inAnim = true;
+
                 while (nextPage.getX() != actualPage.getX() && inAnim) {
                     nextPage.setLocation(nextPage.getX() - 6, nextPage.getY());
 

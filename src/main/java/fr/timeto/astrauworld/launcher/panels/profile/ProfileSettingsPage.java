@@ -5,6 +5,7 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.CustomSpinnerUI;
 import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
@@ -15,6 +16,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.Launcher.parseUnicode;
@@ -33,7 +35,8 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
     public JLabel allowedRamSpinnerLabel1 = new JLabel(parseUnicode("RAM allouée au jeu"), SwingConstants.RIGHT);
     public JLabel allowedRamSpinnerLabel2 = new JLabel(parseUnicode("En Go (3Go conseillé)"), SwingConstants.RIGHT);
     public STexturedButton saveSettings = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton-hover.png"));
-
+    public final JLabel accountLabel = new JLabel("", SwingConstants.LEFT);
+    public final JLabel accountConnectedLabel = new JLabel("Connecté en tant que: ", SwingConstants.LEFT);
 
     public ProfileSettingsPage() {
         super(PageName.PROFILE_SETTINGS, "Profil " + ProfileSaver.getSelectedProfile(), "Paramètres");
@@ -97,6 +100,16 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         saveSettings.addEventListener(this);
         add(saveSettings);
 
+        accountLabel.setBounds(380 - 178, 577 - 113, 276, 31);
+        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        this.add(accountLabel);
+
+        accountConnectedLabel.setBounds(198 - 178, 577 - 113, 191, 31);
+        accountConnectedLabel.setForeground(new Color(179, 179, 179));
+        accountConnectedLabel.setFont(accountLabel.getFont());
+        add(accountConnectedLabel);
+
         add(bg.getPanel());
     }
 
@@ -106,6 +119,16 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
             profileNameTextField.setText(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()));
             helmIconSwitchButton.defineTextures();
             allowedRamSpinner.setValue(Float.parseFloat(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get())));
+
+            if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                accountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
+                accountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                LauncherPanel.enablePlayButtons(true);
+            } else {
+                accountLabel.setText("");
+                accountConnectedLabel.setText("Non connect\u00e9");
+                LauncherPanel.enablePlayButtons(false);
+            }
         }
         super.setVisible(aFlag);
     }
