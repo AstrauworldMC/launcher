@@ -16,11 +16,11 @@ public enum PageName {
     PROFILE_ADDONS_SHADERS_CHOCAPICV7("profile-addons-shaders-chocapicv7", new Background().addAboveMiniSection().addMiddleVerticalLine(), "2.3.1.2"),
     PROFILE_ADDONS_SHADERS_CHOCAPICV9("profile-addons-shaders-chocapicv9", new Background().addAboveMiniSection().addMiddleVerticalLine(), "2.3.1.3"),
     PROFILE_ADDONS_RESOURCEPACKS("profile-addons-resourcepacks", new Background().addAboveMiniSection().addMiddleVerticalLine(), "2.3.2"),
-    PROFILE_SETTINGS("profile-settings", new Background().addProfileSettingsFields(), "2.4"),
+    PROFILE_SETTINGS("profile-settings", new Background(), "2.4"),
     PROFILE_WHITELIST_SERVERS("profile-whitelistservers", new Background().addMiddleHorizontalLine().addMiddleVerticalLine(), "2.5"),
     PROFILE_ALL("profile-all", new Background(), "2"),
 
-    CHANGELOGS("changelogs", new Background().addBigTextArea().addComboboxUpField(), "3"),
+    CHANGELOGS("changelogs", new Background(), "3"),
 
     ABOUT_INFOS("about-infos", new Background(), "4.1"),
     ABOUT_MODS("about-mods", new Background(), "4.2"),

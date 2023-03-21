@@ -20,7 +20,8 @@ public class Changelogs {
      * @see Changelogs#text
      */
     private static class TEXTS {
-        public static final String BETA2_3_1 =  "- Ajout des animations des pages (enfin)";
+        public static final String BETA2_3_1 =  "- Ajout des animations des pages (enfin)" + lineSep +
+                                                "- Composants basés Swing préconfigurés";
 
         public static final String BETA2_3_0 =  "- Compatibilité MacOS et Linux" + lineSep +
                                                 "- Déplacement du currentLauncher.properties en launcher.properties dans les assets" + lineSep +

@@ -5,6 +5,8 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.customelements.AWPasswordField;
+import fr.timeto.astrauworld.launcher.customelements.AWTextField;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
@@ -20,7 +22,6 @@ import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.Launcher.parseUnicode;
-import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.initProfileButtons;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.verifyNoAccountBefore;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
@@ -43,13 +44,13 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
     /**
      * TextField pour entrer l'adresse email pour la connexion
      */
-    public final JTextField textField = new JTextField("");
+    public final AWTextField textField = new AWTextField("", 25f);
     public final JLabel textFieldLabel = new JLabel("Email");
 
     /**
      * PasswordField pour entrer le mot de passe pour la connexion
      */
-    public final JPasswordField passwordField = new JPasswordField();
+    public final AWPasswordField passwordField = new AWPasswordField(25f);
     public final JLabel passwordFieldLabel = new JLabel("Mot de passe");
 
     public final JTextArea infosLabel = new JTextArea(parseUnicode("Vos informations de connexion sont stockées dans votre ordinateur seulement, elles ne sont en aucun cas \n" +
@@ -76,13 +77,7 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         resetButton.addEventListener(this);
         add(resetButton);
 
-        textField.setForeground(Color.WHITE);
-        textField.setFont(CustomFonts.kollektifBoldFont.deriveFont(25f));
-        textField.setCaretColor(Color.RED);
-        textField.setSelectionColor(new Color(255, 20, 20, 200));
-        textField.setOpaque(false);
-        textField.setBorder(null);
-        textField.setBounds(44, 55, 386, 60);
+        textField.setBounds(39, 55, 395, 55);
         add(textField);
 
         textFieldLabel.setForeground(Color.WHITE);
@@ -90,13 +85,7 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         textFieldLabel.setBounds(42, 13, 386, 60);
         add(textFieldLabel);
 
-        passwordField.setForeground(Color.WHITE);
-        passwordField.setFont(textField.getFont());
-        passwordField.setCaretColor(Color.RED);
-        passwordField.setSelectionColor(new Color(255, 20, 20, 200));
-        passwordField.setOpaque(false);
-        passwordField.setBorder(null);
-        passwordField.setBounds(44, 149, 386, 60);
+        passwordField.setBounds(39, 149, 395, 55);
         add(passwordField);
 
         passwordFieldLabel.setForeground(Color.WHITE);

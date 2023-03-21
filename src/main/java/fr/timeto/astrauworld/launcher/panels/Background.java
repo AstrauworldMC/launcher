@@ -8,9 +8,6 @@ public class Background {
     private boolean middleVerticalLine = false;
     private boolean middleHorizontalLine = false;
     private boolean loginFields = false;
-    private boolean comboboxUpField = false;
-    private boolean bigTextArea = false;
-    private boolean profileSettingsFields = false;
     private boolean belowReliefRectangle = false;
 
     public Background() {
@@ -34,21 +31,6 @@ public class Background {
 
     public Background setLoginFields(boolean e) {
         loginFields = e;
-        return this;
-    }
-
-    public Background setComboboxUpField(boolean e) {
-        comboboxUpField = e;
-        return this;
-    }
-
-    public Background setBigTextArea(boolean e) {
-        bigTextArea = e;
-        return this;
-    }
-
-    public Background setProfileSettingsFields(boolean e) {
-        profileSettingsFields = e;
         return this;
     }
 
@@ -77,21 +59,6 @@ public class Background {
         return this;
     }
 
-    public Background addComboboxUpField() {
-        comboboxUpField = true;
-        return this;
-    }
-
-    public Background addBigTextArea() {
-        bigTextArea = true;
-        return this;
-    }
-
-    public Background addProfileSettingsFields() {
-        profileSettingsFields = true;
-        return this;
-    }
-
     public Background addBelowReliefRectangle() {
         belowReliefRectangle = true;
         return this;
@@ -109,14 +76,6 @@ public class Background {
         return loginFields;
     }
 
-    public boolean isBigTextArea() {
-        return bigTextArea;
-    }
-
-    public boolean isProfileSettingsFields() {
-        return profileSettingsFields;
-    }
-
     public boolean isBelowReliefRectangle() {
         return belowReliefRectangle;
     }
@@ -129,28 +88,6 @@ public class Background {
 
                 g2d.setColor(new Color(40, 40, 40));
                 g2d.fillRect(0, 0, 822, 517);
-
-                if (loginFields) {
-                    g2d.setColor(new Color(33, 33, 33));
-                    g2d.fillRect(39, 55, 395, 55);
-                    g2d.fillRect(39, 149, 395, 55);
-                }
-
-                if (bigTextArea) {
-                    g2d.setColor(new Color(33, 33, 33));
-                    g2d.fillRect(11, 44, 797, 460);
-                }
-
-                if (comboboxUpField) {
-                    g2d.setColor(new Color(25, 25, 25));
-                    g2d.fillRect(11, 10, 150, 24);
-                }
-
-                if (profileSettingsFields) {
-                    g2d.setColor(new Color(33, 33, 33));
-                    g2d.fillRect(313, 25, 315, 58);
-                    g2d.fillRect(313, 193, 93, 58);
-                }
 
                 if (belowReliefRectangle) {
                     g2d.setColor(new Color(33, 33, 33));

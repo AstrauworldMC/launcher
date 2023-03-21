@@ -2,7 +2,6 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.colored.SColoredButton;
-import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.timutilslib.PopUpMessages;
@@ -298,6 +297,7 @@ public class PageChange {
                 if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()), "none")) {
                     profileAccountPage.textField.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_EMAIL.get()));
                 }
+                profileAccountPage.passwordField.setText("");
 
                 corner.setVisible(false);
 
