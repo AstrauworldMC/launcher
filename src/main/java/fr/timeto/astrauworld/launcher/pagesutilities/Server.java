@@ -223,6 +223,7 @@ public class Server extends ArrayList<Mod> {
             javaCommand = "\"" + java + "\"";
         else javaCommand = java.toString();
         JavaUtil.setJavaCommand(javaCommand);
+        infosLabel.setText("");
 
         System.out.println(authInfos.getUsername());
         System.out.println(authInfos.getUuid());

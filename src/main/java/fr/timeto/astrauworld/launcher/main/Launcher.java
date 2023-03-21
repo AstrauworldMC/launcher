@@ -12,7 +12,6 @@ import fr.flowarg.flowupdater.utils.ModFileDeleter;
 import fr.flowarg.flowupdater.versions.AbstractForgeVersion;
 import fr.flowarg.flowupdater.versions.ForgeVersionBuilder;
 import fr.flowarg.flowupdater.versions.VanillaVersion;
-import fr.flowarg.openlauncherlib.NewForgeVersionDiscriminator;
 import fr.flowarg.openlauncherlib.NoFramework;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
@@ -116,8 +115,6 @@ public class Launcher {
     public static final Path awThirdProfileData = Paths.get(thirdProfileData);
     public static final Path awThirdProfileIcon = Paths.get(thirdProfileIcon);
     public static final Path awThirdProfileCustomFilesFolder = Paths.get(thirdProfileCustomFilesFolder);
-
-    public static final GameInfos AW_INFOS = new GameInfos("Astrauworld", awGameFilesFolder, new GameVersion(mcVersion, GameType.V1_13_HIGHER_FORGE.setNFVD(new NewForgeVersionDiscriminator(forgeVersion, mcVersion, "20211210.034407"))), new GameTweak[] {GameTweak.FORGE});
 
     private static AuthInfos authInfos;
 
