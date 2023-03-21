@@ -53,7 +53,7 @@ public class ProfileWhitelistServers extends PageCreator {
         add(server4);
         server4.setVisible(false);
 
-        accountLabel.setBounds(386 - 178, 468 - 113, 276, 31);
+        accountLabel.setBounds(380 - 178, 577 - 113, 276, 31);
         accountLabel.setForeground(Color.WHITE);
         accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
         this.add(accountLabel);

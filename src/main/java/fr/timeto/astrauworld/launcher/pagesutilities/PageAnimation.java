@@ -9,8 +9,8 @@ import java.util.Objects;
 public class PageAnimation {
 
     private static final int DEFAULT_X = 0;
-    private static final int RIGHT_X = 822;
-    private static final int LEFT_X = -822;
+    private static final int RIGHT_X = 824;
+    private static final int LEFT_X = -824;
 
     public static void animFromTo(PageCreator actualPage, PageCreator nextPage) {
         Thread t = new Thread(() -> {
@@ -190,7 +190,7 @@ public class PageAnimation {
                 inAnim = true;
 
                 while (nextPage.getX() != actualPage.getX() && inAnim) {
-                    nextPage.setLocation(nextPage.getX() - 6, nextPage.getY());
+                    nextPage.setLocation(nextPage.getX() - 8, nextPage.getY());
 
                     try {
                         Thread.sleep(1);
@@ -215,7 +215,7 @@ public class PageAnimation {
             if (actualPage.getX() == nextPage.getX()) {
                 inAnim = true;
                 while (nextPage.getX() != RIGHT_X && inAnim) {
-                    nextPage.setLocation(nextPage.getX() + 6, nextPage.getY());
+                    nextPage.setLocation(nextPage.getX() + 8, nextPage.getY());
 
                     try {
                         Thread.sleep(1);

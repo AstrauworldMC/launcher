@@ -1,5 +1,7 @@
 package fr.timeto.astrauworld.launcher.pagesutilities;
 
+import fr.timeto.astrauworld.launcher.main.Launcher;
+
 import java.util.ArrayList;
 
 /**
@@ -18,6 +20,19 @@ public class Changelogs {
      * @see Changelogs#text
      */
     private static class TEXTS {
+        public static final String BETA2_3_1 =  "- Ajout des animations des pages (enfin)";
+
+        public static final String BETA2_3_0 =  "- Compatibilité MacOS et Linux" + lineSep +
+                                                "- Déplacement du currentLauncher.properties en launcher.properties dans les assets" + lineSep +
+                                                "- Pages rangées en panels séparés" + lineSep +
+                                                "- Mise en place du support pour plusieurs serveurs" + lineSep +
+                                                "- Ajout de la page des serveurs whitelist (non visible pour les non-whitelistés)" + lineSep +
+                                                "- Ajout du DiscordRPC (activité affichée sur le profil Discord si il est installé)" + lineSep +
+                                                "- Stabilité du launcher après le relancement" + lineSep +
+                                                "- Ajout du mod EmoteCraft et ses dépendances" + lineSep +
+                                                "- Modification des boutons d'installation des shaders" + lineSep +
+                                                "- Réglages de bugs";
+
         public static final String BETA2_2_5 =  "- BlueMap du serveur disponible en appuyant sur le logo dans la page '\u00c0 propos-infos' et dans le system tray" + lineSep +
                                                 "- R\u00e9glage du bug emp\u00eachant les nouveaux joueurs de lancer le launcher" + lineSep +
                                                 "- R\u00e9glages de bugs avec les fichiers custom de profils" + lineSep +
@@ -68,12 +83,14 @@ public class Changelogs {
      * @since Beta2.1.2
      */
     private static final Changelogs[] changelogsList = {
-            new Changelogs("Beta2.2.5", TEXTS.BETA2_2_5),
-            new Changelogs("Beta2.2.4", TEXTS.BETA2_2_4),
-            new Changelogs("Beta2.2.3", TEXTS.BETA2_2_3),
-            new Changelogs("Beta2.2.2", TEXTS.BETA2_2_2),
-            new Changelogs("Beta2.2.0", TEXTS.BETA2_2_0),
-            new Changelogs("Beta2.1.2", TEXTS.BETA2_1_2)
+            new Changelogs("Beta2.3.1", Launcher.parseUnicode(TEXTS.BETA2_3_1)),
+            new Changelogs("Beta2.3.0", Launcher.parseUnicode(TEXTS.BETA2_3_0)),
+            new Changelogs("Beta2.2.5", Launcher.parseUnicode(TEXTS.BETA2_2_5)),
+            new Changelogs("Beta2.2.4", Launcher.parseUnicode(TEXTS.BETA2_2_4)),
+            new Changelogs("Beta2.2.3", Launcher.parseUnicode(TEXTS.BETA2_2_3)),
+            new Changelogs("Beta2.2.2", Launcher.parseUnicode(TEXTS.BETA2_2_2)),
+            new Changelogs("Beta2.2.0", Launcher.parseUnicode(TEXTS.BETA2_2_0)),
+            new Changelogs("Beta2.1.2", Launcher.parseUnicode(TEXTS.BETA2_1_2))
     };
 
     /**

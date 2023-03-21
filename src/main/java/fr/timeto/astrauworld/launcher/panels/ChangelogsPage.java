@@ -74,7 +74,6 @@ public class ChangelogsPage extends PageCreator implements ActionListener {
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setSubtitle(versionComboBox.getSelectedItem().toString());
-            System.out.println(versionComboBox.getSelectedItem().toString());
         }
         super.setVisible(aFlag);
     }

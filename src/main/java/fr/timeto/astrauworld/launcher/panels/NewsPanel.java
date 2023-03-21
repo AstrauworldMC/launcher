@@ -6,6 +6,7 @@ import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageAnimation;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.timutilslib.CustomFonts;
 
@@ -138,6 +139,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
         if (src == button) {
             newsOpenScrollPanel.setNewsPage(news);
             PageAnimation.animTo(newsOpenScrollPanel);
+            PageChange.actualPagePanel = newsOpenScrollPanel;
         }
 
     }
