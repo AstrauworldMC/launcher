@@ -69,14 +69,13 @@ public class Launcher {
     public static final String mcVersion = launcherProperties.getProperty("mcVersion");
     public static final String forgeVersion = launcherProperties.getProperty("forgeVersion");
     public static final String optifineVersion = launcherProperties.getProperty("optifineVersion"); // FIXME Bug certaines textures sont unies
-    static MCPingOptions serverOptions = MCPingOptions.builder()
+    public static MCPingOptions serverOptions = MCPingOptions.builder()
             .hostname(launcherProperties.getProperty("serverHostname")) // 207.180.196.61
             .port(Integer.parseInt(launcherProperties.getProperty("serverPort"))) //33542
             .build();
 
     // Version du launcher
     public static final String version = launcherProperties.getProperty("launcherVersion");
-    private static final String voiceChatConnectServerIP = "????????????";
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
@@ -121,6 +120,7 @@ public class Launcher {
     static boolean maximumSet = false;
 
     private static final CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", awCrashFolder);
+    public static final AstrauworldMC ASTRAUWORLD_MC = new AstrauworldMC();
 
     public static Process process = null;
 
@@ -237,38 +237,6 @@ public class Launcher {
 
         Launcher.println("");
         Launcher.println("");
-
-        String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
-        Main.main(args);
-
-    }
-
-    public static void localLaunch(Saver saver) throws Exception {
-        String javaCommand;
-        final Path java = Paths.get(getJava().getAbsolutePath(), "bin", "java");
-        if (System.getProperty("os.name").toLowerCase().contains("win"))
-            javaCommand = "\"" + java + "\"";
-        else javaCommand = java.toString();
-        JavaUtil.setJavaCommand(javaCommand);
-
-        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        noFramework.getAdditionalArgs().addAll(Arrays.asList("--Xmx", saver.get(ProfileSaver.KEY.SETTINGS_RAM.get()) + "G"));
-
-        getInstance().setVisible(false);
-
-        ProfileSaver.saveCustomFiles(saver);
-
-        process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
-        LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
-        getInstance().setName("AstrauworldMC");
-        DiscordManager.setGamePresence(authInfos);
-
-        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-        String s;
-        while ((s = stdInput.readLine()) != null) {
-            System.out.println(s);
-        }
 
         String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
         Main.main(args);
