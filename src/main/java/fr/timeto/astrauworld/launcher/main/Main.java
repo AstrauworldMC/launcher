@@ -12,6 +12,7 @@ import fr.timeto.timutilslib.CustomFonts;
 import fr.timeto.timutilslib.PopUpMessages;
 import fr.timeto.timutilslib.TimFilesUtils;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -34,7 +35,6 @@ public class Main {
                 Launcher.println("Windows OK");
             } else if (OS.toLowerCase().contains("mac")) {
                 Launcher.println("MacOS OK");
-                setTaskbarIcon(Swinger.getResourceIgnorePath("/assets/launcher/main/logo.png"));
             } else if (OS.toLowerCase().contains("nix") || OS.toLowerCase().contains("nux") || OS.toLowerCase().contains("aix")) {
                 Launcher.println("Unix OK");
             } else {
@@ -161,6 +161,7 @@ public class Main {
                 }
 
                 instance = new LauncherFrame();
+                TimFilesUtils.setSelectedWindow(instance);
             } else {
                 Launcher.println("[Lancement] Relancement du launcher");
 
@@ -187,6 +188,9 @@ public class Main {
             } catch (Exception ex) {
                 PopUpMessages.errorMessage("Erreur (non reconnue)", parseUnicode(e.getLocalizedMessage()), t);
             }
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, true);
+            } catch (UnsupportedOperationException ignored) {}
         }
 
     }

@@ -18,7 +18,6 @@ import fr.timeto.timutilslib.PopUpMessages;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
@@ -405,6 +404,9 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           Launcher.println("Affichage...");
           setPage(true, PageName.PROFILE_HOME, ProfileSaver.getActualMainProfile());
+          try {
+               Taskbar.getTaskbar().requestUserAttention(true, false);
+          } catch (UnsupportedOperationException ignored) {}
 
      }
 
