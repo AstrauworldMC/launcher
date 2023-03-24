@@ -411,8 +411,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      }
 
      public static void enablePlayButtons(boolean e) {
-          profileHomePage.enablePlayButtons(e);
-          profileWhitelistServersPage.enablePlayButtons(e);
+          if (Server.playButtonsCanBeEnabled) {
+               profileHomePage.enablePlayButtons(e);
+               profileWhitelistServersPage.enablePlayButtons(e);
+          }
      }
 
      /**

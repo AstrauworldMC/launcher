@@ -27,8 +27,6 @@ import fr.timeto.timutilslib.TimFilesUtils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -43,6 +41,7 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 import static fr.timeto.timutilslib.PopUpMessages.errorMessage;
 
 public class Server {
+    public static boolean playButtonsCanBeEnabled = true;
 
     public static final int MODLOADER_FORGE = 1;
     public static final int MODLOADER_FABRIC = 2;
@@ -60,6 +59,7 @@ public class Server {
     protected AuthInfos authInfos;
     protected ArrayList<Mod> mods = new ArrayList<>();
     protected ArrayList<MinecraftProfile> whitelist = new ArrayList<>();
+    protected String ipOnConnect = null;
 
     public Server(String serverName, boolean whitelist, String mcVersion, MCPingOptions mcPingOptions, boolean usePort, Path pathFromAstrauworldFolder) {
         this(serverName, whitelist, mcVersion, 0, null, mcPingOptions, usePort, pathFromAstrauworldFolder, null);
@@ -78,6 +78,9 @@ public class Server {
     }
 
     public void update(Saver saver) throws Exception {
+        LauncherPanel.enablePlayButtons(false);
+        playButtonsCanBeEnabled = false;
+
         path.toFile().mkdirs();
 
         loadingBar.setVisible(true);
@@ -203,6 +206,9 @@ public class Server {
         }
 
         updater.update(path);
+
+        playButtonsCanBeEnabled = true;
+        LauncherPanel.enablePlayButtons(true);
     }
 
     private void connect(Saver saver) throws MicrosoftAuthenticationException {
@@ -227,9 +233,13 @@ public class Server {
     }
 
     public void launch(boolean connectToServer, Saver saver) throws Exception {
+        LauncherPanel.enablePlayButtons(false);
+        playButtonsCanBeEnabled = false;
+
         try {
             connect(saver);
         } catch (MicrosoftAuthenticationException m) {
+            playButtonsCanBeEnabled = true;
             LauncherPanel.enablePlayButtons(true);
             errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
             infosLabel.setText("Connexion \u00e9chou\u00e9e");
@@ -287,12 +297,18 @@ public class Server {
         while ((s = stdInput.readLine()) != null) {
             System.out.println(s);
             if (s.contains("Connecting to ")) {
-                InetAddress address = InetAddress.getByName(new URL("http://" + mcPingOptions.getHostname()).getHost());
-                if (s.contains(address.getHostAddress())) { // FIXME CA MARCHE PAS
-                    DiscordManager.setGamePresence(authInfos, this);
+                String ip = getServerHostname();
+                if (ipOnConnect != null) {
+                    ip = ipOnConnect;
                 }
-            } else if (s.contains("[voicechat/]: Clearing audio channels") || s.contains("Stopping JEI GUI")) {
+
+                if (s.contains(ip) || s.contains(getServerHostname())) {
+                    DiscordManager.setGamePresence(authInfos, this);
+                    Launcher.println("Connexion à un serveur connu détecté");
+                }
+            } else if (s.contains("Clearing audio channels") || s.contains("Stopping JEI") || s.contains("Disconnecting voicechat") || s.contains("Stopping microphone thread")) {
                 DiscordManager.setGamePresence(authInfos);
+                Launcher.println("Déconnexion d'un serveur détecté");
             }
         }
 
@@ -325,6 +341,9 @@ public class Server {
             }
         }
 
+        playButtonsCanBeEnabled = true;
+        LauncherPanel.enablePlayButtons(false);
+
         if (mcPingOptions == serverOptions) {
             String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
             Main.main(args);
@@ -334,8 +353,12 @@ public class Server {
 
     }
 
-    public void setWhitelist(ArrayList<MinecraftProfile> whitelist) {
-        this.whitelist = whitelist;
+    public void setIpOnConnect(String ipOnConnect) {
+        this.ipOnConnect = ipOnConnect;
+    }
+
+    public String getIpOnConnect() {
+        return ipOnConnect;
     }
 
     public String getServerName() {

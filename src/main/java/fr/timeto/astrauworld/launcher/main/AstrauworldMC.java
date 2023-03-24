@@ -21,6 +21,8 @@ public class AstrauworldMC extends Server {
                 Paths.get("GameFiles"),
                 Launcher.optifineVersion);
 
+        setIpOnConnect("207.180.196.61");
+
         mods.add(new Mod("Backpacked",                  "2.1.10",              new CurseFileInfo(352835, 3923041)));
         mods.add(new Mod("Medieval Craft",              "1.18.2 weapons only", new CurseFileInfo(416811, 3858618)));
         mods.add(new Mod("Epic Knights [...]",          "7.1",                 new CurseFileInfo(509041, 4393487)));
@@ -76,6 +78,6 @@ public class AstrauworldMC extends Server {
         mods.add(new Mod("Flash's NPCs",                "1.1.4v2",             new CurseFileInfo(517167, 3760573)));
         mods.add(new Mod("EmoteCraft",                  "2.2.5",               new CurseFileInfo(403422, 3955900)));
         /* |_> */ mods.add(new Mod("PlayerAnimator",    "1.0.2",               new CurseFileInfo(658587, 4418152)));
-            /* |_> */ mods.add(new Mod("Bendy-lib",     "2.1.1",               new CurseFileInfo(623373, 3955900)));
+            /* |_> */ mods.add(new Mod("Bendy-lib",     "2.1.1",               new CurseFileInfo(623373, 3930014)));
     }
 }
