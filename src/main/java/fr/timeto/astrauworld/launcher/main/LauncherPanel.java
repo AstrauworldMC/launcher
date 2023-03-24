@@ -11,6 +11,7 @@ import fr.timeto.astrauworld.launcher.panels.ChangelogsPage;
 import fr.timeto.astrauworld.launcher.panels.NewsOpenPanel;
 import fr.timeto.astrauworld.launcher.panels.NewsPanel;
 import fr.timeto.astrauworld.launcher.panels.about.AboutInfosPage;
+import fr.timeto.astrauworld.launcher.panels.about.AboutModsPage;
 import fr.timeto.astrauworld.launcher.panels.profile.*;
 import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
 import fr.timeto.timutilslib.PopUpMessages;
@@ -210,6 +211,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            */
           public static final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-selected.png"));
           public static final AboutInfosPage aboutInfosPage = new AboutInfosPage();
+          public static final AboutModsPage aboutModsPage = new AboutModsPage();
      }
 
      /**
@@ -399,6 +401,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           aboutInfosPage.setBounds(0, 0);
           panel.add(aboutInfosPage);
           aboutInfosPage.setVisible(false);
+
+          aboutModsPage.setBounds(0, 0);
+          panel.add(aboutModsPage);
+          aboutModsPage.setVisible(false);
 
           this.add(panel);
 
