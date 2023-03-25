@@ -41,15 +41,15 @@ public class ProfileWhitelistServers extends PageCreator {
         add(server1);
         server1.setVisible(false);
 
-        server2.setBounds(0, 0);
+        server2.setBounds(411, 0);
         add(server2);
         server2.setVisible(false);
 
-        server3.setBounds(0, 0);
+        server3.setBounds(0, 259);
         add(server3);
         server3.setVisible(false);
 
-        server4.setBounds(0, 0);
+        server4.setBounds(411, 259);
         add(server4);
         server4.setVisible(false);
 

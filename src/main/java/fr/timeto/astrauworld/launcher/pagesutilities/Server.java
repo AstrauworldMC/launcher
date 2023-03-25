@@ -46,15 +46,15 @@ public class Server {
     public static final int MODLOADER_FORGE = 1;
     public static final int MODLOADER_FABRIC = 2;
 
-    protected final String serverName;
-    protected final boolean isWhitelist;
+    protected String serverName;
+    protected boolean isWhitelist;
     protected final String mcVersion;
     protected final int modLoader;
     protected final String modLoaderVersion;
-    protected final MCPingOptions mcPingOptions;
+    protected MCPingOptions mcPingOptions;
     protected final String optifineVersion;
     protected final Path path;
-    protected final boolean usePort;
+    protected boolean usePort;
 
     protected AuthInfos authInfos;
     protected ArrayList<Mod> mods = new ArrayList<>();
@@ -179,7 +179,7 @@ public class Server {
                 .withPostExecutions(Collections.singletonList(postExecutions))
                 .build();
 
-        if (mcPingOptions != serverOptions) {
+        if (!serverName.contains("AstrauworldMC")) {
             File whitelistResourcePacksFolder = new File(path.toString(), "resourcePacks");
             File whitelistShaderPacksFolder = new File(path.toString(), "shaderpacks");
             File whitelistOptionsOFFile = new File(path.toString(), "optionsof.txt");
@@ -315,7 +315,7 @@ public class Server {
         Launcher.println("");
         Launcher.println("");
 
-        if (mcPingOptions != serverOptions) {
+        if (!serverName.contains("AstrauworldMC")) {
             File whitelistResourcePacksFolder = new File(path.toString(), "resourcePacks");
             File whitelistShaderPacksFolder = new File(path.toString(), "shaderpacks");
             File whitelistOptionsOFFile = new File(path.toString(), "optionsof.txt");
@@ -344,7 +344,7 @@ public class Server {
         playButtonsCanBeEnabled = true;
         LauncherPanel.enablePlayButtons(false);
 
-        if (mcPingOptions == serverOptions) {
+        if (!serverName.contains("AstrauworldMC")) {
             String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
             Main.main(args);
         } else {
