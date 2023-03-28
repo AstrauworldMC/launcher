@@ -12,6 +12,7 @@ import fr.timeto.timutilslib.CustomFonts;
 import fr.timeto.timutilslib.PopUpMessages;
 import fr.timeto.timutilslib.TimFilesUtils;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -34,7 +35,6 @@ public class Main {
                 Launcher.println("Windows OK");
             } else if (OS.toLowerCase().contains("mac")) {
                 Launcher.println("MacOS OK");
-                setTaskbarIcon(Swinger.getResourceIgnorePath("/assets/launcher/main/logo.png"));
             } else if (OS.toLowerCase().contains("nix") || OS.toLowerCase().contains("nux") || OS.toLowerCase().contains("aix")) {
                 Launcher.println("Unix OK");
             } else {
@@ -82,9 +82,6 @@ public class Main {
                 thirdProfileSaver.set(KEY.INFOS_NAME.get(), "");
             }
 
-            Launcher.println("[Lancement] Initialisation des images de profil");
-            initProfileIcon();
-
             CrashReporter crashReporter = new CrashReporter("Astrauworld Launcher", Launcher.awCrashFolder);
 
             Swinger.setResourcePath("/assets/launcher/");
@@ -114,46 +111,72 @@ public class Main {
             }
 
             if (profileAfterMcExit == null) {
-                Launcher.println("[Lancement] Lancement du DiscordRPC");
-                DiscordManager.start();
-                DiscordManager.setLauncherPresence();
 
-                Launcher.println("[Lancement] Initialisation des easters eggs");
-                EasterEggs.initEastereggs();
-                new File(Launcher.dataFolder + "eastereggs.properties").delete();
+                Thread t = new Thread(() -> {
+                    try {
 
-                PageChange.lastSettingsSaver = null;
+                        Launcher.println("[Lancement] Lancement du DiscordRPC");
+                        DiscordManager.start();
+                        DiscordManager.setLauncherPresence();
 
-                Launcher.println("[Lancement] Lancement du system tray icon");
-                initLauncherSystemTray();
+                        Launcher.println("[Lancement] Initialisation des easters eggs");
+                        EasterEggs.initEastereggs();
+                        new File(Launcher.dataFolder + "eastereggs.properties").delete();
 
-                Launcher.println("[Lancement] Vérifications de problèmes de fichiers d'anciennes versions");
-                shaderpacksFolder.mkdir();
-                optionsShadersTextfile.createNewFile();
+                        PageChange.lastSettingsSaver = null;
 
-                new File(Launcher.AW_GAMEFILES_FOLDER + "1.18.2.json").delete();
-                File mcVersionJsonFile = new File(Launcher.AW_GAMEFILES_FOLDER + Launcher.separatorChar + "1.18.2.json");
-                if (!mcVersionJsonFile.exists()) {
-                    optionsTextfile.delete();
-                    optionsOFTextfile.delete();
-                    optionsShadersTextfile.delete();
-                    int i = 1;
-                    while (i != 4) {
-                        initCustomFilesFolder(ProfileSaver.getSaver(i + ""));
-                        optionsProfileTextfile.delete();
-                        optionsOFProfileTextfile.delete();
-                        optionsShadersProfileTextfile.delete();
-                        i++;
+                        Launcher.println("[Lancement] Lancement du system tray icon");
+                        initLauncherSystemTray();
+
+                        Launcher.println("[Lancement] Initialisation des images de profil");
+                        initProfileIcon();
+
+                        Launcher.println("[Lancement] Vérifications de problèmes de fichiers d'anciennes versions");
+                        shaderpacksFolder.mkdir();
+                        optionsShadersTextfile.createNewFile();
+
+                        new File(Launcher.AW_GAMEFILES_FOLDER + "1.18.2.json").delete();
+                        File mcVersionJsonFile = new File(Launcher.AW_GAMEFILES_FOLDER + Launcher.separatorChar + "1.18.2.json");
+                        if (!mcVersionJsonFile.exists()) {
+                            optionsTextfile.delete();
+                            optionsOFTextfile.delete();
+                            optionsShadersTextfile.delete();
+                            int i = 1;
+                            while (i != 4) {
+                                initCustomFilesFolder(ProfileSaver.getSaver(i + ""));
+                                optionsProfileTextfile.delete();
+                                optionsOFProfileTextfile.delete();
+                                optionsShadersProfileTextfile.delete();
+                                i++;
+                            }
+                            mcVersionJsonFile.createNewFile();
+                        }
+
+                        File serverDat = new File(Launcher.AW_GAMEFILES_FOLDER + File.separator + "servers.dat");
+                        if (!serverDat.exists()) {
+                            Launcher.println("[Lancement] Téléchargement du servers.dat");
+                            TimFilesUtils.downloadFromInternet("https://github.com/AstrauworldMC/resources/raw/main/servers.dat", serverDat);
+                            Launcher.println("servers.dat file downloaded");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Thread tt = new Thread(() -> {
+                            System.exit(1);
+                        });
+                        try {
+                            String[] causeSplit1 = e.getCause().toString().split(":");
+                            String[] causeSplit2 = causeSplit1[0].split("\\.");
+                            PopUpMessages.errorMessage(causeSplit2[causeSplit2.length - 1], parseUnicode(e.getLocalizedMessage()), tt);
+                        } catch (Exception ex) {
+                            PopUpMessages.errorMessage("Erreur (non reconnue)", parseUnicode(e.getLocalizedMessage()), tt);
+                        }
+                        try {
+                            Taskbar.getTaskbar().requestUserAttention(true, true);
+                        } catch (UnsupportedOperationException ignored) {
+                        }
                     }
-                    mcVersionJsonFile.createNewFile();
-                }
-
-                File serverDat = new File(Launcher.AW_GAMEFILES_FOLDER + File.separator + "servers.dat");
-                if (!serverDat.exists()) {
-                    Launcher.println("[Lancement] Téléchargement du servers.dat");
-                    TimFilesUtils.downloadFromInternet("https://github.com/AstrauworldMC/resources/raw/main/servers.dat", serverDat);
-                    Launcher.println("servers.dat file downloaded");
-                }
+                });
+                t.start();
 
                 if (!devEnv) {
                     Launcher.println("[Lancement] Vérification de la version");
@@ -161,6 +184,7 @@ public class Main {
                 }
 
                 instance = new LauncherFrame();
+                TimFilesUtils.setSelectedWindow(instance);
             } else {
                 Launcher.println("[Lancement] Relancement du launcher");
 
@@ -186,6 +210,10 @@ public class Main {
                 PopUpMessages.errorMessage(causeSplit2[causeSplit2.length - 1], parseUnicode(e.getLocalizedMessage()), t);
             } catch (Exception ex) {
                 PopUpMessages.errorMessage("Erreur (non reconnue)", parseUnicode(e.getLocalizedMessage()), t);
+            }
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, true);
+            } catch (UnsupportedOperationException ignored) {
             }
         }
 

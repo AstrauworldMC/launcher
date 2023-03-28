@@ -1,17 +1,12 @@
 package fr.timeto.astrauworld.launcher.panels;
 
-import fr.timeto.astrauworld.launcher.customelements.ColorArrowComboBoxUI;
-import fr.timeto.astrauworld.launcher.customelements.CustomComboBoxEditor;
-import fr.timeto.astrauworld.launcher.customelements.CustomComboBoxRenderer;
+import fr.timeto.astrauworld.launcher.customelements.*;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.pagesutilities.Changelogs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
-import fr.timeto.timutilslib.CustomFonts;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
@@ -32,13 +27,13 @@ public class ChangelogsPage extends PageCreator implements ActionListener {
      * @since Beta2.1.2
      * @see Changelogs
      */
-    public final JComboBox<Object> versionComboBox = new JComboBox<>(versionsArrayList);
+    public final AWComboBox<String> versionComboBox = new AWComboBox<>(versionsArrayList);
     /**
      * La text area non éditable où apparait le texte du changelog
      * @since Beta2.1.2
      * @see Changelogs
      */
-    public final JTextArea textArea = new JTextArea();
+    public final AWTextArea textArea = new AWTextArea(14f, false);
 
     public ChangelogsPage() {
         super(PageName.CHANGELOGS, "Changelogs", "");
@@ -47,24 +42,10 @@ public class ChangelogsPage extends PageCreator implements ActionListener {
         setOpaque(false);
 
         versionComboBox.setBounds(11, 10, 150, 24);
-        versionComboBox.setFont(CustomFonts.kollektifFont.deriveFont(14f));
         versionComboBox.addActionListener(this);
-        versionComboBox.setForeground(Color.WHITE);
-
-        versionComboBox.setOpaque(false);
-        versionComboBox.setEditable(true);
-        versionComboBox.setRenderer(new CustomComboBoxRenderer());
-        versionComboBox.setEditor(new CustomComboBoxEditor());
-        versionComboBox.setUI(ColorArrowComboBoxUI.createUI(versionComboBox));
-        versionComboBox.setBorder(null);
         this.add(versionComboBox);
 
-        textArea.setBounds(21, 54, 787, 450);
-        textArea.setForeground(Color.WHITE);
-        textArea.setFont(CustomFonts.kollektifBoldFont.deriveFont(14f));
-        textArea.setSelectionColor(new Color(255, 20, 20, 200));
-        textArea.setEditable(false);
-        textArea.setOpaque(false);
+        textArea.setBounds(11, 44, 797, 460);
         this.add(textArea);
 
         add(getBg().getPanel());
@@ -74,7 +55,6 @@ public class ChangelogsPage extends PageCreator implements ActionListener {
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setSubtitle(versionComboBox.getSelectedItem().toString());
-            System.out.println(versionComboBox.getSelectedItem().toString());
         }
         super.setVisible(aFlag);
     }

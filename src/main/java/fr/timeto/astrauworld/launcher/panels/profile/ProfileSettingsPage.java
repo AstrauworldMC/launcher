@@ -3,8 +3,10 @@ package fr.timeto.astrauworld.launcher.panels.profile;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
-import fr.timeto.astrauworld.launcher.customelements.CustomSpinnerUI;
+import fr.timeto.astrauworld.launcher.customelements.AWSpinner;
+import fr.timeto.astrauworld.launcher.customelements.AWTextField;
 import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
+import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
@@ -12,9 +14,9 @@ import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.Launcher.parseUnicode;
@@ -24,16 +26,17 @@ import static fr.timeto.timutilslib.PopUpMessages.doneMessage;
 
 public class ProfileSettingsPage extends PageCreator implements SwingerEventListener {
 
-    public JTextField profileNameTextField = new JTextField();
+    public AWTextField profileNameTextField = new AWTextField(25f);
     public JLabel profileNameTextFieldLabel = new JLabel("Nom du profil");
     public final TexturedSwitchButton helmIconSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.SETTINGS_HELMICON, false);
     public JLabel helmIconSwitchButtonLabel1 = new JLabel("Ic\u00f4ne du joueur avec", SwingConstants.RIGHT);
     public JLabel helmIconSwitchButtonLabel2 = new JLabel("la 2nde couche", SwingConstants.RIGHT);
-    public JSpinner allowedRamSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 256.00, 1));
+    public AWSpinner allowedRamSpinner = new AWSpinner(new SpinnerNumberModel(3, 1, 256.00, 1));
     public JLabel allowedRamSpinnerLabel1 = new JLabel(parseUnicode("RAM allouée au jeu"), SwingConstants.RIGHT);
     public JLabel allowedRamSpinnerLabel2 = new JLabel(parseUnicode("En Go (3Go conseillé)"), SwingConstants.RIGHT);
     public STexturedButton saveSettings = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton.png"), getResourceIgnorePath("/assets/launcher/profilesPage/reglages/saveProfileNameButton-hover.png"));
-
+    public final JLabel accountLabel = new JLabel("", SwingConstants.LEFT);
+    public final JLabel accountConnectedLabel = new JLabel("Connecté en tant que: ", SwingConstants.LEFT);
 
     public ProfileSettingsPage() {
         super(PageName.PROFILE_SETTINGS, "Profil " + ProfileSaver.getSelectedProfile(), "Paramètres");
@@ -41,13 +44,7 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         setLayout(null);
         setOpaque(false);
 
-        profileNameTextField.setForeground(Color.WHITE);
-        profileNameTextField.setFont(CustomFonts.kollektifBoldFont.deriveFont(25f));
-        profileNameTextField.setCaretColor(Color.RED);
-        profileNameTextField.setSelectionColor(new Color(255, 20, 20, 200));
-        profileNameTextField.setOpaque(false);
-        profileNameTextField.setBorder(null);
-        profileNameTextField.setBounds(317, 25, 310, 63);
+        profileNameTextField.setBounds(313, 25, 315, 58);
         add(profileNameTextField);
 
         profileNameTextFieldLabel.setForeground(Color.WHITE);
@@ -69,18 +66,6 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         helmIconSwitchButtonLabel2.setBounds(32, 132, 254, 44);
         add(helmIconSwitchButtonLabel2);
 
-        allowedRamSpinner.setUI(new CustomSpinnerUI());
-        allowedRamSpinner.setForeground(Color.WHITE);
-        allowedRamSpinner.setFont(profileNameTextField.getFont());
-        allowedRamSpinner.setOpaque(false);
-        allowedRamSpinner.setBorder(null);
-        allowedRamSpinner.setBounds(313, 193, 93, 58);
-        allowedRamSpinner.setOpaque(false);
-        allowedRamSpinner.getEditor().setOpaque(false);
-        ((JSpinner.NumberEditor)allowedRamSpinner.getEditor()).getTextField().setOpaque(false);
-        ((JSpinner.NumberEditor)allowedRamSpinner.getEditor()).getTextField().setForeground(Color.WHITE);
-        ((JSpinner.NumberEditor)allowedRamSpinner.getEditor()).getTextField().setSelectionColor(new Color(255, 20, 20, 200));
-        ((JSpinner.NumberEditor)allowedRamSpinner.getEditor()).getTextField().setBorder(new EmptyBorder(5, 0, 0, 4));
         add(allowedRamSpinner);
 
         allowedRamSpinnerLabel1.setForeground(Color.WHITE);
@@ -97,6 +82,16 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         saveSettings.addEventListener(this);
         add(saveSettings);
 
+        accountLabel.setBounds(380 - 178, 577 - 113, 276, 31);
+        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        this.add(accountLabel);
+
+        accountConnectedLabel.setBounds(198 - 178, 577 - 113, 191, 31);
+        accountConnectedLabel.setForeground(new Color(179, 179, 179));
+        accountConnectedLabel.setFont(accountLabel.getFont());
+        add(accountConnectedLabel);
+
         add(bg.getPanel());
     }
 
@@ -106,6 +101,16 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
             profileNameTextField.setText(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()));
             helmIconSwitchButton.defineTextures();
             allowedRamSpinner.setValue(Float.parseFloat(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get())));
+
+            if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                accountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
+                accountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                LauncherPanel.enablePlayButtons(true);
+            } else {
+                accountLabel.setText("");
+                accountConnectedLabel.setText("Non connect\u00e9");
+                LauncherPanel.enablePlayButtons(false);
+            }
         }
         super.setVisible(aFlag);
     }

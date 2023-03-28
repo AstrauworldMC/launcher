@@ -1,13 +1,11 @@
 package fr.timeto.astrauworld.launcher.panels.profile;
 
-import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.model.response.MinecraftProfile;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
-import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.ServerInfosFrame;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
@@ -15,23 +13,26 @@ import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
+import fr.timeto.timutilslib.CustomFonts;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
+import static fr.timeto.astrauworld.launcher.main.Launcher.ASTRAUWORLD_MC;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.updateThread;
 import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.setPage;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.getSelectedSaver;
 import static fr.timeto.timutilslib.PopUpMessages.doneMessage;
-import static fr.timeto.timutilslib.PopUpMessages.errorMessage;
 
 public class ProfileHomePage extends PageCreator implements SwingerEventListener {
 
@@ -45,6 +46,9 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
     public final JLabel textLogo = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/logo-texte.png")));
     public JLabel diapoImage1 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/lake-day.png")));
     public JLabel diapoImage2 = new JLabel(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/profilesPage/townHall-day.png")));
+
+    public final JLabel accountLabel = new JLabel("", SwingConstants.LEFT);
+    public final JLabel accountConnectedLabel = new JLabel("Connecté en tant que: ", SwingConstants.LEFT);
 
     public ProfileHomePage() {
         super(PageName.PROFILE_HOME, "Profil " + ProfileSaver.getSelectedProfile(), "Jouer");
@@ -88,6 +92,16 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
         diapoImage2.setBounds(0, 0, 822, 343);
         diapoPanel.add(diapoImage2);
 
+        accountLabel.setBounds(374 - 178, 470 - 113, 276, 31);
+        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        this.add(accountLabel);
+
+        accountConnectedLabel.setBounds(192 - 178, 470 -113, 191, 31);
+        accountConnectedLabel.setForeground(new Color(179, 179, 179));
+        accountConnectedLabel.setFont(accountLabel.getFont());
+        add(accountConnectedLabel);
+
         add(getBg().getPanel());
     }
 
@@ -97,6 +111,16 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
             MinecraftProfile mcProfile = new MinecraftProfile(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_UUID.get()), ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), null);
             if (WhitelistServers.getPlayerWhitelistedServers(mcProfile).length > 0) {
                 whitelistedServersButton.setVisible(true);
+            }
+
+            if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
+                accountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
+                accountConnectedLabel.setText("Connect\u00e9 en tant que: ");
+                LauncherPanel.enablePlayButtons(true);
+            } else {
+                accountLabel.setText("");
+                accountConnectedLabel.setText("Non connect\u00e9");
+                LauncherPanel.enablePlayButtons(false);
             }
         } else {
             whitelistedServersButton.setVisible(false);
@@ -128,21 +152,9 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     //               togglePlayButtonStatus(false);
                     loadingBar.setVisible(true);
                     infosLabel.setVisible(true);
-                    infosLabel.setText("Connexion...");
-                    try {
-                        Launcher.connect(saver);
-                    } catch (MicrosoftAuthenticationException m) {
-                        LauncherPanel.enablePlayButtons(true);
-                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                        infosLabel.setText("Connexion \u00e9chou\u00e9e");
-                        loadingBar.setVisible(false);
-                        infosLabel.setVisible(false);
-                        return;
-                    }
-                    infosLabel.setText("Connect\u00e9 avec " + getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
 
                     try {
-                        Launcher.update(saver);
+                        ASTRAUWORLD_MC.update(saver);
                     } catch (Exception ex) {
                         LauncherPanel.enablePlayButtons(true);
                         throw new RuntimeException(ex);
@@ -150,7 +162,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     updatePostExecutions();
 
                     try {
-                        Launcher.launch(true, saver);
+                        ASTRAUWORLD_MC.launch(true, saver);
                     } catch (Exception ex) {
                         LauncherPanel.enablePlayButtons(true);
                         throw new RuntimeException(ex);
@@ -191,18 +203,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     //          togglePlayButtonStatus(false);
 
                     try {
-                        Launcher.connect(saver);
-                    } catch (MicrosoftAuthenticationException m) {
-                        LauncherPanel.enablePlayButtons(true);
-                        errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
-                        infosLabel.setText("Connexion \u00e9chou\u00e9e");
-                        loadingBar.setVisible(false);
-                        infosLabel.setVisible(false);
-                        return;
-                    }
-
-                    try {
-                        Launcher.update(saver);
+                        ASTRAUWORLD_MC.update(saver);
                     } catch (Exception ex) {
                         LauncherPanel.enablePlayButtons(true);
                         throw new RuntimeException(ex);
@@ -210,7 +211,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                     updatePostExecutions();
 
                     try {
-                        Launcher.launch(false, saver);
+                        ASTRAUWORLD_MC.launch(false, saver);
                     } catch (Exception ex) {
                         LauncherPanel.enablePlayButtons(true);
                         throw new RuntimeException(ex);
@@ -239,7 +240,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
                 try {
                     //          togglePlayButtonStatus(false);
                     try {
-                        Launcher.update(saver);
+                        ASTRAUWORLD_MC.update(saver);
                     } catch (InterruptedException e1) {
                         LauncherPanel.enablePlayButtons(true);
                         updatePostExecutions();

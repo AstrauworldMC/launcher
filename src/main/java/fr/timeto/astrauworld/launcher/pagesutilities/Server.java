@@ -38,24 +38,28 @@ import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.loadingBar;
 import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.getJava;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
+import static fr.timeto.timutilslib.PopUpMessages.errorMessage;
 
-public class Server extends ArrayList<Mod> {
+public class Server {
+    public static boolean playButtonsCanBeEnabled = true;
 
     public static final int MODLOADER_FORGE = 1;
     public static final int MODLOADER_FABRIC = 2;
 
-    protected final String serverName;
-    protected final boolean isWhitelist;
+    protected String serverName;
+    protected boolean isWhitelist;
     protected final String mcVersion;
     protected final int modLoader;
     protected final String modLoaderVersion;
-    protected final MCPingOptions mcPingOptions;
+    protected MCPingOptions mcPingOptions;
     protected final String optifineVersion;
     protected final Path path;
-    protected final boolean usePort;
+    protected boolean usePort;
 
     protected AuthInfos authInfos;
-    protected ArrayList<MinecraftProfile> whitelist;
+    protected ArrayList<Mod> mods = new ArrayList<>();
+    protected ArrayList<MinecraftProfile> whitelist = new ArrayList<>();
+    protected String ipOnConnect = null;
 
     public Server(String serverName, boolean whitelist, String mcVersion, MCPingOptions mcPingOptions, boolean usePort, Path pathFromAstrauworldFolder) {
         this(serverName, whitelist, mcVersion, 0, null, mcPingOptions, usePort, pathFromAstrauworldFolder, null);
@@ -74,6 +78,9 @@ public class Server extends ArrayList<Mod> {
     }
 
     public void update(Saver saver) throws Exception {
+        LauncherPanel.enablePlayButtons(false);
+        playButtonsCanBeEnabled = false;
+
         path.toFile().mkdirs();
 
         loadingBar.setVisible(true);
@@ -117,6 +124,8 @@ public class Server extends ArrayList<Mod> {
 
         final List<CurseFileInfo> modInfos = new ArrayList<>();
 
+        modInfos.addAll(getModsCurseFileInfoArrayList());
+
         initClientMods(saver, modInfos, mcVersion);
 
         AbstractForgeVersion forge;
@@ -125,32 +134,32 @@ public class Server extends ArrayList<Mod> {
 
         if (modLoader == MODLOADER_FORGE) {
             if (Integer.parseInt(mcVersion.split("\\.")[1]) >= 12) {
-                if (Objects.equals(saver.get(ProfileSaver.KEY.MOD_OPTIFINE.get()), "true")){
+                if (Objects.equals(saver.get(ProfileSaver.KEY.MOD_OPTIFINE.get()), "true")) {
                     forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
                             .withForgeVersion(mcVersion + "-" + modLoaderVersion)
                             .withOptiFine(new OptiFineInfo(optifineVersion))
-                            .withCurseMods(this.getCurseFileInfoArrayList())
+                            .withCurseMods(modInfos)
                             .withFileDeleter(new ModFileDeleter(true))
                             .build();
                 } else {
                     forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
                             .withForgeVersion(mcVersion + "-" + modLoaderVersion)
-                            .withCurseMods(this.getCurseFileInfoArrayList())
+                            .withCurseMods(modInfos)
                             .withFileDeleter(new ModFileDeleter(true))
                             .build();
                 }
             } else {
-                if (Objects.equals(saver.get(ProfileSaver.KEY.MOD_OPTIFINE.get()), "true")){
+                if (Objects.equals(saver.get(ProfileSaver.KEY.MOD_OPTIFINE.get()), "true")) {
                     forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.OLD)
                             .withForgeVersion(mcVersion + "-" + modLoaderVersion)
                             .withOptiFine(new OptiFineInfo(optifineVersion))
-                            .withCurseMods(this.getCurseFileInfoArrayList())
+                            .withCurseMods(modInfos)
                             .withFileDeleter(new ModFileDeleter(true))
                             .build();
                 } else {
                     forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.OLD)
                             .withForgeVersion(mcVersion + "-" + modLoaderVersion)
-                            .withCurseMods(this.getCurseFileInfoArrayList())
+                            .withCurseMods(modInfos)
                             .withFileDeleter(new ModFileDeleter(true))
                             .build();
                 }
@@ -170,31 +179,36 @@ public class Server extends ArrayList<Mod> {
                 .withPostExecutions(Collections.singletonList(postExecutions))
                 .build();
 
-        File whitelistResourcePacksFolder = new File(path.toString(), "resourcePacks");
-        File whitelistShaderPacksFolder = new File(path.toString(), "shaderpacks");
-        File whitelistOptionsOFFile = new File(path.toString(), "optionsof.txt");
-        File whitelistOptionsShadersFile = new File(path.toString(), "optionsshaders.txt");
+        if (!serverName.contains("AstrauworldMC")) {
+            File whitelistResourcePacksFolder = new File(path.toString(), "resourcePacks");
+            File whitelistShaderPacksFolder = new File(path.toString(), "shaderpacks");
+            File whitelistOptionsOFFile = new File(path.toString(), "optionsof.txt");
+            File whitelistOptionsShadersFile = new File(path.toString(), "optionsshaders.txt");
 
-        initCustomFilesFolder(saver);
+            initCustomFilesFolder(saver);
 
-        whitelistResourcePacksFolder.mkdirs();
-        whitelistShaderPacksFolder.mkdirs();
-        TimFilesUtils.deleteDirectory(whitelistResourcePacksFolder, false);
-        TimFilesUtils.deleteDirectory(whitelistShaderPacksFolder, false);
-        whitelistResourcePacksFolder.mkdirs();
-        TimFilesUtils.copyFiles(resourcepacksProfileFolder, whitelistResourcePacksFolder, false);
-
-        if (modLoader != 0 && Objects.equals(saver.get(KEY.MOD_OPTIFINE.get()), "true")) {
+            whitelistResourcePacksFolder.mkdirs();
             whitelistShaderPacksFolder.mkdirs();
-            TimFilesUtils.copyFiles(shaderpacksProfileFolder, whitelistShaderPacksFolder, false);
-            whitelistShaderPacksFolder.mkdir();
-            whitelistOptionsOFFile.createNewFile();
-            whitelistOptionsShadersFile.createNewFile();
-            TimFilesUtils.copyFile(optionsOFProfileTextfile, whitelistOptionsOFFile, false);
-            TimFilesUtils.copyFile(optionsShadersProfileTextfile, whitelistOptionsShadersFile, false);
+            TimFilesUtils.deleteDirectory(whitelistResourcePacksFolder, false);
+            TimFilesUtils.deleteDirectory(whitelistShaderPacksFolder, false);
+            whitelistResourcePacksFolder.mkdirs();
+            TimFilesUtils.copyFiles(resourcepacksProfileFolder, whitelistResourcePacksFolder, false);
+
+            if (modLoader != 0 && Objects.equals(saver.get(KEY.MOD_OPTIFINE.get()), "true")) {
+                whitelistShaderPacksFolder.mkdirs();
+                TimFilesUtils.copyFiles(shaderpacksProfileFolder, whitelistShaderPacksFolder, false);
+                whitelistShaderPacksFolder.mkdir();
+                whitelistOptionsOFFile.createNewFile();
+                whitelistOptionsShadersFile.createNewFile();
+                TimFilesUtils.copyFile(optionsOFProfileTextfile, whitelistOptionsOFFile, false);
+                TimFilesUtils.copyFile(optionsShadersProfileTextfile, whitelistOptionsShadersFile, false);
+            }
         }
 
         updater.update(path);
+
+        playButtonsCanBeEnabled = true;
+        LauncherPanel.enablePlayButtons(true);
     }
 
     private void connect(Saver saver) throws MicrosoftAuthenticationException {
@@ -215,7 +229,24 @@ public class Server extends ArrayList<Mod> {
     }
 
     public void launch(Saver saver) throws Exception {
-        connect(saver);
+        launch(true, saver);
+    }
+
+    public void launch(boolean connectToServer, Saver saver) throws Exception {
+        LauncherPanel.enablePlayButtons(false);
+        playButtonsCanBeEnabled = false;
+
+        try {
+            connect(saver);
+        } catch (MicrosoftAuthenticationException m) {
+            playButtonsCanBeEnabled = true;
+            LauncherPanel.enablePlayButtons(true);
+            errorMessage("Erreur de connexion", "Erreur, impossible de se connecter");
+            infosLabel.setText("Connexion \u00e9chou\u00e9e");
+            loadingBar.setVisible(false);
+            infosLabel.setVisible(false);
+            return;
+        }
 
         String javaCommand;
         final Path java = Paths.get(getJava().getAbsolutePath(), "bin", "java");
@@ -223,6 +254,7 @@ public class Server extends ArrayList<Mod> {
             javaCommand = "\"" + java + "\"";
         else javaCommand = java.toString();
         JavaUtil.setJavaCommand(javaCommand);
+        infosLabel.setText("");
 
         System.out.println(authInfos.getUsername());
         System.out.println(authInfos.getUuid());
@@ -232,16 +264,20 @@ public class Server extends ArrayList<Mod> {
 
         NoFramework noFramework= new NoFramework(path, authInfos, GameFolder.FLOW_UPDATER);
         noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get()))) + "G");
-        if (usePort) {
-            noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", mcPingOptions.getHostname(), "--port", Integer.toString(mcPingOptions.getPort())));
-        } else {
-            noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", mcPingOptions.getHostname()));
+        if(connectToServer) {
+            if (usePort) {
+                noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", mcPingOptions.getHostname(), "--port", Integer.toString(mcPingOptions.getPort())));
+            } else {
+                noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", mcPingOptions.getHostname()));
+            }
         }
         LauncherFrame.getInstance().setVisible(false);
         infosLabel.setVisible(false);
         percentLabel.setVisible(false);
         loadingBar.setVisible(false);
         barLabel.setVisible(false);
+
+        ProfileSaver.loadCustomFiles(saver);
 
         if (modLoader == MODLOADER_FORGE) {
             Launcher.process = noFramework.launch(mcVersion, modLoaderVersion, NoFramework.ModLoader.FORGE);
@@ -261,47 +297,68 @@ public class Server extends ArrayList<Mod> {
         while ((s = stdInput.readLine()) != null) {
             System.out.println(s);
             if (s.contains("Connecting to ")) {
-                if (s.contains(this.mcPingOptions.getHostname())) {
-                    DiscordManager.setGamePresence(authInfos, this);
+                String ip = getServerHostname();
+                if (ipOnConnect != null) {
+                    ip = ipOnConnect;
                 }
-            } else if (s.contains("[voicechat/]: Clearing audio channels") || s.contains("Stopping JEI GUI")) {
+
+                if (s.contains(ip) || s.contains(getServerHostname())) {
+                    DiscordManager.setGamePresence(authInfos, this);
+                    Launcher.println("Connexion à un serveur connu détecté");
+                }
+            } else if (s.contains("Clearing audio channels") || s.contains("Stopping JEI") || s.contains("Disconnecting voicechat") || s.contains("Stopping microphone thread")) {
                 DiscordManager.setGamePresence(authInfos);
+                Launcher.println("Déconnexion d'un serveur détecté");
             }
         }
 
         Launcher.println("");
         Launcher.println("");
 
-        File whitelistResourcePacksFolder = new File(path.toString(), "resourcePacks");
-        File whitelistShaderPacksFolder = new File(path.toString(), "shaderpacks");
-        File whitelistOptionsOFFile = new File(path.toString(), "optionsof.txt");
-        File whitelistOptionsShadersFile = new File(path.toString(), "optionsshaders.txt");
+        if (!serverName.contains("AstrauworldMC")) {
+            File whitelistResourcePacksFolder = new File(path.toString(), "resourcePacks");
+            File whitelistShaderPacksFolder = new File(path.toString(), "shaderpacks");
+            File whitelistOptionsOFFile = new File(path.toString(), "optionsof.txt");
+            File whitelistOptionsShadersFile = new File(path.toString(), "optionsshaders.txt");
 
-        initCustomFilesFolder(saver);
+            initCustomFilesFolder(saver);
 
-        whitelistResourcePacksFolder.mkdirs();
-        whitelistShaderPacksFolder.mkdirs();
-        TimFilesUtils.deleteDirectory(whitelistResourcePacksFolder, false);
-        TimFilesUtils.deleteDirectory(whitelistShaderPacksFolder, false);
-        whitelistResourcePacksFolder.mkdirs();
-        TimFilesUtils.copyFiles(whitelistResourcePacksFolder, resourcepacksProfileFolder, false);
-
-        if (modLoader != 0 && Objects.equals(saver.get(KEY.MOD_OPTIFINE.get()), "true")) {
+            whitelistResourcePacksFolder.mkdirs();
             whitelistShaderPacksFolder.mkdirs();
-            TimFilesUtils.copyFiles(whitelistShaderPacksFolder, shaderpacksProfileFolder, false);
-            whitelistShaderPacksFolder.mkdir();
-            whitelistOptionsOFFile.createNewFile();
-            whitelistOptionsShadersFile.createNewFile();
-            TimFilesUtils.copyFile(whitelistOptionsOFFile, optionsOFProfileTextfile, false);
-            TimFilesUtils.copyFile(whitelistOptionsShadersFile, optionsShadersProfileTextfile, false);
+            TimFilesUtils.deleteDirectory(whitelistResourcePacksFolder, false);
+            TimFilesUtils.deleteDirectory(whitelistShaderPacksFolder, false);
+            whitelistResourcePacksFolder.mkdirs();
+            TimFilesUtils.copyFiles(whitelistResourcePacksFolder, resourcepacksProfileFolder, false);
+
+            if (modLoader != 0 && Objects.equals(saver.get(KEY.MOD_OPTIFINE.get()), "true")) {
+                whitelistShaderPacksFolder.mkdirs();
+                TimFilesUtils.copyFiles(whitelistShaderPacksFolder, shaderpacksProfileFolder, false);
+                whitelistShaderPacksFolder.mkdir();
+                whitelistOptionsOFFile.createNewFile();
+                whitelistOptionsShadersFile.createNewFile();
+                TimFilesUtils.copyFile(whitelistOptionsOFFile, optionsOFProfileTextfile, false);
+                TimFilesUtils.copyFile(whitelistOptionsShadersFile, optionsShadersProfileTextfile, false);
+            }
         }
 
-        Main.main(new String[] {afterMcExitArg, "0"});
+        playButtonsCanBeEnabled = true;
+        LauncherPanel.enablePlayButtons(false);
+
+        if (!serverName.contains("AstrauworldMC")) {
+            String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
+            Main.main(args);
+        } else {
+            Main.main(new String[]{afterMcExitArg, "0"});
+        }
 
     }
 
-    public void setWhitelist(ArrayList<MinecraftProfile> whitelist) {
-        this.whitelist = whitelist;
+    public void setIpOnConnect(String ipOnConnect) {
+        this.ipOnConnect = ipOnConnect;
+    }
+
+    public String getIpOnConnect() {
+        return ipOnConnect;
     }
 
     public String getServerName() {
@@ -348,89 +405,104 @@ public class Server extends ArrayList<Mod> {
         return optifineVersion;
     }
 
-    public String[] getNameArray() {
-        ArrayList<String> list = new ArrayList<>();
-        int i = this.toArray().length;
+    public Mod[] getModsArray() {
+        ArrayList<Mod> list = new ArrayList<>();
+        int i = mods.toArray().length;
         int ii = 0;
         while (ii != i) {
-            list.add(this.get(ii).getName());
+            list.add(mods.get(ii));
+            ii ++;
+        }
+        return list.toArray(new Mod[0]);
+    }
+
+    public String[] getModsNameArray() {
+        ArrayList<String> list = new ArrayList<>();
+        int i = mods.toArray().length;
+        int ii = 0;
+        while (ii != i) {
+            list.add(mods.get(ii).getName());
             ii ++;
         }
         return list.toArray(new String[0]);
     }
 
-    public String[] getVersionArray() {
+    public String[] getModsVersionArray() {
         ArrayList<String> list = new ArrayList<>();
-        int i = this.toArray().length;
+        int i = mods.toArray().length;
         int ii = 0;
         while (ii != i) {
-            list.add(this.get(ii).getVersion());
+            list.add(mods.get(ii).getVersion());
             ii ++;
         }
         return list.toArray(new String[0]);
     }
 
-    public String[] getNameAndVersionArray() {
+    public String[] getModsNameAndVersionArray() {
         ArrayList<String> list = new ArrayList<>();
-        int i = this.toArray().length;
+        int i = mods.toArray().length;
         int ii = 0;
         while (ii != i) {
-            list.add(this.get(ii).getNameAndVersion());
+            list.add(mods.get(ii).getNameAndVersion());
             ii ++;
         }
         return list.toArray(new String[0]);
     }
 
-    public CurseFileInfo[] getCurseFileInfoArray() {
+    public CurseFileInfo[] getModsCurseFileInfoArray() {
         ArrayList<CurseFileInfo> list = new ArrayList<>();
-        int i = this.toArray().length;
+        int i = mods.toArray().length;
         int ii = 0;
         while (ii != i) {
-            list.add(this.get(ii).getCurseFileInfo());
+            list.add(mods.get(ii).getCurseFileInfo());
             ii ++;
         }
         return list.toArray(new CurseFileInfo[0]);
     }
 
-    public ArrayList<String> getNameArrayList() {
+    public ArrayList<Mod> getModsList() {
+        return mods;
+    }
+
+    public ArrayList<String> getModsNameArrayList() {
         ArrayList<String> list = new ArrayList<>();
-        int i = this.toArray().length;
+        int i = mods.toArray().length;
         int ii = 0;
         while (ii != i) {
-            list.add(this.get(ii).getName());
+            list.add(mods.get(ii).getName());
             ii ++;
         }
         return list;
     }
 
-    public ArrayList<String> getVersionArrayList() {
+    public ArrayList<String> getModsVersionArrayList() {
         ArrayList<String> list = new ArrayList<>();
-        int i = this.toArray().length;
+        int i = mods.toArray().length;
         int ii = 0;
         while (ii != i) {
-            list.add(this.get(ii).getVersion());
+            list.add(mods.get(ii).getVersion());
             ii ++;
         }
         return list;
     }
 
-    public ArrayList<String> getNameAndVersionArrayList() {
+    public ArrayList<String> getModsNameAndVersionArrayList() {
         ArrayList<String> list = new ArrayList<>();
-        int i = this.toArray().length;
+        int i = mods.toArray().length;
         int ii = 0;
         while (ii != i) {
-            list.add(this.get(ii).getNameAndVersion());
+            list.add(mods.get(ii).getNameAndVersion());
             ii ++;
         }
         return list;
     }
 
-    public ArrayList<CurseFileInfo> getCurseFileInfoArrayList() {
+    public ArrayList<CurseFileInfo> getModsCurseFileInfoArrayList() {
         ArrayList<CurseFileInfo> list = new ArrayList<>();
-        int i = this.toArray().length;
+        int i = mods.toArray().length;
         int ii = 0;
         while (ii != i) {
-            list.add(this.get(ii).getCurseFileInfo());
+            list.add(mods.get(ii).getCurseFileInfo());
             ii ++;
         }
         return list;

@@ -11,6 +11,7 @@ import fr.timeto.astrauworld.launcher.panels.ChangelogsPage;
 import fr.timeto.astrauworld.launcher.panels.NewsOpenPanel;
 import fr.timeto.astrauworld.launcher.panels.NewsPanel;
 import fr.timeto.astrauworld.launcher.panels.about.AboutInfosPage;
+import fr.timeto.astrauworld.launcher.panels.about.AboutModsPage;
 import fr.timeto.astrauworld.launcher.panels.profile.*;
 import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
 import fr.timeto.timutilslib.PopUpMessages;
@@ -18,7 +19,6 @@ import fr.timeto.timutilslib.PopUpMessages;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
@@ -64,18 +64,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           secondProfileButton.initButton();
 
           thirdProfileButton.initButton();
-
-          try {
-               if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
-                    profileAccountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
-                    profileAccountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                    LauncherPanel.enablePlayButtons(true);
-               } else {
-                    profileAccountLabel.setText("");
-                    profileAccountConnectedLabel.setText("Non connect\u00e9");
-                    LauncherPanel.enablePlayButtons(false);
-               }
-          } catch (NullPointerException ignored) {}
 
      }
 
@@ -197,11 +185,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           public static final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-selected.png"));
 
 
-          /**
-           * Label du nom du compte connecté du profil
-           */
-          public static final JLabel profileAccountLabel = new JLabel("", SwingConstants.LEFT);
-          public static final JLabel profileAccountConnectedLabel = new JLabel("Connecté en tant que: ");
 
           public static final ProfileHomePage profileHomePage = new ProfileHomePage();
           public static final ProfileWhitelistServers profileWhitelistServersPage = new ProfileWhitelistServers();
@@ -228,6 +211,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            */
           public static final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-selected.png"));
           public static final AboutInfosPage aboutInfosPage = new AboutInfosPage();
+          public static final AboutModsPage aboutModsPage = new AboutModsPage();
      }
 
      /**
@@ -320,6 +304,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           launcherVersionLabel.setFont(kollektifBoldFont.deriveFont(14f));
           launcherVersionLabel.setSelectionColor(new Color(255, 20, 20, 200));
           launcherVersionLabel.setOpaque(false);
+          launcherVersionLabel.setEditable(false);
           this.add(launcherVersionLabel);
 
           corner.setBounds(this.getWidth(), this.getHeight());
@@ -361,16 +346,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           profileSettingsTabButton.addEventListener(this);
           this.add(profileSettingsTabButton);
           profileSettingsTabButton.setVisible(false);
-
-          profileAccountLabel.setBounds(386, 468, 276, 31);
-          profileAccountLabel.setForeground(Color.WHITE);
-          profileAccountLabel.setFont(titleLabel.getFont().deriveFont(17f));
-          this.add(profileAccountLabel);
-
-          profileAccountConnectedLabel.setBounds(192, 472, 191, 19);
-          profileAccountConnectedLabel.setForeground(new Color(179, 179, 179));
-          profileAccountConnectedLabel.setFont(titleLabel.getFont().deriveFont(17f));
-          add(profileAccountConnectedLabel);
 
           profileHomePage.setBounds(0, 0);
           panel.add(profileHomePage);
@@ -427,16 +402,25 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           panel.add(aboutInfosPage);
           aboutInfosPage.setVisible(false);
 
+          aboutModsPage.setBounds(0, 0);
+          panel.add(aboutModsPage);
+          aboutModsPage.setVisible(false);
+
           this.add(panel);
 
           Launcher.println("Affichage...");
           setPage(true, PageName.PROFILE_HOME, ProfileSaver.getActualMainProfile());
+          try {
+               Taskbar.getTaskbar().requestUserAttention(true, false);
+          } catch (UnsupportedOperationException ignored) {}
 
      }
 
      public static void enablePlayButtons(boolean e) {
-          profileHomePage.enablePlayButtons(e);
-          profileWhitelistServersPage.enablePlayButtons(e);
+          if (Server.playButtonsCanBeEnabled) {
+               profileHomePage.enablePlayButtons(e);
+               profileWhitelistServersPage.enablePlayButtons(e);
+          }
      }
 
      /**

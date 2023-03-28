@@ -22,6 +22,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
+import static fr.timeto.astrauworld.launcher.main.Launcher.parseUnicode;
 import static fr.timeto.astrauworld.launcher.main.Launcher.println;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.timutilslib.TimFilesUtils.copyFile;
@@ -543,15 +544,20 @@ public class LauncherSystemTray {
             }
         } catch (IOException ignored) {}
 
-        if (!Objects.equals(Launcher.version, newSaver.get("launcherVersion"))) {
-            Launcher.println("Current: " + Launcher.version);
-            Launcher.println("New: " + newSaver.get("launcherVersion"));
-            Launcher.println("pas égal");
+        Launcher.println("Current: " + currentSaver.get("launcherVersion"));
+        Launcher.println("New: " + newSaver.get("launcherVersion"));
+        if (!Objects.equals(currentSaver.get("launcherVersion"), newSaver.get("launcherVersion"))) {
+            Launcher.println("Dernière version non détectée");
 
             if (download) {
                 updateJar();
+                newPropertiesFile.delete();
+                LauncherPanel.Components.updateButton.setTexture(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
+                LauncherPanel.Components.updateButton.setTextureHover(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover.png"));
+                LauncherPanel.Components.updateButton.setTextureDisabled(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
             } else {
                 trayIcon.displayMessage("V\u00e9rification de la version", "Mise \u00e0 jour disponible" + System.getProperty("line.separator") + "T\u00e9l\u00e9chargez-la depuis le launcher", TrayIcon.MessageType.INFO);
+                newPropertiesFile.delete();
                 LauncherPanel.Components.updateButton.setTexture(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton-red.png"));
                 LauncherPanel.Components.updateButton.setTextureHover(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover-red.png"));
                 LauncherPanel.Components.updateButton.setTextureDisabled(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton-red.png"));
@@ -561,6 +567,7 @@ public class LauncherSystemTray {
             if (confirmNoNew) {
                 trayIcon.displayMessage("V\u00e9rification de la version", "Derni\u00e8re version d\u00e9tect\u00e9e", TrayIcon.MessageType.INFO);
             }
+            newPropertiesFile.delete();
             LauncherPanel.Components.updateButton.setTexture(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
             LauncherPanel.Components.updateButton.setTextureHover(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButtonHover.png"));
             LauncherPanel.Components.updateButton.setTextureDisabled(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/updateButton.png"));
@@ -603,9 +610,6 @@ public class LauncherSystemTray {
     }
 
     static void updateJar() throws Exception {
-        println("");
-        println("---- JAR UPDATE ----");
-
         infosLabel.setText("Mise \u00e0 jour du launcher");
 
         try {
@@ -616,16 +620,15 @@ public class LauncherSystemTray {
         } catch (IOException ignored) {
         }
 
-        println("Current: " + currentSaver.get("launcherVersion"));
-        println("New: " + newSaver.get("launcherVersion"));
         if (!Objects.equals(currentSaver.get("launcherVersion"), newSaver.get("launcherVersion"))) {
-            println("pas égal");
-            infosLabel.setText("T\u00e9l\u00e9chargement de la mise \u00e0 jour");
+            infosLabel.setText(parseUnicode("Téléchargement de la mise à jour"));
+            infosLabel.setVisible(true);
             loadingBar.setVisible(true);
             percentLabel.setVisible(true);
+            barLabel.setVisible(true);
             launcherJarFile.createNewFile();
             try {
-                downloadFromInternet(getJarLink(), launcherJarFile, loadingBar, percentLabel);
+                downloadFromInternet(getJarLink(), launcherJarFile, loadingBar, percentLabel, barLabel);
             } catch (Exception e) {
                 currentPropertiesFile.delete();
                 newPropertiesFile.delete();
@@ -634,14 +637,20 @@ public class LauncherSystemTray {
             }
             println("jar downloaded");
             copyFile(newPropertiesFile, currentPropertiesFile, true);
+            infosLabel.setText("");
             infosLabel.setVisible(false);
             loadingBar.setVisible(false);
+            percentLabel.setText("");
             percentLabel.setVisible(false);
+            barLabel.setText("");
+            barLabel.setVisible(false);
+            verifyLauncherVersion(false, false);
 
         } else {
             println("Dernière version détectée");
             infosLabel.setText("Derni\u00e8re version d\u00e9tect\u00e9e");
         }
+        newPropertiesFile.delete();
     }
 
     public static File getJava() throws Exception {
