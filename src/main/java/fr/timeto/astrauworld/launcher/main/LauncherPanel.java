@@ -278,22 +278,22 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           subTitleLabel.setFont(titleLabel.getFont().deriveFont(16f));
           this.add(subTitleLabel);
 
-          barLabel.setBounds(181, 608, 269, 16);
+          barLabel.setBounds(181, 610, 269, 16);
           barLabel.setForeground(Color.WHITE);
           barLabel.setFont(robotoMediumFont.deriveFont(10f));
           this.add(barLabel);
 
-          percentLabel.setBounds(920, 608, 70, 16);
+          percentLabel.setBounds(920, 611, 70, 16);
           percentLabel.setForeground(Color.WHITE);
           percentLabel.setFont(barLabel.getFont());
           this.add(percentLabel);
 
-          infosLabel.setBounds(460, 608, 255, 16);
+          infosLabel.setBounds(460, 611, 255, 16);
           infosLabel.setForeground(Color.WHITE);
           infosLabel.setFont(barLabel.getFont());
           this.add(infosLabel);
 
-          loadingBar.setBounds(178, 610, 821, 20);
+          loadingBar.setBounds(178, 611, 822, 20);
           this.add(loadingBar);
           loadingBar.setVisible(false);
 

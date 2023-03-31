@@ -13,6 +13,7 @@ import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
 import static fr.timeto.timutilslib.CustomFonts.robotoBlackFont;
+import static fr.timeto.timutilslib.CustomFonts.robotoMediumFont;
 
 public class LeftMenuButton extends JPanel implements SwingerEventListener {
 
@@ -27,9 +28,9 @@ public class LeftMenuButton extends JPanel implements SwingerEventListener {
         @Override
         public void setEnabled(boolean enabled) {
             if (enabled) {
-                nameLabel.setFont(robotoBlackFont.deriveFont(17f));
+                nameLabel.setFont(robotoMediumFont.deriveFont(17f));
             } else {
-                nameLabel.setFont(robotoBlackFont.deriveFont(18f));
+                nameLabel.setFont(robotoBlackFont.deriveFont(17f));
             }
             super.setEnabled(enabled);
         }

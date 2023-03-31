@@ -4,7 +4,6 @@ import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
-import fr.timeto.astrauworld.launcher.main.LauncherFrame;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
@@ -17,7 +16,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
-import static fr.timeto.timutilslib.CustomFonts.robotoBlackFont;
+import static fr.timeto.timutilslib.CustomFonts.robotoMediumFont;
 
 public class AboutInfosPage extends PageCreator implements SwingerEventListener {
 
@@ -47,15 +46,15 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
         textLogo.addEventListener(this);
         this.add(textLogo);
 
-        astrauwolfLogo.setBounds(344, 136);
+        astrauwolfLogo.setBounds(315, 136);
         astrauwolfLogo.addEventListener(this);
         this.add(astrauwolfLogo);
 
-        capitenzoLogo.setBounds(511, 137);
+        capitenzoLogo.setBounds(467, 137);
         capitenzoLogo.addEventListener(this);
         this.add(capitenzoLogo);
 
-        timEtOLogo.setBounds(629, 137);
+        timEtOLogo.setBounds(570, 137);
         timEtOLogo.addEventListener(this);
         this.add(timEtOLogo);
 
@@ -77,13 +76,13 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
 
         eastereggsLabel.setBounds(12, 492, 200, 16);
         eastereggsLabel.setForeground(new Color(151, 151, 151));
-        eastereggsLabel.setFont(robotoBlackFont.deriveFont(16f));
+        eastereggsLabel.setFont(robotoMediumFont.deriveFont(15f));
         eastereggsLabel.setOpaque(false);
         this.add(eastereggsLabel);
 
         textArea.setBounds(12, 144, 700, 450);
         textArea.setForeground(Color.WHITE);
-        textArea.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
+        textArea.setFont(CustomFonts.robotoMediumFont.deriveFont(17f));
         textArea.setSelectionColor(Launcher.MAIN_COLOR);
         textArea.setEditable(false);
         textArea.setOpaque(false);
@@ -97,7 +96,7 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
 
                                 Merci à Carnagiul pour l'hosting et cyril_.r pour les builds.
 
-                                Vous pouvez nous contacter via email à astrauworld.minecraft@gmail.com.
+                                Vous pouvez nous contacter par email à astrauworld.minecraft@gmail.com.
 
                                 Si vous avez des problèmes ou des suggestions, rejoignez notre Discord !
                                 N'hésitez pas à nous suivre sur les réseaux sociaux !""")
@@ -112,7 +111,7 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
 
         if (src == textLogo) {
             try {
-                Desktop.getDesktop().browse(new URL(LauncherFrame.launcherProperties.getProperty("blueMapLink")).toURI());
+                Desktop.getDesktop().browse(new URL("http://www.astrauworld.be:3001").toURI());
             } catch (IOException | URISyntaxException ignored) {}
         } else if (src == astrauwolfLogo) {
             try {

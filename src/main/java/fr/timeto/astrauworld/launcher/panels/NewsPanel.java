@@ -104,7 +104,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
         thumbnail.setBounds(0, 0, 330, 140);
         add(thumbnail);
 
-        authorDate.setBounds(10, 191, 315, 16);
+        authorDate.setBounds(10, 192, 315, 16);
         authorDate.setText(news.getAuthor() + " - " + news.getStringDate());
         authorDate.setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
         authorDate.setForeground(Color.WHITE);
@@ -113,7 +113,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
         authorDate.setHorizontalAlignment(SwingConstants.RIGHT);
         add(authorDate);
 
-        title.setBounds(10, 144, 310, 20);
+        title.setBounds(10, 145, 310, 20);
         title.setText(news.getTitle());
         title.setFont(CustomFonts.robotoBlackFont.deriveFont(18f));
         title.setForeground(Color.WHITE);

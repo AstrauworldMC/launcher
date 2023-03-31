@@ -1,7 +1,6 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
 import fr.timeto.astrauworld.launcher.main.Launcher;
-import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -25,7 +24,7 @@ public class AWPasswordField extends JPasswordField {
         super(text);
 
         setForeground(Color.WHITE);
-        setFont(CustomFonts.robotoBlackFont.deriveFont(25f));
+        setFont(this.getFont().deriveFont(25f));
         setCaretColor(Launcher.MAIN_COLOR);
         setSelectionColor(Launcher.MAIN_COLOR);
         setBackground(Launcher.LIGHTER_GREY);
