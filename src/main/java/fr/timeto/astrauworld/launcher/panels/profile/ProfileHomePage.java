@@ -92,12 +92,12 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
         diapoImage2.setBounds(0, 0, 822, 343);
         diapoPanel.add(diapoImage2);
 
-        accountLabel.setBounds(374 - 178, 470 - 113, 276, 31);
+        accountLabel.setBounds(374 - 178, 467 - 113, 276, 31);
         accountLabel.setForeground(Color.WHITE);
-        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
-        accountConnectedLabel.setBounds(192 - 178, 470 -113, 191, 31);
+        accountConnectedLabel.setBounds(192 - 178, 467 -113, 191, 31);
         accountConnectedLabel.setForeground(new Color(179, 179, 179));
         accountConnectedLabel.setFont(accountLabel.getFont());
         add(accountConnectedLabel);

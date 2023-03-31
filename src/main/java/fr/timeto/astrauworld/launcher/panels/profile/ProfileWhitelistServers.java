@@ -53,12 +53,12 @@ public class ProfileWhitelistServers extends PageCreator {
         add(server4);
         server4.setVisible(false);
 
-        accountLabel.setBounds(380 - 178, 577 - 113, 276, 31);
+        accountLabel.setBounds(380 - 178, 574 - 113, 276, 31);
         accountLabel.setForeground(Color.WHITE);
-        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
-        accountConnectedLabel.setBounds(198 - 178, 577 - 113, 191, 31);
+        accountConnectedLabel.setBounds(198 - 178, 574 - 113, 191, 31);
         accountConnectedLabel.setForeground(new Color(179, 179, 179));
         accountConnectedLabel.setFont(accountLabel.getFont());
         add(accountConnectedLabel);
@@ -113,7 +113,7 @@ public class ProfileWhitelistServers extends PageCreator {
             setOpaque(false);
 
             serverNameLabel.setForeground(Color.WHITE);
-            serverNameLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(25f));
+            serverNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(25f));
             serverNameLabel.setBounds(15, 30, 380, 25);
             add(serverNameLabel);
 

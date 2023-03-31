@@ -35,8 +35,6 @@ public class ModPanel extends JPanel implements SwingerEventListener {
             throw new RuntimeException(e);
         }
 
-        CustomFonts.initFonts();
-
         setOpaque(false);
         setLayout(null);
         setPreferredSize(new Dimension(400, 60));
@@ -54,8 +52,8 @@ public class ModPanel extends JPanel implements SwingerEventListener {
         moreInfosButton.addEventListener(this);
         add(moreInfosButton);
 
-        nameLabel.setBounds(0, 13, 280, 24);
-        nameLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(22f));
+        nameLabel.setBounds(0, 8, 280, 24);
+        nameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
         nameLabel.setForeground(Color.WHITE);
         add(nameLabel);
     }

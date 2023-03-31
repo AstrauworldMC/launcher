@@ -123,7 +123,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            * @see Components#percentLabel
            * @see Components#infosLabel
            */
-          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED){
+          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.MAIN_COLOR){
                @Override
                public void setVisible(boolean aFlag) {
                     super.setVisible(aFlag);
@@ -221,8 +221,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public LauncherPanel() throws Exception {
           this.setLayout(null);
 
-          initFonts();
-
           WhitelistServers.registerServers();
 
      /*     testPageCreator.setBounds(178, 113);
@@ -270,27 +268,27 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           aboutButton.setLocation(0, 571);
           this.add(aboutButton);
 
-          titleLabel.setBounds(190, 60, 809, 23);
+          titleLabel.setBounds(190, 56, 809, 23);
           titleLabel.setForeground(Color.WHITE);
-          titleLabel.setFont(kollektifBoldFont.deriveFont(20f));
+          titleLabel.setFont(robotoBlackFont.deriveFont(20f));
           this.add(titleLabel);
 
-          subTitleLabel.setBounds(190, 37, 809, 23);
+          subTitleLabel.setBounds(190, 33, 809, 23);
           subTitleLabel.setForeground(Color.WHITE);
           subTitleLabel.setFont(titleLabel.getFont().deriveFont(16f));
           this.add(subTitleLabel);
 
-          barLabel.setBounds(181, 612, 269, 16);
+          barLabel.setBounds(181, 608, 269, 16);
           barLabel.setForeground(Color.WHITE);
-          barLabel.setFont(kollektifFont.deriveFont(10f));
+          barLabel.setFont(robotoMediumFont.deriveFont(10f));
           this.add(barLabel);
 
-          percentLabel.setBounds(920, 612, 70, 16);
+          percentLabel.setBounds(920, 608, 70, 16);
           percentLabel.setForeground(Color.WHITE);
           percentLabel.setFont(barLabel.getFont());
           this.add(percentLabel);
 
-          infosLabel.setBounds(460, 612, 255, 16);
+          infosLabel.setBounds(460, 608, 255, 16);
           infosLabel.setForeground(Color.WHITE);
           infosLabel.setFont(barLabel.getFont());
           this.add(infosLabel);
@@ -301,8 +299,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           launcherVersionLabel.setBounds(9, 39, 150, 50);
           launcherVersionLabel.setForeground(new Color(100, 100, 100));
-          launcherVersionLabel.setFont(kollektifBoldFont.deriveFont(14f));
-          launcherVersionLabel.setSelectionColor(new Color(255, 20, 20, 200));
+          launcherVersionLabel.setFont(robotoBlackFont.deriveFont(14f));
+          launcherVersionLabel.setSelectionColor(Launcher.MAIN_COLOR);
           launcherVersionLabel.setOpaque(false);
           launcherVersionLabel.setEditable(false);
           this.add(launcherVersionLabel);
@@ -431,6 +429,18 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public void paintComponent(Graphics g) {
           super.paintComponent(g);
           g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), this);
+
+          Graphics2D g2d = (Graphics2D) g;
+
+          g2d.setColor(Launcher.DARKER_BACKGROUND);
+          g2d.fillRect(0, 33, 178, 597);
+     //     g2d.fillRect(0, 0, 1000, 33);
+
+          g2d .setColor(Launcher.MID_BACKGROUND);
+          g2d.fillRect(178, 33, 822, 80);
+
+          g2d.setColor(Launcher.BASE_BACKGROUND);
+          g2d.fillRect(178, 113, 822, 517);
 
      }
 

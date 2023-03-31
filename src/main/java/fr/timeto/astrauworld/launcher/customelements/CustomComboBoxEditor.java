@@ -1,5 +1,6 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
+    import fr.timeto.astrauworld.launcher.main.Launcher;
     import fr.timeto.timutilslib.CustomFonts;
 
     import javax.swing.*;
@@ -14,12 +15,12 @@ public class CustomComboBoxEditor extends BasicComboBoxEditor {
     public CustomComboBoxEditor() {
 
         label.setOpaque(false);
-        label.setFont(CustomFonts.kollektifBoldFont.deriveFont(14f));
+        label.setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
         label.setForeground(Color.WHITE);
 
         panel.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 4));
         panel.add(label);
-        panel.setBackground(new Color(25, 25, 25));
+        panel.setBackground(Launcher.LIGHTER_GREY);
     }
 
     public Component getEditorComponent() {

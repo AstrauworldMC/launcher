@@ -1,5 +1,7 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
+import fr.timeto.astrauworld.launcher.main.Launcher;
+
 import javax.swing.*;
 import javax.swing.plaf.ComboBoxUI;
 import javax.swing.plaf.basic.BasicArrowButton;
@@ -19,8 +21,8 @@ public class ColorArrowComboBoxUI extends BasicComboBoxUI {
         return new BasicArrowButton(
                 BasicArrowButton.SOUTH,
                 new Color(30, 30, 30),
-                new Color(190, 0, 0),
-                new Color(210, 0, 0),
+                Launcher.MAIN_COLOR.darker(),
+                Launcher.MAIN_COLOR,
                 new Color(40, 40, 40)
         );
     }

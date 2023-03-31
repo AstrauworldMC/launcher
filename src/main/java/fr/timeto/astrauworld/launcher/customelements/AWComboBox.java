@@ -1,5 +1,6 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
@@ -14,9 +15,9 @@ public class AWComboBox<E> extends JComboBox<E> {
     public AWComboBox(E[] array) {
         super(array);
 
-        setFont(CustomFonts.kollektifFont.deriveFont(14f));
+        setFont(CustomFonts.robotoMediumFont.deriveFont(14f));
         setForeground(Color.WHITE);
-        setBackground(new Color(25, 25, 25));
+        setBackground(Launcher.LIGHTER_GREY);
         setEditable(true);
         setRenderer(new CustomComboBoxRenderer());
         setEditor(new CustomComboBoxEditor());

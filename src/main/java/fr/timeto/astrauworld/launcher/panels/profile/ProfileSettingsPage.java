@@ -49,7 +49,7 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
 
         profileNameTextFieldLabel.setForeground(Color.WHITE);
         profileNameTextFieldLabel.setFont(profileNameTextField.getFont());
-        profileNameTextFieldLabel.setBounds(118, 42, 168, 24);
+        profileNameTextFieldLabel.setBounds(118, 38, 168, 24);
         add(profileNameTextFieldLabel);
 
         helmIconSwitchButton.setBounds(313, 117);
@@ -58,36 +58,36 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
 
         helmIconSwitchButtonLabel1.setForeground(Color.WHITE);
         helmIconSwitchButtonLabel1.setFont(profileNameTextFieldLabel.getFont());
-        helmIconSwitchButtonLabel1.setBounds(32, 110, 254, 44);
+        helmIconSwitchButtonLabel1.setBounds(32, 108, 254, 44);
         add(helmIconSwitchButtonLabel1);
 
         helmIconSwitchButtonLabel2.setForeground(Color.WHITE);
         helmIconSwitchButtonLabel2.setFont(profileNameTextFieldLabel.getFont());
-        helmIconSwitchButtonLabel2.setBounds(32, 132, 254, 44);
+        helmIconSwitchButtonLabel2.setBounds(32, 128, 254, 44);
         add(helmIconSwitchButtonLabel2);
 
         add(allowedRamSpinner);
 
         allowedRamSpinnerLabel1.setForeground(Color.WHITE);
         allowedRamSpinnerLabel1.setFont(profileNameTextFieldLabel.getFont());
-        allowedRamSpinnerLabel1.setBounds(48, 191, 238, 43);
+        allowedRamSpinnerLabel1.setBounds(48, 188, 238, 43);
         add(allowedRamSpinnerLabel1);
 
         allowedRamSpinnerLabel2.setForeground(new Color(164, 164, 164));
-        allowedRamSpinnerLabel2.setFont(CustomFonts.kollektifFont.deriveFont(20f));
-        allowedRamSpinnerLabel2.setBounds(48, 211, 238, 43);
+        allowedRamSpinnerLabel2.setFont(CustomFonts.robotoMediumFont.deriveFont(20f));
+        allowedRamSpinnerLabel2.setBounds(48, 208, 238, 43);
         add(allowedRamSpinnerLabel2);
 
         saveSettings.setBounds(646, 430);
         saveSettings.addEventListener(this);
         add(saveSettings);
 
-        accountLabel.setBounds(380 - 178, 577 - 113, 276, 31);
+        accountLabel.setBounds(380 - 178, 574 - 113, 276, 31);
         accountLabel.setForeground(Color.WHITE);
-        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
-        accountConnectedLabel.setBounds(198 - 178, 577 - 113, 191, 31);
+        accountConnectedLabel.setBounds(198 - 178, 574 - 113, 191, 31);
         accountConnectedLabel.setForeground(new Color(179, 179, 179));
         accountConnectedLabel.setFont(accountLabel.getFont());
         add(accountConnectedLabel);

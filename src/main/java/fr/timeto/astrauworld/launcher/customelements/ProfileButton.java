@@ -8,7 +8,6 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
-import fr.timeto.timutilslib.CustomFonts;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,8 +21,8 @@ import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
-import static fr.timeto.timutilslib.CustomFonts.kollektifBoldFont;
-import static fr.timeto.timutilslib.CustomFonts.kollektifFont;
+import static fr.timeto.timutilslib.CustomFonts.robotoBlackFont;
+import static fr.timeto.timutilslib.CustomFonts.robotoMediumFont;
 
 public class ProfileButton extends JPanel implements SwingerEventListener {
 
@@ -38,9 +37,9 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
         @Override
         public void setEnabled(boolean enabled) {
             if (enabled) {
-                profileNumberLabel.setFont(kollektifFont.deriveFont(19f));
+                profileNumberLabel.setFont(robotoMediumFont.deriveFont(19f));
             } else {
-                profileNumberLabel.setFont(kollektifBoldFont.deriveFont(19f));
+                profileNumberLabel.setFont(robotoBlackFont.deriveFont(19f));
             }
             super.setEnabled(enabled);
         }
@@ -52,7 +51,6 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
     public ProfileButton(Saver saver) {
         this.saver = saver;
         setLayout(null);
-        CustomFonts.initFonts();
 
         if (Objects.equals(saver, firstProfileSaver)) {
             profileIcon = Launcher.AW_FIRSTPROFILE_ICON;
@@ -74,15 +72,15 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
     //    profileIconLabel.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(profileIcon, true))));
         add(profileIconLabel);
 
-        profileNameLabel.setBounds(61, 15, 80, 12);
+        profileNameLabel.setBounds(61, 12, 80, 12);
         profileNameLabel.setForeground(Color.WHITE);
-        profileNameLabel.setFont(kollektifBoldFont.deriveFont(13f));
+        profileNameLabel.setFont(robotoBlackFont.deriveFont(13f));
         profileNameLabel.setText(saver.get(KEY.SETTINGS_PROFILENAME.get()));
         add(profileNameLabel);
 
-        profileNumberLabel.setBounds(61, 30, 80, 20);
+        profileNumberLabel.setBounds(61, 27, 80, 20);
         profileNumberLabel.setForeground(Color.WHITE);
-        profileNumberLabel.setFont(kollektifBoldFont.deriveFont(19f));
+        profileNumberLabel.setFont(robotoBlackFont.deriveFont(19f));
         profileNumberLabel.setText("Profil " + profileNumber);
         add(profileNumberLabel);
 

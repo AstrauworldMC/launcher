@@ -17,7 +17,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
-import static fr.timeto.timutilslib.CustomFonts.kollektifBoldFont;
+import static fr.timeto.timutilslib.CustomFonts.robotoBlackFont;
 
 public class AboutInfosPage extends PageCreator implements SwingerEventListener {
 
@@ -77,14 +77,14 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
 
         eastereggsLabel.setBounds(12, 492, 200, 16);
         eastereggsLabel.setForeground(new Color(151, 151, 151));
-        eastereggsLabel.setFont(kollektifBoldFont.deriveFont(16f));
+        eastereggsLabel.setFont(robotoBlackFont.deriveFont(16f));
         eastereggsLabel.setOpaque(false);
         this.add(eastereggsLabel);
 
         textArea.setBounds(12, 144, 700, 450);
         textArea.setForeground(Color.WHITE);
-        textArea.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
-        textArea.setSelectionColor(new Color(255, 20, 20, 200));
+        textArea.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
+        textArea.setSelectionColor(Launcher.MAIN_COLOR);
         textArea.setEditable(false);
         textArea.setOpaque(false);
         this.add(textArea);

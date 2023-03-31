@@ -121,13 +121,13 @@ public class ServerInfosFrame extends JPanel {
                 } catch (IOException ex) {
                     connectionImage.setIcon(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/serverInfosFrame/notConnected.png")));
                     playersLabel.setText("N/A");
-                    playersLabel.setForeground(Color.RED);
+                    playersLabel.setForeground(Launcher.MAIN_COLOR);
                     pingLabel.setText("N/A");
-                    pingLabel.setForeground(Color.RED);
+                    pingLabel.setForeground(Launcher.MAIN_COLOR);
                     versionLabel.setText("N/A");
-                    versionLabel.setForeground(Color.RED);
+                    versionLabel.setForeground(Launcher.MAIN_COLOR);
                     protocolLabel.setText("N/A");
-                    protocolLabel.setForeground(Color.RED);
+                    protocolLabel.setForeground(Launcher.MAIN_COLOR);
                     return;
                 }
 
@@ -143,7 +143,7 @@ public class ServerInfosFrame extends JPanel {
                 } else if (reply.getPing() < 140) {
                     pingLabel.setForeground(Color.ORANGE);
                 } else {
-                    pingLabel.setForeground(Color.RED);
+                    pingLabel.setForeground(Launcher.MAIN_COLOR);
                 }
                 pingLabel.setText(reply.getPing() + "ms");
 
