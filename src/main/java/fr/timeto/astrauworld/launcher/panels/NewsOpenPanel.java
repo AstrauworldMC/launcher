@@ -67,13 +67,13 @@ public class NewsOpenPanel extends PageCreator {
 
         titleLabel.setBounds(20, 220, 764, 30);
         titleLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setForeground(Launcher.TEXT_COLOR);
         inside.add(titleLabel);
 
         textArea.setBounds(20, 260, 764, 1200);
     //    textArea.setContentType("text/html");
         textArea.setFont(CustomFonts.robotoMediumFont.deriveFont(16f));
-        textArea.setForeground(Color.WHITE);
+        textArea.setForeground(Launcher.TEXT_COLOR);
         textArea.setSelectionColor(Launcher.MAIN_COLOR);
         textArea.setOpaque(false);
         textArea.setEditable(false);
@@ -103,7 +103,7 @@ public class NewsOpenPanel extends PageCreator {
         } */
         //    textArea.loadContent(news.getText(), "text/html");
 
-        background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+        background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
         corner.setVisible(true);
     }

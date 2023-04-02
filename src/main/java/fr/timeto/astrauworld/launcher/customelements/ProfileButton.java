@@ -73,13 +73,13 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
         add(profileIconLabel);
 
         profileNameLabel.setBounds(61, 12, 80, 12);
-        profileNameLabel.setForeground(Color.WHITE);
+        profileNameLabel.setForeground(Launcher.TEXT_COLOR);
         profileNameLabel.setFont(robotoBlackFont.deriveFont(13f));
         profileNameLabel.setText(saver.get(KEY.SETTINGS_PROFILENAME.get()));
         add(profileNameLabel);
 
         profileNumberLabel.setBounds(61, 27, 80, 20);
-        profileNumberLabel.setForeground(Color.WHITE);
+        profileNumberLabel.setForeground(Launcher.TEXT_COLOR);
         profileNumberLabel.setFont(robotoBlackFont.deriveFont(19f));
         profileNumberLabel.setText("Profil " + profileNumber);
         add(profileNumberLabel);

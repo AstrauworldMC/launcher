@@ -90,7 +90,7 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
         optifineSwitchButton.addEventListener(this);
         add(optifineSwitchButton);
 
-        optifineLabel.setForeground(Color.WHITE);
+        optifineLabel.setForeground(Launcher.TEXT_COLOR);
         optifineLabel.setFont(modsFpsmodelPanel.getNameLabel().getFont().deriveFont(24f));
         optifineLabel.setBounds(89, 22, 91, 24);
         add(optifineLabel);
@@ -259,7 +259,7 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
         }
 
         accountLabel.setBounds(380 - 178, 574 - 113, 276, 31);
-        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setForeground(Launcher.TEXT_COLOR);
         accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 

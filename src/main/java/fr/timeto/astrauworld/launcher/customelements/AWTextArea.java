@@ -5,7 +5,6 @@ import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 public class AWTextArea extends JTextArea {
 
@@ -40,8 +39,8 @@ public class AWTextArea extends JTextArea {
     public AWTextArea(String text, float deriveFont, boolean editable) {
         super(text);
 
-        setForeground(Color.WHITE);
-        setFont(CustomFonts.robotoBlackFont.deriveFont(deriveFont));
+        setForeground(Launcher.TEXT_COLOR);
+        setFont(CustomFonts.robotoBoldFont.deriveFont(deriveFont));
         setCaretColor(Launcher.MAIN_COLOR);
         setSelectionColor(Launcher.MAIN_COLOR);
         setBackground(Launcher.LIGHTER_GREY);

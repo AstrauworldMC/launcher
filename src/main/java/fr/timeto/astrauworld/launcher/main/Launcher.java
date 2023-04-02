@@ -44,10 +44,11 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 public class Launcher {
 
     public static final Color DARKER_BACKGROUND = Color.BLACK;
-    public static final Color MID_BACKGROUND = new Color(04, 04, 04);
-    public static final Color BASE_BACKGROUND = new Color(10, 10, 10);
-    public static final Color LIGHTER_GREY = new Color(20, 20, 20);
+    public static final Color MID_BACKGROUND = new Color(9, 9, 9);
+    public static final Color BASE_BACKGROUND = new Color(18, 18, 18);
+    public static final Color LIGHTER_GREY = new Color(30, 30, 30);
     public static final Color MAIN_COLOR = Color.RED;
+    public static final Color TEXT_COLOR = Color.WHITE;
 
     public static final String separatorChar = File.separator;
 

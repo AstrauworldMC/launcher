@@ -80,7 +80,7 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         textField.setBounds(39, 55, 395, 55);
         add(textField);
 
-        textFieldLabel.setForeground(Color.WHITE);
+        textFieldLabel.setForeground(Launcher.TEXT_COLOR);
         textFieldLabel.setFont(textField.getFont().deriveFont(20f));
         textFieldLabel.setBounds(42, 10, 386, 60);
         add(textFieldLabel);
@@ -88,7 +88,7 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         passwordField.setBounds(39, 149, 395, 55);
         add(passwordField);
 
-        passwordFieldLabel.setForeground(Color.WHITE);
+        passwordFieldLabel.setForeground(Launcher.TEXT_COLOR);
         passwordFieldLabel.setFont(textFieldLabel.getFont());
         passwordFieldLabel.setBounds(42, 104, 386, 60);
         add(passwordFieldLabel);
@@ -104,7 +104,7 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         add(infosLabel);
 
         accountLabel.setBounds(380 - 178, 523 - 113, 276, 31);
-        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setForeground(Launcher.TEXT_COLOR);
         accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 

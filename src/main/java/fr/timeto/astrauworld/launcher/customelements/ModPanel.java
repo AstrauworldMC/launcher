@@ -4,6 +4,7 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.timutilslib.CustomFonts;
 
@@ -54,7 +55,7 @@ public class ModPanel extends JPanel implements SwingerEventListener {
 
         nameLabel.setBounds(0, 8, 280, 24);
         nameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        nameLabel.setForeground(Color.WHITE);
+        nameLabel.setForeground(Launcher.TEXT_COLOR);
         add(nameLabel);
     }
 

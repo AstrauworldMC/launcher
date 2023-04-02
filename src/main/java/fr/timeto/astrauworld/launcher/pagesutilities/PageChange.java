@@ -26,21 +26,7 @@ public class PageChange {
     public static PageCreator actualPagePanel;
 
     public static void setPage(boolean e, PageName page) {
-        if (e) actualPage = page;
-
-        if (actualPagePanel == null) {
-            actualPagePanel = profileHomePage;
-        }
-
-        if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
-            setNewsPage(e);
-        } else if (Objects.equals(page.getPage1(), PageName.PROFILE_HOME.getPage1())) {
-            setProfilePage(e, getSelectedProfile(), page);
-        }else if (Objects.equals(page.getPage1(), PageName.CHANGELOGS.getPage1())) {
-            setChangesPage(e);
-        } else if (Objects.equals(page.getPage1(), PageName.ABOUT_INFOS.getPage1())) {
-            setAboutPage(e, page);
-        }
+        setPage(e, page, getSelectedProfile());
     }
 
     public static void setPage(boolean e, PageName page, String profileNum) {
@@ -49,6 +35,8 @@ public class PageChange {
         if (actualPagePanel == null) {
             actualPagePanel = profileHomePage;
         }
+
+        tabManager.setActualPage(page);
 
         if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
             setNewsPage(e);
@@ -85,7 +73,7 @@ public class PageChange {
 
             LauncherSystemTray.changeTrayTooltip();
 
-            background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+            background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
             corner.setVisible(true);
         }else {
@@ -205,7 +193,7 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
                  
                 corner.setVisible(true);
 
@@ -255,7 +243,7 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                 corner.setVisible(true);
 
@@ -304,7 +292,7 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                 corner.setVisible(true);
 
@@ -346,7 +334,7 @@ public class PageChange {
 
                     LauncherSystemTray.changeTrayTooltip();
 
-                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                     corner.setVisible(true);
                 } else {
@@ -400,7 +388,7 @@ public class PageChange {
 
                     }
 
-                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                     corner.setVisible(false);
 
@@ -454,7 +442,7 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                 corner.setVisible(true);
 
@@ -541,7 +529,7 @@ public class PageChange {
             changelogsPage.versionComboBox.setSelectedIndex(i);
             changelogsPage.textArea.setText(Changelogs.getChangelogsTextsList()[i]);
 
-            background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+            background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
              
             corner.setVisible(true);
         }else {
@@ -583,7 +571,7 @@ public class PageChange {
                 titleLabel.setText("\u00c0 propos");
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
                  
                 corner.setVisible(true);
             } else {
@@ -616,7 +604,7 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
             } else {
                 aboutInfosTabButton.setVisible(false);

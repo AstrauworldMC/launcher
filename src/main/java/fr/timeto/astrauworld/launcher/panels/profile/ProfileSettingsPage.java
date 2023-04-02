@@ -6,6 +6,7 @@ import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.AWSpinner;
 import fr.timeto.astrauworld.launcher.customelements.AWTextField;
 import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
@@ -47,7 +48,7 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         profileNameTextField.setBounds(313, 25, 315, 58);
         add(profileNameTextField);
 
-        profileNameTextFieldLabel.setForeground(Color.WHITE);
+        profileNameTextFieldLabel.setForeground(Launcher.TEXT_COLOR);
         profileNameTextFieldLabel.setFont(profileNameTextField.getFont());
         profileNameTextFieldLabel.setBounds(118, 38, 168, 24);
         add(profileNameTextFieldLabel);
@@ -56,19 +57,19 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         helmIconSwitchButton.addEventListener(this);
         add(helmIconSwitchButton);
 
-        helmIconSwitchButtonLabel1.setForeground(Color.WHITE);
+        helmIconSwitchButtonLabel1.setForeground(Launcher.TEXT_COLOR);
         helmIconSwitchButtonLabel1.setFont(profileNameTextFieldLabel.getFont());
         helmIconSwitchButtonLabel1.setBounds(32, 108, 254, 44);
         add(helmIconSwitchButtonLabel1);
 
-        helmIconSwitchButtonLabel2.setForeground(Color.WHITE);
+        helmIconSwitchButtonLabel2.setForeground(Launcher.TEXT_COLOR);
         helmIconSwitchButtonLabel2.setFont(profileNameTextFieldLabel.getFont());
         helmIconSwitchButtonLabel2.setBounds(32, 128, 254, 44);
         add(helmIconSwitchButtonLabel2);
 
         add(allowedRamSpinner);
 
-        allowedRamSpinnerLabel1.setForeground(Color.WHITE);
+        allowedRamSpinnerLabel1.setForeground(Launcher.TEXT_COLOR);
         allowedRamSpinnerLabel1.setFont(profileNameTextFieldLabel.getFont());
         allowedRamSpinnerLabel1.setBounds(48, 188, 238, 43);
         add(allowedRamSpinnerLabel1);
@@ -83,7 +84,7 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         add(saveSettings);
 
         accountLabel.setBounds(380 - 178, 574 - 113, 276, 31);
-        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setForeground(Launcher.TEXT_COLOR);
         accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 

@@ -107,7 +107,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
         authorDate.setBounds(10, 192, 315, 16);
         authorDate.setText(news.getAuthor() + " - " + news.getStringDate());
         authorDate.setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
-        authorDate.setForeground(Color.WHITE);
+        authorDate.setForeground(Launcher.TEXT_COLOR);
         authorDate.setOpaque(false);
         authorDate.setVerticalAlignment(SwingConstants.BOTTOM);
         authorDate.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -116,7 +116,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
         title.setBounds(10, 145, 310, 20);
         title.setText(news.getTitle());
         title.setFont(CustomFonts.robotoBlackFont.deriveFont(18f));
-        title.setForeground(Color.WHITE);
+        title.setForeground(Launcher.TEXT_COLOR);
         title.setOpaque(false);
         title.setVerticalAlignment(SwingConstants.TOP);
         add(title);
@@ -137,6 +137,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
 
         if (src == button) {
             newsOpenScrollPanel.setNewsPage(news);
+            tabManager.setActualPage(PageName.NEWS_OPEN);
             PageAnimation.animTo(newsOpenScrollPanel);
             PageChange.actualPagePanel = newsOpenScrollPanel;
         }

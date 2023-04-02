@@ -156,6 +156,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            */
           public static JLabel infosLabel = new JLabel("", SwingConstants.CENTER);
 
+          public static TabManager tabManager = new TabManager(178, 89);
+
           /**
            * Bouton invisible en bas à droite de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
@@ -227,6 +229,27 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(testPageCreator); */
 
           // Common components
+
+          Tab testTab = new Tab("Test", PageName.NEWS);
+          testTab.setLocation(500, 0);
+          add(testTab);
+
+          tabManager.setLocation(178, 89);
+          add(tabManager);
+
+          TabList profileTabList = new TabList("profile");
+          profileTabList.add(new Tab("Jouer", PageName.PROFILE_HOME));
+          profileTabList.add(new Tab("Compte", PageName.PROFILE_ACCOUNT));
+          profileTabList.add(new Tab("Addons", PageName.PROFILE_ADDONS_MODS));
+          profileTabList.add(new Tab("Paramètres", PageName.PROFILE_SETTINGS));
+
+          TabList aboutTabList = new TabList("about");
+          aboutTabList.add(new Tab("Infos", PageName.ABOUT_INFOS));
+          aboutTabList.add(new Tab("Mods", PageName.ABOUT_MODS));
+
+          tabManager.addTabList(profileTabList);
+          tabManager.addTabList(aboutTabList);
+
           quitButton.setBounds(970, 4);
           quitButton.addEventListener(this);
           this.add(quitButton);
@@ -269,27 +292,27 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(aboutButton);
 
           titleLabel.setBounds(190, 56, 809, 23);
-          titleLabel.setForeground(Color.WHITE);
+          titleLabel.setForeground(Launcher.TEXT_COLOR);
           titleLabel.setFont(robotoBlackFont.deriveFont(20f));
           this.add(titleLabel);
 
           subTitleLabel.setBounds(190, 33, 809, 23);
-          subTitleLabel.setForeground(Color.WHITE);
+          subTitleLabel.setForeground(Launcher.TEXT_COLOR);
           subTitleLabel.setFont(titleLabel.getFont().deriveFont(16f));
           this.add(subTitleLabel);
 
           barLabel.setBounds(181, 610, 269, 16);
-          barLabel.setForeground(Color.WHITE);
+          barLabel.setForeground(Launcher.TEXT_COLOR);
           barLabel.setFont(robotoMediumFont.deriveFont(10f));
           this.add(barLabel);
 
           percentLabel.setBounds(920, 611, 70, 16);
-          percentLabel.setForeground(Color.WHITE);
+          percentLabel.setForeground(Launcher.TEXT_COLOR);
           percentLabel.setFont(barLabel.getFont());
           this.add(percentLabel);
 
           infosLabel.setBounds(460, 611, 255, 16);
-          infosLabel.setForeground(Color.WHITE);
+          infosLabel.setForeground(Launcher.TEXT_COLOR);
           infosLabel.setFont(barLabel.getFont());
           this.add(infosLabel);
 
@@ -327,22 +350,22 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           // Profiles components
           profilePlayTabButton.setBounds(178, 89);
           profilePlayTabButton.addEventListener(this);
-          this.add(profilePlayTabButton);
+     //     this.add(profilePlayTabButton);
           profilePlayTabButton.setVisible(false);
 
           profileAccountTabButton.setBounds(298, 89);
           profileAccountTabButton.addEventListener(this);
-          this.add(profileAccountTabButton);
+     //     this.add(profileAccountTabButton);
           profileAccountTabButton.setVisible(false);
 
           profileAddonsTabButton.setBounds(418, 89);
           profileAddonsTabButton.addEventListener(this);
-          this.add(profileAddonsTabButton);
+     //     this.add(profileAddonsTabButton);
           profileAddonsTabButton.setVisible(false);
 
           profileSettingsTabButton.setBounds(538, 89);
           profileSettingsTabButton.addEventListener(this);
-          this.add(profileSettingsTabButton);
+     //     this.add(profileSettingsTabButton);
           profileSettingsTabButton.setVisible(false);
 
           profileHomePage.setBounds(0, 0);
@@ -388,12 +411,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           // About components
           aboutInfosTabButton.setBounds(178, 89);
           aboutInfosTabButton.addEventListener(this);
-          this.add(aboutInfosTabButton);
+     //     this.add(aboutInfosTabButton);
           aboutInfosTabButton.setVisible(false);
 
           aboutModsTabButton.setBounds(298, 89);
           aboutModsTabButton.addEventListener(this);
-          this.add(aboutModsTabButton);
+     //     this.add(aboutModsTabButton);
           aboutModsTabButton.setVisible(false);
 
           aboutInfosPage.setBounds(0, 0);

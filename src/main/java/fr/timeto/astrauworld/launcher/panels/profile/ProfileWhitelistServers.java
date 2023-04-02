@@ -5,6 +5,7 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.ServerInfosFrame;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
@@ -54,7 +55,7 @@ public class ProfileWhitelistServers extends PageCreator {
         server4.setVisible(false);
 
         accountLabel.setBounds(380 - 178, 574 - 113, 276, 31);
-        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setForeground(Launcher.TEXT_COLOR);
         accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
@@ -112,7 +113,7 @@ public class ProfileWhitelistServers extends PageCreator {
             setLayout(null);
             setOpaque(false);
 
-            serverNameLabel.setForeground(Color.WHITE);
+            serverNameLabel.setForeground(Launcher.TEXT_COLOR);
             serverNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(25f));
             serverNameLabel.setBounds(15, 30, 380, 25);
             add(serverNameLabel);

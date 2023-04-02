@@ -4,6 +4,7 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
@@ -56,7 +57,7 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
 
         shaderNameLabel.setBounds(0, 13, 280, 24);
         shaderNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        shaderNameLabel.setForeground(Color.WHITE);
+        shaderNameLabel.setForeground(Launcher.TEXT_COLOR);
         add(shaderNameLabel);
     }
 
@@ -83,7 +84,7 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
 
         shaderNameLabel.setBounds(0, 18, 280, 24);
         shaderNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        shaderNameLabel.setForeground(Color.WHITE);
+        shaderNameLabel.setForeground(Launcher.TEXT_COLOR);
         add(shaderNameLabel);
 
     }

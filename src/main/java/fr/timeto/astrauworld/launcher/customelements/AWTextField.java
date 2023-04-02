@@ -5,7 +5,6 @@ import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 public class AWTextField extends JTextField {
 
@@ -24,7 +23,7 @@ public class AWTextField extends JTextField {
     public AWTextField(String text, float deriveFont) {
         super(text);
 
-        setForeground(Color.WHITE);
+        setForeground(Launcher.TEXT_COLOR);
         setFont(CustomFonts.robotoBlackFont.deriveFont(deriveFont));
         setCaretColor(Launcher.MAIN_COLOR);
         setSelectionColor(Launcher.MAIN_COLOR);

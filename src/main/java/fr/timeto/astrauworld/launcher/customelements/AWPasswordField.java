@@ -4,7 +4,6 @@ import fr.timeto.astrauworld.launcher.main.Launcher;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 public class AWPasswordField extends JPasswordField {
 
@@ -23,7 +22,7 @@ public class AWPasswordField extends JPasswordField {
     public AWPasswordField(String text, float deriveFont) {
         super(text);
 
-        setForeground(Color.WHITE);
+        setForeground(Launcher.TEXT_COLOR);
         setFont(this.getFont().deriveFont(25f));
         setCaretColor(Launcher.MAIN_COLOR);
         setSelectionColor(Launcher.MAIN_COLOR);

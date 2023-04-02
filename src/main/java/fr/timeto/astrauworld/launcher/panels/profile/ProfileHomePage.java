@@ -6,6 +6,7 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.ServerInfosFrame;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
@@ -93,7 +94,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
         diapoPanel.add(diapoImage2);
 
         accountLabel.setBounds(374 - 178, 467 - 113, 276, 31);
-        accountLabel.setForeground(Color.WHITE);
+        accountLabel.setForeground(Launcher.TEXT_COLOR);
         accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 

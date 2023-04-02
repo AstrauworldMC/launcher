@@ -4,10 +4,10 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.colored.SColoredButton;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -49,7 +49,7 @@ public class LeftMenuButton extends JPanel implements SwingerEventListener {
         setOpaque(false);
 
         nameLabel.setBounds(61, 21, 100, 20);
-        nameLabel.setForeground(Color.WHITE);
+        nameLabel.setForeground(Launcher.TEXT_COLOR);
         nameLabel.setFont(robotoBlackFont.deriveFont(17f));
         nameLabel.setText(name);
         add(nameLabel);

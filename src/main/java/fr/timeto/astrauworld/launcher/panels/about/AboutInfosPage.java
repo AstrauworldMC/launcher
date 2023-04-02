@@ -81,7 +81,7 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
         this.add(eastereggsLabel);
 
         textArea.setBounds(12, 144, 700, 450);
-        textArea.setForeground(Color.WHITE);
+        textArea.setForeground(Launcher.TEXT_COLOR);
         textArea.setFont(CustomFonts.robotoMediumFont.deriveFont(17f));
         textArea.setSelectionColor(Launcher.MAIN_COLOR);
         textArea.setEditable(false);

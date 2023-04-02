@@ -16,7 +16,7 @@ public class CustomComboBoxEditor extends BasicComboBoxEditor {
 
         label.setOpaque(false);
         label.setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
-        label.setForeground(Color.WHITE);
+        label.setForeground(Launcher.TEXT_COLOR);
 
         panel.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 4));
         panel.add(label);
