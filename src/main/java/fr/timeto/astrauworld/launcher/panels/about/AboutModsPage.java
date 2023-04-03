@@ -89,6 +89,7 @@ public class AboutModsPage extends PageCreator implements MouseListener {
     public void setServer(Server server) {
         this.actualServer = server;
         textArea.setText(Launcher.convertStringArrayToString(server.getModsNameAndVersionArray(), System.getProperty("line.separator")));
+        setSubtitle("Mods - " + actualServer.getServerName());
     }
 
     public Server getServer() {return actualServer;}

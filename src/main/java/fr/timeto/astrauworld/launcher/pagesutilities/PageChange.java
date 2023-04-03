@@ -2,7 +2,6 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.colored.SColoredButton;
-import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.timutilslib.PopUpMessages;
@@ -590,13 +589,13 @@ public class PageChange {
                 setChangesPage(false);
                 setAboutPage(false, PageName.ABOUT_INFOS);
 
+                leftMenuSelector.moveTo(aboutButton);
                 aboutButton.setEnabled(false);
                 aboutModsTabButton.setEnabled(false);
 
                 aboutInfosTabButton.setVisible(true);
                 aboutModsTabButton.setVisible(true);
 
-                aboutModsPage.setServer(Launcher.ASTRAUWORLD_MC);
                 PageAnimation.animTo(aboutModsPage);
                 actualPagePanel = aboutModsPage;
 

@@ -237,7 +237,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           TabList aboutTabList = new TabList("about");
           aboutTabList.add(new Tab("Infos", PageName.ABOUT_INFOS));
-          aboutTabList.add(new Tab("Mods", PageName.ABOUT_MODS));
+          aboutTabList.add(new Tab("Mods", PageName.ABOUT_MODS) {
+               @Override
+               public void onEvent(SwingerEvent swingerEvent) {
+                    aboutModsPage.setServer(Launcher.ASTRAUWORLD_MC);
+                    super.onEvent(swingerEvent);
+               }
+          });
 
           tabManager.addTabList(profileTabList);
           tabManager.addTabList(aboutTabList);
@@ -420,6 +426,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           aboutModsPage.setVisible(false);
 
           this.add(panel);
+
+          aboutModsPage.setServer(Launcher.ASTRAUWORLD_MC);
 
           Launcher.println("Affichage...");
           setPage(true, PageName.PROFILE_HOME, ProfileSaver.getActualMainProfile());
