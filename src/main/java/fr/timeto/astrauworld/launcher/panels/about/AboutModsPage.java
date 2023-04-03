@@ -6,6 +6,7 @@ import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.Server;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
 
+import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -23,11 +24,11 @@ public class AboutModsPage extends PageCreator implements MouseListener {
                 index = 0;
             }
 
-            if (split.length >= index + 27) {
+            if (split.length >= index + 29) {
                 ArrayList<String> arrayList1 = new ArrayList<>();
-                int ii = index + 27;
+                int ii = index + 29;
                 while (ii != split.length) {
-                    if (ii == index + 53) {
+                    if (ii == index + 57) {
                         arrayList1.add("[...]");
                     } else {
                         arrayList1.add(split[ii]);
@@ -40,7 +41,7 @@ public class AboutModsPage extends PageCreator implements MouseListener {
                 textArea1.setText("");
             }
 
-            if (index == 53) {
+            if (index == 57) {
                 ArrayList<String> arrayList1 = new ArrayList<>();
                 int ii = index;
                 while (ii != split.length) {
@@ -60,11 +61,13 @@ public class AboutModsPage extends PageCreator implements MouseListener {
     public AboutModsPage() {
         super(PageName.ABOUT_MODS, "À propos", "Mods");
 
-        textArea.setBounds(11, 11, 399, 497);
+        textArea.setBounds(11, 9, 399, 499);
+        textArea.setBorder(new EmptyBorder(4, 10, 5, 10));
         textArea.addMouseListener(this);
         add(textArea);
 
-        textArea1.setBounds(410, 11, 398, 497);
+        textArea1.setBounds(410, 9, 398, 499);
+        textArea1.setBorder(new EmptyBorder(4, 10, 5, 10));
         textArea1.addMouseListener(this);
         add(textArea1);
     }
@@ -86,6 +89,7 @@ public class AboutModsPage extends PageCreator implements MouseListener {
     public void setServer(Server server) {
         this.actualServer = server;
         textArea.setText(Launcher.convertStringArrayToString(server.getModsNameAndVersionArray(), System.getProperty("line.separator")));
+        setSubtitle("Mods - " + actualServer.getServerName());
     }
 
     public Server getServer() {return actualServer;}
@@ -93,8 +97,8 @@ public class AboutModsPage extends PageCreator implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (index == 0) {
-            index = 53;
-        } else if (index == 53) {
+            index = 57;
+        } else if (index == 57) {
             index = 0;
         }
         textArea.setText(Launcher.convertStringArrayToString(actualServer.getModsNameAndVersionArray(), System.getProperty("line.separator")));

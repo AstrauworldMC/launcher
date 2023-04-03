@@ -90,9 +90,9 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
         optifineSwitchButton.addEventListener(this);
         add(optifineSwitchButton);
 
-        optifineLabel.setForeground(Color.WHITE);
+        optifineLabel.setForeground(Launcher.TEXT_COLOR);
         optifineLabel.setFont(modsFpsmodelPanel.getNameLabel().getFont().deriveFont(24f));
-        optifineLabel.setBounds(89, 26, 91, 24);
+        optifineLabel.setBounds(89, 22, 91, 24);
         add(optifineLabel);
 
         if (Objects.equals(pageName.getSubTab3(), PageName.PROFILE_ADDONS_MODS.getSubTab3())) {
@@ -243,13 +243,13 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
             add(goToFolderButton);
 
             optifineNeededLabel.setForeground(new Color(109, 109, 109));
-            optifineNeededLabel.setFont(CustomFonts.kollektifFont.deriveFont(16f));
-            optifineNeededLabel.setBounds(6, 50, 210, 30);
-            optifineNeededLabel.setCaretColor(Color.RED);
+            optifineNeededLabel.setFont(CustomFonts.robotoMediumFont.deriveFont(16f));
+            optifineNeededLabel.setBounds(6, 46, 210, 30);
+            optifineNeededLabel.setCaretColor(Launcher.MAIN_COLOR);
             optifineNeededLabel.setBorder(null);
             optifineNeededLabel.setOpaque(false);
-            optifineNeededLabel.setAlignmentY(SwingConstants.RIGHT);
-            optifineNeededLabel.setSelectionColor(new Color(255, 20, 20, 200));
+            optifineNeededLabel.setAlignmentX(SwingConstants.RIGHT);
+            optifineNeededLabel.setSelectionColor(Launcher.MAIN_COLOR);
             optifineNeededLabel.setEditable(false);
             add(optifineNeededLabel);
 
@@ -258,12 +258,12 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
             add(shadersSeeComparisonButton);
         }
 
-        accountLabel.setBounds(380 - 178, 577 - 113, 276, 31);
-        accountLabel.setForeground(Color.WHITE);
-        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        accountLabel.setBounds(380 - 178, 574 - 113, 276, 31);
+        accountLabel.setForeground(Launcher.TEXT_COLOR);
+        accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
-        accountConnectedLabel.setBounds(198 - 178, 577 - 113, 191, 31);
+        accountConnectedLabel.setBounds(198 - 178, 574 - 113, 191, 31);
         accountConnectedLabel.setForeground(new Color(179, 179, 179));
         accountConnectedLabel.setFont(accountLabel.getFont());
         add(accountConnectedLabel);

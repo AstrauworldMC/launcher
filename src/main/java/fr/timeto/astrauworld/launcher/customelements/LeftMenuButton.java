@@ -4,16 +4,16 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.colored.SColoredButton;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
-import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
-import static fr.timeto.timutilslib.CustomFonts.kollektifBoldFont;
+import static fr.timeto.timutilslib.CustomFonts.robotoBlackFont;
+import static fr.timeto.timutilslib.CustomFonts.robotoMediumFont;
 
 public class LeftMenuButton extends JPanel implements SwingerEventListener {
 
@@ -28,9 +28,9 @@ public class LeftMenuButton extends JPanel implements SwingerEventListener {
         @Override
         public void setEnabled(boolean enabled) {
             if (enabled) {
-                nameLabel.setFont(kollektifBoldFont.deriveFont(17f));
+                nameLabel.setFont(robotoMediumFont.deriveFont(17f));
             } else {
-                nameLabel.setFont(kollektifBoldFont.deriveFont(18f));
+                nameLabel.setFont(robotoBlackFont.deriveFont(17f));
             }
             super.setEnabled(enabled);
         }
@@ -45,13 +45,12 @@ public class LeftMenuButton extends JPanel implements SwingerEventListener {
         this.icon = icon;
 
         setLayout(null);
-        CustomFonts.initFonts();
         setSize(178, 59);
         setOpaque(false);
 
         nameLabel.setBounds(61, 21, 100, 20);
-        nameLabel.setForeground(Color.WHITE);
-        nameLabel.setFont(kollektifBoldFont.deriveFont(17f));
+        nameLabel.setForeground(Launcher.TEXT_COLOR);
+        nameLabel.setFont(robotoBlackFont.deriveFont(17f));
         nameLabel.setText(name);
         add(nameLabel);
 

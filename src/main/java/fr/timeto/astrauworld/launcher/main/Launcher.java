@@ -24,6 +24,7 @@ import fr.timeto.astrauworld.launcher.secret.DiscordManager;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import net.harawata.appdirs.AppDirsFactory;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,6 +32,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherFrame.getInstance;
 import static fr.timeto.astrauworld.launcher.main.LauncherFrame.launcherProperties;
@@ -40,6 +42,13 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 @SuppressWarnings("unused")
 public class Launcher {
+
+    public static final Color DARKER_BACKGROUND = Color.BLACK;
+    public static final Color MID_BACKGROUND = new Color(9, 9, 9);
+    public static final Color BASE_BACKGROUND = new Color(18, 18, 18);
+    public static final Color LIGHTER_GREY = new Color(30, 30, 30);
+    public static final Color MAIN_COLOR = Color.RED;
+    public static final Color TEXT_COLOR = Color.WHITE;
 
     public static final String separatorChar = File.separator;
 

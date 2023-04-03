@@ -45,7 +45,7 @@ public class ServerInfosFrame extends JPanel {
 
         playersLabel.setBounds(10, 126, 226, 20);
         playersLabel.setFont(LauncherPanel.Components.titleLabel.getFont().deriveFont(18f));
-        playersLabel.setForeground(Color.WHITE);
+        playersLabel.setForeground(Launcher.TEXT_COLOR);
         this.add(playersLabel);
 
         pingLabel.setBounds(playersLabel.getBounds());
@@ -57,19 +57,19 @@ public class ServerInfosFrame extends JPanel {
         versionLabel.setBounds(pingLabel.getBounds());
         versionLabel.setLocation(versionLabel.getX(), versionLabel.getY() + 39);
         versionLabel.setFont(playersLabel.getFont());
-        versionLabel.setForeground(Color.WHITE);
+        versionLabel.setForeground(Launcher.TEXT_COLOR);
         this.add(versionLabel);
 
         protocolLabel.setBounds(versionLabel.getBounds());
         protocolLabel.setLocation(protocolLabel.getX(), protocolLabel.getY() + 39);
         protocolLabel.setFont(playersLabel.getFont());
-        protocolLabel.setForeground(Color.WHITE);
+        protocolLabel.setForeground(Launcher.TEXT_COLOR);
         this.add(protocolLabel);
 
         serverNameLabel.setBounds(protocolLabel.getBounds());
         serverNameLabel.setLocation(serverNameLabel.getX(), serverNameLabel.getY() + 39);
         serverNameLabel.setFont(CustomFonts.kollektifBoldItalicFont.deriveFont(18f));
-        serverNameLabel.setForeground(Color.WHITE);
+        serverNameLabel.setForeground(Launcher.TEXT_COLOR);
         this.add(serverNameLabel);
 
     }
@@ -98,15 +98,15 @@ public class ServerInfosFrame extends JPanel {
         Thread t = new Thread(() -> {
             inThread = true;
             playersLabel.setText("Connexion...");
-            playersLabel.setForeground(Color.WHITE);
+            playersLabel.setForeground(Launcher.TEXT_COLOR);
             pingLabel.setText("Connexion...");
-            pingLabel.setForeground(Color.WHITE);
+            pingLabel.setForeground(Launcher.TEXT_COLOR);
             versionLabel.setText("Connexion...");
-            versionLabel.setForeground(Color.WHITE);
+            versionLabel.setForeground(Launcher.TEXT_COLOR);
             protocolLabel.setText("Connexion...");
-            protocolLabel.setForeground(Color.WHITE);
+            protocolLabel.setForeground(Launcher.TEXT_COLOR);
             serverNameLabel.setText("");
-            serverNameLabel.setForeground(Color.WHITE);
+            serverNameLabel.setForeground(Launcher.TEXT_COLOR);
 
             while (frame.isShowing() && inThread) {
                 MCPingResponse reply;
@@ -121,13 +121,13 @@ public class ServerInfosFrame extends JPanel {
                 } catch (IOException ex) {
                     connectionImage.setIcon(new ImageIcon(Swinger.getResourceIgnorePath("/assets/launcher/serverInfosFrame/notConnected.png")));
                     playersLabel.setText("N/A");
-                    playersLabel.setForeground(Color.RED);
+                    playersLabel.setForeground(Launcher.MAIN_COLOR);
                     pingLabel.setText("N/A");
-                    pingLabel.setForeground(Color.RED);
+                    pingLabel.setForeground(Launcher.MAIN_COLOR);
                     versionLabel.setText("N/A");
-                    versionLabel.setForeground(Color.RED);
+                    versionLabel.setForeground(Launcher.MAIN_COLOR);
                     protocolLabel.setText("N/A");
-                    protocolLabel.setForeground(Color.RED);
+                    protocolLabel.setForeground(Launcher.MAIN_COLOR);
                     return;
                 }
 
@@ -143,7 +143,7 @@ public class ServerInfosFrame extends JPanel {
                 } else if (reply.getPing() < 140) {
                     pingLabel.setForeground(Color.ORANGE);
                 } else {
-                    pingLabel.setForeground(Color.RED);
+                    pingLabel.setForeground(Launcher.MAIN_COLOR);
                 }
                 pingLabel.setText(reply.getPing() + "ms");
 

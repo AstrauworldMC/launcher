@@ -1,12 +1,14 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
+import fr.timeto.astrauworld.launcher.main.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class LeftMenuSelector extends JPanel {
 
     public LeftMenuSelector() {
-        setBackground(Color.WHITE);
+        setBackground(Launcher.TEXT_COLOR);
         setBounds(0, 0, 6, 33);
         setOpaque(false);
     }

@@ -4,11 +4,12 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.colored.SColoredButton;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
-import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageAnimation;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.timutilslib.CustomFonts;
+import fr.timeto.timutilslib.CustomScrollBarUI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -43,8 +44,6 @@ public class NewsPanel extends PageCreator {
 
         scrollPane.setBounds(0, 0, 822, 517);
         add(scrollPane);
-
-        CustomFonts.initFonts();
 
         scrollPane.setOpaque(false);
 
@@ -86,7 +85,7 @@ public class NewsPanel extends PageCreator {
 
 class NewsButton extends JPanel implements SwingerEventListener {
     final News news;
-    SColoredButton button = new SColoredButton(new Color(70, 70, 70));
+    SColoredButton button = new SColoredButton(Launcher.LIGHTER_GREY);
     JLabel thumbnail = new JLabel();
     JLabel title = new JLabel();
     JLabel authorDate = new JLabel();
@@ -105,19 +104,19 @@ class NewsButton extends JPanel implements SwingerEventListener {
         thumbnail.setBounds(0, 0, 330, 140);
         add(thumbnail);
 
-        authorDate.setBounds(10, 195, 315, 16);
+        authorDate.setBounds(10, 192, 315, 16);
         authorDate.setText(news.getAuthor() + " - " + news.getStringDate());
-        authorDate.setFont(CustomFonts.kollektifBoldFont.deriveFont(14f));
-        authorDate.setForeground(Color.WHITE);
+        authorDate.setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
+        authorDate.setForeground(Launcher.TEXT_COLOR);
         authorDate.setOpaque(false);
         authorDate.setVerticalAlignment(SwingConstants.BOTTOM);
         authorDate.setHorizontalAlignment(SwingConstants.RIGHT);
         add(authorDate);
 
-        title.setBounds(10, 148, 310, 20);
+        title.setBounds(10, 145, 310, 20);
         title.setText(news.getTitle());
-        title.setFont(CustomFonts.kollektifBoldFont.deriveFont(18f));
-        title.setForeground(Color.WHITE);
+        title.setFont(CustomFonts.robotoBlackFont.deriveFont(18f));
+        title.setForeground(Launcher.TEXT_COLOR);
         title.setOpaque(false);
         title.setVerticalAlignment(SwingConstants.TOP);
         add(title);
@@ -138,6 +137,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
 
         if (src == button) {
             newsOpenScrollPanel.setNewsPage(news);
+            tabManager.setActualPage(PageName.NEWS_OPEN);
             PageAnimation.animTo(newsOpenScrollPanel);
             PageChange.actualPagePanel = newsOpenScrollPanel;
         }

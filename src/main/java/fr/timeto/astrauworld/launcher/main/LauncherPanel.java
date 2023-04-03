@@ -123,7 +123,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            * @see Components#percentLabel
            * @see Components#infosLabel
            */
-          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Color.RED){
+          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.MAIN_COLOR){
                @Override
                public void setVisible(boolean aFlag) {
                     super.setVisible(aFlag);
@@ -156,6 +156,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            */
           public static JLabel infosLabel = new JLabel("", SwingConstants.CENTER);
 
+          public static TabManager tabManager = new TabManager(178, 89);
+
           /**
            * Bouton invisible en bas à droite de la fenêtre pour régler le bug de l'arrière-plan qui ne se met pas à jour.
            * <p> Doit être mis visible puis invisible à chaque changement de page
@@ -167,24 +169,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           public static final NewsOpenPanel newsOpenScrollPanel = new NewsOpenPanel();
 
           // Profiles components - up
-          /**
-           * Bouton d'onglet de la page principale des pages de profil
-           */
-          public static final STexturedButton profilePlayTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Jouer-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Jouer-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Jouer-selected.png"));
-          /**
-           * Bouton d'onglet de la page du compte des pages de profil
-           */
-          public static final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-selected.png"));
-          /**
-           * Bouton d'onglet de la page des addons des pages de profil
-           */
-          public static final STexturedButton profileAddonsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Addons-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Addons-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Addons-selected.png"));
-          /**
-           * Bouton d'onglet de la page des paramètres des pages de profil
-           */
-          public static final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-selected.png"));
-
-
 
           public static final ProfileHomePage profileHomePage = new ProfileHomePage();
           public static final ProfileWhitelistServers profileWhitelistServersPage = new ProfileWhitelistServers();
@@ -200,16 +184,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           public static final ChangelogsPage changelogsPage = new ChangelogsPage();
 
           // About components - up
-          /**
-           * Le bouton de l'onglet de la page à propos - infos
-           * @since Beta2.1.2
-           */
-          public static final STexturedButton aboutInfosTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-selected.png"));
-          /**
-           * Le bouton de l'onglet de la page à propos - addons
-           * @since Beta2.1.2
-           */
-          public static final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-selected.png"));
           public static final AboutInfosPage aboutInfosPage = new AboutInfosPage();
           public static final AboutModsPage aboutModsPage = new AboutModsPage();
      }
@@ -221,14 +195,31 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public LauncherPanel() throws Exception {
           this.setLayout(null);
 
-          initFonts();
-
           WhitelistServers.registerServers();
 
-     /*     testPageCreator.setBounds(178, 113);
-          this.add(testPageCreator); */
-
           // Common components
+          tabManager.setLocation(178, 89);
+          add(tabManager);
+
+          TabList profileTabList = new TabList("profile");
+          profileTabList.add(new Tab("Jouer", PageName.PROFILE_HOME));
+          profileTabList.add(new Tab("Compte", PageName.PROFILE_ACCOUNT));
+          profileTabList.add(new Tab("Addons", PageName.PROFILE_ADDONS_MODS));
+          profileTabList.add(new Tab("Paramètres", PageName.PROFILE_SETTINGS));
+
+          TabList aboutTabList = new TabList("about");
+          aboutTabList.add(new Tab("Infos", PageName.ABOUT_INFOS));
+          aboutTabList.add(new Tab("Mods", PageName.ABOUT_MODS) {
+               @Override
+               public void onEvent(SwingerEvent swingerEvent) {
+                    aboutModsPage.setServer(Launcher.ASTRAUWORLD_MC);
+                    super.onEvent(swingerEvent);
+               }
+          });
+
+          tabManager.addTabList(profileTabList);
+          tabManager.addTabList(aboutTabList);
+
           quitButton.setBounds(970, 4);
           quitButton.addEventListener(this);
           this.add(quitButton);
@@ -270,39 +261,39 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           aboutButton.setLocation(0, 571);
           this.add(aboutButton);
 
-          titleLabel.setBounds(190, 60, 809, 23);
-          titleLabel.setForeground(Color.WHITE);
-          titleLabel.setFont(kollektifBoldFont.deriveFont(20f));
+          titleLabel.setBounds(190, 56, 809, 23);
+          titleLabel.setForeground(Launcher.TEXT_COLOR);
+          titleLabel.setFont(robotoBlackFont.deriveFont(20f));
           this.add(titleLabel);
 
-          subTitleLabel.setBounds(190, 37, 809, 23);
-          subTitleLabel.setForeground(Color.WHITE);
+          subTitleLabel.setBounds(190, 33, 809, 23);
+          subTitleLabel.setForeground(Launcher.TEXT_COLOR);
           subTitleLabel.setFont(titleLabel.getFont().deriveFont(16f));
           this.add(subTitleLabel);
 
-          barLabel.setBounds(181, 612, 269, 16);
-          barLabel.setForeground(Color.WHITE);
-          barLabel.setFont(kollektifFont.deriveFont(10f));
+          barLabel.setBounds(181, 610, 269, 16);
+          barLabel.setForeground(Launcher.TEXT_COLOR);
+          barLabel.setFont(robotoMediumFont.deriveFont(10f));
           this.add(barLabel);
 
-          percentLabel.setBounds(920, 612, 70, 16);
-          percentLabel.setForeground(Color.WHITE);
+          percentLabel.setBounds(920, 611, 70, 16);
+          percentLabel.setForeground(Launcher.TEXT_COLOR);
           percentLabel.setFont(barLabel.getFont());
           this.add(percentLabel);
 
-          infosLabel.setBounds(460, 612, 255, 16);
-          infosLabel.setForeground(Color.WHITE);
+          infosLabel.setBounds(460, 611, 255, 16);
+          infosLabel.setForeground(Launcher.TEXT_COLOR);
           infosLabel.setFont(barLabel.getFont());
           this.add(infosLabel);
 
-          loadingBar.setBounds(178, 610, 821, 20);
+          loadingBar.setBounds(178, 611, 822, 20);
           this.add(loadingBar);
           loadingBar.setVisible(false);
 
           launcherVersionLabel.setBounds(9, 39, 150, 50);
           launcherVersionLabel.setForeground(new Color(100, 100, 100));
-          launcherVersionLabel.setFont(kollektifBoldFont.deriveFont(14f));
-          launcherVersionLabel.setSelectionColor(new Color(255, 20, 20, 200));
+          launcherVersionLabel.setFont(robotoBlackFont.deriveFont(14f));
+          launcherVersionLabel.setSelectionColor(Launcher.MAIN_COLOR);
           launcherVersionLabel.setOpaque(false);
           launcherVersionLabel.setEditable(false);
           this.add(launcherVersionLabel);
@@ -327,26 +318,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           newsOpenScrollPanel.setVisible(false);
 
           // Profiles components
-          profilePlayTabButton.setBounds(178, 89);
-          profilePlayTabButton.addEventListener(this);
-          this.add(profilePlayTabButton);
-          profilePlayTabButton.setVisible(false);
-
-          profileAccountTabButton.setBounds(298, 89);
-          profileAccountTabButton.addEventListener(this);
-          this.add(profileAccountTabButton);
-          profileAccountTabButton.setVisible(false);
-
-          profileAddonsTabButton.setBounds(418, 89);
-          profileAddonsTabButton.addEventListener(this);
-          this.add(profileAddonsTabButton);
-          profileAddonsTabButton.setVisible(false);
-
-          profileSettingsTabButton.setBounds(538, 89);
-          profileSettingsTabButton.addEventListener(this);
-          this.add(profileSettingsTabButton);
-          profileSettingsTabButton.setVisible(false);
-
           profileHomePage.setBounds(0, 0);
           panel.add(profileHomePage);
           profileHomePage.setVisible(false);
@@ -388,16 +359,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           changelogsPage.setVisible(false);
 
           // About components
-          aboutInfosTabButton.setBounds(178, 89);
-          aboutInfosTabButton.addEventListener(this);
-          this.add(aboutInfosTabButton);
-          aboutInfosTabButton.setVisible(false);
-
-          aboutModsTabButton.setBounds(298, 89);
-          aboutModsTabButton.addEventListener(this);
-          this.add(aboutModsTabButton);
-          aboutModsTabButton.setVisible(false);
-
           aboutInfosPage.setBounds(0, 0);
           panel.add(aboutInfosPage);
           aboutInfosPage.setVisible(false);
@@ -407,6 +368,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           aboutModsPage.setVisible(false);
 
           this.add(panel);
+
+          aboutModsPage.setServer(Launcher.ASTRAUWORLD_MC);
 
           Launcher.println("Affichage...");
           setPage(true, PageName.PROFILE_HOME, ProfileSaver.getActualMainProfile());
@@ -431,6 +394,18 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      public void paintComponent(Graphics g) {
           super.paintComponent(g);
           g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), this);
+
+          Graphics2D g2d = (Graphics2D) g;
+
+          g2d.setColor(Launcher.DARKER_BACKGROUND);
+          g2d.fillRect(0, 33, 178, 597);
+     //     g2d.fillRect(0, 0, 1000, 33);
+
+          g2d .setColor(Launcher.MID_BACKGROUND);
+          g2d.fillRect(178, 33, 822, 80);
+
+          g2d.setColor(Launcher.BASE_BACKGROUND);
+          g2d.fillRect(178, 113, 822, 517);
 
      }
 

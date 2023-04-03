@@ -8,7 +8,6 @@ import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
-import fr.timeto.timutilslib.CustomFonts;
 import fr.timeto.timutilslib.PopUpMessages;
 import fr.timeto.timutilslib.TimFilesUtils;
 
@@ -25,7 +24,6 @@ import static fr.timeto.astrauworld.launcher.main.LauncherFrame.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        CustomFonts.initFonts();
         try {
             initCurrentLauncherProperties();
 

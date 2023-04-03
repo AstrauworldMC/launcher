@@ -4,6 +4,7 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
@@ -32,8 +33,6 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
         this.fileName = fileName.get();
         this.toPage = null;
 
-        CustomFonts.initFonts();
-
         setOpaque(false);
         setLayout(null);
         setPreferredSize(new Dimension(400, 60));
@@ -57,8 +56,8 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
         add(downloadButton);
 
         shaderNameLabel.setBounds(0, 13, 280, 24);
-        shaderNameLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(22f));
-        shaderNameLabel.setForeground(Color.WHITE);
+        shaderNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
+        shaderNameLabel.setForeground(Launcher.TEXT_COLOR);
         add(shaderNameLabel);
     }
 
@@ -66,8 +65,6 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
         this.name = displayed;
         this.fileName = null;
         this.toPage = toPage;
-
-        CustomFonts.initFonts();
 
         setOpaque(false);
         setLayout(null);
@@ -85,9 +82,9 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
         plusButton.addEventListener(this);
         add(plusButton);
 
-        shaderNameLabel.setBounds(0, 21, 280, 24);
-        shaderNameLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(22f));
-        shaderNameLabel.setForeground(Color.WHITE);
+        shaderNameLabel.setBounds(0, 18, 280, 24);
+        shaderNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
+        shaderNameLabel.setForeground(Launcher.TEXT_COLOR);
         add(shaderNameLabel);
 
     }

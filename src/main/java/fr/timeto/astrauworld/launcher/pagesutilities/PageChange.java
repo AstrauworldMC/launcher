@@ -2,7 +2,6 @@ package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.colored.SColoredButton;
-import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.timutilslib.PopUpMessages;
@@ -26,21 +25,7 @@ public class PageChange {
     public static PageCreator actualPagePanel;
 
     public static void setPage(boolean e, PageName page) {
-        if (e) actualPage = page;
-
-        if (actualPagePanel == null) {
-            actualPagePanel = profileHomePage;
-        }
-
-        if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
-            setNewsPage(e);
-        } else if (Objects.equals(page.getPage1(), PageName.PROFILE_HOME.getPage1())) {
-            setProfilePage(e, getSelectedProfile(), page);
-        }else if (Objects.equals(page.getPage1(), PageName.CHANGELOGS.getPage1())) {
-            setChangesPage(e);
-        } else if (Objects.equals(page.getPage1(), PageName.ABOUT_INFOS.getPage1())) {
-            setAboutPage(e, page);
-        }
+        setPage(e, page, getSelectedProfile());
     }
 
     public static void setPage(boolean e, PageName page, String profileNum) {
@@ -49,6 +34,8 @@ public class PageChange {
         if (actualPagePanel == null) {
             actualPagePanel = profileHomePage;
         }
+
+        tabManager.setActualPage(page);
 
         if (Objects.equals(page.getPage1(), PageName.NEWS.getPage1())) {
             setNewsPage(e);
@@ -85,7 +72,7 @@ public class PageChange {
 
             LauncherSystemTray.changeTrayTooltip();
 
-            background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+            background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
             corner.setVisible(true);
         }else {
@@ -188,16 +175,6 @@ public class PageChange {
                     profileNotSelected2.setEnabled(true);
                 }
 
-                profilePlayTabButton.setEnabled(false);
-                profileAccountTabButton.setEnabled(true);
-                profileAddonsTabButton.setEnabled(true);
-                profileSettingsTabButton.setEnabled(true);
-
-                profilePlayTabButton.setVisible(true);
-                profileAccountTabButton.setVisible(true);
-                profileAddonsTabButton.setVisible(true);
-                profileSettingsTabButton.setVisible(true);
-
                 PageAnimation.animTo(profileHomePage);
                 actualPagePanel = profileHomePage;
 
@@ -205,18 +182,13 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
                  
                 corner.setVisible(true);
 
             } else {
                 profileNotSelected1.setEnabled(true);
                 profileNotSelected2.setEnabled(true);
-
-                profilePlayTabButton.setVisible(false);
-                profileAccountTabButton.setVisible(false);
-                profileAddonsTabButton.setVisible(false);
-                profileSettingsTabButton.setVisible(false);
 
                 profileHomePage.setVisible(false);
 
@@ -238,16 +210,6 @@ public class PageChange {
                     profileNotSelected2.setEnabled(true);
                 }
 
-                profilePlayTabButton.setEnabled(true);
-                profileAccountTabButton.setEnabled(true);
-                profileAddonsTabButton.setEnabled(true);
-                profileSettingsTabButton.setEnabled(true);
-
-                profilePlayTabButton.setVisible(true);
-                profileAccountTabButton.setVisible(true);
-                profileAddonsTabButton.setVisible(true);
-                profileSettingsTabButton.setVisible(true);
-
                 PageAnimation.animTo(profileWhitelistServersPage);
                 actualPagePanel = profileWhitelistServersPage;
 
@@ -255,15 +217,11 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                 corner.setVisible(true);
 
             } else {
-                profilePlayTabButton.setVisible(false);
-                profileAccountTabButton.setVisible(false);
-                profileAddonsTabButton.setVisible(false);
-                profileSettingsTabButton.setVisible(false);
 
                 profileWhitelistServersPage.setVisible(false);
             }
@@ -282,16 +240,6 @@ public class PageChange {
                     profileNotSelected2.setEnabled(true);
                 }
 
-                profilePlayTabButton.setEnabled(true);
-                profileAccountTabButton.setEnabled(false);
-                profileAddonsTabButton.setEnabled(true);
-                profileSettingsTabButton.setEnabled(true);
-
-                profilePlayTabButton.setVisible(true);
-                profileAccountTabButton.setVisible(true);
-                profileAddonsTabButton.setVisible(true);
-                profileSettingsTabButton.setVisible(true);
-
                 PageAnimation.animTo(profileAccountPage);
                 actualPagePanel = profileAccountPage;
 
@@ -304,15 +252,11 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                 corner.setVisible(true);
 
             } else {
-                profilePlayTabButton.setVisible(false);
-                profileAccountTabButton.setVisible(false);
-                profileAddonsTabButton.setVisible(false);
-                profileSettingsTabButton.setVisible(false);
 
                 profileAccountPage.setVisible(false);
             }
@@ -329,16 +273,6 @@ public class PageChange {
                     profileNotSelected1.setEnabled(true);
                     profileNotSelected2.setEnabled(true);
 
-                    profilePlayTabButton.setEnabled(true);
-                    profileAccountTabButton.setEnabled(true);
-                    profileAddonsTabButton.setEnabled(false);
-                    profileSettingsTabButton.setEnabled(true);
-
-                    profilePlayTabButton.setVisible(true);
-                    profileAccountTabButton.setVisible(true);
-                    profileAddonsTabButton.setVisible(true);
-                    profileSettingsTabButton.setVisible(true);
-
                     PageAnimation.animTo(profileAddonsModsPage);
                     actualPagePanel = profileAddonsModsPage;
 
@@ -346,14 +280,10 @@ public class PageChange {
 
                     LauncherSystemTray.changeTrayTooltip();
 
-                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                     corner.setVisible(true);
                 } else {
-                    profilePlayTabButton.setVisible(false);
-                    profileAccountTabButton.setVisible(false);
-                    profileAddonsTabButton.setVisible(false);
-                    profileSettingsTabButton.setVisible(false);
 
                     profileAddonsModsPage.setVisible(false);
                 }
@@ -367,16 +297,6 @@ public class PageChange {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
                     profileNotSelected2.setEnabled(true);
-
-                    profilePlayTabButton.setEnabled(true);
-                    profileAccountTabButton.setEnabled(true);
-                    profileAddonsTabButton.setEnabled(false);
-                    profileSettingsTabButton.setEnabled(true);
-
-                    profilePlayTabButton.setVisible(true);
-                    profileAccountTabButton.setVisible(true);
-                    profileAddonsTabButton.setVisible(true);
-                    profileSettingsTabButton.setVisible(true);
 
                     if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6.getSpecialTab4())) {
 
@@ -400,7 +320,7 @@ public class PageChange {
 
                     }
 
-                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                    background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                     corner.setVisible(false);
 
@@ -409,10 +329,6 @@ public class PageChange {
                     corner.setVisible(true);
 
                 } else {
-                    profilePlayTabButton.setVisible(false);
-                    profileAccountTabButton.setVisible(false);
-                    profileAddonsTabButton.setVisible(false);
-                    profileSettingsTabButton.setVisible(false);
 
                     profileAddonsModsPage.setVisible(false);
                     profileAddonsShadersPage.setVisible(false);
@@ -437,16 +353,6 @@ public class PageChange {
                 }
                 lastSettingsSaver = ProfileSaver.getSelectedSaver();
 
-                profilePlayTabButton.setEnabled(true);
-                profileAccountTabButton.setEnabled(true);
-                profileAddonsTabButton.setEnabled(true);
-                profileSettingsTabButton.setEnabled(false);
-
-                profilePlayTabButton.setVisible(true);
-                profileAccountTabButton.setVisible(true);
-                profileAddonsTabButton.setVisible(true);
-                profileSettingsTabButton.setVisible(true);
-
                 PageAnimation.animTo(profileSettingsPage);
                 actualPagePanel = profileSettingsPage;
 
@@ -454,7 +360,7 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
                 corner.setVisible(true);
 
@@ -490,11 +396,6 @@ public class PageChange {
                         PopUpMessages.yesNoMessage("Sauvegarder ?", "Voulez-vous          sauvegarder les         param\u00e8tres ?", yes, no);
                     }
                 }
-
-                profilePlayTabButton.setVisible(false);
-                profileAccountTabButton.setVisible(false);
-                profileAddonsTabButton.setVisible(false);
-                profileSettingsTabButton.setVisible(false);
 
                 profileSettingsPage.setVisible(false);
             }
@@ -541,7 +442,7 @@ public class PageChange {
             changelogsPage.versionComboBox.setSelectedIndex(i);
             changelogsPage.textArea.setText(Changelogs.getChangelogsTextsList()[i]);
 
-            background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+            background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
              
             corner.setVisible(true);
         }else {
@@ -568,10 +469,6 @@ public class PageChange {
 
                 leftMenuSelector.moveTo(aboutButton);
                 aboutButton.getButton().setEnabled(false);
-                aboutInfosTabButton.setEnabled(false);
-
-                aboutInfosTabButton.setVisible(true);
-                aboutModsTabButton.setVisible(true);
 
                 PageAnimation.animTo(aboutInfosPage);
                 aboutInfosPage.eastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
@@ -583,17 +480,14 @@ public class PageChange {
                 titleLabel.setText("\u00c0 propos");
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
                  
                 corner.setVisible(true);
             } else {
-                aboutInfosTabButton.setVisible(false);
-                aboutModsTabButton.setVisible(false);
 
                 aboutInfosPage.setVisible(false);
 
                 aboutButton.getButton().setEnabled(true);
-                aboutInfosTabButton.setEnabled(true);
             }
         } else if (Objects.equals(page.getTab2(), PageName.ABOUT_MODS.getTab2())) {
             if (enabled) {
@@ -602,13 +496,9 @@ public class PageChange {
                 setChangesPage(false);
                 setAboutPage(false, PageName.ABOUT_INFOS);
 
+                leftMenuSelector.moveTo(aboutButton);
                 aboutButton.setEnabled(false);
-                aboutModsTabButton.setEnabled(false);
 
-                aboutInfosTabButton.setVisible(true);
-                aboutModsTabButton.setVisible(true);
-
-                aboutModsPage.setServer(Launcher.ASTRAUWORLD_MC);
                 PageAnimation.animTo(aboutModsPage);
                 actualPagePanel = aboutModsPage;
 
@@ -616,14 +506,10 @@ public class PageChange {
 
                 LauncherSystemTray.changeTrayTooltip();
 
-                background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
             } else {
-                aboutInfosTabButton.setVisible(false);
-                aboutModsTabButton.setVisible(false);
-
                 aboutButton.getButton().setEnabled(true);
-                aboutModsTabButton.setEnabled(true);
             }
 
         } else {

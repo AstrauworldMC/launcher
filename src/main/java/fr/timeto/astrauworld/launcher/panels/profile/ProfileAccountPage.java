@@ -80,35 +80,35 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         textField.setBounds(39, 55, 395, 55);
         add(textField);
 
-        textFieldLabel.setForeground(Color.WHITE);
+        textFieldLabel.setForeground(Launcher.TEXT_COLOR);
         textFieldLabel.setFont(textField.getFont().deriveFont(20f));
-        textFieldLabel.setBounds(42, 13, 386, 60);
+        textFieldLabel.setBounds(42, 10, 386, 60);
         add(textFieldLabel);
 
         passwordField.setBounds(39, 149, 395, 55);
         add(passwordField);
 
-        passwordFieldLabel.setForeground(Color.WHITE);
+        passwordFieldLabel.setForeground(Launcher.TEXT_COLOR);
         passwordFieldLabel.setFont(textFieldLabel.getFont());
-        passwordFieldLabel.setBounds(42, 107, 386, 60);
+        passwordFieldLabel.setBounds(42, 104, 386, 60);
         add(passwordFieldLabel);
 
         infosLabel.setForeground(new Color(109, 109, 109));
-        infosLabel.setFont(CustomFonts.kollektifFont.deriveFont(16f));
-        infosLabel.setCaretColor(Color.RED);
-        infosLabel.setSelectionColor(new Color(255, 20, 20, 200));
+        infosLabel.setFont(CustomFonts.robotoMediumFont.deriveFont(14f));
+        infosLabel.setCaretColor(Launcher.MAIN_COLOR);
+        infosLabel.setSelectionColor(Launcher.MAIN_COLOR);
         infosLabel.setOpaque(false);
         infosLabel.setBorder(null);
         infosLabel.setEditable(false);
-        infosLabel.setBounds(10, 453, 800, 33);
+        infosLabel.setBounds(10, 450, 800, 40);
         add(infosLabel);
 
-        accountLabel.setBounds(380 - 178, 526 - 113, 276, 31);
-        accountLabel.setForeground(Color.WHITE);
-        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
+        accountLabel.setBounds(380 - 178, 523 - 113, 276, 31);
+        accountLabel.setForeground(Launcher.TEXT_COLOR);
+        accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
-        accountConnectedLabel.setBounds(198 - 178, 526 - 113, 191, 31);
+        accountConnectedLabel.setBounds(198 - 178, 523 - 113, 191, 31);
         accountConnectedLabel.setForeground(new Color(179, 179, 179));
         accountConnectedLabel.setFont(accountLabel.getFont());
         add(accountConnectedLabel);

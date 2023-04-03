@@ -1,5 +1,7 @@
 package fr.timeto.astrauworld.launcher.panels;
 
+import fr.timeto.astrauworld.launcher.main.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -86,11 +88,11 @@ public class Background {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
 
-                g2d.setColor(new Color(40, 40, 40));
+                g2d.setColor(Launcher.BASE_BACKGROUND);
                 g2d.fillRect(0, 0, 822, 517);
 
                 if (belowReliefRectangle) {
-                    g2d.setColor(new Color(33, 33, 33));
+                    g2d.setColor(Launcher.MID_BACKGROUND);
                     g2d.fillRect(0, 343, 822, 54);
                 }
 

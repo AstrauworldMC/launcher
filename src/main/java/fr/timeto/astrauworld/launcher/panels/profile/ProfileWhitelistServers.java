@@ -5,8 +5,10 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.ServerInfosFrame;
+import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import fr.timeto.astrauworld.launcher.pagesutilities.Server;
@@ -16,7 +18,6 @@ import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
 
-import java.awt.*;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
@@ -30,9 +31,6 @@ public class ProfileWhitelistServers extends PageCreator {
     public final WhitelistServer[] serversList = new WhitelistServer[] {
       server1, server2, server3, server4
     };
-
-    public final JLabel accountLabel = new JLabel("", SwingConstants.LEFT);
-    public final JLabel accountConnectedLabel = new JLabel("Connecté en tant que: ", SwingConstants.LEFT);
 
     public ProfileWhitelistServers() {
         super(PageName.PROFILE_WHITELIST_SERVERS, "Profil " + ProfileSaver.getSelectedProfile(), "Serveurs whitelist");
@@ -53,16 +51,6 @@ public class ProfileWhitelistServers extends PageCreator {
         add(server4);
         server4.setVisible(false);
 
-        accountLabel.setBounds(380 - 178, 577 - 113, 276, 31);
-        accountLabel.setForeground(Color.WHITE);
-        accountLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(17f));
-        this.add(accountLabel);
-
-        accountConnectedLabel.setBounds(198 - 178, 577 - 113, 191, 31);
-        accountConnectedLabel.setForeground(new Color(179, 179, 179));
-        accountConnectedLabel.setFont(accountLabel.getFont());
-        add(accountConnectedLabel);
-
         add(getBg().getPanel());
     }
 
@@ -77,15 +65,7 @@ public class ProfileWhitelistServers extends PageCreator {
                 i++;
             }
 
-            if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
-                accountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
-                accountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                LauncherPanel.enablePlayButtons(true);
-            } else {
-                accountLabel.setText("");
-                accountConnectedLabel.setText("Non connect\u00e9");
-                LauncherPanel.enablePlayButtons(false);
-            }
+            LauncherPanel.enablePlayButtons(!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), ""));
         } else {
             server1.setVisible(false);
             server2.setVisible(false);
@@ -105,6 +85,7 @@ public class ProfileWhitelistServers extends PageCreator {
     static class WhitelistServer extends JPanel implements SwingerEventListener {
         public final JLabel serverNameLabel = new JLabel("", SwingConstants.CENTER);
         public final STexturedButton serverInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/serverInfosButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/serverInfosButton-hover.png"));
+        public final STexturedButton modsListButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/modsList-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/modsList-hover.png"));
         public final STexturedButton playButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/playButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/playButton-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/playButton-disabled.png"));
 
         private Server actualServer = null;
@@ -112,14 +93,18 @@ public class ProfileWhitelistServers extends PageCreator {
             setLayout(null);
             setOpaque(false);
 
-            serverNameLabel.setForeground(Color.WHITE);
-            serverNameLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(25f));
+            serverNameLabel.setForeground(Launcher.TEXT_COLOR);
+            serverNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(25f));
             serverNameLabel.setBounds(15, 30, 380, 25);
             add(serverNameLabel);
 
-            serverInfosButton.setBounds(127, 98);
+            serverInfosButton.setBounds(64, 100);
             serverInfosButton.addEventListener(this);
             add(serverInfosButton);
+
+            modsListButton.setBounds(264, 100);
+            modsListButton.addEventListener(this);
+            add(modsListButton);
 
             playButton.setBounds(88, 173);
             playButton.addEventListener(this);
@@ -155,6 +140,9 @@ public class ProfileWhitelistServers extends PageCreator {
                     });
                     t.start();
                 }
+            } else if (src == modsListButton) {
+                LauncherPanel.Components.aboutModsPage.setServer(actualServer);
+                PageChange.setPage(true, PageName.ABOUT_MODS);
             }
 
         }

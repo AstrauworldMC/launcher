@@ -1,10 +1,11 @@
 package fr.timeto.astrauworld.launcher.panels;
 
 import fr.theshark34.swinger.Swinger;
-import fr.timeto.astrauworld.launcher.customelements.CustomScrollBarUI;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.timutilslib.CustomFonts;
+import fr.timeto.timutilslib.CustomScrollBarUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,15 +66,15 @@ public class NewsOpenPanel extends PageCreator {
         inside.add(imageLabel);
 
         titleLabel.setBounds(20, 220, 764, 30);
-        titleLabel.setFont(CustomFonts.kollektifBoldFont.deriveFont(22f));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
+        titleLabel.setForeground(Launcher.TEXT_COLOR);
         inside.add(titleLabel);
 
         textArea.setBounds(20, 260, 764, 1200);
     //    textArea.setContentType("text/html");
-        textArea.setFont(CustomFonts.kollektifFont.deriveFont(16f));
-        textArea.setForeground(Color.WHITE);
-        textArea.setSelectionColor(new Color(255, 20, 20, 200));
+        textArea.setFont(CustomFonts.robotoMediumFont.deriveFont(16f));
+        textArea.setForeground(Launcher.TEXT_COLOR);
+        textArea.setSelectionColor(Launcher.MAIN_COLOR);
         textArea.setOpaque(false);
         textArea.setEditable(false);
         inside.add(textArea);
@@ -102,7 +103,7 @@ public class NewsOpenPanel extends PageCreator {
         } */
         //    textArea.loadContent(news.getText(), "text/html");
 
-        background = getResourceIgnorePath("/assets/launcher/main/baseGUI -Vierge.png");
+        background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
         corner.setVisible(true);
     }

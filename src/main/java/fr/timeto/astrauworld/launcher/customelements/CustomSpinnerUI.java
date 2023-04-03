@@ -1,5 +1,7 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
+import fr.timeto.astrauworld.launcher.main.Launcher;
+
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicSpinnerUI;
@@ -28,7 +30,7 @@ public class CustomSpinnerUI extends BasicSpinnerUI {
         return new BasicArrowButton(direction,
                 new Color(40, 40, 40),
                 new Color(40, 40, 40),
-                Color.RED,
+                Launcher.MAIN_COLOR,
                 new Color(40, 40, 40));
     }
 }
