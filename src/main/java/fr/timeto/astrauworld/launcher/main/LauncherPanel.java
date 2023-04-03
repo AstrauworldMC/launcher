@@ -169,24 +169,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           public static final NewsOpenPanel newsOpenScrollPanel = new NewsOpenPanel();
 
           // Profiles components - up
-          /**
-           * Bouton d'onglet de la page principale des pages de profil
-           */
-          public static final STexturedButton profilePlayTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Jouer-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Jouer-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Jouer-selected.png"));
-          /**
-           * Bouton d'onglet de la page du compte des pages de profil
-           */
-          public static final STexturedButton profileAccountTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Compte-selected.png"));
-          /**
-           * Bouton d'onglet de la page des addons des pages de profil
-           */
-          public static final STexturedButton profileAddonsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Addons-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Addons-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Addons-selected.png"));
-          /**
-           * Bouton d'onglet de la page des paramètres des pages de profil
-           */
-          public static final STexturedButton profileSettingsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-hover.png"), getResourceIgnorePath("/assets/launcher/profilesPage/up/Reglages-selected.png"));
-
-
 
           public static final ProfileHomePage profileHomePage = new ProfileHomePage();
           public static final ProfileWhitelistServers profileWhitelistServersPage = new ProfileWhitelistServers();
@@ -202,16 +184,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           public static final ChangelogsPage changelogsPage = new ChangelogsPage();
 
           // About components - up
-          /**
-           * Le bouton de l'onglet de la page à propos - infos
-           * @since Beta2.1.2
-           */
-          public static final STexturedButton aboutInfosTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/infosTab-selected.png"));
-          /**
-           * Le bouton de l'onglet de la page à propos - addons
-           * @since Beta2.1.2
-           */
-          public static final STexturedButton aboutModsTabButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-normal.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-hover.png"), getResourceIgnorePath("/assets/launcher/aboutPage/up/modsTab-selected.png"));
           public static final AboutInfosPage aboutInfosPage = new AboutInfosPage();
           public static final AboutModsPage aboutModsPage = new AboutModsPage();
      }
@@ -346,26 +318,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           newsOpenScrollPanel.setVisible(false);
 
           // Profiles components
-          profilePlayTabButton.setBounds(178, 89);
-          profilePlayTabButton.addEventListener(this);
-     //     this.add(profilePlayTabButton);
-          profilePlayTabButton.setVisible(false);
-
-          profileAccountTabButton.setBounds(298, 89);
-          profileAccountTabButton.addEventListener(this);
-     //     this.add(profileAccountTabButton);
-          profileAccountTabButton.setVisible(false);
-
-          profileAddonsTabButton.setBounds(418, 89);
-          profileAddonsTabButton.addEventListener(this);
-     //     this.add(profileAddonsTabButton);
-          profileAddonsTabButton.setVisible(false);
-
-          profileSettingsTabButton.setBounds(538, 89);
-          profileSettingsTabButton.addEventListener(this);
-     //     this.add(profileSettingsTabButton);
-          profileSettingsTabButton.setVisible(false);
-
           profileHomePage.setBounds(0, 0);
           panel.add(profileHomePage);
           profileHomePage.setVisible(false);
@@ -407,16 +359,6 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           changelogsPage.setVisible(false);
 
           // About components
-          aboutInfosTabButton.setBounds(178, 89);
-          aboutInfosTabButton.addEventListener(this);
-     //     this.add(aboutInfosTabButton);
-          aboutInfosTabButton.setVisible(false);
-
-          aboutModsTabButton.setBounds(298, 89);
-          aboutModsTabButton.addEventListener(this);
-     //     this.add(aboutModsTabButton);
-          aboutModsTabButton.setVisible(false);
-
           aboutInfosPage.setBounds(0, 0);
           panel.add(aboutInfosPage);
           aboutInfosPage.setVisible(false);

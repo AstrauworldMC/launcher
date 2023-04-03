@@ -20,6 +20,13 @@ public class Changelogs {
      * @see Changelogs#text
      */
     private static class TEXTS {
+        public static final String BETA2_3_2 = """
+                - Rework des couleurs et de la police de caractère
+                - Boutons d'onglets dynamiques
+                - Listes de mods pour les serveurs whitelists
+                - Réglages de bugs
+                """;
+
         public static final String BETA2_3_1 =  "- Ajout des animations des pages (enfin)" + lineSep +
                                                 "- Composants basés Swing préconfigurés" + lineSep +
                                                 "- Support des actions visuelles dans la Taskbar" + lineSep +
@@ -88,6 +95,7 @@ public class Changelogs {
      * @since Beta2.1.2
      */
     private static final Changelogs[] changelogsList = {
+            new Changelogs("Beta2.3.2", Launcher.parseUnicode(TEXTS.BETA2_3_2)),
             new Changelogs("Beta2.3.1", Launcher.parseUnicode(TEXTS.BETA2_3_1)),
             new Changelogs("Beta2.3.0", Launcher.parseUnicode(TEXTS.BETA2_3_0)),
             new Changelogs("Beta2.2.5", Launcher.parseUnicode(TEXTS.BETA2_2_5)),

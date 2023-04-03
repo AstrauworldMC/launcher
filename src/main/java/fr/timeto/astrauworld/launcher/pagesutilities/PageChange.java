@@ -175,16 +175,6 @@ public class PageChange {
                     profileNotSelected2.setEnabled(true);
                 }
 
-                profilePlayTabButton.setEnabled(false);
-                profileAccountTabButton.setEnabled(true);
-                profileAddonsTabButton.setEnabled(true);
-                profileSettingsTabButton.setEnabled(true);
-
-                profilePlayTabButton.setVisible(true);
-                profileAccountTabButton.setVisible(true);
-                profileAddonsTabButton.setVisible(true);
-                profileSettingsTabButton.setVisible(true);
-
                 PageAnimation.animTo(profileHomePage);
                 actualPagePanel = profileHomePage;
 
@@ -199,11 +189,6 @@ public class PageChange {
             } else {
                 profileNotSelected1.setEnabled(true);
                 profileNotSelected2.setEnabled(true);
-
-                profilePlayTabButton.setVisible(false);
-                profileAccountTabButton.setVisible(false);
-                profileAddonsTabButton.setVisible(false);
-                profileSettingsTabButton.setVisible(false);
 
                 profileHomePage.setVisible(false);
 
@@ -225,16 +210,6 @@ public class PageChange {
                     profileNotSelected2.setEnabled(true);
                 }
 
-                profilePlayTabButton.setEnabled(true);
-                profileAccountTabButton.setEnabled(true);
-                profileAddonsTabButton.setEnabled(true);
-                profileSettingsTabButton.setEnabled(true);
-
-                profilePlayTabButton.setVisible(true);
-                profileAccountTabButton.setVisible(true);
-                profileAddonsTabButton.setVisible(true);
-                profileSettingsTabButton.setVisible(true);
-
                 PageAnimation.animTo(profileWhitelistServersPage);
                 actualPagePanel = profileWhitelistServersPage;
 
@@ -247,10 +222,6 @@ public class PageChange {
                 corner.setVisible(true);
 
             } else {
-                profilePlayTabButton.setVisible(false);
-                profileAccountTabButton.setVisible(false);
-                profileAddonsTabButton.setVisible(false);
-                profileSettingsTabButton.setVisible(false);
 
                 profileWhitelistServersPage.setVisible(false);
             }
@@ -269,16 +240,6 @@ public class PageChange {
                     profileNotSelected2.setEnabled(true);
                 }
 
-                profilePlayTabButton.setEnabled(true);
-                profileAccountTabButton.setEnabled(false);
-                profileAddonsTabButton.setEnabled(true);
-                profileSettingsTabButton.setEnabled(true);
-
-                profilePlayTabButton.setVisible(true);
-                profileAccountTabButton.setVisible(true);
-                profileAddonsTabButton.setVisible(true);
-                profileSettingsTabButton.setVisible(true);
-
                 PageAnimation.animTo(profileAccountPage);
                 actualPagePanel = profileAccountPage;
 
@@ -296,10 +257,6 @@ public class PageChange {
                 corner.setVisible(true);
 
             } else {
-                profilePlayTabButton.setVisible(false);
-                profileAccountTabButton.setVisible(false);
-                profileAddonsTabButton.setVisible(false);
-                profileSettingsTabButton.setVisible(false);
 
                 profileAccountPage.setVisible(false);
             }
@@ -316,16 +273,6 @@ public class PageChange {
                     profileNotSelected1.setEnabled(true);
                     profileNotSelected2.setEnabled(true);
 
-                    profilePlayTabButton.setEnabled(true);
-                    profileAccountTabButton.setEnabled(true);
-                    profileAddonsTabButton.setEnabled(false);
-                    profileSettingsTabButton.setEnabled(true);
-
-                    profilePlayTabButton.setVisible(true);
-                    profileAccountTabButton.setVisible(true);
-                    profileAddonsTabButton.setVisible(true);
-                    profileSettingsTabButton.setVisible(true);
-
                     PageAnimation.animTo(profileAddonsModsPage);
                     actualPagePanel = profileAddonsModsPage;
 
@@ -337,10 +284,6 @@ public class PageChange {
 
                     corner.setVisible(true);
                 } else {
-                    profilePlayTabButton.setVisible(false);
-                    profileAccountTabButton.setVisible(false);
-                    profileAddonsTabButton.setVisible(false);
-                    profileSettingsTabButton.setVisible(false);
 
                     profileAddonsModsPage.setVisible(false);
                 }
@@ -354,16 +297,6 @@ public class PageChange {
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
                     profileNotSelected2.setEnabled(true);
-
-                    profilePlayTabButton.setEnabled(true);
-                    profileAccountTabButton.setEnabled(true);
-                    profileAddonsTabButton.setEnabled(false);
-                    profileSettingsTabButton.setEnabled(true);
-
-                    profilePlayTabButton.setVisible(true);
-                    profileAccountTabButton.setVisible(true);
-                    profileAddonsTabButton.setVisible(true);
-                    profileSettingsTabButton.setVisible(true);
 
                     if (page.getSpecialTab4().contains(PageName.PROFILE_ADDONS_SHADERS_CHOCAPICV6.getSpecialTab4())) {
 
@@ -396,10 +329,6 @@ public class PageChange {
                     corner.setVisible(true);
 
                 } else {
-                    profilePlayTabButton.setVisible(false);
-                    profileAccountTabButton.setVisible(false);
-                    profileAddonsTabButton.setVisible(false);
-                    profileSettingsTabButton.setVisible(false);
 
                     profileAddonsModsPage.setVisible(false);
                     profileAddonsShadersPage.setVisible(false);
@@ -423,16 +352,6 @@ public class PageChange {
                     profileNotSelected2.setEnabled(true);
                 }
                 lastSettingsSaver = ProfileSaver.getSelectedSaver();
-
-                profilePlayTabButton.setEnabled(true);
-                profileAccountTabButton.setEnabled(true);
-                profileAddonsTabButton.setEnabled(true);
-                profileSettingsTabButton.setEnabled(false);
-
-                profilePlayTabButton.setVisible(true);
-                profileAccountTabButton.setVisible(true);
-                profileAddonsTabButton.setVisible(true);
-                profileSettingsTabButton.setVisible(true);
 
                 PageAnimation.animTo(profileSettingsPage);
                 actualPagePanel = profileSettingsPage;
@@ -477,11 +396,6 @@ public class PageChange {
                         PopUpMessages.yesNoMessage("Sauvegarder ?", "Voulez-vous          sauvegarder les         param\u00e8tres ?", yes, no);
                     }
                 }
-
-                profilePlayTabButton.setVisible(false);
-                profileAccountTabButton.setVisible(false);
-                profileAddonsTabButton.setVisible(false);
-                profileSettingsTabButton.setVisible(false);
 
                 profileSettingsPage.setVisible(false);
             }
@@ -555,10 +469,6 @@ public class PageChange {
 
                 leftMenuSelector.moveTo(aboutButton);
                 aboutButton.getButton().setEnabled(false);
-                aboutInfosTabButton.setEnabled(false);
-
-                aboutInfosTabButton.setVisible(true);
-                aboutModsTabButton.setVisible(true);
 
                 PageAnimation.animTo(aboutInfosPage);
                 aboutInfosPage.eastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
@@ -574,13 +484,10 @@ public class PageChange {
                  
                 corner.setVisible(true);
             } else {
-                aboutInfosTabButton.setVisible(false);
-                aboutModsTabButton.setVisible(false);
 
                 aboutInfosPage.setVisible(false);
 
                 aboutButton.getButton().setEnabled(true);
-                aboutInfosTabButton.setEnabled(true);
             }
         } else if (Objects.equals(page.getTab2(), PageName.ABOUT_MODS.getTab2())) {
             if (enabled) {
@@ -591,10 +498,6 @@ public class PageChange {
 
                 leftMenuSelector.moveTo(aboutButton);
                 aboutButton.setEnabled(false);
-                aboutModsTabButton.setEnabled(false);
-
-                aboutInfosTabButton.setVisible(true);
-                aboutModsTabButton.setVisible(true);
 
                 PageAnimation.animTo(aboutModsPage);
                 actualPagePanel = aboutModsPage;
@@ -606,11 +509,7 @@ public class PageChange {
                 background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
 
             } else {
-                aboutInfosTabButton.setVisible(false);
-                aboutModsTabButton.setVisible(false);
-
                 aboutButton.getButton().setEnabled(true);
-                aboutModsTabButton.setEnabled(true);
             }
 
         } else {
