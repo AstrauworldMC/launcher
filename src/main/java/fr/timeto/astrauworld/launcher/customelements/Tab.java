@@ -63,7 +63,7 @@ public class Tab extends JPanel implements SwingerEventListener {
         if (numberCharacters <= 15) {
             rct.setSize((int) getStringSize(label, name).getWidth() + 38, (int) rct.getHeight());
         } else {
-            String newName = name.substring(0, 6) + "..." + name.substring(name.length()-6, name.length());
+            String newName = name.substring(0, 6) + "..." + name.substring(name.length()-6);
             this.name = newName;
             rct.setSize((int) getStringSize(label, newName).getWidth() + 38, (int) rct.getHeight());
         }
@@ -86,6 +86,11 @@ public class Tab extends JPanel implements SwingerEventListener {
 
     public PageName getLinkedPage() {
         return page;
+    }
+
+    @Override
+    public void setEnabled(boolean e) {
+        button.setEnabled(e);
     }
 
     @Override

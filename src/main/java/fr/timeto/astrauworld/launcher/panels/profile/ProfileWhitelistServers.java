@@ -17,7 +17,6 @@ import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
 
-import java.awt.*;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
@@ -31,9 +30,6 @@ public class ProfileWhitelistServers extends PageCreator {
     public final WhitelistServer[] serversList = new WhitelistServer[] {
       server1, server2, server3, server4
     };
-
-    public final JLabel accountLabel = new JLabel("", SwingConstants.LEFT);
-    public final JLabel accountConnectedLabel = new JLabel("Connecté en tant que: ", SwingConstants.LEFT);
 
     public ProfileWhitelistServers() {
         super(PageName.PROFILE_WHITELIST_SERVERS, "Profil " + ProfileSaver.getSelectedProfile(), "Serveurs whitelist");
@@ -54,16 +50,6 @@ public class ProfileWhitelistServers extends PageCreator {
         add(server4);
         server4.setVisible(false);
 
-        accountLabel.setBounds(380 - 178, 574 - 113, 276, 31);
-        accountLabel.setForeground(Launcher.TEXT_COLOR);
-        accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
-        this.add(accountLabel);
-
-        accountConnectedLabel.setBounds(198 - 178, 574 - 113, 191, 31);
-        accountConnectedLabel.setForeground(new Color(179, 179, 179));
-        accountConnectedLabel.setFont(accountLabel.getFont());
-        add(accountConnectedLabel);
-
         add(getBg().getPanel());
     }
 
@@ -78,15 +64,7 @@ public class ProfileWhitelistServers extends PageCreator {
                 i++;
             }
 
-            if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
-                accountLabel.setText(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()));
-                accountConnectedLabel.setText("Connect\u00e9 en tant que: ");
-                LauncherPanel.enablePlayButtons(true);
-            } else {
-                accountLabel.setText("");
-                accountConnectedLabel.setText("Non connect\u00e9");
-                LauncherPanel.enablePlayButtons(false);
-            }
+            LauncherPanel.enablePlayButtons(!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), ""));
         } else {
             server1.setVisible(false);
             server2.setVisible(false);

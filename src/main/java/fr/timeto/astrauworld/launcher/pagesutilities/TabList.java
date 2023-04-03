@@ -52,6 +52,17 @@ public class TabList extends ArrayList<Tab> {
         }
     }
 
+    public void setSelected(Tab tab) {
+        if (!this.isEmpty()) {
+            Tab[] tabs = this.toArray(new Tab[0]);
+            int i = 0;
+            while (i != tabs.length) {
+                tabs[i].setEnabled(tabs[i] != tab);
+                i++;
+            }
+        }
+    }
+
     @Override
     public boolean add(Tab tab) {
         if (!isInit) {

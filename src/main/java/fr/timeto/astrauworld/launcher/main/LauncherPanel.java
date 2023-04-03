@@ -225,15 +225,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           WhitelistServers.registerServers();
 
-     /*     testPageCreator.setBounds(178, 113);
-          this.add(testPageCreator); */
-
           // Common components
-
-          Tab testTab = new Tab("Test", PageName.NEWS);
-          testTab.setLocation(500, 0);
-          add(testTab);
-
           tabManager.setLocation(178, 89);
           add(tabManager);
 

@@ -21,6 +21,7 @@ public class AWSpinner extends JSpinner {
         getEditor().setBackground(Launcher.LIGHTER_GREY);
         ((JSpinner.NumberEditor)getEditor()).getTextField().setOpaque(false);
         ((JSpinner.NumberEditor)getEditor()).getTextField().setForeground(Launcher.TEXT_COLOR);
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setCaretColor(Launcher.MAIN_COLOR);
         ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectionColor(Launcher.MAIN_COLOR);
         ((JSpinner.NumberEditor)getEditor()).getTextField().setBorder(new EmptyBorder(2, 0, 0, 4));
     }
