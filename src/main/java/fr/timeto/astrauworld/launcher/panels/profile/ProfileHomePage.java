@@ -94,7 +94,7 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
         diapoPanel.add(diapoImage2);
 
         accountLabel.setBounds(374 - 178, 467 - 113, 276, 31);
-        accountLabel.setForeground(Launcher.TEXT_COLOR);
+        accountLabel.setForeground(Launcher.getTextColor());
         accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
@@ -106,6 +106,12 @@ public class ProfileHomePage extends PageCreator implements SwingerEventListener
         add(getBg().getPanel());
     }
 
+    @Override
+    public void recolor() {
+        accountLabel.setForeground(Launcher.getTextColor());
+    }
+
+    @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setTitle("Profil " + ProfileSaver.getSelectedProfile());

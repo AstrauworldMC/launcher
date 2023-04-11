@@ -123,7 +123,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            * @see Components#percentLabel
            * @see Components#infosLabel
            */
-          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.MAIN_COLOR){
+          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.getMainColor()){
                @Override
                public void setVisible(boolean aFlag) {
                     super.setVisible(aFlag);
@@ -262,27 +262,27 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(aboutButton);
 
           titleLabel.setBounds(190, 56, 809, 23);
-          titleLabel.setForeground(Launcher.TEXT_COLOR);
+          titleLabel.setForeground(Launcher.getTextColor());
           titleLabel.setFont(robotoBlackFont.deriveFont(20f));
           this.add(titleLabel);
 
           subTitleLabel.setBounds(190, 33, 809, 23);
-          subTitleLabel.setForeground(Launcher.TEXT_COLOR);
+          subTitleLabel.setForeground(Launcher.getTextColor());
           subTitleLabel.setFont(titleLabel.getFont().deriveFont(16f));
           this.add(subTitleLabel);
 
           barLabel.setBounds(181, 610, 269, 16);
-          barLabel.setForeground(Launcher.TEXT_COLOR);
+          barLabel.setForeground(Launcher.getTextColor());
           barLabel.setFont(robotoMediumFont.deriveFont(10f));
           this.add(barLabel);
 
           percentLabel.setBounds(920, 611, 70, 16);
-          percentLabel.setForeground(Launcher.TEXT_COLOR);
+          percentLabel.setForeground(Launcher.getTextColor());
           percentLabel.setFont(barLabel.getFont());
           this.add(percentLabel);
 
           infosLabel.setBounds(460, 611, 255, 16);
-          infosLabel.setForeground(Launcher.TEXT_COLOR);
+          infosLabel.setForeground(Launcher.getTextColor());
           infosLabel.setFont(barLabel.getFont());
           this.add(infosLabel);
 
@@ -293,7 +293,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           launcherVersionLabel.setBounds(9, 39, 150, 50);
           launcherVersionLabel.setForeground(new Color(100, 100, 100));
           launcherVersionLabel.setFont(robotoBlackFont.deriveFont(14f));
-          launcherVersionLabel.setSelectionColor(Launcher.MAIN_COLOR);
+          launcherVersionLabel.setSelectionColor(Launcher.getMainColor());
           launcherVersionLabel.setOpaque(false);
           launcherVersionLabel.setEditable(false);
           this.add(launcherVersionLabel);
@@ -384,6 +384,50 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                profileHomePage.enablePlayButtons(e);
                profileWhitelistServersPage.enablePlayButtons(e);
           }
+     }
+
+     public void recolor() {
+          loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.getMainColor()){
+               @Override
+               public void setVisible(boolean aFlag) {
+                    super.setVisible(aFlag);
+                    if (aFlag) {
+                         profileHomePage.newsButton.setLocation(profileHomePage.newsButton.getX(), 462);
+                    } else {
+                         profileHomePage.newsButton.setLocation(profileHomePage.newsButton.getX(), 465);
+                    }
+               }
+          };
+
+          tabManager.recolor();
+          leftMenuSelector.recolor();
+          newsButton.recolor();
+          changesButton.recolor();
+          aboutButton.recolor();
+          titleLabel.setForeground(Launcher.getTextColor());
+          subTitleLabel.setForeground(Launcher.getTextColor());
+          barLabel.setForeground(Launcher.getTextColor());
+          percentLabel.setForeground(Launcher.getTextColor());
+          infosLabel.setForeground(Launcher.getTextColor());
+          launcherVersionLabel.setSelectionColor(Launcher.getMainColor());
+
+          newsScrollPanel.recolor();
+          newsOpenScrollPanel.recolor();
+
+          profileHomePage.recolor();
+          profileWhitelistServersPage.recolor();
+          profileAccountPage.recolor();
+          profileAddonsModsPage.recolor();
+          profileAddonsShadersPage.recolor();
+          profileAddonsShadersChocapicv6Page.recolor();
+          profileAddonsShadersChocapicv7Page.recolor();
+          profileAddonsShadersChocapicv9Page.recolor();
+          profileSettingsPage.recolor();
+
+          changelogsPage.recolor();
+
+          aboutInfosPage.recolor();
+          aboutModsPage.recolor();
      }
 
      /**

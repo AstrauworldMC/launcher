@@ -67,20 +67,26 @@ public class NewsOpenPanel extends PageCreator {
 
         titleLabel.setBounds(20, 220, 764, 30);
         titleLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        titleLabel.setForeground(Launcher.TEXT_COLOR);
+        titleLabel.setForeground(Launcher.getTextColor());
         inside.add(titleLabel);
 
         textArea.setBounds(20, 260, 764, 1200);
     //    textArea.setContentType("text/html");
         textArea.setFont(CustomFonts.robotoMediumFont.deriveFont(16f));
-        textArea.setForeground(Launcher.TEXT_COLOR);
-        textArea.setSelectionColor(Launcher.MAIN_COLOR);
+        textArea.setForeground(Launcher.getTextColor());
+        textArea.setSelectionColor(Launcher.getMainColor());
         textArea.setOpaque(false);
         textArea.setEditable(false);
         inside.add(textArea);
 
         add(getBg().getPanel());
+    }
 
+    @Override
+    public void recolor() {
+        titleLabel.setForeground(Launcher.getTextColor());
+        textArea.setForeground(Launcher.getTextColor());
+        textArea.setSelectionColor(Launcher.getMainColor());
     }
 
     public void setNewsPage(News news) {

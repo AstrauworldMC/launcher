@@ -15,9 +15,17 @@ public class AWComboBox<E> extends JComboBox<E> {
         super(array);
 
         setFont(CustomFonts.robotoMediumFont.deriveFont(14f));
-        setForeground(Launcher.TEXT_COLOR);
+        setForeground(Launcher.getTextColor());
         setBackground(Launcher.LIGHTER_GREY);
         setEditable(true);
+        setRenderer(new CustomComboBoxRenderer());
+        setEditor(new CustomComboBoxEditor());
+        setUI(ColorArrowComboBoxUI.createUI(this));
+        setBorder(null);
+    }
+
+    public void recolor() {
+        setForeground(Launcher.getTextColor());
         setRenderer(new CustomComboBoxRenderer());
         setEditor(new CustomComboBoxEditor());
         setUI(ColorArrowComboBoxUI.createUI(this));

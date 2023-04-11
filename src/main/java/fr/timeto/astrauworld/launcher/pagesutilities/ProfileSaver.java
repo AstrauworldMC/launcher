@@ -5,6 +5,7 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.customelements.ShadersSwitchButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -126,6 +127,38 @@ public class ProfileSaver {
         return globalSettingsSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get());
     }
 
+    public static void setFileMainColor(Color color) {
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        globalSettingsSaver.set(KEY.GLOBALSETTINGS_MAINCOLOR.get(), r + "-" + g + "-" + b);
+    }
+
+    public static Color getFileMainColor() {
+        String[] split = globalSettingsSaver.get(KEY.GLOBALSETTINGS_MAINCOLOR.get()).split("-");
+        int r = Integer.parseInt(split[0]);
+        int g = Integer.parseInt(split[1]);
+        int b = Integer.parseInt(split[2]);
+
+        return new Color(r, g, b);
+    }
+
+    public static void setFileTextColor(Color color) {
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        globalSettingsSaver.set(KEY.GLOBALSETTINGS_TEXTCOLOR.get(), r + "-" + g + "-" + b);
+    }
+
+    public static Color getFileTextColor() {
+        String[] split = globalSettingsSaver.get(KEY.GLOBALSETTINGS_TEXTCOLOR.get()).split("-");
+        int r = Integer.parseInt(split[0]);
+        int g = Integer.parseInt(split[1]);
+        int b = Integer.parseInt(split[2]);
+
+        return new Color(r, g, b);
+    }
+
     /**
      * Initialise le fichier de données du profil sélectionné s'il n'a pas déjà été créé
      * @param saver Le profil sélectionné
@@ -196,7 +229,9 @@ public class ProfileSaver {
 
     public static void initializeGlobalDataFile() {
         KEY[] keysList = new KEY[]{
-                KEY.GLOBALSETTINGS_MAINPROFILE
+                KEY.GLOBALSETTINGS_MAINPROFILE,
+                KEY.GLOBALSETTINGS_MAINCOLOR,
+                KEY.GLOBALSETTINGS_TEXTCOLOR
         };
 
         int i = 0;
@@ -214,7 +249,9 @@ public class ProfileSaver {
 
     public static void resetGlobalDataFile() {
         KEY[] keysList = new KEY[]{
-                KEY.GLOBALSETTINGS_MAINPROFILE
+                KEY.GLOBALSETTINGS_MAINPROFILE,
+                KEY.GLOBALSETTINGS_MAINCOLOR,
+                KEY.GLOBALSETTINGS_TEXTCOLOR
         };
 
         int i = 0;
@@ -280,30 +317,40 @@ public class ProfileSaver {
      */
     public static void initProfileIcon(Saver saver) throws IOException {
         String url;
-        if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("")) {
-            url = "https://user-images.githubusercontent.com/97166376/214735612-abc155df-6535-4852-aad5-cd97901f5e86.png";
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("frisk")) {
-            url = "https://user-images.githubusercontent.com/97166376/209479948-9077d6d4-1254-4423-914b-d8b7ecf895d0.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.friskName);
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("chara")) {
-            url = "https://user-images.githubusercontent.com/97166376/209479945-0b181aaa-f3bd-436c-8274-83f68302c93e.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.charaName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
-            url = "https://user-images.githubusercontent.com/97166376/214740385-07f6ded5-fdca-44b9-87ae-bd0446557c7f.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.asrielName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
-            url = "https://user-images.githubusercontent.com/97166376/214734249-9d5e1055-c68f-4ee3-8d93-1a19b37c9410.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.trueAsrielName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
-            url = "https://user-images.githubusercontent.com/97166376/209479944-e76fbf8f-6aba-462f-afc5-08829af3f9c8.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.floweyName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
-            url = "https://user-images.githubusercontent.com/97166376/209480184-79318022-8ba0-46c9-9773-504a63c2ee47.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
-        } else if (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true")) {
-            url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID.get()) + "/35.png";
+
+        if (EasterEggs.isOmoriCharacter(saver.get(KEY.SETTINGS_PROFILENAME.get()))) {
+            if (Boolean.parseBoolean(saver.get(KEY.SETTINGS_HELMICON.get()))) {
+                url = EasterEggs.getOmoriIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
+            } else {
+                url = EasterEggs.getOmoriDreamIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
+            }
+
         } else {
-            url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID.get()) + "/35.png";
+            if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("")) {
+                url = "http://www.astrauworld.be:3001/eastereggs/dirtTexture34.png";
+            } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("frisk")) {
+                url = "http://www.astrauworld.be:3001/eastereggs/frisk34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.friskName);
+            } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("chara")) {
+                url = "http://www.astrauworld.be:3001/eastereggs/chara34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.charaName);
+            } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
+                url = "http://www.astrauworld.be:3001/eastereggs/asriel34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.asrielName);
+            } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
+                url = "http://www.astrauworld.be:3001/eastereggs/trueAsriel34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.trueAsrielName);
+            } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
+                url = "http://www.astrauworld.be:3001/eastereggs/flowey34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.floweyName);
+            } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
+                url = "http://www.astrauworld.be:3001/eastereggs/cursedflowey34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
+            } else if (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true")) {
+                url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID.get()) + "/34.png";
+            } else {
+                url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID.get()) + "/34.png";
+            }
         }
 
         if (saver == firstProfileSaver) {
@@ -717,7 +764,10 @@ public class ProfileSaver {
          * La RAM allouée
          */
         SETTINGS_RAM("settings|AllowedRam", "3.0"),
-        GLOBALSETTINGS_MAINPROFILE("settings|MainProfile", "1");
+
+        GLOBALSETTINGS_MAINPROFILE("settings|MainProfile", "1"),
+        GLOBALSETTINGS_MAINCOLOR("settings|mainColor", "255-0-0"),
+        GLOBALSETTINGS_TEXTCOLOR("settings|textColor", "255-255-255");
 
         private final String key;
         private final String defaultValue;

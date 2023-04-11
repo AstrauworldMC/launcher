@@ -54,6 +54,15 @@ public class ProfileWhitelistServers extends PageCreator {
         add(getBg().getPanel());
     }
 
+    @Override
+    public void recolor() {
+        server1.recolor();
+        server2.recolor();
+        server3.recolor();
+        server4.recolor();
+    }
+
+    @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setTitle("Profil " + ProfileSaver.getSelectedProfile());
@@ -93,7 +102,7 @@ public class ProfileWhitelistServers extends PageCreator {
             setLayout(null);
             setOpaque(false);
 
-            serverNameLabel.setForeground(Launcher.TEXT_COLOR);
+            serverNameLabel.setForeground(Launcher.getTextColor());
             serverNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(25f));
             serverNameLabel.setBounds(15, 30, 380, 25);
             add(serverNameLabel);
@@ -114,6 +123,10 @@ public class ProfileWhitelistServers extends PageCreator {
         public void setServer(Server server) {
             actualServer = server;
             serverNameLabel.setText(server.getServerName());
+        }
+
+        public void recolor() {
+            serverNameLabel.setForeground(Launcher.getTextColor());
         }
 
         @Override

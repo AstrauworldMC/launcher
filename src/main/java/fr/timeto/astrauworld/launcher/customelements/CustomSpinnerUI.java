@@ -30,7 +30,7 @@ public class CustomSpinnerUI extends BasicSpinnerUI {
         return new BasicArrowButton(direction,
                 new Color(40, 40, 40),
                 new Color(40, 40, 40),
-                Launcher.MAIN_COLOR,
+                Launcher.getMainColor(),
                 new Color(40, 40, 40));
     }
 }

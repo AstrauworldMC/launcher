@@ -47,8 +47,34 @@ public class Launcher {
     public static final Color MID_BACKGROUND = new Color(9, 9, 9);
     public static final Color BASE_BACKGROUND = new Color(18, 18, 18);
     public static final Color LIGHTER_GREY = new Color(30, 30, 30);
-    public static final Color MAIN_COLOR = Color.RED;
-    public static final Color TEXT_COLOR = Color.WHITE;
+    private static Color MAIN_COLOR = Color.RED;
+    private static Color TEXT_COLOR = Color.WHITE;
+
+    public static Color getMainColor() {
+        return MAIN_COLOR;
+    }
+
+    public static void setMainColor(Color color) {
+        MAIN_COLOR = color;
+        try {
+            LauncherPanel container = (LauncherPanel) LauncherFrame.getInstance().getContentPane();
+            container.recolor();
+        } catch (ClassCastException | NullPointerException ignored) {}
+        ProfileSaver.setFileMainColor(color);
+    }
+
+    public static Color getTextColor() {
+        return TEXT_COLOR;
+    }
+
+    public static void setTextColor(Color color) {
+        TEXT_COLOR = color;
+        try {
+            LauncherPanel container = (LauncherPanel) LauncherFrame.getInstance().getContentPane();
+            container.recolor();
+        } catch (ClassCastException | NullPointerException ignored) {}
+        ProfileSaver.setFileTextColor(color);
+    }
 
     public static final String separatorChar = File.separator;
 

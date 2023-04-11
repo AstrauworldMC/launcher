@@ -57,6 +57,17 @@ public class TabManager extends JPanel {
 
     }
 
+    public void recolor() {
+        selector.recolor();
+
+        int i = 0;
+        TabList[] array = tabs.toArray(new TabList[0]);
+        while (i != array.length) {
+            array[i].recolor();
+            i++;
+        }
+    }
+
     public void displayGoodTabs() {
         TabList[] array = tabs.toArray(new TabList[0]);
         TabList wanted = null;
@@ -217,8 +228,12 @@ public class TabManager extends JPanel {
     static class Selector extends JPanel {
 
         public Selector() {
-            setBackground(Launcher.MAIN_COLOR);
+            setBackground(Launcher.getMainColor());
             setBounds(0, 23, 100, 2);
+        }
+
+        public void recolor() {
+            setBackground(Launcher.getMainColor());
         }
 
         private Thread moveThread = new Thread();

@@ -27,6 +27,17 @@ public class TabList extends ArrayList<Tab> {
         return exemplePage;
     }
 
+    public void recolor() {
+        if (!isEmpty()) {
+            int i = 0;
+            Tab[] tabs = this.toArray(new Tab[0]);
+            while (i != tabs.length) {
+                tabs[i].recolor();
+                i++;
+            }
+        }
+    }
+
     public void arrangeTabPanels() {
         if (!this.isEmpty()) {
             Tab[] tabs = this.toArray(new Tab[0]);

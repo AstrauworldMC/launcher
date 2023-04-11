@@ -67,6 +67,9 @@ public class Main {
             Launcher.println("[Lancement] Initialisation des fichiers de données");
             initializeDataFiles();
 
+            Launcher.setMainColor(ProfileSaver.getFileMainColor());
+            Launcher.setTextColor(ProfileSaver.getFileTextColor());
+
             if (firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME.get()).toLowerCase().replaceAll(" ", "").equals("no")) {
                 firstProfileSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME.get(), "Vide");
                 firstProfileSaver.set(ProfileSaver.KEY.INFOS_NAME.get(), "");

@@ -57,7 +57,7 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
 
         shaderNameLabel.setBounds(0, 13, 280, 24);
         shaderNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        shaderNameLabel.setForeground(Launcher.TEXT_COLOR);
+        shaderNameLabel.setForeground(Launcher.getTextColor());
         add(shaderNameLabel);
     }
 
@@ -84,9 +84,13 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
 
         shaderNameLabel.setBounds(0, 18, 280, 24);
         shaderNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        shaderNameLabel.setForeground(Launcher.TEXT_COLOR);
+        shaderNameLabel.setForeground(Launcher.getTextColor());
         add(shaderNameLabel);
 
+    }
+
+    public void recolor() {
+        shaderNameLabel.setForeground(Launcher.getTextColor());
     }
 
     public void defineTextures() {

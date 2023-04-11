@@ -68,4 +68,6 @@ public class PageCreator extends JPanel {
         this.subtitle = subtitle;
     }
 
+    public void recolor() {}
+
 }

@@ -90,7 +90,7 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
         optifineSwitchButton.addEventListener(this);
         add(optifineSwitchButton);
 
-        optifineLabel.setForeground(Launcher.TEXT_COLOR);
+        optifineLabel.setForeground(Launcher.getTextColor());
         optifineLabel.setFont(modsFpsmodelPanel.getNameLabel().getFont().deriveFont(24f));
         optifineLabel.setBounds(89, 22, 91, 24);
         add(optifineLabel);
@@ -245,11 +245,11 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
             optifineNeededLabel.setForeground(new Color(109, 109, 109));
             optifineNeededLabel.setFont(CustomFonts.robotoMediumFont.deriveFont(16f));
             optifineNeededLabel.setBounds(6, 46, 210, 30);
-            optifineNeededLabel.setCaretColor(Launcher.MAIN_COLOR);
+            optifineNeededLabel.setCaretColor(Launcher.getMainColor());
             optifineNeededLabel.setBorder(null);
             optifineNeededLabel.setOpaque(false);
             optifineNeededLabel.setAlignmentX(SwingConstants.RIGHT);
-            optifineNeededLabel.setSelectionColor(Launcher.MAIN_COLOR);
+            optifineNeededLabel.setSelectionColor(Launcher.getMainColor());
             optifineNeededLabel.setEditable(false);
             add(optifineNeededLabel);
 
@@ -259,7 +259,7 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
         }
 
         accountLabel.setBounds(380 - 178, 574 - 113, 276, 31);
-        accountLabel.setForeground(Launcher.TEXT_COLOR);
+        accountLabel.setForeground(Launcher.getTextColor());
         accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
@@ -271,6 +271,15 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
         add(bg.getPanel());
     }
 
+    @Override
+    public void recolor() {
+        optifineLabel.setForeground(Launcher.getTextColor());
+        optifineNeededLabel.setCaretColor(Launcher.getMainColor());
+        optifineNeededLabel.setSelectionColor(Launcher.getMainColor());
+        accountLabel.setForeground(Launcher.getTextColor());
+    }
+
+    @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setTitle("Profil " + getSelectedProfile());
