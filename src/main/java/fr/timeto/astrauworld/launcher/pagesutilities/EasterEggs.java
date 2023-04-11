@@ -76,8 +76,21 @@ public class EasterEggs {
      */
     public static final String cursedFloweyName = "CursedFloweyProfileName";
 
+    public static final String aubreyName = "AubreyProfileName";
+    public static final String aubreyDreamName = "AubreyDreamProfileName";
+    public static final String basilName = "BasilProfileName";
+    public static final String basilDreamName = "BasilDreamProfileName";
+    public static final String heroName = "HeroProfileName";
+    public static final String heroDreamName = "HeroDreamProfileName";
+    public static final String kelName = "KelProfileName";
+    public static final String kelDreamName = "KelDreamProfileName";
+    public static final String mariName = "MariProfileName";
+    public static final String mariDreamName = "MariDreamProfileName";
+    public static final String sunnyName = "SunnyProfileName";
+    public static final String omoriDreamName = "OmoriProfileName";
     public static final String blackSpace = "BlackSpace";
     public static final String blackSpaceStab = "BlackSpaceStab";
+
 
     /**
      * @see Launcher#dataFolder
@@ -112,7 +125,19 @@ public class EasterEggs {
             floweyName,
             cursedFloweyName,
             blackSpace,
-            blackSpaceStab
+            blackSpaceStab,
+            aubreyName,
+            aubreyDreamName,
+            basilName,
+            basilDreamName,
+            heroName,
+            heroDreamName,
+            kelName,
+            kelDreamName,
+            mariName,
+            mariDreamName,
+            sunnyName,
+            omoriDreamName
     };
 
     /**
@@ -127,10 +152,8 @@ public class EasterEggs {
         while (i != l) {
             if (!Objects.equals(easterEggsSaver.get(easterEggsList[i]), "true")) {
                 easterEggsSaver.set(easterEggsList[i], "false");
-                i += 1;
-            } else {
-                i += 1;
             }
+            i += 1;
         }
 
     }
@@ -149,10 +172,8 @@ public class EasterEggs {
         while (i != l) {
             if (Objects.equals(easterEggsSaver.get(easterEggsList[i]), "true")) {
                 numberFound += 1;
-                i += 1;
-            } else {
-                i += 1;
             }
+            i += 1;
         }
 
         return numberFound;
@@ -195,6 +216,22 @@ public class EasterEggs {
                 chara.equals("mari");
     }
 
+    public static void setOmoriNameEasterEggAsFound(String characterName, boolean dream) {
+        if (isOmoriCharacter(characterName)) {
+            characterName = characterName.substring(0,1).toUpperCase() + characterName.substring(1).toLowerCase();
+            String key = characterName;
+
+            if (dream && (!characterName.equalsIgnoreCase("omori") || !characterName.equalsIgnoreCase("sunny"))) {
+                    key = key + "Dream";
+            }
+
+            key = key + "ProfileName";
+
+            easterEggsSaver.set(key, "true");
+            aboutInfosPage.eastereggsLabel.setText(EasterEggs.getNumberOfFoundEasterEggs() + "/" + EasterEggs.getNumberTotalEasterEggs());
+        }
+    }
+
     public static String getOmoriIcon(String characterName) {
         String base = "http://www.astrauworld.be:3001/eastereggs/omori/";
 
@@ -212,7 +249,7 @@ public class EasterEggs {
 
         if (!isOmoriCharacter(characterName)) return null;
 
-        if (characterName.equalsIgnoreCase("omori") || characterName.toLowerCase().equals("sunny")) {
+        if (characterName.equalsIgnoreCase("omori") || characterName.equalsIgnoreCase("sunny")) {
             return getOmoriIcon(characterName);
         } else if (characterName.equalsIgnoreCase("basil")) {
             return base + characterName.toLowerCase() + "Dream-" + getOmoriEmotion3Stage(getOmoriEmotion()) + ".png";

@@ -6,6 +6,8 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.LauncherFrame;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
+import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
+import fr.timeto.timutilslib.CustomFonts;
 import org.imgscalr.Scalr;
 
 import javax.swing.*;
@@ -14,9 +16,10 @@ import java.awt.image.BufferedImage;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 
-public class BlackSpace extends JPanel implements SwingerEventListener {
+public class BlackSpace extends JPanel {
     Welcome welcome = new Welcome();
     Door door = new Door();
+    AfterDoor afterDoor = new AfterDoor();
     AfterStab afterStab = new AfterStab();
 
     public BlackSpace() {
@@ -27,6 +30,9 @@ public class BlackSpace extends JPanel implements SwingerEventListener {
 
         add(door);
         door.setVisible(false);
+
+        add(afterDoor);
+        afterDoor.setVisible(false);
 
         add(afterStab);
         afterStab.setVisible(false);
@@ -39,14 +45,9 @@ public class BlackSpace extends JPanel implements SwingerEventListener {
         door.setVisible(true);
     }
 
-    @Override
-    public void onEvent(SwingerEvent e) {
-
-    }
-
     static class Welcome extends JPanel {
 
-        JLabel welcomeLabel = new JLabel();
+        JLabel welcomeLabel = new JLabel("CONTIENT DES SPOILS SUR OMORI");
 
         public Welcome() {
             setLayout(null);
@@ -56,13 +57,20 @@ public class BlackSpace extends JPanel implements SwingerEventListener {
             welcomeLabel.setBounds(0, 0, 1000, 630);
             welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
             welcomeLabel.setVerticalAlignment(SwingConstants.CENTER);
+            welcomeLabel.setFont(CustomFonts.minecraftiaFont.deriveFont(30f));
+            welcomeLabel.setForeground(Color.WHITE);
             add(welcomeLabel);
-            welcomeLabel.setIcon(new ImageIcon(getResourceIgnorePath("/assets/launcher/eastereggs/BlackSpace/Keys.png")));
         }
 
         public void startAnim() {
-            welcomeLabel.setIcon(new ImageIcon(getResourceIgnorePath("/assets/launcher/eastereggs/BlackSpace/Keys.png")));
             Thread t = new Thread(() -> {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                welcomeLabel.setText("");
+                welcomeLabel.setIcon(new ImageIcon(getResourceIgnorePath("/assets/launcher/eastereggs/BlackSpace/Keys.png")));
                 try {
                     Thread.sleep(4000);
                 } catch (InterruptedException e) {
@@ -312,10 +320,37 @@ public class BlackSpace extends JPanel implements SwingerEventListener {
 
                     doorButton.setEnabled(true);
 
+                    try {
+                        Thread.sleep(1300);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    BlackSpace.this.afterDoor();
+
                 });
                 t.start();
             }
 
+        }
+    }
+
+    public void afterDoor() {
+        door.setVisible(false);
+        setBackground(Color.WHITE);
+        afterDoor.setVisible(true);
+        afterDoor.startAnim();
+    }
+
+    static class AfterDoor extends JPanel {
+        public AfterDoor() {
+            setLayout(null);
+            setOpaque(false);
+        }
+
+        public void startAnim() {
+            // TODO ANIM APRES LA PORTE
+            EasterEggs.setEatereggAsFound(EasterEggs.blackSpace);
         }
     }
 
@@ -336,6 +371,7 @@ public class BlackSpace extends JPanel implements SwingerEventListener {
 
         JLabel imageLabel = new JLabel();
         BufferedImage images = Swinger.getResourceIgnorePath("/assets/launcher/eastereggs/BlackSpace/stressedOut.png");
+        BufferedImage pictures = Swinger.getResourceIgnorePath("/assets/launcher/eastereggs/BlackSpace/pictures.png");
 
         public AfterStab() {
             setLayout(null);
@@ -379,6 +415,15 @@ public class BlackSpace extends JPanel implements SwingerEventListener {
                     f22 = new ImageIcon(Scalr.resize(images.getSubimage(1280, 1920, 640, 480), 840, 630)),
                     f23 = new ImageIcon(Scalr.resize(images.getSubimage(1920, 1920, 640, 480), 840, 630)),
                     f24 = new ImageIcon(Scalr.resize(images.getSubimage(2560, 1920, 640, 480), 840, 630));
+
+            ImageIcon f25 = new ImageIcon(pictures.getSubimage(705, 2128, 351, 422)),
+                    f26 = new ImageIcon(pictures.getSubimage(1057, 2128, 351, 422)),
+                    f27 = new ImageIcon(pictures.getSubimage(1, 2563, 351, 422)),
+                    f28 = new ImageIcon(pictures.getSubimage(353, 2563, 351, 422)),
+                    f29 = new ImageIcon(pictures.getSubimage(705, 2563, 351, 422)),
+                    f30 = new ImageIcon(pictures.getSubimage(1057, 2563, 351, 422)),
+                    f31 = new ImageIcon(pictures.getSubimage(1, 2986, 351, 422)),
+                    f32 = new ImageIcon(pictures.getSubimage(353, 2986, 351, 422));
 
             Thread t = new Thread(() -> {
                 BlackSpace.this.setSize(840, 630);
@@ -563,10 +608,57 @@ public class BlackSpace extends JPanel implements SwingerEventListener {
 
                 imageLabel.setIcon(f24);
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+
+                imageLabel.setIcon(f25);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                imageLabel.setIcon(f26);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                imageLabel.setIcon(f27);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                imageLabel.setIcon(f28);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                imageLabel.setIcon(f29);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                imageLabel.setIcon(f30);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                imageLabel.setIcon(f31);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                imageLabel.setIcon(f32);
+
+                EasterEggs.setEatereggAsFound(EasterEggs.blackSpaceStab);
+                System.exit(0);
 
                 this.setVisible(false);
                 BlackSpace.this.setSize(1000, 630);

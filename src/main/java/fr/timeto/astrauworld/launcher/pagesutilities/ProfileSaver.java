@@ -321,8 +321,10 @@ public class ProfileSaver {
         if (EasterEggs.isOmoriCharacter(saver.get(KEY.SETTINGS_PROFILENAME.get()))) {
             if (Boolean.parseBoolean(saver.get(KEY.SETTINGS_HELMICON.get()))) {
                 url = EasterEggs.getOmoriIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
+                EasterEggs.setOmoriNameEasterEggAsFound(saver.get(KEY.SETTINGS_PROFILENAME.get()), false);
             } else {
                 url = EasterEggs.getOmoriDreamIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
+                EasterEggs.setOmoriNameEasterEggAsFound(saver.get(KEY.SETTINGS_PROFILENAME.get()), true);
             }
 
         } else {
