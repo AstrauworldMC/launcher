@@ -45,6 +45,8 @@ public class PageChange {
             setChangesPage(e);
         } else if (Objects.equals(page.getPage1(), PageName.ABOUT_INFOS.getPage1())) {
             setAboutPage(e, page);
+        } else if (Objects.equals(page.getPage1(), PageName.SETTINGS_COLORS.getPage1())) {
+            setSettingsPage(e, page);
         }
     }
 
@@ -59,6 +61,7 @@ public class PageChange {
             setProfilePage(false, null, PageName.PROFILE_ALL);
             setChangesPage(false);
             setAboutPage(false, PageName.ABOUT);
+            setSettingsPage(false, PageName.SETTINGS);
 
             leftMenuSelector.moveTo(newsButton);
             newsButton.getButton().setEnabled(false);
@@ -163,10 +166,10 @@ public class PageChange {
         if(Objects.equals(page.getTab2(), PageName.PROFILE_HOME.getTab2())) {
             if (enabled) {
                 setProfilePage(false, getSelectedProfile(), PageName.PROFILE_ALL);
-
                 setNewsPage(false);
                 setChangesPage(false);
                 setAboutPage(false, PageName.ABOUT);
+                setSettingsPage(false, PageName.SETTINGS);
 
                 if(page.getTab2().equals("all")) {
                 } else {
@@ -202,6 +205,7 @@ public class PageChange {
                 setNewsPage(false);
                 setChangesPage(false);
                 setAboutPage(false, PageName.ABOUT);
+                setSettingsPage(false, PageName.SETTINGS);
 
                 if (page.getTab2().equals("all")) {
                 } else {
@@ -232,6 +236,7 @@ public class PageChange {
                 setNewsPage(false);
                 setChangesPage(false);
                 setAboutPage(false, PageName.ABOUT);
+                setSettingsPage(false, PageName.SETTINGS);
 
                 if (page.getTab2().equals("all")) {
                 } else {
@@ -268,6 +273,7 @@ public class PageChange {
                     setNewsPage(false);
                     setChangesPage(false);
                     setAboutPage(false, PageName.ABOUT);
+                    setSettingsPage(false, PageName.SETTINGS);
 
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -293,6 +299,7 @@ public class PageChange {
                     setNewsPage(false);
                     setChangesPage(false);
                     setAboutPage(false, PageName.ABOUT);
+                    setSettingsPage(false, PageName.SETTINGS);
 
                     profileSelected.setEnabled(false);
                     profileNotSelected1.setEnabled(true);
@@ -344,6 +351,7 @@ public class PageChange {
                 setNewsPage(false);
                 setChangesPage(false);
                 setAboutPage(false, PageName.ABOUT);
+                setSettingsPage(false, PageName.SETTINGS);
 
                 if(page.getTab2().equals("all")) {
                 } else {
@@ -427,6 +435,7 @@ public class PageChange {
             setNewsPage(false);
             setProfilePage(false, null, PageName.PROFILE_ALL);
             setAboutPage(false, PageName.ABOUT);
+            setSettingsPage(false, PageName.SETTINGS);
 
             leftMenuSelector.moveTo(changesButton);
             changesButton.getButton().setEnabled(false);
@@ -466,6 +475,7 @@ public class PageChange {
                 setProfilePage(false, null, PageName.PROFILE_ALL);
                 setChangesPage(false);
                 setAboutPage(false, PageName.ABOUT_MODS);
+                setSettingsPage(false, PageName.SETTINGS);
 
                 leftMenuSelector.moveTo(aboutButton);
                 aboutButton.getButton().setEnabled(false);
@@ -495,6 +505,7 @@ public class PageChange {
                 setProfilePage(false, null, PageName.PROFILE_ALL);
                 setChangesPage(false);
                 setAboutPage(false, PageName.ABOUT_INFOS);
+                setSettingsPage(false, PageName.SETTINGS);
 
                 leftMenuSelector.moveTo(aboutButton);
                 aboutButton.setEnabled(false);
@@ -515,6 +526,62 @@ public class PageChange {
         } else {
             setAboutPage(false, PageName.ABOUT_INFOS);
             setAboutPage(false, PageName.ABOUT_MODS);
+        }
+
+    }
+
+    private static void setSettingsPage(boolean enabled, PageName page) {
+        if (Objects.equals(page.getTab2(), PageName.SETTINGS_COLORS.getTab2())) {
+            if (enabled) {
+                setNewsPage(false);
+                setProfilePage(false, null, PageName.PROFILE_ALL);
+                setChangesPage(false);
+                setAboutPage(false, PageName.ABOUT);
+                setSettingsPage(false, PageName.SETTINGS_DISCORD);
+
+                leftMenuSelector.moveTo(settingsButton);
+                settingsButton.getButton().setEnabled(false);
+
+                PageAnimation.animTo(settingsColorsPage);
+                actualPagePanel = settingsColorsPage;
+
+                corner.setVisible(false);
+
+                LauncherSystemTray.changeTrayTooltip();
+
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
+
+                corner.setVisible(true);
+            } else {
+                settingsButton.getButton().setEnabled(true);
+            }
+        } else if (Objects.equals(page.getTab2(), PageName.SETTINGS_DISCORD.getTab2())) {
+            if (enabled) {
+                setNewsPage(false);
+                setProfilePage(false, null, PageName.PROFILE_ALL);
+                setChangesPage(false);
+                setAboutPage(false, PageName.ABOUT);
+                setSettingsPage(false, PageName.SETTINGS_COLORS);
+
+                leftMenuSelector.moveTo(settingsButton);
+                settingsButton.setEnabled(false);
+
+                PageAnimation.animTo(settingsDiscordPage);
+                actualPagePanel = settingsDiscordPage;
+
+                corner.setVisible(false);
+
+                LauncherSystemTray.changeTrayTooltip();
+
+                background = getResourceIgnorePath("/assets/launcher/main/baseGUI.png");
+
+            } else {
+                settingsButton.getButton().setEnabled(true);
+            }
+
+        } else {
+            setSettingsPage(false, PageName.SETTINGS_COLORS);
+            setSettingsPage(false, PageName.SETTINGS_DISCORD);
         }
 
     }

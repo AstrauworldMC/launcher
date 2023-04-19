@@ -21,6 +21,8 @@ public class LeftMenuButton extends JPanel implements SwingerEventListener {
 
     private final BufferedImage icon;
 
+    private final PageName page;
+
     private final SColoredButton button = new SColoredButton(
             Swinger.getTransparentWhite(0),
             Swinger.getTransparentWhite(20),
@@ -40,9 +42,10 @@ public class LeftMenuButton extends JPanel implements SwingerEventListener {
 
     private final JLabel iconLabel = new JLabel();
 
-    public LeftMenuButton(String name, BufferedImage icon) {
+    public LeftMenuButton(String name, BufferedImage icon, PageName page) {
         this.name = name;
         this.icon = icon;
+        this.page = page;
 
         setLayout(null);
         setSize(178, 59);
@@ -69,13 +72,7 @@ public class LeftMenuButton extends JPanel implements SwingerEventListener {
 
     @Override
     public void onEvent(SwingerEvent swingerEvent) {
-        if (Objects.equals(name, "Actualit\u00e9s")) {
-            setPage(true, PageName.NEWS);
-        } else if (Objects.equals(name, "Changelogs")) {
-            setPage(true, PageName.CHANGELOGS);
-        } else if (Objects.equals(name, "\u00c0 propos")) {
-            setPage(true, PageName.ABOUT_INFOS);
-        }
+        setPage(true, page);
 
     }
 

@@ -13,6 +13,8 @@ import fr.timeto.astrauworld.launcher.panels.NewsPanel;
 import fr.timeto.astrauworld.launcher.panels.about.AboutInfosPage;
 import fr.timeto.astrauworld.launcher.panels.about.AboutModsPage;
 import fr.timeto.astrauworld.launcher.panels.profile.*;
+import fr.timeto.astrauworld.launcher.panels.settings.SettingsColorsPage;
+import fr.timeto.astrauworld.launcher.panels.settings.SettingsDiscordPage;
 import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
 import fr.timeto.timutilslib.PopUpMessages;
 
@@ -93,7 +95,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           public static final LeftMenuSelector leftMenuSelector = new LeftMenuSelector();
           public static final JTextArea launcherVersionLabel = new JTextArea("Version du launcher:" + lineSeparator + Launcher.version);
-          public static final LeftMenuButton newsButton = new LeftMenuButton("Actualit\u00e9s", getResourceIgnorePath("/assets/launcher/icons/newsIcon.png"));
+          public static final LeftMenuButton newsButton = new LeftMenuButton("Actualit\u00e9s", getResourceIgnorePath("/assets/launcher/icons/newsIcon.png"), PageName.NEWS);
           public static final ProfileButton firstProfileButton = new ProfileButton(firstProfileSaver);
           public static final ProfileButton secondProfileButton = new ProfileButton(secondProfileSaver);
           public static final ProfileButton thirdProfileButton = new ProfileButton(thirdProfileSaver);
@@ -102,11 +104,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            * Bouton du menu général de gauche pour ouvrir la page des changelogs
            * @see Changelogs
            */
-          public static final LeftMenuButton changesButton = new LeftMenuButton("Changelogs", getResourceIgnorePath("/assets/launcher/icons/changesIcon.png"));
+          public static final LeftMenuButton changesButton = new LeftMenuButton("Changelogs", getResourceIgnorePath("/assets/launcher/icons/changesIcon.png"), PageName.CHANGELOGS);
           /**
            * Bouton du menu général de gauche pour ouvrir la page principale à propos
            */
-          public static final LeftMenuButton aboutButton = new LeftMenuButton("\u00c0 propos", getResourceIgnorePath("/assets/launcher/icons/aboutIcon.png"));
+          public static final LeftMenuButton aboutButton = new LeftMenuButton("\u00c0 propos", getResourceIgnorePath("/assets/launcher/icons/aboutIcon.png"), PageName.ABOUT_INFOS);
+          public static final LeftMenuButton settingsButton = new LeftMenuButton("Param\u00e8tres", getResourceIgnorePath("/assets/launcher/icons/settingsIcon.png"), PageName.SETTINGS_COLORS);
           /**
            * Label contenant le titre de la page, affiché au-dessus du contenu de la page
            * @see Components#subTitleLabel
@@ -183,9 +186,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           public static final ChangelogsPage changelogsPage = new ChangelogsPage();
 
-          // About components - up
+          // About components
           public static final AboutInfosPage aboutInfosPage = new AboutInfosPage();
           public static final AboutModsPage aboutModsPage = new AboutModsPage();
+
+          public static final SettingsColorsPage settingsColorsPage = new SettingsColorsPage();
+          public static final SettingsDiscordPage settingsDiscordPage = new SettingsDiscordPage();
      }
 
      /**
@@ -217,8 +223,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                }
           });
 
+          TabList settingsTabList = new TabList("settings");
+          settingsTabList.add(new Tab("Couleurs", PageName.SETTINGS_COLORS));
+          settingsTabList.add(new Tab("Int\u00e9gration Discord", PageName.SETTINGS_DISCORD));
+
           tabManager.addTabList(profileTabList);
           tabManager.addTabList(aboutTabList);
+          tabManager.addTabList(settingsTabList);
 
           quitButton.setBounds(970, 4);
           quitButton.addEventListener(this);
@@ -255,11 +266,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           initProfileButtons();
 
-          changesButton.setLocation(0, 510);
+          changesButton.setLocation(0, 449);
           this.add(changesButton);
 
-          aboutButton.setLocation(0, 571);
+          aboutButton.setLocation(0, 510);
           this.add(aboutButton);
+
+          settingsButton.setLocation(0, 571);
+          this.add(settingsButton);
 
           titleLabel.setBounds(190, 56, 809, 23);
           titleLabel.setForeground(Launcher.getTextColor());
@@ -367,6 +381,15 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           panel.add(aboutModsPage);
           aboutModsPage.setVisible(false);
 
+
+          settingsColorsPage.setBounds(0, 0);
+          panel.add(settingsColorsPage);
+          settingsColorsPage.setVisible(false);
+
+          settingsDiscordPage.setBounds(0, 0);
+          panel.add(settingsDiscordPage);
+          settingsDiscordPage.setVisible(false);
+
           this.add(panel);
 
           aboutModsPage.setServer(Launcher.ASTRAUWORLD_MC);
@@ -404,6 +427,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           newsButton.recolor();
           changesButton.recolor();
           aboutButton.recolor();
+          settingsButton.recolor();
           titleLabel.setForeground(Launcher.getTextColor());
           subTitleLabel.setForeground(Launcher.getTextColor());
           barLabel.setForeground(Launcher.getTextColor());
