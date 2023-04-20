@@ -15,8 +15,8 @@ public class CustomComboBoxRenderer extends JLabel implements ListCellRenderer {
     public CustomComboBoxRenderer() {
         setOpaque(true);
         setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
-        setBackground(new Color(30, 30, 30));
-        setForeground(new Color(205, 205, 205));
+        setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
+        setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get());
 
         setBorder(new EmptyBorder(0, 8, 0, 8));
     }
@@ -27,14 +27,21 @@ public class CustomComboBoxRenderer extends JLabel implements ListCellRenderer {
         setText(value.toString());
 
         if (isSelected) {
-            setBackground(new Color(20, 20, 20));
-            setForeground(Launcher.getMainColor());
+
+            setBackground(getSelectedColor());
+            setForeground(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
         } else {
-            setBackground(new Color(30, 30, 30));
-            setForeground(new Color(205, 205, 205));
+            setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
+            setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get());
         }
 
         return this;
+    }
+
+    private Color getSelectedColor() {
+        Color color = Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get();
+
+        return new Color(color.getRed() - 10, color.getGreen() - 10, color.getBlue() - 10);
     }
 
 }

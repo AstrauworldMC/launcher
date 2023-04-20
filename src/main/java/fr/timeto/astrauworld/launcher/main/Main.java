@@ -67,8 +67,13 @@ public class Main {
             Launcher.println("[Lancement] Initialisation des fichiers de données");
             initializeDataFiles();
 
-            Launcher.setMainColor(ProfileSaver.getFileMainColor());
-            Launcher.setTextColor(ProfileSaver.getFileTextColor());
+            Launcher.CUSTOM_COLORS.MAIN_COLOR.set(Launcher.CUSTOM_COLORS.MAIN_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.TEXT_COLOR.set(Launcher.CUSTOM_COLORS.TEXT_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.set(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.DARKER_BACKGROUND_COLOR.set(Launcher.CUSTOM_COLORS.DARKER_BACKGROUND_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.MID_BACKGROUND_COLOR.set(Launcher.CUSTOM_COLORS.MID_BACKGROUND_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.BASE_BACKGROUND_COLOR.set(Launcher.CUSTOM_COLORS.BASE_BACKGROUND_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.set(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.getFileColor());
 
             if (firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME.get()).toLowerCase().replaceAll(" ", "").equals("no")) {
                 firstProfileSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME.get(), "Vide");

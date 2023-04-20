@@ -1,6 +1,7 @@
 package fr.timeto.astrauworld.launcher.pagesutilities;
 
 import fr.theshark34.openlauncherlib.util.Saver;
+import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 
 import java.awt.*;
@@ -259,43 +260,37 @@ public class EasterEggs {
     }
 
     private static EMOTION getOmoriEmotion() {
-        Color color = Launcher.getMainColor();
+        Color color = Launcher.CUSTOM_COLORS.MAIN_COLOR.get();
 
         int r = color.getRed();
         int g = color.getGreen();
         int b = color.getBlue();
-        float[] hsb = new float[3];
-        Color.RGBtoHSB(r,g,b,hsb);
+        HSLColor hslColor = new HSLColor(color);
 
         if (r == g) {
             if (g == b) {
-                if (hsb[2] >= 0.4) {
+                if (hslColor.getLuminance() >= 49) {
                     return EMOTION.NEUTRAL;
                 } else return EMOTION.AFRAID;
             }
         }
 
-        if (hsb[0] >= 0.116) {
-            if (hsb[0] <= 0.461) return EMOTION.HAPPY;
-            else if (hsb[0] <= 0.804) return EMOTION.SAD;
+        if (hslColor.getHue() >= 50) {
+            if (hslColor.getHue() <= 165) return EMOTION.HAPPY;
+            else if (hslColor.getHue() <= 290) return EMOTION.SAD;
             else return EMOTION.ANGRY;
         } else return EMOTION.ANGRY;
     }
 
     private static String getOmoriEmotion2Stage(EMOTION emo) {
-        Color color = Launcher.getMainColor();
-
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
-        float[] hsb = new float[3];
-        hsb = Color.RGBtoHSB(r,g,b,hsb);
+        Color color = Launcher.CUSTOM_COLORS.MAIN_COLOR.get();
+        HSLColor hslColor = new HSLColor(color);
 
         if (emo == EMOTION.NEUTRAL) {
             return emo.getEmotion();
         }
 
-        if (hsb[2] >= 0.3) {
+        if (hslColor.getLuminance() >= 49) {
             return emo.getEmotion();
         } else {
             return emo.getStage2();
@@ -304,21 +299,16 @@ public class EasterEggs {
     }
 
     private static String getOmoriEmotion3Stage(EMOTION emo) {
-        Color color = Launcher.getMainColor();
-
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
-        float[] hsb = new float[3];
-        hsb = Color.RGBtoHSB(r,g,b,hsb);
+        Color color = Launcher.CUSTOM_COLORS.MAIN_COLOR.get();
+        HSLColor hslColor = new HSLColor(color);
 
         if (emo == EMOTION.NEUTRAL) {
             return emo.getEmotion();
         }
 
-        if (hsb[2] >= 0.6) {
+        if (hslColor.getLuminance() >= 49) {
             return emo.getEmotion();
-        } else if (hsb[2] >= 0.3) {
+        } else if (hslColor.getLuminance() >= 31) {
             return emo.getStage2();
         } else {
             return emo.getStage3();

@@ -8,7 +8,7 @@ import java.awt.*;
 public class LeftMenuSelector extends JPanel {
 
     public LeftMenuSelector() {
-        setBackground(Launcher.getTextColor());
+        setBackground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         setBounds(0, 0, 6, 33);
         setOpaque(false);
     }
@@ -70,7 +70,7 @@ public class LeftMenuSelector extends JPanel {
     }
 
     public void recolor() {
-        setBackground(Launcher.getTextColor());
+        setBackground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
     }
 
     @Override

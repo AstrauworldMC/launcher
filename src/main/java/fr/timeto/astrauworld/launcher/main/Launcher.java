@@ -43,37 +43,72 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 @SuppressWarnings("unused")
 public class Launcher {
 
-    public static final Color DARKER_BACKGROUND = Color.BLACK;
-    public static final Color MID_BACKGROUND = new Color(9, 9, 9);
-    public static final Color BASE_BACKGROUND = new Color(18, 18, 18);
-    public static final Color LIGHTER_GREY = new Color(30, 30, 30);
+    private static Color DARKER_BACKGROUND = Color.BLACK;
+    private static Color MID_BACKGROUND = new Color(9, 9, 9);
+    private static Color BASE_BACKGROUND = new Color(18, 18, 18);
+    private static Color LIGHTER_GREY = new Color(30, 30, 30);
     private static Color MAIN_COLOR = Color.RED;
     private static Color TEXT_COLOR = Color.WHITE;
+    private static Color SECONDTEXT_COLOR = new Color(153, 153, 153);
 
-    public static Color getMainColor() {
-        return MAIN_COLOR;
-    }
+    public enum CUSTOM_COLORS {
+        MAIN_COLOR(Color.RED, KEY.GLOBALSETTINGS_MAINCOLOR),
+        TEXT_COLOR(Color.WHITE, KEY.GLOBALSETTINGS_TEXTCOLOR),
+        SECONDTEXT_COLOR(new Color(153, 153, 153), KEY.GLOBALSETTINGS_SECONDTEXTCOLOR),
+        DARKER_BACKGROUND_COLOR(Color.BLACK, KEY.GLOBALSETTINGS_DARKERBACKGROUNDCOLOR),
+        MID_BACKGROUND_COLOR(new Color(9, 9, 9), KEY.GLOBALSETTINGS_MIDBACKGROUNDCOLOR),
+        BASE_BACKGROUND_COLOR(new Color(18, 18, 18), KEY.GLOBALSETTINGS_BASEBACKGROUNDCOLOR),
+        ELEMENTS_COLOR(new Color(30, 30, 30), KEY.GLOBALSETTINGS_ELEMENTSCOLOR);
 
-    public static void setMainColor(Color color) {
-        MAIN_COLOR = color;
-        try {
-            LauncherPanel container = (LauncherPanel) LauncherFrame.getInstance().getContentPane();
-            container.recolor();
-        } catch (ClassCastException | NullPointerException ignored) {}
-        ProfileSaver.setFileMainColor(color);
-    }
+        private Color color;
+        private final KEY key;
 
-    public static Color getTextColor() {
-        return TEXT_COLOR;
-    }
+        CUSTOM_COLORS(Color color, KEY key) {
+            this.color = color;
+            this.key = key;
+        }
 
-    public static void setTextColor(Color color) {
-        TEXT_COLOR = color;
-        try {
-            LauncherPanel container = (LauncherPanel) LauncherFrame.getInstance().getContentPane();
-            container.recolor();
-        } catch (ClassCastException | NullPointerException ignored) {}
-        ProfileSaver.setFileTextColor(color);
+        public Color get() {
+            return color;
+        }
+
+        public void set(Color color) {
+            this.color = color;
+            try {
+                LauncherPanel container = (LauncherPanel) LauncherFrame.getInstance().getContentPane();
+                container.recolor();
+            } catch (ClassCastException | NullPointerException ignored) {}
+            setFileColor(color);
+        }
+
+        public Color getFileColor() {
+            String[] split = globalSettingsSaver.get(key.get()).split("-");
+            int r = Integer.parseInt(split[0]);
+            int g = Integer.parseInt(split[1]);
+            int b = Integer.parseInt(split[2]);
+
+            return new Color(r, g, b);
+        }
+
+        private void setFileColor(Color color) {
+            int r = color.getRed();
+            int g = color.getGreen();
+            int b = color.getBlue();
+            globalSettingsSaver.set(key.get(), r + "-" + g + "-" + b);
+        }
+
+        /**
+         * Doit être en format 'rouge-vert-bleu'
+         */
+        private void setFileColor(String color) {
+            globalSettingsSaver.set(key.get(), color);
+        }
+
+        public void reset() {
+            setFileColor(key.getDefaultValue());
+            set(getFileColor());
+        }
+
     }
 
     public static final String separatorChar = File.separator;

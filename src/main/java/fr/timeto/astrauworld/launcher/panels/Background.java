@@ -88,11 +88,11 @@ public class Background {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
 
-                g2d.setColor(Launcher.BASE_BACKGROUND);
+                g2d.setColor(Launcher.CUSTOM_COLORS.BASE_BACKGROUND_COLOR.get());
                 g2d.fillRect(0, 0, 822, 517);
 
                 if (belowReliefRectangle) {
-                    g2d.setColor(Launcher.MID_BACKGROUND);
+                    g2d.setColor(Launcher.CUSTOM_COLORS.MID_BACKGROUND_COLOR.get());
                     g2d.fillRect(0, 343, 822, 54);
                 }
 

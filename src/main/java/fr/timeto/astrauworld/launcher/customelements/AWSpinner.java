@@ -12,17 +12,18 @@ public class AWSpinner extends JSpinner {
         super();
 
         setUI(new CustomSpinnerUI());
-        setForeground(Launcher.getTextColor());
+        setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         setFont(CustomFonts.robotoBlackFont.deriveFont(25f));
         setOpaque(false);
         setBorder(null);
         setBounds(313, 193, 93, 58);
-        setBackground(Launcher.LIGHTER_GREY);
-        getEditor().setBackground(Launcher.LIGHTER_GREY);
+        setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
+        getEditor().setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
         ((JSpinner.NumberEditor)getEditor()).getTextField().setOpaque(false);
-        ((JSpinner.NumberEditor)getEditor()).getTextField().setForeground(Launcher.getTextColor());
-        ((JSpinner.NumberEditor)getEditor()).getTextField().setCaretColor(Launcher.getMainColor());
-        ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectionColor(Launcher.getMainColor());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
         ((JSpinner.NumberEditor)getEditor()).getTextField().setBorder(new EmptyBorder(2, 0, 0, 4));
     }
 
@@ -30,25 +31,29 @@ public class AWSpinner extends JSpinner {
         super(spinnerModel);
 
         setUI(new CustomSpinnerUI());
-        setForeground(Launcher.getTextColor());
+        setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         setFont(CustomFonts.robotoBlackFont.deriveFont(25f));
         setOpaque(false);
         setBorder(null);
         setBounds(313, 193, 93, 58);
-        setBackground(Launcher.LIGHTER_GREY);
-        getEditor().setBackground(Launcher.LIGHTER_GREY);
+        setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
+        getEditor().setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
         ((JSpinner.NumberEditor)getEditor()).getTextField().setOpaque(false);
-        ((JSpinner.NumberEditor)getEditor()).getTextField().setForeground(Launcher.getTextColor());
-        ((JSpinner.NumberEditor)getEditor()).getTextField().setCaretColor(Launcher.getMainColor());
-        ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectionColor(Launcher.getMainColor());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
         ((JSpinner.NumberEditor)getEditor()).getTextField().setBorder(new EmptyBorder(2, 0, 0, 4));
     }
 
     public void recolor() {
-        setForeground(Launcher.getTextColor());
-        ((JSpinner.NumberEditor)getEditor()).getTextField().setForeground(Launcher.getTextColor());
-        ((JSpinner.NumberEditor)getEditor()).getTextField().setCaretColor(Launcher.getMainColor());
-        ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectionColor(Launcher.getMainColor());
+        setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
+        getEditor().setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        ((JSpinner.NumberEditor)getEditor()).getTextField().setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
         setUI(new CustomSpinnerUI());
         setBorder(null);
     }

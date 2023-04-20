@@ -228,12 +228,12 @@ public class TabManager extends JPanel {
     static class Selector extends JPanel {
 
         public Selector() {
-            setBackground(Launcher.getMainColor());
+            setBackground(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
             setBounds(0, 23, 100, 2);
         }
 
         public void recolor() {
-            setBackground(Launcher.getMainColor());
+            setBackground(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
         }
 
         private Thread moveThread = new Thread();

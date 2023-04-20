@@ -512,6 +512,10 @@ public class LauncherSystemTray {
         }
     }
 
+    public static void displayMessage(String caption, String message, TrayIcon.MessageType messageType) {
+        trayIcon.displayMessage(caption, message, messageType);
+    }
+
     public static void changeTrayTooltip() {
         String titleText = Launcher.parseUnicode(LauncherPanel.Components.titleLabel.getText());
         String subtitleText = Launcher.parseUnicode(LauncherPanel.Components.subTitleLabel.getText());

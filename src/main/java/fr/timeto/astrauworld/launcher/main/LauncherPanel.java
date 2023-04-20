@@ -20,7 +20,6 @@ import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 
 import static fr.theshark34.swinger.Swinger.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
@@ -56,11 +55,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
       * @author <a href="https://github.com/TimEtOff">TimEtO</a>
       */
      public static void initProfileButtons() {
-          try {
-               initProfileIcon();
-          } catch (IOException e) {
-               throw new RuntimeException(e);
-          }
+          initProfileIcon();
+
           firstProfileButton.initButton();
 
           secondProfileButton.initButton();
@@ -126,7 +122,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            * @see Components#percentLabel
            * @see Components#infosLabel
            */
-          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.getMainColor()){
+          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.CUSTOM_COLORS.MAIN_COLOR.get()){
                @Override
                public void setVisible(boolean aFlag) {
                     super.setVisible(aFlag);
@@ -225,7 +221,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           TabList settingsTabList = new TabList("settings");
           settingsTabList.add(new Tab("Couleurs", PageName.SETTINGS_COLORS));
-          settingsTabList.add(new Tab("Int\u00e9gration Discord", PageName.SETTINGS_DISCORD));
+          settingsTabList.add(new Tab("Discord", PageName.SETTINGS_DISCORD));
 
           tabManager.addTabList(profileTabList);
           tabManager.addTabList(aboutTabList);
@@ -249,11 +245,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           newsButton.setLocation(0, 113);
           this.add(newsButton);
 
-          try {
-               initProfileIcon();
-          } catch (IOException e) {
-               throw new RuntimeException(e);
-          }
+          initProfileIcon();
 
           firstProfileButton.setLocation(0, 174);
           this.add(firstProfileButton);
@@ -276,27 +268,27 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           this.add(settingsButton);
 
           titleLabel.setBounds(190, 56, 809, 23);
-          titleLabel.setForeground(Launcher.getTextColor());
+          titleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           titleLabel.setFont(robotoBlackFont.deriveFont(20f));
           this.add(titleLabel);
 
           subTitleLabel.setBounds(190, 33, 809, 23);
-          subTitleLabel.setForeground(Launcher.getTextColor());
+          subTitleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           subTitleLabel.setFont(titleLabel.getFont().deriveFont(16f));
           this.add(subTitleLabel);
 
           barLabel.setBounds(181, 610, 269, 16);
-          barLabel.setForeground(Launcher.getTextColor());
+          barLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           barLabel.setFont(robotoMediumFont.deriveFont(10f));
           this.add(barLabel);
 
           percentLabel.setBounds(920, 611, 70, 16);
-          percentLabel.setForeground(Launcher.getTextColor());
+          percentLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           percentLabel.setFont(barLabel.getFont());
           this.add(percentLabel);
 
           infosLabel.setBounds(460, 611, 255, 16);
-          infosLabel.setForeground(Launcher.getTextColor());
+          infosLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           infosLabel.setFont(barLabel.getFont());
           this.add(infosLabel);
 
@@ -305,9 +297,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           loadingBar.setVisible(false);
 
           launcherVersionLabel.setBounds(9, 39, 150, 50);
-          launcherVersionLabel.setForeground(new Color(100, 100, 100));
+          launcherVersionLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get().darker().darker());
           launcherVersionLabel.setFont(robotoBlackFont.deriveFont(14f));
-          launcherVersionLabel.setSelectionColor(Launcher.getMainColor());
+          launcherVersionLabel.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+          launcherVersionLabel.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
           launcherVersionLabel.setOpaque(false);
           launcherVersionLabel.setEditable(false);
           this.add(launcherVersionLabel);
@@ -410,7 +403,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      }
 
      public void recolor() {
-          loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.getMainColor()){
+          initProfileButtons();
+          loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.CUSTOM_COLORS.MAIN_COLOR.get()){
                @Override
                public void setVisible(boolean aFlag) {
                     super.setVisible(aFlag);
@@ -428,12 +422,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           changesButton.recolor();
           aboutButton.recolor();
           settingsButton.recolor();
-          titleLabel.setForeground(Launcher.getTextColor());
-          subTitleLabel.setForeground(Launcher.getTextColor());
-          barLabel.setForeground(Launcher.getTextColor());
-          percentLabel.setForeground(Launcher.getTextColor());
-          infosLabel.setForeground(Launcher.getTextColor());
-          launcherVersionLabel.setSelectionColor(Launcher.getMainColor());
+          titleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          subTitleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          barLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          percentLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          infosLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          launcherVersionLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get().darker().darker());
+          launcherVersionLabel.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+          launcherVersionLabel.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
 
           newsScrollPanel.recolor();
           newsOpenScrollPanel.recolor();
@@ -452,6 +448,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           aboutInfosPage.recolor();
           aboutModsPage.recolor();
+
+          settingsColorsPage.recolor();
+          settingsDiscordPage.recolor();
+
+          LauncherFrame.getInstance().revalidate();
+          LauncherFrame.getInstance().repaint();
      }
 
      /**
@@ -465,14 +467,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           Graphics2D g2d = (Graphics2D) g;
 
-          g2d.setColor(Launcher.DARKER_BACKGROUND);
+          g2d.setColor(Launcher.CUSTOM_COLORS.DARKER_BACKGROUND_COLOR.get());
           g2d.fillRect(0, 33, 178, 597);
      //     g2d.fillRect(0, 0, 1000, 33);
 
-          g2d .setColor(Launcher.MID_BACKGROUND);
+          g2d .setColor(Launcher.CUSTOM_COLORS.MID_BACKGROUND_COLOR.get());
           g2d.fillRect(178, 33, 822, 80);
 
-          g2d.setColor(Launcher.BASE_BACKGROUND);
+          g2d.setColor(Launcher.CUSTOM_COLORS.BASE_BACKGROUND_COLOR.get());
           g2d.fillRect(178, 113, 822, 517);
 
      }

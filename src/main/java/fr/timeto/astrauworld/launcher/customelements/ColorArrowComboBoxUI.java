@@ -20,10 +20,10 @@ public class ColorArrowComboBoxUI extends BasicComboBoxUI {
 
         return new BasicArrowButton(
                 BasicArrowButton.SOUTH,
-                new Color(30, 30, 30),
-                Launcher.getMainColor().darker(),
-                Launcher.getMainColor(),
-                new Color(40, 40, 40)
+                Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                Launcher.CUSTOM_COLORS.MAIN_COLOR.get().darker(),
+                Launcher.CUSTOM_COLORS.MAIN_COLOR.get(),
+                Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get().brighter()
         );
     }
 

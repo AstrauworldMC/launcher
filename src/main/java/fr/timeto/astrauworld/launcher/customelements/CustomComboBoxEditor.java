@@ -16,11 +16,11 @@ public class CustomComboBoxEditor extends BasicComboBoxEditor {
 
         label.setOpaque(false);
         label.setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
-        label.setForeground(Launcher.getTextColor());
+        label.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
 
         panel.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 4));
         panel.add(label);
-        panel.setBackground(Launcher.LIGHTER_GREY);
+        panel.setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
     }
 
     public Component getEditorComponent() {

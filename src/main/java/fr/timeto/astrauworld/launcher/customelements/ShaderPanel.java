@@ -36,7 +36,6 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
         setOpaque(false);
         setLayout(null);
         setPreferredSize(new Dimension(400, 60));
-        setBackground(Swinger.getTransparentWhite(10));
 
         isLink = false;
 
@@ -57,7 +56,7 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
 
         shaderNameLabel.setBounds(0, 13, 280, 24);
         shaderNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        shaderNameLabel.setForeground(Launcher.getTextColor());
+        shaderNameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         add(shaderNameLabel);
     }
 
@@ -69,7 +68,6 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
         setOpaque(false);
         setLayout(null);
         setPreferredSize(new Dimension(400, 60));
-        setBackground(Swinger.getTransparentWhite(10));
 
         isLink = true;
 
@@ -84,13 +82,13 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
 
         shaderNameLabel.setBounds(0, 18, 280, 24);
         shaderNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        shaderNameLabel.setForeground(Launcher.getTextColor());
+        shaderNameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         add(shaderNameLabel);
 
     }
 
     public void recolor() {
-        shaderNameLabel.setForeground(Launcher.getTextColor());
+        shaderNameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
     }
 
     public void defineTextures() {

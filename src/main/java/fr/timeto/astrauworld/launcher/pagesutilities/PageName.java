@@ -26,7 +26,7 @@ public enum PageName {
     ABOUT_MODS("about-mods", new Background(), "4.2"),
     ABOUT("about", new Background(), "4"),
 
-    SETTINGS_COLORS("settings-colors", new Background(), "5.1"),
+    SETTINGS_COLORS("settings-colors", new Background().addMiddleVerticalLine(), "5.1"),
     SETTINGS_DISCORD("settings-discord", new Background(), "5.2"),
     SETTINGS("settings", new Background(), "5");
 

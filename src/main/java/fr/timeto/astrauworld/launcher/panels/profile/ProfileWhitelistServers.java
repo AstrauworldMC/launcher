@@ -102,7 +102,7 @@ public class ProfileWhitelistServers extends PageCreator {
             setLayout(null);
             setOpaque(false);
 
-            serverNameLabel.setForeground(Launcher.getTextColor());
+            serverNameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
             serverNameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(25f));
             serverNameLabel.setBounds(15, 30, 380, 25);
             add(serverNameLabel);
@@ -126,7 +126,7 @@ public class ProfileWhitelistServers extends PageCreator {
         }
 
         public void recolor() {
-            serverNameLabel.setForeground(Launcher.getTextColor());
+            serverNameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         }
 
         @Override

@@ -52,7 +52,7 @@ public class LeftMenuButton extends JPanel implements SwingerEventListener {
         setOpaque(false);
 
         nameLabel.setBounds(61, 21, 100, 20);
-        nameLabel.setForeground(Launcher.getTextColor());
+        nameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         nameLabel.setFont(robotoBlackFont.deriveFont(17f));
         nameLabel.setText(name);
         add(nameLabel);
@@ -67,7 +67,7 @@ public class LeftMenuButton extends JPanel implements SwingerEventListener {
     }
 
     public void recolor() {
-        nameLabel.setForeground(Launcher.getTextColor());
+        nameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
     }
 
     @Override

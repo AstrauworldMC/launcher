@@ -99,7 +99,7 @@ public class NewsPanel extends PageCreator {
 
 class NewsButton extends JPanel implements SwingerEventListener {
     final News news;
-    SColoredButton button = new SColoredButton(Launcher.LIGHTER_GREY);
+    SColoredButton button = new SColoredButton(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
     JLabel thumbnail = new JLabel();
     JLabel title = new JLabel();
     JLabel authorDate = new JLabel();
@@ -121,7 +121,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
         authorDate.setBounds(10, 192, 315, 16);
         authorDate.setText(news.getAuthor() + " - " + news.getStringDate());
         authorDate.setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
-        authorDate.setForeground(Launcher.getTextColor());
+        authorDate.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         authorDate.setOpaque(false);
         authorDate.setVerticalAlignment(SwingConstants.BOTTOM);
         authorDate.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -130,7 +130,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
         title.setBounds(10, 145, 310, 20);
         title.setText(news.getTitle());
         title.setFont(CustomFonts.robotoBlackFont.deriveFont(18f));
-        title.setForeground(Launcher.getTextColor());
+        title.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         title.setOpaque(false);
         title.setVerticalAlignment(SwingConstants.TOP);
         add(title);
@@ -146,8 +146,9 @@ class NewsButton extends JPanel implements SwingerEventListener {
     }
 
     public void recolor() {
-        authorDate.setForeground(Launcher.getTextColor());
-        title.setForeground(Launcher.getTextColor());
+        button = new SColoredButton(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
+        authorDate.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        title.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
     }
 
     @Override

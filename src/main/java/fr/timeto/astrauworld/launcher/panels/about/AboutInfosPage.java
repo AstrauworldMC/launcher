@@ -3,6 +3,7 @@ package fr.timeto.astrauworld.launcher.panels.about;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherFrame;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
@@ -102,9 +103,10 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
         this.add(eastereggsLabel);
 
         textArea.setBounds(12, 144, 700, 450);
-        textArea.setForeground(Launcher.getTextColor());
+        textArea.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         textArea.setFont(CustomFonts.robotoMediumFont.deriveFont(17f));
-        textArea.setSelectionColor(Launcher.getMainColor());
+        textArea.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        textArea.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
         textArea.setEditable(false);
         textArea.setOpaque(false);
         this.add(textArea);
@@ -128,8 +130,9 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
 
     @Override
     public void recolor() {
-        textArea.setForeground(Launcher.getTextColor());
-        textArea.setSelectionColor(Launcher.getMainColor());
+        textArea.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        textArea.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        textArea.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
     }
 
     @Override

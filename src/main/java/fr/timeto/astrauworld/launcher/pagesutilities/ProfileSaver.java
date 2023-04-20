@@ -4,6 +4,8 @@ import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.customelements.ShadersSwitchButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
+import fr.timeto.astrauworld.launcher.main.LauncherFrame;
+import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 
 import java.awt.*;
 import java.io.*;
@@ -127,38 +129,6 @@ public class ProfileSaver {
         return globalSettingsSaver.get(KEY.GLOBALSETTINGS_MAINPROFILE.get());
     }
 
-    public static void setFileMainColor(Color color) {
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
-        globalSettingsSaver.set(KEY.GLOBALSETTINGS_MAINCOLOR.get(), r + "-" + g + "-" + b);
-    }
-
-    public static Color getFileMainColor() {
-        String[] split = globalSettingsSaver.get(KEY.GLOBALSETTINGS_MAINCOLOR.get()).split("-");
-        int r = Integer.parseInt(split[0]);
-        int g = Integer.parseInt(split[1]);
-        int b = Integer.parseInt(split[2]);
-
-        return new Color(r, g, b);
-    }
-
-    public static void setFileTextColor(Color color) {
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
-        globalSettingsSaver.set(KEY.GLOBALSETTINGS_TEXTCOLOR.get(), r + "-" + g + "-" + b);
-    }
-
-    public static Color getFileTextColor() {
-        String[] split = globalSettingsSaver.get(KEY.GLOBALSETTINGS_TEXTCOLOR.get()).split("-");
-        int r = Integer.parseInt(split[0]);
-        int g = Integer.parseInt(split[1]);
-        int b = Integer.parseInt(split[2]);
-
-        return new Color(r, g, b);
-    }
-
     /**
      * Initialise le fichier de données du profil sélectionné s'il n'a pas déjà été créé
      * @param saver Le profil sélectionné
@@ -231,7 +201,12 @@ public class ProfileSaver {
         KEY[] keysList = new KEY[]{
                 KEY.GLOBALSETTINGS_MAINPROFILE,
                 KEY.GLOBALSETTINGS_MAINCOLOR,
-                KEY.GLOBALSETTINGS_TEXTCOLOR
+                KEY.GLOBALSETTINGS_TEXTCOLOR,
+                KEY.GLOBALSETTINGS_SECONDTEXTCOLOR,
+                KEY.GLOBALSETTINGS_DARKERBACKGROUNDCOLOR,
+                KEY.GLOBALSETTINGS_MIDBACKGROUNDCOLOR,
+                KEY.GLOBALSETTINGS_BASEBACKGROUNDCOLOR,
+                KEY.GLOBALSETTINGS_ELEMENTSCOLOR
         };
 
         int i = 0;
@@ -251,7 +226,12 @@ public class ProfileSaver {
         KEY[] keysList = new KEY[]{
                 KEY.GLOBALSETTINGS_MAINPROFILE,
                 KEY.GLOBALSETTINGS_MAINCOLOR,
-                KEY.GLOBALSETTINGS_TEXTCOLOR
+                KEY.GLOBALSETTINGS_TEXTCOLOR,
+                KEY.GLOBALSETTINGS_SECONDTEXTCOLOR,
+                KEY.GLOBALSETTINGS_DARKERBACKGROUNDCOLOR,
+                KEY.GLOBALSETTINGS_MIDBACKGROUNDCOLOR,
+                KEY.GLOBALSETTINGS_BASEBACKGROUNDCOLOR,
+                KEY.GLOBALSETTINGS_ELEMENTSCOLOR
         };
 
         int i = 0;
@@ -355,13 +335,38 @@ public class ProfileSaver {
             }
         }
 
-        if (saver == firstProfileSaver) {
-            dlProfileIcon(url, 1);
-        } else if (saver == secondProfileSaver) {
-            dlProfileIcon(url, 2);
-        } else if (saver == thirdProfileSaver) {
-            dlProfileIcon(url, 3);
+        try {
+            dlProfileIcon(url, Integer.parseInt(getSelectedProfile(saver)));
+        } catch (IOException e) {
+            copyInputStreamToFile(LauncherFrame.getFileFromResourceAsStream("assets/launcher/icons/grassBlockIcon.png"), getIconFileFromSaver(saver));
+            throw e;
         }
+    }
+
+    public static File getIconFileFromSaver(Saver saver) {
+        if (saver == firstProfileSaver) {
+            return Launcher.AW_FIRSTPROFILE_ICON;
+        } else if (saver == secondProfileSaver) {
+            return Launcher.AW_SECONDPROFILE_ICON;
+        } else if (saver == thirdProfileSaver) {
+            return Launcher.AW_THIRDPROFILE_ICON;
+        } else return null;
+
+    }
+
+    public static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
+
+        // append = false
+        try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
+            int read;
+            final int DEFAULT_BUFFER_SIZE = 8192;
+            byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
+
     }
 
     /**
@@ -370,10 +375,27 @@ public class ProfileSaver {
      * @see ProfileSaver#dlProfileIcon(String, int)
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static void initProfileIcon() throws IOException {
-        initProfileIcon(firstProfileSaver);
-        initProfileIcon(secondProfileSaver);
-        initProfileIcon(thirdProfileSaver);
+    public static void initProfileIcon() {
+        boolean error = false;
+        try {
+            initProfileIcon(firstProfileSaver);
+        } catch (IOException exception) {
+            error = true;
+        }
+        try {
+            initProfileIcon(secondProfileSaver);
+        } catch (IOException exception) {
+            error = true;
+        }
+        try {
+            initProfileIcon(thirdProfileSaver);
+        } catch (IOException exception) {
+            error = true;
+        }
+
+        if (error) {
+            LauncherSystemTray.displayMessage("Erreur au lancement", "Erreur de t\u00e9l\u00e9chargement, client hors connexion ou probl\u00e8me serveur", TrayIcon.MessageType.WARNING);
+        }
     }
 
     /**
@@ -767,9 +789,14 @@ public class ProfileSaver {
          */
         SETTINGS_RAM("settings|AllowedRam", "3.0"),
 
-        GLOBALSETTINGS_MAINPROFILE("settings|MainProfile", "1"),
-        GLOBALSETTINGS_MAINCOLOR("settings|mainColor", "255-0-0"),
-        GLOBALSETTINGS_TEXTCOLOR("settings|textColor", "255-255-255");
+        GLOBALSETTINGS_MAINPROFILE("others|MainProfile", "1"),
+        GLOBALSETTINGS_MAINCOLOR("colors|MainColor", "255-0-0"),
+        GLOBALSETTINGS_TEXTCOLOR("colors|TextColor", "255-255-255"),
+        GLOBALSETTINGS_SECONDTEXTCOLOR("colors|SecondTextColor", "153-153-153"),
+        GLOBALSETTINGS_DARKERBACKGROUNDCOLOR("colors|DarkerBackgroundColor", "0-0-0"),
+        GLOBALSETTINGS_MIDBACKGROUNDCOLOR("colors|MidBackgroundColor", "9-9-9"),
+        GLOBALSETTINGS_BASEBACKGROUNDCOLOR("colors|BaseBackgroundColor", "18-18-18"),
+        GLOBALSETTINGS_ELEMENTSCOLOR("colors|LighterGrey", "30-30-30");
 
         private final String key;
         private final String defaultValue;

@@ -39,7 +39,7 @@ public class Tab extends JPanel implements SwingerEventListener {
 
         label.setText(this.name);
         label.setFont(CustomFonts.robotoBoldFont.deriveFont(16f));
-        label.setForeground(Launcher.getTextColor());
+        label.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setVerticalAlignment(JLabel.CENTER);
         label.setBounds(calculateBounds());
@@ -56,7 +56,7 @@ public class Tab extends JPanel implements SwingerEventListener {
     }
 
     public void recolor() {
-        label.setForeground(Launcher.getTextColor());
+        label.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
     }
 
     private Rectangle calculateBounds() {

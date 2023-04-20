@@ -28,9 +28,10 @@ public class CustomSpinnerUI extends BasicSpinnerUI {
     // copied from BasicSpinnerUI
     private Component createArrowButton (int direction) {
         return new BasicArrowButton(direction,
-                new Color(40, 40, 40),
-                new Color(40, 40, 40),
-                Launcher.getMainColor(),
-                new Color(40, 40, 40));
+                Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                Launcher.CUSTOM_COLORS.MAIN_COLOR.get().darker(),
+                Launcher.CUSTOM_COLORS.MAIN_COLOR.get(),
+                Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get().brighter()
+        );
     }
 }
