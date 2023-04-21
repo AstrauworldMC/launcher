@@ -90,6 +90,12 @@ public class NewsOpenPanel extends PageCreator {
         textArea.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         textArea.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
         textArea.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
+        CustomScrollBarUI scrollBarUI1 = (CustomScrollBarUI) scrollPane.getHorizontalScrollBar().getUI();
+        CustomScrollBarUI scrollBarUI2 = (CustomScrollBarUI) scrollPane.getVerticalScrollBar().getUI();
+        scrollBarUI1.recolor();
+        scrollBarUI2.recolor();
+        scrollPane.getHorizontalScrollBar().repaint();
+        scrollPane.getVerticalScrollBar().repaint();
     }
 
     public void setNewsPage(News news) {

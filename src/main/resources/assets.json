@@ -1,0 +1,916 @@
+{
+  "extfiles": [
+    {
+      "path": "launcher/aboutPage/aboutLogoAstrau.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/aboutLogoAstrau.png",
+      "sha1": "143950b614c6744a35a667999f7d314b54cdc088",
+      "size": 2157
+    },
+    {
+      "path": "launcher/aboutPage/aboutLogoTim.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/aboutLogoTim.png",
+      "sha1": "565302e3ccdb31ace62a3c378e8226372f557d4f",
+      "size": 3175
+    },
+    {
+      "path": "launcher/aboutPage/aboutPage-infos.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/aboutPage-infos.png",
+      "sha1": "c2962ad2fbb44fa62b0481eee59c2889d24c64e1",
+      "size": 45024
+    },
+    {
+      "path": "launcher/aboutPage/capitenzoPfp.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/capitenzoPfp.png",
+      "sha1": "4036dd8910203117378796d13672a4fdd807c7b2",
+      "size": 1431
+    },
+    {
+      "path": "launcher/aboutPage/discord-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/discord-hover.png",
+      "sha1": "c4bb810754f250ffee3b4ab5f5e407400e36f9e6",
+      "size": 793
+    },
+    {
+      "path": "launcher/aboutPage/discord-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/discord-normal.png",
+      "sha1": "201e2c424ef328e45c5955f6ac6fdf397ad71023",
+      "size": 629
+    },
+    {
+      "path": "launcher/aboutPage/github-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/github-hover.png",
+      "sha1": "3dc16e298d0d8c47272a084e95a2ffb091b70287",
+      "size": 877
+    },
+    {
+      "path": "launcher/aboutPage/github-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/github-normal.png",
+      "sha1": "0bc2292824652762a22b5f9a1998689228068fdc",
+      "size": 721
+    },
+    {
+      "path": "launcher/aboutPage/logo-texte.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/logo-texte.png",
+      "sha1": "cda643a789ae374861be262c97a493642cd994d2",
+      "size": 25041
+    },
+    {
+      "path": "launcher/aboutPage/mail-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/mail-hover.png",
+      "sha1": "1c044971b540f84c12179152759055abc12ad881",
+      "size": 706
+    },
+    {
+      "path": "launcher/aboutPage/mail-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/mail-normal.png",
+      "sha1": "fe66f5aebb5a182fb86a2aff970b432b2263b498",
+      "size": 576
+    },
+    {
+      "path": "launcher/aboutPage/twitter-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/twitter-hover.png",
+      "sha1": "f6ed138b881ec98ec39eba4370b6f3500488f381",
+      "size": 783
+    },
+    {
+      "path": "launcher/aboutPage/twitter-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/twitter-normal.png",
+      "sha1": "2fb6e7b13e74a38edc4fc40a8669db8d57969ac1",
+      "size": 621
+    },
+    {
+      "path": "launcher/aboutPage/up/infosTab-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/up/infosTab-hover.png",
+      "sha1": "c41ba7661a2cffdec0cf96c2ee32b54ebb885b67",
+      "size": 794
+    },
+    {
+      "path": "launcher/aboutPage/up/infosTab-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/up/infosTab-normal.png",
+      "sha1": "8ca6b285e3dc07d2b3b39033c21c68b9ff409987",
+      "size": 742
+    },
+    {
+      "path": "launcher/aboutPage/up/infosTab-selected.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/up/infosTab-selected.png",
+      "sha1": "9f8faecb81559dd570cb83bb7adde03330c7742d",
+      "size": 738
+    },
+    {
+      "path": "launcher/aboutPage/up/modsTab-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/up/modsTab-hover.png",
+      "sha1": "b7ac283e9c16d4bb7d325008da84aeb93ebe9e31",
+      "size": 877
+    },
+    {
+      "path": "launcher/aboutPage/up/modsTab-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/up/modsTab-normal.png",
+      "sha1": "4d944e971561632bf45c17e13a32d96d8fe47abb",
+      "size": 857
+    },
+    {
+      "path": "launcher/aboutPage/up/modsTab-selected.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/aboutPage/up/modsTab-selected.png",
+      "sha1": "dd2683ef5b33651390aff78db4a321bc1807c1a4",
+      "size": 845
+    },
+    {
+      "path": "launcher/changelogsPage/changelogsPage.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/changelogsPage/changelogsPage.png",
+      "sha1": "64cf2eed9e465fc64a2fedade9491f18eb85b6f8",
+      "size": 19317
+    },
+    {
+      "path": "launcher/commonButtons/hideButton.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/hideButton.png",
+      "sha1": "17c000ec569ab91660ab434e1fe0cceb5f3221ab",
+      "size": 317
+    },
+    {
+      "path": "launcher/commonButtons/hideButtonHover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/hideButtonHover.png",
+      "sha1": "b16b4bc96f421192e3fa392c353c2b2aea71f9c2",
+      "size": 247
+    },
+    {
+      "path": "launcher/commonButtons/quitButton.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/quitButton.png",
+      "sha1": "a38bcc5345c70478d71a4f9779cd89357e1bdbe8",
+      "size": 398
+    },
+    {
+      "path": "launcher/commonButtons/quitButtonHover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/quitButtonHover.png",
+      "sha1": "3feae5efdd6aa8960bde8e5f70a4267521c189f5",
+      "size": 305
+    },
+    {
+      "path": "launcher/commonButtons/toggleButton-disabled_off.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/toggleButton-disabled_off.png",
+      "sha1": "2c1bfab4786967c3d13a522acf54d07f309ceabd",
+      "size": 407
+    },
+    {
+      "path": "launcher/commonButtons/toggleButton-disabled_on.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/toggleButton-disabled_on.png",
+      "sha1": "2909fffe95651fc423715828f04aae9edbfe5222",
+      "size": 410
+    },
+    {
+      "path": "launcher/commonButtons/toggleButton-hover_off.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/toggleButton-hover_off.png",
+      "sha1": "f571b6372407ab46855e78c8306329887ac2988c",
+      "size": 379
+    },
+    {
+      "path": "launcher/commonButtons/toggleButton-hover_on.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/toggleButton-hover_on.png",
+      "sha1": "d8e19fe08e39cb27824a9b4bec5ff544b718669b",
+      "size": 407
+    },
+    {
+      "path": "launcher/commonButtons/toggleButton-normal_off.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/toggleButton-normal_off.png",
+      "sha1": "28ce6763945e8d0e1caa8a4488aef2fa839d1c5b",
+      "size": 405
+    },
+    {
+      "path": "launcher/commonButtons/toggleButton-normal_on.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/toggleButton-normal_on.png",
+      "sha1": "37f27644355e466e9c6089e81760e959df7b6c4b",
+      "size": 410
+    },
+    {
+      "path": "launcher/commonButtons/updateButton-red.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/updateButton-red.png",
+      "sha1": "9b6ed71d0e59df54b3411bd679af412eba332b32",
+      "size": 629
+    },
+    {
+      "path": "launcher/commonButtons/updateButton.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/updateButton.png",
+      "sha1": "8a414aadda7a5b5c79a1d4400272983c80714151",
+      "size": 653
+    },
+    {
+      "path": "launcher/commonButtons/updateButtonHover-red.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/updateButtonHover-red.png",
+      "sha1": "73fe2f72263966efedc24b4a918c42e4d9eacf76",
+      "size": 905
+    },
+    {
+      "path": "launcher/commonButtons/updateButtonHover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/commonButtons/updateButtonHover.png",
+      "sha1": "56ff2c36e41075ae94c5be8f8245f3fd5c5dae8b",
+      "size": 957
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/Door-closed.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/Door-closed.png",
+      "sha1": "c3b45063126f7ccc35bc1c905dbe46a76a43cb41",
+      "size": 3964
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/Door-open.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/Door-open.png",
+      "sha1": "db9360b17726ea726a880b8fbc42c4c9a2ed09cd",
+      "size": 4461
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/Door.psd",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/Door.psd",
+      "sha1": "7d4409fee8a33d4cdca953519bf8c7e7ba4f9e63",
+      "size": 40510
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/Keys.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/Keys.png",
+      "sha1": "329ed772563063cbccf85434fc5e18c4e1c0bb1e",
+      "size": 3491
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/Omori - Stressed Out.psd",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/Omori - Stressed Out.psd",
+      "sha1": "6b74ddb3eeb87f20b9519f9965729d744c7c323f",
+      "size": 35340641
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/omoriSprites.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/omoriSprites.png",
+      "sha1": "8953269950bbfc7f547c1d7fe3fc4ee0ab5caef5",
+      "size": 38590
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/pictures.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/pictures.png",
+      "sha1": "8606d933065fddc40106e734ab693c82f19f93c9",
+      "size": 3803912
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/stressedOut.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/stressedOut.png",
+      "sha1": "74e691bc29e3a5899b6ee6b212b57fcb925b6884",
+      "size": 4500561
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/WelcomeToBlackSpace.jpg",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/WelcomeToBlackSpace.jpg",
+      "sha1": "ad7a88556684dae01bc40a38faaea8d0302dcafa",
+      "size": 46494
+    },
+    {
+      "path": "launcher/eastereggs/BlackSpace/WelcomeToBlackSpace.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/eastereggs/BlackSpace/WelcomeToBlackSpace.png",
+      "sha1": "6bf0971d0f30db867d600ea66275fe116d49898c",
+      "size": 25542
+    },
+    {
+      "path": "launcher/icons/aboutIcon.ai",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/aboutIcon.ai",
+      "sha1": "b03c8d97a6484ba0a1a68d77f8d677c81868ee43",
+      "size": 1422730
+    },
+    {
+      "path": "launcher/icons/aboutIcon.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/aboutIcon.png",
+      "sha1": "86049f6de4d79d8a1db9dabf29a1b8e60cb3abfa",
+      "size": 2574
+    },
+    {
+      "path": "launcher/icons/aboutIcon.svg",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/aboutIcon.svg",
+      "sha1": "5d2c2ecd5ae0a01d6889e81baecd402f12b7b44a",
+      "size": 23353
+    },
+    {
+      "path": "launcher/icons/changesIcon.ai",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/changesIcon.ai",
+      "sha1": "bc0d82514aa6ce6bfbd98d14732bd159524005b9",
+      "size": 1417213
+    },
+    {
+      "path": "launcher/icons/changesIcon.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/changesIcon.png",
+      "sha1": "2203ff4ebdf80fc55a1491f760d75659f8c94bf0",
+      "size": 2642
+    },
+    {
+      "path": "launcher/icons/changesIcon.svg",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/changesIcon.svg",
+      "sha1": "d70a2b1af58d162135e74afbd39057aff6ff0e50",
+      "size": 21428
+    },
+    {
+      "path": "launcher/icons/grassBlockIcon.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/grassBlockIcon.png",
+      "sha1": "a4305326bc01edb853489c94d18ff90ec2c6a922",
+      "size": 2097
+    },
+    {
+      "path": "launcher/icons/iconsMc.ai",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/iconsMc.ai",
+      "sha1": "5b80df7c17515a48fb0ec1ce26a9a2830cb662e2",
+      "size": 1429156
+    },
+    {
+      "path": "launcher/icons/iconsMc.svg",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/iconsMc.svg",
+      "sha1": "bfc76abdbaa0325cc95f1a1fde755a1838bc0a83",
+      "size": 16257
+    },
+    {
+      "path": "launcher/icons/newsIcon.ai",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/newsIcon.ai",
+      "sha1": "aa93b37659c64baa545ca238eb76f8c80c07585f",
+      "size": 1430854
+    },
+    {
+      "path": "launcher/icons/newsIcon.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/newsIcon.png",
+      "sha1": "2aad78cdeb2438e9615ffa2dfdcdd459fae0a1e6",
+      "size": 2256
+    },
+    {
+      "path": "launcher/icons/newsIcon.svg",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/newsIcon.svg",
+      "sha1": "003341b939d091a7b576fd21103b4b733c8096ad",
+      "size": 22346
+    },
+    {
+      "path": "launcher/icons/settingsIcon.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/icons/settingsIcon.png",
+      "sha1": "77dc8ad84f2b00c16a62851a790f1ca1340aaa3e",
+      "size": 5942
+    },
+    {
+      "path": "launcher/main/baseGUI.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/baseGUI.png",
+      "sha1": "437be9f0325dbf25c91818604052e1fe1b35d100",
+      "size": 17704
+    },
+    {
+      "path": "launcher/main/corner.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/corner.png",
+      "sha1": "e47879b5783cdc3e4fc5d34960d3dd437251c81b",
+      "size": 2286
+    },
+    {
+      "path": "launcher/main/diapoAstrauworld.psd",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/diapoAstrauworld.psd",
+      "sha1": "c07bba68c480e5bb3957bed6cecf84a013e69e6c",
+      "size": 37784994
+    },
+    {
+      "path": "launcher/main/Homepage.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/Homepage.png",
+      "sha1": "391d9b2bf3d3d23b0f18caee8d5fc2e41a411892",
+      "size": 729565
+    },
+    {
+      "path": "launcher/main/IconesJava.psd",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/IconesJava.psd",
+      "sha1": "d4d5cbc999e70fe48b076f4cbe376572984e90bd",
+      "size": 459295
+    },
+    {
+      "path": "launcher/main/launcherDesign.xd",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/launcherDesign.xd",
+      "sha1": "a638ba4313b1b706959fbcefc91a534a6ca0f891",
+      "size": 1595619
+    },
+    {
+      "path": "launcher/main/logo (1).ico",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo (1).ico",
+      "sha1": "6ef973ca95f2e4f23815a0e5ad1bac5c1649c5bb",
+      "size": 14697
+    },
+    {
+      "path": "launcher/main/logo-texte.ai",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo-texte.ai",
+      "sha1": "2dc883fa1c769711de92ac8a037980b28a622778",
+      "size": 232282
+    },
+    {
+      "path": "launcher/main/logo-texte.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo-texte.png",
+      "sha1": "49b861ccc5c10099fccfc4188d0f6ce124019664",
+      "size": 52582
+    },
+    {
+      "path": "launcher/main/logo-texte.svg",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo-texte.svg",
+      "sha1": "96d60a97ea939fb987d1e6d5f0b62384f34a9c26",
+      "size": 12537
+    },
+    {
+      "path": "launcher/main/logo.ai",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo.ai",
+      "sha1": "418e5f3353112a54d031a6d0ef92478c36676120",
+      "size": 1217666
+    },
+    {
+      "path": "launcher/main/logo.gif",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo.gif",
+      "sha1": "e06060712548910271162c176b8984a62722f0c4",
+      "size": 97858
+    },
+    {
+      "path": "launcher/main/logo.ico",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo.ico",
+      "sha1": "0526baf48b7f5c459877f6315967c80701f00d4e",
+      "size": 4286
+    },
+    {
+      "path": "launcher/main/logo.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo.png",
+      "sha1": "a945d8069a3add9ebc18cb0f3b932d1d9b8ec225",
+      "size": 33473
+    },
+    {
+      "path": "launcher/main/logo.svg",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo.svg",
+      "sha1": "e3e3637ff4d8a6cecc5f655a9b14ba94b43a7bad",
+      "size": 3399
+    },
+    {
+      "path": "launcher/main/logo64.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logo64.png",
+      "sha1": "5d69d1d884b36aa7b45a5c2bc026b9dd6a0a1b43",
+      "size": 6130
+    },
+    {
+      "path": "launcher/main/logoComptes.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logoComptes.png",
+      "sha1": "38ef04e2d846f39ee433f8dc7f3ac064d82e17af",
+      "size": 69921
+    },
+    {
+      "path": "launcher/main/logoMCLauncherPetit.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logoMCLauncherPetit.png",
+      "sha1": "fd4f0b5ee39d00e16be5c13fe87af9912908564f",
+      "size": 6294
+    },
+    {
+      "path": "launcher/main/logoPetit.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/main/logoPetit.png",
+      "sha1": "02c3a89e7ff7355057f525e40544419667beef3f",
+      "size": 4984
+    },
+    {
+      "path": "launcher/newsPage/test/image.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/newsPage/test/image.png",
+      "sha1": "3a9a176542c72a82f36f0c5a9a5eb4af47f4cd63",
+      "size": 265692
+    },
+    {
+      "path": "launcher/newsPage/test/text.md",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/newsPage/test/text.md",
+      "sha1": "43e8900fb3213292f4f3368331ce4f57c1aebc2e",
+      "size": 244
+    },
+    {
+      "path": "launcher/newsPage/test/thumbnail.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/newsPage/test/thumbnail.png",
+      "sha1": "81c5463a589e3198bff0b60817040c8ea70d0292",
+      "size": 67743
+    },
+    {
+      "path": "launcher/profilesPage/addons/dowloadIcon-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/dowloadIcon-hover.png",
+      "sha1": "6a2595d55f5648a828078e2897ec37effc755b89",
+      "size": 1012
+    },
+    {
+      "path": "launcher/profilesPage/addons/dowloadIcon-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/dowloadIcon-normal.png",
+      "sha1": "55227d5ca1b84cad130dbd60b195d431f5085a59",
+      "size": 1440
+    },
+    {
+      "path": "launcher/profilesPage/addons/download-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/download-hover.png",
+      "sha1": "24e3c236500907f75fa04c6e34a7ae595e92e4df",
+      "size": 516
+    },
+    {
+      "path": "launcher/profilesPage/addons/download-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/download-normal.png",
+      "sha1": "566c3c303fe2690c9d5a1c9f1dcacbc6dd20f628",
+      "size": 546
+    },
+    {
+      "path": "launcher/profilesPage/addons/downloaded-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/downloaded-hover.png",
+      "sha1": "db488b8913603855713237d406d7c43425c9e36b",
+      "size": 656
+    },
+    {
+      "path": "launcher/profilesPage/addons/downloaded-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/downloaded-normal.png",
+      "sha1": "f36a112a6cd788599897c2bd41606412295557f9",
+      "size": 556
+    },
+    {
+      "path": "launcher/profilesPage/addons/goToFolder-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/goToFolder-hover.png",
+      "sha1": "f806837db4f7f6f1bda81f02f59b0087680ca76c",
+      "size": 2496
+    },
+    {
+      "path": "launcher/profilesPage/addons/goToFolder-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/goToFolder-normal.png",
+      "sha1": "34b25644d370a32bbee7b6ba8754b8c302b47079",
+      "size": 4035
+    },
+    {
+      "path": "launcher/profilesPage/addons/modsButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/modsButton-hover.png",
+      "sha1": "15ba63e359f6e6721f76fc7a3c35e38f5361ea64",
+      "size": 1835
+    },
+    {
+      "path": "launcher/profilesPage/addons/modsButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/modsButton-normal.png",
+      "sha1": "a9ee75883a2e6e10bf930abf28f7045a2f3ebe63",
+      "size": 3006
+    },
+    {
+      "path": "launcher/profilesPage/addons/moreInfos-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/moreInfos-hover.png",
+      "sha1": "48f03b3ae5314008352b6593ad77d6810cc11447",
+      "size": 637
+    },
+    {
+      "path": "launcher/profilesPage/addons/moreInfos-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/moreInfos-normal.png",
+      "sha1": "4224c713756946ba7264e098f505b7b226f97f57",
+      "size": 647
+    },
+    {
+      "path": "launcher/profilesPage/addons/plus-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/plus-hover.png",
+      "sha1": "46d044a53add4d5f8809a46aa3f721ef0609f31f",
+      "size": 929
+    },
+    {
+      "path": "launcher/profilesPage/addons/plus-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/plus-normal.png",
+      "sha1": "e5f6b3960f14606dc5ec4468c7dc0b9a1a4090b3",
+      "size": 1143
+    },
+    {
+      "path": "launcher/profilesPage/addons/profilePage-addons.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/profilePage-addons.png",
+      "sha1": "5a0fd1b7e036bbc727b7326e01f6c959ad9bdeaa",
+      "size": 24300
+    },
+    {
+      "path": "launcher/profilesPage/addons/resourcePacksButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/resourcePacksButton-hover.png",
+      "sha1": "dc35cf5f161dd7f4c15d28162467c4978b4fa1f4",
+      "size": 2604
+    },
+    {
+      "path": "launcher/profilesPage/addons/resourcePacksButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/resourcePacksButton-normal.png",
+      "sha1": "af148ada62c04970d4eb2fd11af89601a14f3ec6",
+      "size": 4380
+    },
+    {
+      "path": "launcher/profilesPage/addons/seeComparison-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/seeComparison-hover.png",
+      "sha1": "03e822c5bddc46180d10e3fe9e1b2c65e1e6ffa9",
+      "size": 1006
+    },
+    {
+      "path": "launcher/profilesPage/addons/seeComparison-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/seeComparison-normal.png",
+      "sha1": "56479020da5d0c714f65ec72b801a92629685683",
+      "size": 1026
+    },
+    {
+      "path": "launcher/profilesPage/addons/shadersButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/shadersButton-hover.png",
+      "sha1": "611334def636994538e7c830039852cb7d3326a1",
+      "size": 1889
+    },
+    {
+      "path": "launcher/profilesPage/addons/shadersButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/addons/shadersButton-normal.png",
+      "sha1": "a2e31e47f038e1a5909a4f132ade1894a7863c86",
+      "size": 2865
+    },
+    {
+      "path": "launcher/profilesPage/church-day.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/church-day.png",
+      "sha1": "0755445f6bd32c6c4011ca4f60a6ec9cb4ecf373",
+      "size": 459368
+    },
+    {
+      "path": "launcher/profilesPage/church-night.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/church-night.png",
+      "sha1": "e200879e3f6d240e3e0ed5425d74fb6b0697d947",
+      "size": 316553
+    },
+    {
+      "path": "launcher/profilesPage/compte/connectionButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/compte/connectionButton-hover.png",
+      "sha1": "d5206bf4495ebcf154f9df4ec6fd48740c2318dd",
+      "size": 4127
+    },
+    {
+      "path": "launcher/profilesPage/compte/connectionButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/compte/connectionButton-normal.png",
+      "sha1": "8c0c995460fa75ccae4a77dea83ec553f7d27b39",
+      "size": 4011
+    },
+    {
+      "path": "launcher/profilesPage/compte/connectionWithMicrosoftButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/compte/connectionWithMicrosoftButton-hover.png",
+      "sha1": "e4a03bd92a230168e012aad4ed7d6311715bbc1c",
+      "size": 7768
+    },
+    {
+      "path": "launcher/profilesPage/compte/connectionWithMicrosoftButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/compte/connectionWithMicrosoftButton-normal.png",
+      "sha1": "a047ccc6aded0a72c2ad00156a2d9ac725ad7b14",
+      "size": 7735
+    },
+    {
+      "path": "launcher/profilesPage/compte/resetButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/compte/resetButton-hover.png",
+      "sha1": "bd6535aecc1973b55a6c7c58ac4fccc59ad6f9e6",
+      "size": 2242
+    },
+    {
+      "path": "launcher/profilesPage/compte/resetButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/compte/resetButton-normal.png",
+      "sha1": "bff1de493bd71b0f1a0dd88d491026dd761c59a6",
+      "size": 2246
+    },
+    {
+      "path": "launcher/profilesPage/downloadButton-disabled.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/downloadButton-disabled.png",
+      "sha1": "7cbc591b31b102f89e5f1a162f747d42b99c92ab",
+      "size": 7770
+    },
+    {
+      "path": "launcher/profilesPage/downloadButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/downloadButton-hover.png",
+      "sha1": "1b157c74c2179c735a4aeaa8aa4b5b93ff392b8f",
+      "size": 3747
+    },
+    {
+      "path": "launcher/profilesPage/downloadButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/downloadButton-normal.png",
+      "sha1": "f01ead87b6e97d02c1d00a72f421a6204502e581",
+      "size": 7863
+    },
+    {
+      "path": "launcher/profilesPage/lake-day.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/lake-day.png",
+      "sha1": "4bb64f66aaaff7520ac05396d284c0fa8f2cf2d5",
+      "size": 476028
+    },
+    {
+      "path": "launcher/profilesPage/lake-night.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/lake-night.png",
+      "sha1": "7401f459232ccc92e8f62f8d4e74f05595aa9d4d",
+      "size": 336351
+    },
+    {
+      "path": "launcher/profilesPage/launchToMenuButton-disabled.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/launchToMenuButton-disabled.png",
+      "sha1": "e29482a3444e6aac5d8ee9208a24713027395ca7",
+      "size": 4937
+    },
+    {
+      "path": "launcher/profilesPage/launchToMenuButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/launchToMenuButton-hover.png",
+      "sha1": "55e13877f24f1faf46fd8d75ba133c4faeb6b934",
+      "size": 4913
+    },
+    {
+      "path": "launcher/profilesPage/launchToMenuButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/launchToMenuButton-normal.png",
+      "sha1": "0441f851112209e8bee064cbb200bb67ef407f67",
+      "size": 5451
+    },
+    {
+      "path": "launcher/profilesPage/logo-texte.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/logo-texte.png",
+      "sha1": "f4cdee4f268d43d9392c12f88fd35d73a8c0d1c3",
+      "size": 17077
+    },
+    {
+      "path": "launcher/profilesPage/modsList-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/modsList-hover.png",
+      "sha1": "2c11ca335d224a9af1a1a1861b1c3c22f54dcca1",
+      "size": 1113
+    },
+    {
+      "path": "launcher/profilesPage/modsList-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/modsList-normal.png",
+      "sha1": "781847d0689f7576399ef72c3875f3c5cfe917b8",
+      "size": 1859
+    },
+    {
+      "path": "launcher/profilesPage/newsButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/newsButton-hover.png",
+      "sha1": "a9062a52f0f36f005dc08030f859f2edd7caaf11",
+      "size": 1897
+    },
+    {
+      "path": "launcher/profilesPage/newsButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/newsButton-normal.png",
+      "sha1": "ebbb0378ba57bbdc4622ceb27d676e6f8ff191dd",
+      "size": 3361
+    },
+    {
+      "path": "launcher/profilesPage/playButton-disabled.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/playButton-disabled.png",
+      "sha1": "97140f4bec97256d0f726b603f2776f431f5a786",
+      "size": 1333
+    },
+    {
+      "path": "launcher/profilesPage/playButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/playButton-hover.png",
+      "sha1": "e403f829f6b0f343edc54b97bfc1ec417a94bd4c",
+      "size": 1347
+    },
+    {
+      "path": "launcher/profilesPage/playButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/playButton-normal.png",
+      "sha1": "463ebd2dbe28070a29e0b2092f9636c3be2d1cf1",
+      "size": 1338
+    },
+    {
+      "path": "launcher/profilesPage/reglages/saveProfileNameButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/reglages/saveProfileNameButton-hover.png",
+      "sha1": "1ad9087e6aa5272c32439d9ed51207f7beea42b5",
+      "size": 1567
+    },
+    {
+      "path": "launcher/profilesPage/reglages/saveProfileNameButton.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/reglages/saveProfileNameButton.png",
+      "sha1": "9d10f7c166c9cdbba2b393ef4076f2f71a9f0d24",
+      "size": 1571
+    },
+    {
+      "path": "launcher/profilesPage/serverInfosButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/serverInfosButton-hover.png",
+      "sha1": "42f27a45ede1f996aacdb61e4b63cceedd57b970",
+      "size": 1730
+    },
+    {
+      "path": "launcher/profilesPage/serverInfosButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/serverInfosButton-normal.png",
+      "sha1": "a5acf1b3b4b74f67e2acdc19acf46a0be397812a",
+      "size": 3042
+    },
+    {
+      "path": "launcher/profilesPage/stopButton-disabled.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/stopButton-disabled.png",
+      "sha1": "a8c8175782a9f7f45c63367f367dbc15114f8581",
+      "size": 2128
+    },
+    {
+      "path": "launcher/profilesPage/stopButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/stopButton-hover.png",
+      "sha1": "4c9127daac06c5cdbc78fc8ca3ce0ae52e7b1dfa",
+      "size": 2123
+    },
+    {
+      "path": "launcher/profilesPage/stopButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/stopButton-normal.png",
+      "sha1": "0a90db7e621d94ab8a4cc59159d069fa16a3eb0d",
+      "size": 2135
+    },
+    {
+      "path": "launcher/profilesPage/townHall-day.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/townHall-day.png",
+      "sha1": "c0882b1ac2ec1772622a66e7c535b31fe7385366",
+      "size": 387062
+    },
+    {
+      "path": "launcher/profilesPage/townHall-night.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/townHall-night.png",
+      "sha1": "936d3a1b024074c09c118e17a3d48a4519f65038",
+      "size": 293998
+    },
+    {
+      "path": "launcher/profilesPage/up/Addons-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Addons-hover.png",
+      "sha1": "f2f93e184a9d1091d253149b89028678e92ada16",
+      "size": 1001
+    },
+    {
+      "path": "launcher/profilesPage/up/Addons-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Addons-normal.png",
+      "sha1": "1da6118dff02250551726721ab07a507bc380199",
+      "size": 1025
+    },
+    {
+      "path": "launcher/profilesPage/up/Addons-selected.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Addons-selected.png",
+      "sha1": "edbfc7b316b9a19922e88d86299ba3c89441e225",
+      "size": 962
+    },
+    {
+      "path": "launcher/profilesPage/up/Compte-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Compte-hover.png",
+      "sha1": "a1a92e11754872846c0eaa5621e0dd0b419e3fd0",
+      "size": 1019
+    },
+    {
+      "path": "launcher/profilesPage/up/Compte-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Compte-normal.png",
+      "sha1": "4d10f55851c424f807f7851de738961e73f0d6e7",
+      "size": 975
+    },
+    {
+      "path": "launcher/profilesPage/up/Compte-selected.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Compte-selected.png",
+      "sha1": "5555249d4ae7c51a827585e11fd268e44b3d3c9f",
+      "size": 980
+    },
+    {
+      "path": "launcher/profilesPage/up/Jouer-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Jouer-hover.png",
+      "sha1": "cbb82a644b32edba3840102c9da67f19e06f5a0e",
+      "size": 813
+    },
+    {
+      "path": "launcher/profilesPage/up/Jouer-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Jouer-normal.png",
+      "sha1": "fc134ac30397e8ce4f74ed6e64d7181ab6f8bb14",
+      "size": 769
+    },
+    {
+      "path": "launcher/profilesPage/up/Jouer-selected.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Jouer-selected.png",
+      "sha1": "240ffa58d18a40f29697b91d928871476ed60742",
+      "size": 780
+    },
+    {
+      "path": "launcher/profilesPage/up/Reglages-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Reglages-hover.png",
+      "sha1": "19a93f6e34ff459544f0d65de5542958f254caaa",
+      "size": 1202
+    },
+    {
+      "path": "launcher/profilesPage/up/Reglages-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Reglages-normal.png",
+      "sha1": "8564cb3cb4efe0bad6b9a6c1cb87d16a4dc8867b",
+      "size": 1213
+    },
+    {
+      "path": "launcher/profilesPage/up/Reglages-selected.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/up/Reglages-selected.png",
+      "sha1": "fe89a7ead79185a2e16bde215446c2a08af3015a",
+      "size": 1166
+    },
+    {
+      "path": "launcher/profilesPage/village-day.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/village-day.png",
+      "sha1": "c8c0cf265853f681aa33ccb381fc960bbaffc3e3",
+      "size": 424749
+    },
+    {
+      "path": "launcher/profilesPage/village-night.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/profilesPage/village-night.png",
+      "sha1": "bd0a83c67328dc34efd8d1489f5bc73e8af044ee",
+      "size": 341774
+    },
+    {
+      "path": "launcher/serverInfosFrame/connected.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/serverInfosFrame/connected.png",
+      "sha1": "45cfc271633050dfe427f7567dda1399491fb040",
+      "size": 1439
+    },
+    {
+      "path": "launcher/serverInfosFrame/notConnected.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/serverInfosFrame/notConnected.png",
+      "sha1": "5132e669ddf285d11e138f30e697d7c696158be9",
+      "size": 1493
+    },
+    {
+      "path": "launcher/serverInfosFrame/serverInfosFrame.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/serverInfosFrame/serverInfosFrame.png",
+      "sha1": "8ccf7c2b23f47fdc55b33449da7320b37b13e462",
+      "size": 13903
+    },
+    {
+      "path": "launcher/whitelistServers/homeButton-hover.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/whitelistServers/homeButton-hover.png",
+      "sha1": "563dc2df762693ca60ee5f8c9bec283934b5dcf2",
+      "size": 3166
+    },
+    {
+      "path": "launcher/whitelistServers/homeButton-normal.png",
+      "downloadURL": "https://raw.githubusercontent.com/AstrauworldMC/launcher/main/src/main/resources/assets/launcher/whitelistServers/homeButton-normal.png",
+      "sha1": "20db407cedff4a13d07f3b018e10aa12c10d894d",
+      "size": 3311
+    }
+  ]
+}

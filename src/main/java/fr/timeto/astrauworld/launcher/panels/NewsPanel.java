@@ -94,6 +94,12 @@ public class NewsPanel extends PageCreator {
             i++;
         }
 
+        CustomScrollBarUI scrollBarUI1 = (CustomScrollBarUI) scrollPane.getHorizontalScrollBar().getUI();
+        CustomScrollBarUI scrollBarUI2 = (CustomScrollBarUI) scrollPane.getVerticalScrollBar().getUI();
+        scrollBarUI1.recolor();
+        scrollBarUI2.recolor();
+        scrollPane.getHorizontalScrollBar().repaint();
+        scrollPane.getVerticalScrollBar().repaint();
     }
 }
 

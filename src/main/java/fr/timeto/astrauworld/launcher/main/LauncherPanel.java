@@ -16,6 +16,7 @@ import fr.timeto.astrauworld.launcher.panels.profile.*;
 import fr.timeto.astrauworld.launcher.panels.settings.SettingsColorsPage;
 import fr.timeto.astrauworld.launcher.panels.settings.SettingsDiscordPage;
 import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
+import fr.timeto.timutilslib.CustomScrollBarUI;
 import fr.timeto.timutilslib.PopUpMessages;
 
 import javax.swing.*;
@@ -403,6 +404,20 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      }
 
      public void recolor() {
+
+          CustomScrollBarUI.staticRecolor(
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get().brighter(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.MAIN_COLOR.get().darker(),
+                  Launcher.CUSTOM_COLORS.MAIN_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get().brighter());
+
+
           initProfileButtons();
           loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.CUSTOM_COLORS.MAIN_COLOR.get()){
                @Override
