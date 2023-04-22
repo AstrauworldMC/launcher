@@ -152,7 +152,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
     }
 
     public void recolor() {
-        button = new SColoredButton(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
+        button.setColor(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
         authorDate.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         title.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
     }

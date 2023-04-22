@@ -43,14 +43,6 @@ import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 @SuppressWarnings("unused")
 public class Launcher {
 
-    private static Color DARKER_BACKGROUND = Color.BLACK;
-    private static Color MID_BACKGROUND = new Color(9, 9, 9);
-    private static Color BASE_BACKGROUND = new Color(18, 18, 18);
-    private static Color LIGHTER_GREY = new Color(30, 30, 30);
-    private static Color MAIN_COLOR = Color.RED;
-    private static Color TEXT_COLOR = Color.WHITE;
-    private static Color SECONDTEXT_COLOR = new Color(153, 153, 153);
-
     public enum CUSTOM_COLORS {
         MAIN_COLOR(Color.RED, KEY.GLOBALSETTINGS_MAINCOLOR),
         TEXT_COLOR(Color.WHITE, KEY.GLOBALSETTINGS_TEXTCOLOR),
@@ -236,6 +228,10 @@ public class Launcher {
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         MicrosoftAuthResult result = authenticator.loginWithWebview();
         Launcher.println("webview");
+
+        if (result == null) {
+            throw new MicrosoftAuthenticationException("Aucun résultat");
+        }
 
         saveInfosWhenConnect(saver, result, oldAccount);
 

@@ -1,11 +1,14 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
+import fr.theshark34.swinger.Swinger;
+import fr.theshark34.swinger.event.SwingerEvent;
+import fr.theshark34.swinger.event.SwingerEventListener;
+import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherFrame;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -18,8 +21,9 @@ public class ColorChooserPanel extends JPanel {
     private final String text;
     private final Launcher.CUSTOM_COLORS customColor;
 
-    private JLabel label = new JLabel();
-    private JPanel colorPanel = new JPanel();
+    private final JLabel label = new JLabel();
+    private final STexturedButton resetButton = new STexturedButton(Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/resetButton-normal.png"), Swinger.getResourceIgnorePath("/assets/launcher/commonButtons/resetButton-hover.png"));
+    private final JPanel colorPanel = new JPanel();
 
     public ColorChooserPanel(String text, Launcher.CUSTOM_COLORS customColor) {
         this.text = text;
@@ -34,6 +38,10 @@ public class ColorChooserPanel extends JPanel {
         label.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
         label.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         add(label);
+
+        resetButton.setBounds(0, 40);
+        resetButton.addEventListener(swingerEvent -> customColor.reset());
+        add(resetButton);
 
         colorPanel.setBounds(320, 10, 40, 40);
         colorPanel.setBackground(customColor.get());
