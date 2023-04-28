@@ -1,8 +1,6 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
 import fr.theshark34.swinger.Swinger;
-import fr.theshark34.swinger.event.SwingerEvent;
-import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherFrame;
@@ -31,19 +29,19 @@ public class ColorChooserPanel extends JPanel {
 
         setOpaque(false);
         setLayout(null);
-        setPreferredSize(new Dimension(400, 60));
+        setPreferredSize(new Dimension(412, 75));
 
-        label.setBounds(0, 13, 280, 24);
+        label.setBounds(25, 14, 280, 24);
         label.setText(text);
         label.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
         label.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         add(label);
 
-        resetButton.setBounds(0, 40);
+        resetButton.setBounds(25, 42);
         resetButton.addEventListener(swingerEvent -> customColor.reset());
         add(resetButton);
 
-        colorPanel.setBounds(320, 10, 40, 40);
+        colorPanel.setBounds(335, 12, 50, 50);
         colorPanel.setBackground(customColor.get());
 
         colorPanel.setBorder(new LineBorder(getContrastVersionForColor(customColor.get(), true), 2));
@@ -68,6 +66,6 @@ public class ColorChooserPanel extends JPanel {
     }
 
     public void setBounds(int x, int y) {
-        setBounds(x, y, 400, 60);
+        setBounds(x, y, 412, 75);
     }
 }

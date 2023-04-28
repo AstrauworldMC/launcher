@@ -87,6 +87,19 @@ public class ColorPreset {
         return colorPreset;
     }
 
+    public static ColorPreset getLightPreset() {
+        ColorPreset colorPreset = new ColorPreset("Thème clair");
+        colorPreset.add(Launcher.CUSTOM_COLORS.MAIN_COLOR, Launcher.CUSTOM_COLORS.MAIN_COLOR.getDefault());
+        colorPreset.add(Launcher.CUSTOM_COLORS.TEXT_COLOR, Color.BLACK);
+        colorPreset.add(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR, new Color(102, 102, 102));
+        colorPreset.add(Launcher.CUSTOM_COLORS.DARKER_BACKGROUND_COLOR, new Color(216, 216, 216));
+        colorPreset.add(Launcher.CUSTOM_COLORS.MID_BACKGROUND_COLOR, new Color(226, 226, 226));
+        colorPreset.add(Launcher.CUSTOM_COLORS.BASE_BACKGROUND_COLOR, Color.WHITE);
+        colorPreset.add(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR, new Color(204, 204, 204));
+
+        return colorPreset;
+    }
+
     public static ColorPreset getClassicPreset() {
         ColorPreset colorPreset = new ColorPreset("Classic");
         colorPreset.add(Launcher.CUSTOM_COLORS.MAIN_COLOR, new Color(255, 0, 0));

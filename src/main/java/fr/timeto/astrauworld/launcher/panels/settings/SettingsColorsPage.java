@@ -21,11 +21,13 @@ public class SettingsColorsPage extends PageCreator {
 
     String[] colorPresetsString = new String[] {
             ColorPreset.getDarkPreset().getName(),
+            ColorPreset.getLightPreset().getName(),
             ColorPreset.getClassicPreset().getName(),
             ColorPreset.getCustomPreset().getName()
     };
     ColorPreset[] colorPresets = new ColorPreset[] {
             ColorPreset.getDarkPreset(),
+            ColorPreset.getLightPreset(),
             ColorPreset.getClassicPreset(),
             ColorPreset.getCustomPreset()
     };
@@ -37,25 +39,25 @@ public class SettingsColorsPage extends PageCreator {
 
         setLayout(null);
 
-        mainColorChooser.setBounds(25, 20);
+        mainColorChooser.setBounds(0, 15);
         add(mainColorChooser);
 
-        textColorChooser.setBounds(435, 20);
+        textColorChooser.setBounds(411, 15);
         add(textColorChooser);
 
-        secondTextColorChooser.setBounds(25, 100);
+        secondTextColorChooser.setBounds(0, 90);
         add(secondTextColorChooser);
 
-        elementsColorChooser.setBounds(435, 100);
+        elementsColorChooser.setBounds(411, 90);
         add(elementsColorChooser);
 
-        baseBackgroundColorChooser.setBounds(25, 180);
+        baseBackgroundColorChooser.setBounds(0, 165);
         add(baseBackgroundColorChooser);
 
-        midBackgroundColorChooser.setBounds(435, 180);
+        midBackgroundColorChooser.setBounds(411, 165);
         add(midBackgroundColorChooser);
 
-        darkerBackgroundColorChooser.setBounds(25, 260);
+        darkerBackgroundColorChooser.setBounds(0, 240);
         add(darkerBackgroundColorChooser);
 
         presetLabel.setBounds(25, 350, 280, 24);
@@ -75,7 +77,8 @@ public class SettingsColorsPage extends PageCreator {
         ColorPreset foundColorPreset = ColorPreset.getCustomPreset();
         ColorPreset[] testedColorPresets = new ColorPreset[] {
                 ColorPreset.getDarkPreset(),
-                ColorPreset.getClassicPreset(),
+                ColorPreset.getLightPreset(),
+                ColorPreset.getClassicPreset()
         };
         boolean foundBool = false;
         while (i != testedColorPresets.length) {
@@ -87,9 +90,6 @@ public class SettingsColorsPage extends PageCreator {
                 while (ii != testedColorPreset.size()) {
                     if (found == null || Boolean.parseBoolean(found)) {
                         Launcher.CUSTOM_COLORS testedColor = Launcher.CUSTOM_COLORS.values()[ii];
-                        System.out.println();
-                        System.out.println("Couleur actuelle pour " + testedColor + " : " + testedColor.get());
-                        System.out.println("Couleur voulue pour le preset " + testedColorPreset.getName() + " : " + testedColorPreset.get(testedColor));
                         if (Launcher.colorsEquals(testedColorPreset.get(testedColor), testedColor.get())) {
                             found = "true";
                         } else {
@@ -112,7 +112,6 @@ public class SettingsColorsPage extends PageCreator {
 
         presetComboBox.setSelectedItem(foundColorPreset.getName());
         presetComboBox.getEditor().setItem(foundColorPreset.getName());
-        System.out.println("Preset trouvé: " + foundColorPreset.getName());
     }
 
     public int getSelectedPresetIndex() {
