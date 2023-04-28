@@ -8,9 +8,9 @@ package fr.timeto.astrauworld.launcher.customelements;
     import java.awt.*;
 
 public class CustomComboBoxEditor extends BasicComboBoxEditor {
-    private final JLabel label = new JLabel();
-    private final JPanel panel = new JPanel();
-    private Object selectedItem;
+    protected final JLabel label = new JLabel();
+    protected final JPanel panel = new JPanel();
+    protected Object selectedItem;
 
     public CustomComboBoxEditor() {
 
@@ -28,7 +28,7 @@ public class CustomComboBoxEditor extends BasicComboBoxEditor {
     }
 
     public Object getItem() {
-        return "[" + this.selectedItem.toString() + "]";
+        return this.selectedItem.toString();
     }
 
     public void setItem(Object item) {

@@ -73,6 +73,11 @@ public class Launcher {
             setFileColor(color);
         }
 
+        public void setWithoutRecolor(Color color) {
+            this.color = color;
+            setFileColor(color);
+        }
+
         public Color getFileColor() {
             String[] split = globalSettingsSaver.get(key.get()).split("-");
             int r = Integer.parseInt(split[0]);
@@ -99,6 +104,19 @@ public class Launcher {
         public void reset() {
             setFileColor(key.getDefaultValue());
             set(getFileColor());
+        }
+
+        public Color getDefault() {
+            String[] split = key.getDefaultValue().split("-");
+            int r = Integer.parseInt(split[0]);
+            int g = Integer.parseInt(split[1]);
+            int b = Integer.parseInt(split[2]);
+
+            return new Color(r, g, b);
+        }
+
+        public KEY getKey() {
+            return key;
         }
 
     }
@@ -191,6 +209,16 @@ public class Launcher {
         LocalDateTime now = LocalDateTime.now();
         
         System.out.println("[" + dtf.format(now) + "] [Astrauworld Launcher] " + str);
+    }
+
+    public static boolean colorsEquals(Color color1, Color color2) {
+        if (color1 == null || color2 == null) {
+            return false;
+        }
+
+        return color1.getRed() == color2.getRed()
+                && color1.getGreen() == color2.getGreen()
+                && color1.getBlue() == color2.getBlue();
     }
 
     public static String convertStringArrayToString(String[] strArr, String delimiter) {

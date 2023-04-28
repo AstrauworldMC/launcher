@@ -27,7 +27,6 @@ public class CustomComboBoxRenderer extends JLabel implements ListCellRenderer {
         setText(value.toString());
 
         if (isSelected) {
-
             setBackground(getSelectedColor());
             setForeground(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
         } else {
