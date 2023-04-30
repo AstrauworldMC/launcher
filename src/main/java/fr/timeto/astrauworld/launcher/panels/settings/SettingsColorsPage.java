@@ -7,9 +7,11 @@ import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class SettingsColorsPage extends PageCreator {
+public class SettingsColorsPage extends PageCreator implements ActionListener {
 
     ColorChooserPanel mainColorChooser = new ColorChooserPanel("Couleur principale", Launcher.CUSTOM_COLORS.MAIN_COLOR);
     ColorChooserPanel textColorChooser = new ColorChooserPanel("Couleur du texte", Launcher.CUSTOM_COLORS.TEXT_COLOR);
@@ -66,7 +68,7 @@ public class SettingsColorsPage extends PageCreator {
         add(presetLabel);
 
         presetComboBox.setBounds(235, 350, 150, 24);
-        presetComboBox.addActionListener(e -> colorPresets[getSelectedPresetIndex()].apply());
+        presetComboBox.addActionListener(this);
         add(presetComboBox);
 
         add(getBg().getPanel());
@@ -149,5 +151,16 @@ public class SettingsColorsPage extends PageCreator {
             verifySelectedPreset();
         }
         super.setVisible(aFlag);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (colorPresetsString[getSelectedPresetIndex()].contains("clair")) {
+        //    LauncherPanel panel = (LauncherPanel) LauncherFrame.getInstance().getContentPane();
+        //    panel.startStatusVid();
+            colorPresets[getSelectedPresetIndex()].apply();
+        } else {
+            colorPresets[getSelectedPresetIndex()].apply();
+        }
     }
 }

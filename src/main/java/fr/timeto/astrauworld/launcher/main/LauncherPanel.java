@@ -18,6 +18,15 @@ import fr.timeto.astrauworld.launcher.panels.settings.SettingsDiscordPage;
 import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
 import fr.timeto.timutilslib.CustomScrollBarUI;
 import fr.timeto.timutilslib.PopUpMessages;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Screen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -526,5 +535,38 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      @Override
      public void onEvent(SwingerEvent e) {
           OnButtonEvent.onButtonEvent(e);
+     }
+
+     public void startStatusVid(){
+          final JFXPanel VFXPanel = new JFXPanel();
+
+          String video_source = "";
+
+          Media m = new Media(video_source);
+          MediaPlayer player = new MediaPlayer(m);
+          MediaView viewer = new MediaView(player);
+
+          StackPane root = new StackPane();
+          Scene scene = new Scene(root);
+
+          // center video position
+          javafx.geometry.Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+          viewer.setX((screen.getWidth() - this.getWidth()) / 2);
+          viewer.setY((screen.getHeight() - this.getHeight()) / 2);
+
+          // resize video based on screen size
+          DoubleProperty width = viewer.fitWidthProperty();
+          DoubleProperty height = viewer.fitHeightProperty();
+          width.bind(Bindings.selectDouble(viewer.sceneProperty(), "width"));
+          height.bind(Bindings.selectDouble(viewer.sceneProperty(), "height"));
+          viewer.setPreserveRatio(true);
+
+          // add video to stackpane
+          root.getChildren().add(viewer);
+
+          VFXPanel.setScene(scene);
+          player.play();
+          this.setLayout(new BorderLayout());
+          this.add(VFXPanel, BorderLayout.CENTER);
      }
 }

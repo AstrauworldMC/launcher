@@ -2,7 +2,6 @@ package fr.timeto.astrauworld.launcher.main;
 
 import fr.theshark34.swinger.Swinger;
 import fr.timeto.astrauworld.launcher.customelements.ZoneWindowMover;
-import fr.timeto.astrauworld.launcher.secret.DiscordManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,7 +59,6 @@ public class LauncherFrame extends JFrame {
 
         @Override
         public void windowClosing(WindowEvent e) {
-            DiscordManager.stop();
             LauncherSystemTray.stop();
             System.exit(0);
         }

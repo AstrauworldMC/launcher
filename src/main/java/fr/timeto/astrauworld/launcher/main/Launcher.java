@@ -25,6 +25,7 @@ import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import net.harawata.appdirs.AppDirsFactory;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -219,6 +220,25 @@ public class Launcher {
         return color1.getRed() == color2.getRed()
                 && color1.getGreen() == color2.getGreen()
                 && color1.getBlue() == color2.getBlue();
+    }
+
+    public static BufferedImage takeAppScreenshot() {
+
+        Robot r;
+        try {
+            r = new Robot();
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Used to get ScreenSize and capture image
+        Rectangle capture = new Rectangle(
+                getInstance().getX(),
+                getInstance().getY(),
+                getInstance().getWidth(),
+                getInstance().getHeight());
+
+        return r.createScreenCapture(capture);
     }
 
     public static String convertStringArrayToString(String[] strArr, String delimiter) {

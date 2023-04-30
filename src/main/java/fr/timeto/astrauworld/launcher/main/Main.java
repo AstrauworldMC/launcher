@@ -36,9 +36,7 @@ public class Main {
             } else if (OS.toLowerCase().contains("nix") || OS.toLowerCase().contains("nux") || OS.toLowerCase().contains("aix")) {
                 Launcher.println("Unix OK");
             } else {
-                Thread ok = new Thread(() -> {
-                    System.exit(1);
-                });
+                Thread ok = new Thread(() -> System.exit(1));
                 PopUpMessages.errorMessage("Erreur", "Désolé, votre système d'exploitation (" + OS + ") n'est pas compatible", ok);
                 Launcher.println("OS non supporté");
             }
@@ -121,6 +119,9 @@ public class Main {
                 Thread t = new Thread(() -> {
                     try {
 
+                        Launcher.println("[Lancement] Lancement du system tray icon");
+                        initLauncherSystemTray();
+
                         Launcher.println("[Lancement] Lancement du DiscordRPC");
                         DiscordManager.start();
                         DiscordManager.setLauncherPresence();
@@ -130,9 +131,6 @@ public class Main {
                         new File(Launcher.dataFolder + "eastereggs.properties").delete();
 
                         PageChange.lastSettingsSaver = null;
-
-                        Launcher.println("[Lancement] Lancement du system tray icon");
-                        initLauncherSystemTray();
 
                         Launcher.println("[Lancement] Initialisation des images de profil");
                         initProfileIcon();
@@ -166,9 +164,7 @@ public class Main {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Thread tt = new Thread(() -> {
-                            System.exit(1);
-                        });
+                        Thread tt = new Thread(() -> System.exit(1));
                         try {
                             String[] causeSplit1 = e.getCause().toString().split(":");
                             String[] causeSplit2 = causeSplit1[0].split("\\.");
@@ -207,9 +203,7 @@ public class Main {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Thread t = new Thread(() -> {
-                System.exit(1);
-            });
+            Thread t = new Thread(() -> System.exit(1));
             try {
                 String[] causeSplit1 = e.getCause().toString().split(":");
                 String[] causeSplit2 = causeSplit1[0].split("\\.");
