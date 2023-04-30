@@ -129,22 +129,6 @@ public class Launcher {
 
     // String des les path dont on a besoin
     public static final String filesFolder =  AppDirsFactory.getInstance().getUserDataDir("Astrauworld Launcher", null, null, true);
-    public static final String crashFolder = filesFolder + separatorChar + "crashes";
-    public static final String gameFilesFolder = filesFolder + separatorChar + "GameFiles";
-    public static final String dataFolder = filesFolder + separatorChar + "data";
-    public static final String globalSettingsData = dataFolder + separatorChar + "settings.properties";
-
-    public static final String firstProfileData = dataFolder + separatorChar + "firstProfile.properties";
-    public static final String firstProfileIcon = dataFolder + separatorChar + "firstProfile.png";
-    public static final String firstProfileCustomFilesFolder = dataFolder + separatorChar + "firstProfileCustomFiles";
-
-    public static final String secondProfileData = dataFolder + separatorChar + "secondProfile.properties";
-    public static final String secondProfileIcon = dataFolder + separatorChar + "secondProfile.png";
-    public static final String secondProfileCustomFilesFolder = dataFolder + separatorChar + "secondProfileCustomFiles";
-
-    public static final String thirdProfileData = dataFolder + separatorChar + "thirdProfile.properties";
-    public static final String thirdProfileIcon = dataFolder + separatorChar + "thirdProfile.png";
-    public static final String thirdProfileCustomFilesFolder = dataFolder + separatorChar + "thirdProfileCustomFiles";
 
     // Version de Minecraft et de Forge utilisée
     public static final String mcVersion = launcherProperties.getProperty("mcVersion");
@@ -160,41 +144,41 @@ public class Launcher {
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
-    public static final File AW_CRASH_FOLDER = new File(crashFolder);
-    public static final File AW_GAMEFILES_FOLDER = new File(gameFilesFolder);
-    public static final File AW_DATA_FOLDER = new File(dataFolder);
-    public static final File AW_SETTINGS_DATA = new File(globalSettingsData);
+    public static final File AW_CRASH_FOLDER = new File(AW_DIR, "crashes");
+    public static final File AW_GAMEFILES_FOLDER = new File(AW_DIR, "GameFiles");
+    public static final File AW_DATA_FOLDER = new File(AW_DIR, "data");
+    public static final File AW_SETTINGS_DATA = new File(AW_DATA_FOLDER, "settings.properties");
 
-    public static final File AW_FIRSTPROFILE_DATA = new File(firstProfileData);
-    public static final File AW_FIRSTPROFILE_ICON = new File(firstProfileIcon);
-    public static final File AW_FIRSTPROFILE_CUSTOMFILES_FOLDER = new File(firstProfileCustomFilesFolder);
+    public static final File AW_FIRSTPROFILE_DATA = new File(AW_DATA_FOLDER, "firstProfile.properties");
+    public static final File AW_FIRSTPROFILE_ICON = new File(AW_DATA_FOLDER, "firstProfile.png");
+    public static final File AW_FIRSTPROFILE_CUSTOMFILES_FOLDER = new File(AW_DATA_FOLDER, "firstProfileCustomFiles");
 
-    public static final File AW_SECONDPROFILE_DATA = new File(secondProfileData);
-    public static final File AW_SECONDPROFILE_ICON = new File(secondProfileIcon);
-    public static final File AW_SECONDPROFILE_CUSTOMFILES_FOLDER = new File(secondProfileCustomFilesFolder);
+    public static final File AW_SECONDPROFILE_DATA = new File(AW_DATA_FOLDER, "secondProfile.properties");
+    public static final File AW_SECONDPROFILE_ICON = new File(AW_DATA_FOLDER, "secondProfile.png");
+    public static final File AW_SECONDPROFILE_CUSTOMFILES_FOLDER = new File(AW_DATA_FOLDER, "secondProfileCustomFiles");
 
-    public static final File AW_THIRDPROFILE_DATA= new File(thirdProfileData);
-    public static final File AW_THIRDPROFILE_ICON = new File(thirdProfileIcon);
-    public static final File AW_THIRDPROFILE_CUSTOMFILES_FOLDER = new File(thirdProfileCustomFilesFolder);
+    public static final File AW_THIRDPROFILE_DATA= new File(AW_DATA_FOLDER, "thirdProfile.properties");
+    public static final File AW_THIRDPROFILE_ICON = new File(AW_DATA_FOLDER, "thirdProfile.png");
+    public static final File AW_THIRDPROFILE_CUSTOMFILES_FOLDER = new File(AW_DATA_FOLDER, "thirdProfileCustomFiles");
 
     // Path dont on a besoin
-    public static final Path awFilesFolder = Paths.get(filesFolder);
-    public static final Path awCrashFolder = Paths.get(crashFolder);
-    public static final Path awGameFilesFolder = Paths.get(gameFilesFolder);
-    public static final Path awDataFolder = Paths.get(dataFolder);
-    public static final Path awSettingsData = Paths.get(globalSettingsData);
+    public static final Path awFilesFolder = AW_DIR.toPath();
+    public static final Path awCrashFolder = AW_CRASH_FOLDER.toPath();
+    public static final Path awGameFilesFolder = AW_GAMEFILES_FOLDER.toPath();
+    public static final Path awDataFolder = AW_DATA_FOLDER.toPath();
+    public static final Path awSettingsData = AW_SETTINGS_DATA.toPath();
 
-    public static final Path awFirstProfileData = Paths.get(firstProfileData);
-    public static final Path awFirstProfileIcon = Paths.get(firstProfileIcon);
-    public static final Path awFirstProfileCustomFilesFolder = Paths.get(firstProfileCustomFilesFolder);
+    public static final Path awFirstProfileData = AW_FIRSTPROFILE_DATA.toPath();
+    public static final Path awFirstProfileIcon = AW_FIRSTPROFILE_ICON.toPath();
+    public static final Path awFirstProfileCustomFilesFolder = AW_FIRSTPROFILE_CUSTOMFILES_FOLDER.toPath();
 
-    public static final Path awSecondProfileData = Paths.get(secondProfileData);
-    public static final Path awSecondProfileIcon = Paths.get(secondProfileIcon);
-    public static final Path awSecondProfileCustomFilesFolder = Paths.get(secondProfileCustomFilesFolder);
+    public static final Path awSecondProfileData = AW_SECONDPROFILE_DATA.toPath();
+    public static final Path awSecondProfileIcon = AW_SECONDPROFILE_ICON.toPath();
+    public static final Path awSecondProfileCustomFilesFolder = AW_SECONDPROFILE_CUSTOMFILES_FOLDER.toPath();
 
-    public static final Path awThirdProfileData = Paths.get(thirdProfileData);
-    public static final Path awThirdProfileIcon = Paths.get(thirdProfileIcon);
-    public static final Path awThirdProfileCustomFilesFolder = Paths.get(thirdProfileCustomFilesFolder);
+    public static final Path awThirdProfileData = AW_THIRDPROFILE_DATA.toPath();
+    public static final Path awThirdProfileIcon = AW_THIRDPROFILE_ICON.toPath();
+    public static final Path awThirdProfileCustomFilesFolder = AW_THIRDPROFILE_CUSTOMFILES_FOLDER.toPath();
 
     private static AuthInfos authInfos;
 

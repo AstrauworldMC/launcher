@@ -265,13 +265,13 @@ public class ProfileSaver {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void dlProfileIcon(String imageURL, int profile) throws IOException {
-        String destinationFile = "";
+        File destinationFile = null;
         if(profile == 1){
-            destinationFile = Launcher.firstProfileIcon;
+            destinationFile = Launcher.AW_FIRSTPROFILE_ICON;
         } else if(profile == 2){
-            destinationFile = Launcher.secondProfileIcon;
+            destinationFile = Launcher.AW_SECONDPROFILE_ICON;
         }else if(profile == 3){
-            destinationFile = Launcher.thirdProfileIcon;
+            destinationFile = Launcher.AW_THIRDPROFILE_ICON;
         }
         URL url = new URL(imageURL);
         InputStream is = url.openStream();
@@ -486,40 +486,40 @@ public class ProfileSaver {
     /**
      * Le dossier des saves général
      */
-    private static final File savesFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "saves");
+    private static final File savesFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "saves");
     /**
      * Le dossier des resources packs général
      */
-    public static final File resourcepacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "resourcepacks");
+    public static final File resourcepacksFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "resourcepacks");
     /**
      * Le dossier des shaders général
      */
-    public static final File shaderpacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "shaderpacks");
+    public static final File shaderpacksFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "shaderpacks");
     /**
      * Le dossier des music sheets général
      */
-    private static final File musicsheetsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "music_sheets");
+    private static final File musicsheetsFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "music_sheets");
     /**
      * Le dossier des shematics général
      */
-    private static final File schematicsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "schematics");
+    private static final File schematicsFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "schematics");
     /**
      * Le dossier des configs général
      */
-    private static final File configFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "config");
+    private static final File configFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "config");
     /**
      * Le fichier des options général
      */
-    public static final File optionsTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "options.txt");
+    public static final File optionsTextfile = new File(Launcher.AW_GAMEFILES_FOLDER, "options.txt");
     /**
      * Le fichier des options Optifine général
      */
-    public static final File optionsOFTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsof.txt");
+    public static final File optionsOFTextfile = new File(Launcher.AW_GAMEFILES_FOLDER, "optionsof.txt");
 
     /**
      * Le fichier des options des shaders d'Optifine général
      */
-    public static final File optionsShadersTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsshaders.txt");
+    public static final File optionsShadersTextfile = new File(Launcher.AW_GAMEFILES_FOLDER, "optionsshaders.txt");
 
     /**
      * Le dossier des saves des profils, initialisé plus tard

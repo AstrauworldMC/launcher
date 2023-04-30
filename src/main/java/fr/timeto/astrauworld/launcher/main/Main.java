@@ -128,7 +128,7 @@ public class Main {
 
                         Launcher.println("[Lancement] Initialisation des easters eggs");
                         EasterEggs.initEastereggs();
-                        new File(Launcher.dataFolder + "eastereggs.properties").delete();
+                        new File(Launcher.AW_DATA_FOLDER.getAbsolutePath() + "eastereggs.properties").delete();
 
                         PageChange.lastSettingsSaver = null;
 
@@ -156,7 +156,7 @@ public class Main {
                             mcVersionJsonFile.createNewFile();
                         }
 
-                        File serverDat = new File(Launcher.AW_GAMEFILES_FOLDER + File.separator + "servers.dat");
+                        File serverDat = new File(Launcher.AW_GAMEFILES_FOLDER, "servers.dat");
                         if (!serverDat.exists()) {
                             Launcher.println("[Lancement] Téléchargement du servers.dat");
                             TimFilesUtils.downloadFromInternet("https://github.com/AstrauworldMC/resources/raw/main/servers.dat", serverDat);

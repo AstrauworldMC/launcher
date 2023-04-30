@@ -7,7 +7,6 @@ import fr.timeto.astrauworld.launcher.main.Launcher;
 import java.awt.*;
 import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
@@ -92,17 +91,10 @@ public class EasterEggs {
     public static final String blackSpace = "BlackSpace";
     public static final String blackSpaceStab = "BlackSpaceStab";
 
-
     /**
-     * @see Launcher#dataFolder
      * @since Beta2.1.2
      */
-    private static final String easterEggsData = Launcher.dataFolder + File.separator + "eastereggs.properties";
-    /**
-     * Path de {@link EasterEggs#easterEggsData}
-     * @since Beta2.1.2
-     */
-    private static final Path easterEggsDataPath = Paths.get(easterEggsData);
+    private static final Path easterEggsDataPath = new File(Launcher.AW_DATA_FOLDER, "eastereggs.properties").toPath();
     /**
      * Le {@link Saver} lié au fichier des easter eggs ({@link EasterEggs#easterEggsDataPath})
      * @since Beta2.1.2
