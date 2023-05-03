@@ -66,6 +66,6 @@ public class ColorChooserPanel extends JPanel {
     }
 
     public void setBounds(int x, int y) {
-        setBounds(x, y, 412, 75);
+        setBounds(x, y, getPreferredSize().width, getPreferredSize().height);
     }
 }

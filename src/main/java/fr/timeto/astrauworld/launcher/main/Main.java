@@ -44,8 +44,9 @@ public class Main {
             Launcher.println("Chargement...");
 
             Launcher.println("[Lancement] Création des dossiers");
-            Launcher.AW_DIR.mkdir();
+            Launcher.AW_DIR.mkdirs();
             Launcher.AW_DATA_FOLDER.mkdir();
+            Launcher.AW_DISCORD_DATA_FOLDER.mkdir();
             Launcher.AW_GAMEFILES_FOLDER.mkdir();
             Launcher.AW_CRASH_FOLDER.mkdir();
 

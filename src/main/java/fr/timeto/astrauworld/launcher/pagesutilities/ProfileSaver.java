@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static fr.timeto.astrauworld.launcher.main.Launcher.copyInputStreamToFile;
 import static fr.timeto.timutilslib.TimFilesUtils.*;
 
 /**
@@ -35,6 +36,41 @@ public class ProfileSaver {
     public static Saver thirdProfileSaver = new Saver(Launcher.awThirdProfileData);
 
     public static final Saver globalSettingsSaver = new Saver(Launcher.awSettingsData);
+
+    private static final KEY[] profilesKeysArray = new KEY[] {
+            KEY.INFOS_NAME,
+            KEY.INFOS_EMAIL,
+            KEY.INFOS_UUID,
+            KEY.INFOS_ACCESSTOKEN,
+            KEY.INFOS_REFRESHTOKEN,
+            KEY.MOD_OPTIFINE,
+            KEY.MOD_FPSMODEL,
+            KEY.MOD_BETTERTPS,
+            KEY.MOD_FALLINGLEAVES,
+            KEY.MOD_APPLESKIN,
+            KEY.MOD_SOUNDPHYSICS,
+            KEY.MOD_WAVEYCAPES,
+            KEY.MOD_3DSKINLAYERS,
+            KEY.SETTINGS_PROFILENAME,
+            KEY.SETTINGS_HELMICON,
+            KEY.SETTINGS_RAM
+    };
+
+    private static final KEY[] globalKeysArray = new KEY[] {
+            KEY.GLOBALSETTINGS_MAINPROFILE,
+            KEY.GLOBALSETTINGS_MAINCOLOR,
+            KEY.GLOBALSETTINGS_TEXTCOLOR,
+            KEY.GLOBALSETTINGS_SECONDTEXTCOLOR,
+            KEY.GLOBALSETTINGS_DARKERBACKGROUNDCOLOR,
+            KEY.GLOBALSETTINGS_MIDBACKGROUNDCOLOR,
+            KEY.GLOBALSETTINGS_BASEBACKGROUNDCOLOR,
+            KEY.GLOBALSETTINGS_ELEMENTSCOLOR,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWTHINGS,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWTIME,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWLAUNCHERPAGE,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWACCOUNT,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWDETECTEDSERVER
+    };
 
     /**
      * Le profil sélectionné
@@ -136,30 +172,12 @@ public class ProfileSaver {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void initializeDataFiles(Saver saver) {
-        KEY[] keysList = new KEY[]{
-                KEY.INFOS_NAME,
-                KEY.INFOS_EMAIL,
-                KEY.INFOS_UUID,
-                KEY.INFOS_ACCESSTOKEN,
-                KEY.INFOS_REFRESHTOKEN,
-                KEY.MOD_OPTIFINE,
-                KEY.MOD_FPSMODEL,
-                KEY.MOD_BETTERTPS,
-                KEY.MOD_FALLINGLEAVES,
-                KEY.MOD_APPLESKIN,
-                KEY.MOD_SOUNDPHYSICS,
-                KEY.MOD_WAVEYCAPES,
-                KEY.MOD_3DSKINLAYERS,
-                KEY.SETTINGS_PROFILENAME,
-                KEY.SETTINGS_HELMICON,
-                KEY.SETTINGS_RAM,
-        };
 
         int i = 0;
         boolean modified = false;
-        while (i != keysList.length) {
-            if (saver.get(keysList[i].get()) == null) {
-                saver.set(keysList[i].get(), keysList[i].getDefaultValue());
+        while (i != profilesKeysArray.length) {
+            if (saver.get(profilesKeysArray[i].get()) == null) {
+                saver.set(profilesKeysArray[i].get(), profilesKeysArray[i].getDefaultValue());
                 modified = true;
             }
             i++;
@@ -169,28 +187,10 @@ public class ProfileSaver {
     }
 
     public static void resetDataFiles(Saver saver) {
-        KEY[] keysList = new KEY[]{
-                KEY.INFOS_NAME,
-                KEY.INFOS_EMAIL,
-                KEY.INFOS_UUID,
-                KEY.INFOS_ACCESSTOKEN,
-                KEY.INFOS_REFRESHTOKEN,
-                KEY.MOD_OPTIFINE,
-                KEY.MOD_FPSMODEL,
-                KEY.MOD_BETTERTPS,
-                KEY.MOD_FALLINGLEAVES,
-                KEY.MOD_APPLESKIN,
-                KEY.MOD_SOUNDPHYSICS,
-                KEY.MOD_WAVEYCAPES,
-                KEY.MOD_3DSKINLAYERS,
-                KEY.SETTINGS_PROFILENAME,
-                KEY.SETTINGS_HELMICON,
-                KEY.SETTINGS_RAM
-        };
 
         int i = 0;
-        while (i != keysList.length) {
-            saver.set(keysList[i].get(), keysList[i].getDefaultValue());
+        while (i != profilesKeysArray.length) {
+            saver.set(profilesKeysArray[i].get(), profilesKeysArray[i].getDefaultValue());
             i++;
         }
 
@@ -198,22 +198,12 @@ public class ProfileSaver {
     }
 
     public static void initializeGlobalDataFile() {
-        KEY[] keysList = new KEY[]{
-                KEY.GLOBALSETTINGS_MAINPROFILE,
-                KEY.GLOBALSETTINGS_MAINCOLOR,
-                KEY.GLOBALSETTINGS_TEXTCOLOR,
-                KEY.GLOBALSETTINGS_SECONDTEXTCOLOR,
-                KEY.GLOBALSETTINGS_DARKERBACKGROUNDCOLOR,
-                KEY.GLOBALSETTINGS_MIDBACKGROUNDCOLOR,
-                KEY.GLOBALSETTINGS_BASEBACKGROUNDCOLOR,
-                KEY.GLOBALSETTINGS_ELEMENTSCOLOR
-        };
 
         int i = 0;
         boolean modified = false;
-        while (i != keysList.length) {
-            if (globalSettingsSaver.get(keysList[i].get()) == null) {
-                globalSettingsSaver.set(keysList[i].get(), keysList[i].getDefaultValue());
+        while (i != globalKeysArray.length) {
+            if (globalSettingsSaver.get(globalKeysArray[i].get()) == null) {
+                globalSettingsSaver.set(globalKeysArray[i].get(), globalKeysArray[i].getDefaultValue());
                 modified = true;
             }
             i++;
@@ -223,21 +213,11 @@ public class ProfileSaver {
     }
 
     public static void resetGlobalDataFile() {
-        KEY[] keysList = new KEY[]{
-                KEY.GLOBALSETTINGS_MAINPROFILE,
-                KEY.GLOBALSETTINGS_MAINCOLOR,
-                KEY.GLOBALSETTINGS_TEXTCOLOR,
-                KEY.GLOBALSETTINGS_SECONDTEXTCOLOR,
-                KEY.GLOBALSETTINGS_DARKERBACKGROUNDCOLOR,
-                KEY.GLOBALSETTINGS_MIDBACKGROUNDCOLOR,
-                KEY.GLOBALSETTINGS_BASEBACKGROUNDCOLOR,
-                KEY.GLOBALSETTINGS_ELEMENTSCOLOR
-        };
 
         int i = 0;
         boolean modified = false;
-        while (i != keysList.length) {
-            globalSettingsSaver.set(keysList[i].get(), keysList[i].getDefaultValue());
+        while (i != globalKeysArray.length) {
+            globalSettingsSaver.set(globalKeysArray[i].get(), globalKeysArray[i].getDefaultValue());
             i++;
         }
 
@@ -351,21 +331,6 @@ public class ProfileSaver {
         } else if (saver == thirdProfileSaver) {
             return Launcher.AW_THIRDPROFILE_ICON;
         } else return null;
-
-    }
-
-    public static void copyInputStreamToFile(InputStream inputStream, File file)
-            throws IOException {
-
-        // append = false
-        try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
-            int read;
-            final int DEFAULT_BUFFER_SIZE = 8192;
-            byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
-            while ((read = inputStream.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, read);
-            }
-        }
 
     }
 
@@ -796,7 +761,12 @@ public class ProfileSaver {
         GLOBALSETTINGS_DARKERBACKGROUNDCOLOR("colors|DarkerBackgroundColor", "0-0-0"),
         GLOBALSETTINGS_MIDBACKGROUNDCOLOR("colors|MidBackgroundColor", "9-9-9"),
         GLOBALSETTINGS_BASEBACKGROUNDCOLOR("colors|BaseBackgroundColor", "18-18-18"),
-        GLOBALSETTINGS_ELEMENTSCOLOR("colors|LighterGrey", "30-30-30");
+        GLOBALSETTINGS_ELEMENTSCOLOR("colors|LighterGrey", "30-30-30"),
+        GLOBALSETTINGS_DISCORD_SHOWTHINGS("discord|ShowThings", "true"),
+        GLOBALSETTINGS_DISCORD_SHOWTIME("discord|ShowTime", "true"),
+        GLOBALSETTINGS_DISCORD_SHOWLAUNCHERPAGE("discord|ShowLauncherPage", "true"),
+        GLOBALSETTINGS_DISCORD_SHOWACCOUNT("discord|ShowAccount", "true"),
+        GLOBALSETTINGS_DISCORD_SHOWDETECTEDSERVER("discord|ShowDetectedServer", "true");
 
         private final String key;
         private final String defaultValue;
