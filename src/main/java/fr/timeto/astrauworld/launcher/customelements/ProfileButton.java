@@ -73,13 +73,13 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
         add(profileIconLabel);
 
         profileNameLabel.setBounds(61, 12, 80, 12);
-        profileNameLabel.setForeground(Launcher.TEXT_COLOR);
+        profileNameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         profileNameLabel.setFont(robotoBlackFont.deriveFont(13f));
         profileNameLabel.setText(saver.get(KEY.SETTINGS_PROFILENAME.get()));
         add(profileNameLabel);
 
         profileNumberLabel.setBounds(61, 27, 80, 20);
-        profileNumberLabel.setForeground(Launcher.TEXT_COLOR);
+        profileNumberLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         profileNumberLabel.setFont(robotoBlackFont.deriveFont(19f));
         profileNumberLabel.setText("Profil " + profileNumber);
         add(profileNumberLabel);
@@ -90,7 +90,13 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
 
     }
 
+    public void recolor() {
+        profileNameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        profileNumberLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+    }
+
     public void initButton() {
+        recolor();
         profileIconLabel.setIcon(new ImageIcon(Objects.requireNonNull(getProfileIcon(profileIcon, true))));
         profileNameLabel.setText(saver.get(KEY.SETTINGS_PROFILENAME.get()));
         profileNumberLabel.setText("Profil " + profileNumber);

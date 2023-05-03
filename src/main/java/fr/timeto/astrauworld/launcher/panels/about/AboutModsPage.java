@@ -73,6 +73,12 @@ public class AboutModsPage extends PageCreator implements MouseListener {
     }
 
     @Override
+    public void recolor() {
+        textArea.recolor();
+        textArea1.recolor();
+    }
+
+    @Override
     public void setVisible(boolean e) {
         if (e) {
             textArea.setText(Launcher.convertStringArrayToString(actualServer.getModsNameAndVersionArray(), System.getProperty("line.separator")));

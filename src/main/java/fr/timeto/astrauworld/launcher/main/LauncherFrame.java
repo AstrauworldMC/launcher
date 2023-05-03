@@ -50,6 +50,12 @@ public class LauncherFrame extends JFrame {
         this.setVisible(true);
     }
 
+    @Override
+    public void setSize(int width, int height) {
+        setLocation(this.getX() + ((this.getWidth() - width)/2), this.getY() + ((this.getHeight() - height)/2));
+        super.setSize(width, height);
+    }
+
     public static WindowListener exitListener = new WindowAdapter() {
 
         @Override
@@ -86,13 +92,6 @@ public class LauncherFrame extends JFrame {
     }
 
     public static String profileAfterMcExit = null;
-
-    /**
-     * La méthode appelée par le JRE au lancement, initialise tout le launcher
-     * @param args Si des arguments sont ajoutés au lancement. Si l'argument {@link Launcher#afterMcExitArg} est spécifié, il doit être suivi du numéro du profil lancé
-     * @author <a href="https://github.com/TimEtOff">TimEtO</a>
-     */
-
 
     /**
      * @return la classe

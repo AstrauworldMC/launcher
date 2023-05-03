@@ -20,6 +20,16 @@ public class Changelogs {
      * @see Changelogs#text
      */
     private static class TEXTS {
+
+        public static final String BETA2_3_3 = """
+                - Ajout de la page des paramètres globaux
+                - Ajout de la personnalisation complète des couleurs et de l'intégration Discord
+                - Ajout du Female Gender & Age Mod
+                - Les librairies ne sont plus intégrées dans le jar
+                - Encore des easter eggs
+                - Optimisation et réglage de bugs
+                """;
+
         public static final String BETA2_3_2 = """
                 - Rework des couleurs et de la police de caractère
                 - Boutons d'onglets dynamiques
@@ -95,6 +105,7 @@ public class Changelogs {
      * @since Beta2.1.2
      */
     private static final Changelogs[] changelogsList = {
+            new Changelogs("Beta2.3.3", Launcher.parseUnicode(TEXTS.BETA2_3_3)),
             new Changelogs("Beta2.3.2", Launcher.parseUnicode(TEXTS.BETA2_3_2)),
             new Changelogs("Beta2.3.1", Launcher.parseUnicode(TEXTS.BETA2_3_1)),
             new Changelogs("Beta2.3.0", Launcher.parseUnicode(TEXTS.BETA2_3_0)),

@@ -478,6 +478,44 @@ public class LauncherSystemTray {
         }
     }
 
+    public static void initBlackSpaceSystemTray() {
+        tray.remove(trayIcon);
+
+        if (!SystemTray.isSupported()) {
+            println("SystemTray is not supported");
+            return;
+        }
+
+        PopupMenu popup = new PopupMenu();
+
+        MenuItem stab = new MenuItem("Poignarder");
+
+        ActionListener listener = e -> {
+            aboutInfosPage.blackSpace.stab();
+        };
+
+        stab.addActionListener(listener);
+
+        popup.add(stab);
+
+        /* Création de l'icône */
+        trayIcon = new TrayIcon(trayIconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH), "Astrauworld?");
+        trayIcon.setPopupMenu(popup);
+
+        /* récupère la zone de notification */
+        SystemTray tray = SystemTray.getSystemTray();
+        try {
+            /* Affiche l'icône dans la zone de notification */
+            tray.add(trayIcon);
+        } catch (AWTException e) {
+            println("TrayIcon could not be added.");
+        }
+    }
+
+    public static void displayMessage(String caption, String message, TrayIcon.MessageType messageType) {
+        trayIcon.displayMessage(caption, message, messageType);
+    }
+
     public static void changeTrayTooltip() {
         String titleText = Launcher.parseUnicode(LauncherPanel.Components.titleLabel.getText());
         String subtitleText = Launcher.parseUnicode(LauncherPanel.Components.subTitleLabel.getText());

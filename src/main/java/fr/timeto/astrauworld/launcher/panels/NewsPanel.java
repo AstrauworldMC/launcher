@@ -19,6 +19,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
@@ -29,6 +30,7 @@ public class NewsPanel extends PageCreator {
     public static News[] newsList = {
             new News("test", "Ceci est un article de test", "TimEtOff", "24/01/2023")
     };
+    public ArrayList<NewsButton> newsButtonArrayList = new ArrayList<>();
 
     static Box[] boxes;
     static JPanel container;
@@ -78,14 +80,32 @@ public class NewsPanel extends PageCreator {
             }
             NewsButton panel1 = new NewsButton(ii);
             boxes[ii].add(panel1.getButton());
+            newsButtonArrayList.add(panel1);
         }
 
+    }
+
+    @Override
+    public void recolor() {
+        int i = 0;
+        NewsButton[] array = newsButtonArrayList.toArray(new NewsButton[0]);
+        while (i != array.length) {
+            array[i].recolor();
+            i++;
+        }
+
+        CustomScrollBarUI scrollBarUI1 = (CustomScrollBarUI) scrollPane.getHorizontalScrollBar().getUI();
+        CustomScrollBarUI scrollBarUI2 = (CustomScrollBarUI) scrollPane.getVerticalScrollBar().getUI();
+        scrollBarUI1.recolor();
+        scrollBarUI2.recolor();
+        scrollPane.getHorizontalScrollBar().repaint();
+        scrollPane.getVerticalScrollBar().repaint();
     }
 }
 
 class NewsButton extends JPanel implements SwingerEventListener {
     final News news;
-    SColoredButton button = new SColoredButton(Launcher.LIGHTER_GREY);
+    SColoredButton button = new SColoredButton(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
     JLabel thumbnail = new JLabel();
     JLabel title = new JLabel();
     JLabel authorDate = new JLabel();
@@ -107,7 +127,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
         authorDate.setBounds(10, 192, 315, 16);
         authorDate.setText(news.getAuthor() + " - " + news.getStringDate());
         authorDate.setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
-        authorDate.setForeground(Launcher.TEXT_COLOR);
+        authorDate.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         authorDate.setOpaque(false);
         authorDate.setVerticalAlignment(SwingConstants.BOTTOM);
         authorDate.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -116,7 +136,7 @@ class NewsButton extends JPanel implements SwingerEventListener {
         title.setBounds(10, 145, 310, 20);
         title.setText(news.getTitle());
         title.setFont(CustomFonts.robotoBlackFont.deriveFont(18f));
-        title.setForeground(Launcher.TEXT_COLOR);
+        title.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         title.setOpaque(false);
         title.setVerticalAlignment(SwingConstants.TOP);
         add(title);
@@ -129,6 +149,12 @@ class NewsButton extends JPanel implements SwingerEventListener {
 
     public JPanel getButton() {
         return this;
+    }
+
+    public void recolor() {
+        button.setColor(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
+        authorDate.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        title.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
     }
 
     @Override

@@ -1,0 +1,40 @@
+{
+  "extfiles": [
+    {
+      "path": "javafx-base-17-linux.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-base/17/javafx-base-17-linux.jar",
+      "sha1": "476c7640c2320244d3156edbbc19a7eda275c1ed",
+      "size": 745750
+    },
+    {
+      "path": "javafx-controls-17-linux.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-controls/17/javafx-controls-17-linux.jar",
+      "sha1": "851a1896fbd8548fb3671aa689b305b2cfad956a",
+      "size": 2544888
+    },
+    {
+      "path": "javafx-graphics-17-linux.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-graphics/17/javafx-graphics-17-linux.jar",
+      "sha1": "88dc59568c14ec37ea1c42b3ba472d78b4b1030a",
+      "size": 4895304
+    },
+    {
+      "path": "javafx-media-17-linux.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-media/17/javafx-media-17-linux.jar",
+      "sha1": "e3bb829ce1447a37a8b0b669a446e0414e54e5c7",
+      "size": 1482060
+    },
+    {
+      "path": "javafx-swing-17-linux.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-swing/17/javafx-swing-17-linux.jar",
+      "sha1": "8dee489b0faecf27568bfe64efdc7aa01410defa",
+      "size": 88804
+    },
+    {
+      "path": "javafx-web-17-linux.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-web/17/javafx-web-17-linux.jar",
+      "sha1": "bbd71beaf561b72f0d3eb6268d3114573b7799c3",
+      "size": 35434609
+    }
+  ]
+}

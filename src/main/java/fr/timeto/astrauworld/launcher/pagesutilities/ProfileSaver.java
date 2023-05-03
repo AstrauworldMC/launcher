@@ -4,13 +4,17 @@ import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.customelements.ShadersSwitchButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
+import fr.timeto.astrauworld.launcher.main.LauncherFrame;
+import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static fr.timeto.astrauworld.launcher.main.Launcher.copyInputStreamToFile;
 import static fr.timeto.timutilslib.TimFilesUtils.*;
 
 /**
@@ -32,6 +36,41 @@ public class ProfileSaver {
     public static Saver thirdProfileSaver = new Saver(Launcher.awThirdProfileData);
 
     public static final Saver globalSettingsSaver = new Saver(Launcher.awSettingsData);
+
+    private static final KEY[] profilesKeysArray = new KEY[] {
+            KEY.INFOS_NAME,
+            KEY.INFOS_EMAIL,
+            KEY.INFOS_UUID,
+            KEY.INFOS_ACCESSTOKEN,
+            KEY.INFOS_REFRESHTOKEN,
+            KEY.MOD_OPTIFINE,
+            KEY.MOD_FPSMODEL,
+            KEY.MOD_BETTERTPS,
+            KEY.MOD_FALLINGLEAVES,
+            KEY.MOD_APPLESKIN,
+            KEY.MOD_SOUNDPHYSICS,
+            KEY.MOD_WAVEYCAPES,
+            KEY.MOD_3DSKINLAYERS,
+            KEY.SETTINGS_PROFILENAME,
+            KEY.SETTINGS_HELMICON,
+            KEY.SETTINGS_RAM
+    };
+
+    private static final KEY[] globalKeysArray = new KEY[] {
+            KEY.GLOBALSETTINGS_MAINPROFILE,
+            KEY.GLOBALSETTINGS_MAINCOLOR,
+            KEY.GLOBALSETTINGS_TEXTCOLOR,
+            KEY.GLOBALSETTINGS_SECONDTEXTCOLOR,
+            KEY.GLOBALSETTINGS_DARKERBACKGROUNDCOLOR,
+            KEY.GLOBALSETTINGS_MIDBACKGROUNDCOLOR,
+            KEY.GLOBALSETTINGS_BASEBACKGROUNDCOLOR,
+            KEY.GLOBALSETTINGS_ELEMENTSCOLOR,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWTHINGS,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWTIME,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWLAUNCHERPAGE,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWACCOUNT,
+            KEY.GLOBALSETTINGS_DISCORD_SHOWDETECTEDSERVER
+    };
 
     /**
      * Le profil sélectionné
@@ -133,30 +172,12 @@ public class ProfileSaver {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void initializeDataFiles(Saver saver) {
-        KEY[] keysList = new KEY[]{
-                KEY.INFOS_NAME,
-                KEY.INFOS_EMAIL,
-                KEY.INFOS_UUID,
-                KEY.INFOS_ACCESSTOKEN,
-                KEY.INFOS_REFRESHTOKEN,
-                KEY.MOD_OPTIFINE,
-                KEY.MOD_FPSMODEL,
-                KEY.MOD_BETTERTPS,
-                KEY.MOD_FALLINGLEAVES,
-                KEY.MOD_APPLESKIN,
-                KEY.MOD_SOUNDPHYSICS,
-                KEY.MOD_WAVEYCAPES,
-                KEY.MOD_3DSKINLAYERS,
-                KEY.SETTINGS_PROFILENAME,
-                KEY.SETTINGS_HELMICON,
-                KEY.SETTINGS_RAM,
-        };
 
         int i = 0;
         boolean modified = false;
-        while (i != keysList.length) {
-            if (saver.get(keysList[i].get()) == null) {
-                saver.set(keysList[i].get(), keysList[i].getDefaultValue());
+        while (i != profilesKeysArray.length) {
+            if (saver.get(profilesKeysArray[i].get()) == null) {
+                saver.set(profilesKeysArray[i].get(), profilesKeysArray[i].getDefaultValue());
                 modified = true;
             }
             i++;
@@ -166,28 +187,10 @@ public class ProfileSaver {
     }
 
     public static void resetDataFiles(Saver saver) {
-        KEY[] keysList = new KEY[]{
-                KEY.INFOS_NAME,
-                KEY.INFOS_EMAIL,
-                KEY.INFOS_UUID,
-                KEY.INFOS_ACCESSTOKEN,
-                KEY.INFOS_REFRESHTOKEN,
-                KEY.MOD_OPTIFINE,
-                KEY.MOD_FPSMODEL,
-                KEY.MOD_BETTERTPS,
-                KEY.MOD_FALLINGLEAVES,
-                KEY.MOD_APPLESKIN,
-                KEY.MOD_SOUNDPHYSICS,
-                KEY.MOD_WAVEYCAPES,
-                KEY.MOD_3DSKINLAYERS,
-                KEY.SETTINGS_PROFILENAME,
-                KEY.SETTINGS_HELMICON,
-                KEY.SETTINGS_RAM
-        };
 
         int i = 0;
-        while (i != keysList.length) {
-            saver.set(keysList[i].get(), keysList[i].getDefaultValue());
+        while (i != profilesKeysArray.length) {
+            saver.set(profilesKeysArray[i].get(), profilesKeysArray[i].getDefaultValue());
             i++;
         }
 
@@ -195,15 +198,12 @@ public class ProfileSaver {
     }
 
     public static void initializeGlobalDataFile() {
-        KEY[] keysList = new KEY[]{
-                KEY.GLOBALSETTINGS_MAINPROFILE
-        };
 
         int i = 0;
         boolean modified = false;
-        while (i != keysList.length) {
-            if (globalSettingsSaver.get(keysList[i].get()) == null) {
-                globalSettingsSaver.set(keysList[i].get(), keysList[i].getDefaultValue());
+        while (i != globalKeysArray.length) {
+            if (globalSettingsSaver.get(globalKeysArray[i].get()) == null) {
+                globalSettingsSaver.set(globalKeysArray[i].get(), globalKeysArray[i].getDefaultValue());
                 modified = true;
             }
             i++;
@@ -213,14 +213,11 @@ public class ProfileSaver {
     }
 
     public static void resetGlobalDataFile() {
-        KEY[] keysList = new KEY[]{
-                KEY.GLOBALSETTINGS_MAINPROFILE
-        };
 
         int i = 0;
         boolean modified = false;
-        while (i != keysList.length) {
-            globalSettingsSaver.set(keysList[i].get(), keysList[i].getDefaultValue());
+        while (i != globalKeysArray.length) {
+            globalSettingsSaver.set(globalKeysArray[i].get(), globalKeysArray[i].getDefaultValue());
             i++;
         }
 
@@ -248,13 +245,13 @@ public class ProfileSaver {
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void dlProfileIcon(String imageURL, int profile) throws IOException {
-        String destinationFile = "";
+        File destinationFile = null;
         if(profile == 1){
-            destinationFile = Launcher.firstProfileIcon;
+            destinationFile = Launcher.AW_FIRSTPROFILE_ICON;
         } else if(profile == 2){
-            destinationFile = Launcher.secondProfileIcon;
+            destinationFile = Launcher.AW_SECONDPROFILE_ICON;
         }else if(profile == 3){
-            destinationFile = Launcher.thirdProfileIcon;
+            destinationFile = Launcher.AW_THIRDPROFILE_ICON;
         }
         URL url = new URL(imageURL);
         InputStream is = url.openStream();
@@ -280,39 +277,61 @@ public class ProfileSaver {
      */
     public static void initProfileIcon(Saver saver) throws IOException {
         String url;
-        if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("")) {
-            url = "https://user-images.githubusercontent.com/97166376/214735612-abc155df-6535-4852-aad5-cd97901f5e86.png";
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("frisk")) {
-            url = "https://user-images.githubusercontent.com/97166376/209479948-9077d6d4-1254-4423-914b-d8b7ecf895d0.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.friskName);
-        } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("chara")) {
-            url = "https://user-images.githubusercontent.com/97166376/209479945-0b181aaa-f3bd-436c-8274-83f68302c93e.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.charaName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
-            url = "https://user-images.githubusercontent.com/97166376/214740385-07f6ded5-fdca-44b9-87ae-bd0446557c7f.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.asrielName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
-            url = "https://user-images.githubusercontent.com/97166376/214734249-9d5e1055-c68f-4ee3-8d93-1a19b37c9410.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.trueAsrielName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
-            url = "https://user-images.githubusercontent.com/97166376/209479944-e76fbf8f-6aba-462f-afc5-08829af3f9c8.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.floweyName);
-        } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
-            url = "https://user-images.githubusercontent.com/97166376/209480184-79318022-8ba0-46c9-9773-504a63c2ee47.png";
-            EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
-        } else if (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true")) {
-            url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID.get()) + "/35.png";
+
+        if (EasterEggs.isOmoriCharacter(saver.get(KEY.SETTINGS_PROFILENAME.get()))) {
+            if (Boolean.parseBoolean(saver.get(KEY.SETTINGS_HELMICON.get()))) {
+                url = EasterEggs.getOmoriIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
+                EasterEggs.setOmoriNameEasterEggAsFound(saver.get(KEY.SETTINGS_PROFILENAME.get()), false);
+            } else {
+                url = EasterEggs.getOmoriDreamIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
+                EasterEggs.setOmoriNameEasterEggAsFound(saver.get(KEY.SETTINGS_PROFILENAME.get()), true);
+            }
+
         } else {
-            url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID.get()) + "/35.png";
+            if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("")) {
+                url = "http://www.astrauworld.be:3001/eastereggs/dirtTexture34.png";
+            } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("frisk")) {
+                url = "http://www.astrauworld.be:3001/eastereggs/frisk34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.friskName);
+            } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("chara")) {
+                url = "http://www.astrauworld.be:3001/eastereggs/chara34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.charaName);
+            } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
+                url = "http://www.astrauworld.be:3001/eastereggs/asriel34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.asrielName);
+            } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
+                url = "http://www.astrauworld.be:3001/eastereggs/trueAsriel34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.trueAsrielName);
+            } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
+                url = "http://www.astrauworld.be:3001/eastereggs/flowey34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.floweyName);
+            } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
+                url = "http://www.astrauworld.be:3001/eastereggs/cursedflowey34.png";
+                EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
+            } else if (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true")) {
+                url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID.get()) + "/34.png";
+            } else {
+                url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID.get()) + "/34.png";
+            }
         }
 
-        if (saver == firstProfileSaver) {
-            dlProfileIcon(url, 1);
-        } else if (saver == secondProfileSaver) {
-            dlProfileIcon(url, 2);
-        } else if (saver == thirdProfileSaver) {
-            dlProfileIcon(url, 3);
+        try {
+            dlProfileIcon(url, Integer.parseInt(getSelectedProfile(saver)));
+        } catch (IOException e) {
+            copyInputStreamToFile(LauncherFrame.getFileFromResourceAsStream("assets/launcher/icons/grassBlockIcon.png"), getIconFileFromSaver(saver));
+            throw e;
         }
+    }
+
+    public static File getIconFileFromSaver(Saver saver) {
+        if (saver == firstProfileSaver) {
+            return Launcher.AW_FIRSTPROFILE_ICON;
+        } else if (saver == secondProfileSaver) {
+            return Launcher.AW_SECONDPROFILE_ICON;
+        } else if (saver == thirdProfileSaver) {
+            return Launcher.AW_THIRDPROFILE_ICON;
+        } else return null;
+
     }
 
     /**
@@ -321,10 +340,27 @@ public class ProfileSaver {
      * @see ProfileSaver#dlProfileIcon(String, int)
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static void initProfileIcon() throws IOException {
-        initProfileIcon(firstProfileSaver);
-        initProfileIcon(secondProfileSaver);
-        initProfileIcon(thirdProfileSaver);
+    public static void initProfileIcon() {
+        boolean error = false;
+        try {
+            initProfileIcon(firstProfileSaver);
+        } catch (IOException exception) {
+            error = true;
+        }
+        try {
+            initProfileIcon(secondProfileSaver);
+        } catch (IOException exception) {
+            error = true;
+        }
+        try {
+            initProfileIcon(thirdProfileSaver);
+        } catch (IOException exception) {
+            error = true;
+        }
+
+        if (error) {
+            LauncherSystemTray.displayMessage("Erreur au lancement", "Erreur de t\u00e9l\u00e9chargement, client hors connexion ou probl\u00e8me serveur", TrayIcon.MessageType.WARNING);
+        }
     }
 
     /**
@@ -415,40 +451,40 @@ public class ProfileSaver {
     /**
      * Le dossier des saves général
      */
-    private static final File savesFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "saves");
+    private static final File savesFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "saves");
     /**
      * Le dossier des resources packs général
      */
-    public static final File resourcepacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "resourcepacks");
+    public static final File resourcepacksFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "resourcepacks");
     /**
      * Le dossier des shaders général
      */
-    public static final File shaderpacksFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "shaderpacks");
+    public static final File shaderpacksFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "shaderpacks");
     /**
      * Le dossier des music sheets général
      */
-    private static final File musicsheetsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "music_sheets");
+    private static final File musicsheetsFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "music_sheets");
     /**
      * Le dossier des shematics général
      */
-    private static final File schematicsFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "schematics");
+    private static final File schematicsFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "schematics");
     /**
      * Le dossier des configs général
      */
-    private static final File configFolder = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "config");
+    private static final File configFolder = new File(Launcher.AW_GAMEFILES_FOLDER, "config");
     /**
      * Le fichier des options général
      */
-    public static final File optionsTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "options.txt");
+    public static final File optionsTextfile = new File(Launcher.AW_GAMEFILES_FOLDER, "options.txt");
     /**
      * Le fichier des options Optifine général
      */
-    public static final File optionsOFTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsof.txt");
+    public static final File optionsOFTextfile = new File(Launcher.AW_GAMEFILES_FOLDER, "optionsof.txt");
 
     /**
      * Le fichier des options des shaders d'Optifine général
      */
-    public static final File optionsShadersTextfile = new File(Launcher.gameFilesFolder + Launcher.separatorChar + "optionsshaders.txt");
+    public static final File optionsShadersTextfile = new File(Launcher.AW_GAMEFILES_FOLDER, "optionsshaders.txt");
 
     /**
      * Le dossier des saves des profils, initialisé plus tard
@@ -717,7 +753,20 @@ public class ProfileSaver {
          * La RAM allouée
          */
         SETTINGS_RAM("settings|AllowedRam", "3.0"),
-        GLOBALSETTINGS_MAINPROFILE("settings|MainProfile", "1");
+
+        GLOBALSETTINGS_MAINPROFILE("others|MainProfile", "1"),
+        GLOBALSETTINGS_MAINCOLOR("colors|MainColor", "255-0-0"),
+        GLOBALSETTINGS_TEXTCOLOR("colors|TextColor", "255-255-255"),
+        GLOBALSETTINGS_SECONDTEXTCOLOR("colors|SecondTextColor", "153-153-153"),
+        GLOBALSETTINGS_DARKERBACKGROUNDCOLOR("colors|DarkerBackgroundColor", "0-0-0"),
+        GLOBALSETTINGS_MIDBACKGROUNDCOLOR("colors|MidBackgroundColor", "9-9-9"),
+        GLOBALSETTINGS_BASEBACKGROUNDCOLOR("colors|BaseBackgroundColor", "18-18-18"),
+        GLOBALSETTINGS_ELEMENTSCOLOR("colors|LighterGrey", "30-30-30"),
+        GLOBALSETTINGS_DISCORD_SHOWTHINGS("discord|ShowThings", "true"),
+        GLOBALSETTINGS_DISCORD_SHOWTIME("discord|ShowTime", "true"),
+        GLOBALSETTINGS_DISCORD_SHOWLAUNCHERPAGE("discord|ShowLauncherPage", "true"),
+        GLOBALSETTINGS_DISCORD_SHOWACCOUNT("discord|ShowAccount", "true"),
+        GLOBALSETTINGS_DISCORD_SHOWDETECTEDSERVER("discord|ShowDetectedServer", "true");
 
         private final String key;
         private final String defaultValue;

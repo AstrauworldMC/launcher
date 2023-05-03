@@ -55,7 +55,7 @@ public class ModPanel extends JPanel implements SwingerEventListener {
 
         nameLabel.setBounds(0, 8, 280, 24);
         nameLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        nameLabel.setForeground(Launcher.TEXT_COLOR);
+        nameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         add(nameLabel);
     }
 
@@ -72,6 +72,10 @@ public class ModPanel extends JPanel implements SwingerEventListener {
 
     public void defineTextures() {
         switchButton.defineTextures();
+    }
+
+    public void recolor() {
+        nameLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
     }
 
     public String getName() {

@@ -13,12 +13,23 @@ import fr.timeto.astrauworld.launcher.panels.NewsPanel;
 import fr.timeto.astrauworld.launcher.panels.about.AboutInfosPage;
 import fr.timeto.astrauworld.launcher.panels.about.AboutModsPage;
 import fr.timeto.astrauworld.launcher.panels.profile.*;
+import fr.timeto.astrauworld.launcher.panels.settings.SettingsColorsPage;
+import fr.timeto.astrauworld.launcher.panels.settings.SettingsDiscordPage;
 import fr.timeto.astrauworld.launcher.secret.whitelistservers.WhitelistServers;
+import fr.timeto.timutilslib.CustomScrollBarUI;
 import fr.timeto.timutilslib.PopUpMessages;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Screen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 
 import static fr.theshark34.swinger.Swinger.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
@@ -54,11 +65,8 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
       * @author <a href="https://github.com/TimEtOff">TimEtO</a>
       */
      public static void initProfileButtons() {
-          try {
-               initProfileIcon();
-          } catch (IOException e) {
-               throw new RuntimeException(e);
-          }
+          initProfileIcon();
+
           firstProfileButton.initButton();
 
           secondProfileButton.initButton();
@@ -93,7 +101,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           public static final LeftMenuSelector leftMenuSelector = new LeftMenuSelector();
           public static final JTextArea launcherVersionLabel = new JTextArea("Version du launcher:" + lineSeparator + Launcher.version);
-          public static final LeftMenuButton newsButton = new LeftMenuButton("Actualit\u00e9s", getResourceIgnorePath("/assets/launcher/icons/newsIcon.png"));
+          public static final LeftMenuButton newsButton = new LeftMenuButton("Actualit\u00e9s", getResourceIgnorePath("/assets/launcher/icons/newsIcon.png"), PageName.NEWS);
           public static final ProfileButton firstProfileButton = new ProfileButton(firstProfileSaver);
           public static final ProfileButton secondProfileButton = new ProfileButton(secondProfileSaver);
           public static final ProfileButton thirdProfileButton = new ProfileButton(thirdProfileSaver);
@@ -102,11 +110,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            * Bouton du menu général de gauche pour ouvrir la page des changelogs
            * @see Changelogs
            */
-          public static final LeftMenuButton changesButton = new LeftMenuButton("Changelogs", getResourceIgnorePath("/assets/launcher/icons/changesIcon.png"));
+          public static final LeftMenuButton changesButton = new LeftMenuButton("Changelogs", getResourceIgnorePath("/assets/launcher/icons/changesIcon.png"), PageName.CHANGELOGS);
           /**
            * Bouton du menu général de gauche pour ouvrir la page principale à propos
            */
-          public static final LeftMenuButton aboutButton = new LeftMenuButton("\u00c0 propos", getResourceIgnorePath("/assets/launcher/icons/aboutIcon.png"));
+          public static final LeftMenuButton aboutButton = new LeftMenuButton("\u00c0 propos", getResourceIgnorePath("/assets/launcher/icons/aboutIcon.png"), PageName.ABOUT_INFOS);
+          public static final LeftMenuButton settingsButton = new LeftMenuButton("Param\u00e8tres", getResourceIgnorePath("/assets/launcher/icons/settingsIcon.png"), PageName.SETTINGS_COLORS);
           /**
            * Label contenant le titre de la page, affiché au-dessus du contenu de la page
            * @see Components#subTitleLabel
@@ -123,7 +132,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
            * @see Components#percentLabel
            * @see Components#infosLabel
            */
-          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.MAIN_COLOR){
+          public static SColoredBar loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.CUSTOM_COLORS.MAIN_COLOR.get()){
                @Override
                public void setVisible(boolean aFlag) {
                     super.setVisible(aFlag);
@@ -183,9 +192,12 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           public static final ChangelogsPage changelogsPage = new ChangelogsPage();
 
-          // About components - up
+          // About components
           public static final AboutInfosPage aboutInfosPage = new AboutInfosPage();
           public static final AboutModsPage aboutModsPage = new AboutModsPage();
+
+          public static final SettingsColorsPage settingsColorsPage = new SettingsColorsPage();
+          public static final SettingsDiscordPage settingsDiscordPage = new SettingsDiscordPage();
      }
 
      /**
@@ -217,8 +229,13 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
                }
           });
 
+          TabList settingsTabList = new TabList("settings");
+          settingsTabList.add(new Tab("Couleurs", PageName.SETTINGS_COLORS));
+          settingsTabList.add(new Tab("Discord", PageName.SETTINGS_DISCORD));
+
           tabManager.addTabList(profileTabList);
           tabManager.addTabList(aboutTabList);
+          tabManager.addTabList(settingsTabList);
 
           quitButton.setBounds(970, 4);
           quitButton.addEventListener(this);
@@ -238,11 +255,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           newsButton.setLocation(0, 113);
           this.add(newsButton);
 
-          try {
-               initProfileIcon();
-          } catch (IOException e) {
-               throw new RuntimeException(e);
-          }
+          initProfileIcon();
 
           firstProfileButton.setLocation(0, 174);
           this.add(firstProfileButton);
@@ -255,34 +268,37 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           initProfileButtons();
 
-          changesButton.setLocation(0, 510);
+          changesButton.setLocation(0, 449);
           this.add(changesButton);
 
-          aboutButton.setLocation(0, 571);
+          aboutButton.setLocation(0, 510);
           this.add(aboutButton);
 
+          settingsButton.setLocation(0, 571);
+          this.add(settingsButton);
+
           titleLabel.setBounds(190, 56, 809, 23);
-          titleLabel.setForeground(Launcher.TEXT_COLOR);
+          titleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           titleLabel.setFont(robotoBlackFont.deriveFont(20f));
           this.add(titleLabel);
 
           subTitleLabel.setBounds(190, 33, 809, 23);
-          subTitleLabel.setForeground(Launcher.TEXT_COLOR);
+          subTitleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           subTitleLabel.setFont(titleLabel.getFont().deriveFont(16f));
           this.add(subTitleLabel);
 
           barLabel.setBounds(181, 610, 269, 16);
-          barLabel.setForeground(Launcher.TEXT_COLOR);
+          barLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           barLabel.setFont(robotoMediumFont.deriveFont(10f));
           this.add(barLabel);
 
           percentLabel.setBounds(920, 611, 70, 16);
-          percentLabel.setForeground(Launcher.TEXT_COLOR);
+          percentLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           percentLabel.setFont(barLabel.getFont());
           this.add(percentLabel);
 
           infosLabel.setBounds(460, 611, 255, 16);
-          infosLabel.setForeground(Launcher.TEXT_COLOR);
+          infosLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           infosLabel.setFont(barLabel.getFont());
           this.add(infosLabel);
 
@@ -291,9 +307,10 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           loadingBar.setVisible(false);
 
           launcherVersionLabel.setBounds(9, 39, 150, 50);
-          launcherVersionLabel.setForeground(new Color(100, 100, 100));
+          launcherVersionLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get().darker().darker());
           launcherVersionLabel.setFont(robotoBlackFont.deriveFont(14f));
-          launcherVersionLabel.setSelectionColor(Launcher.MAIN_COLOR);
+          launcherVersionLabel.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+          launcherVersionLabel.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
           launcherVersionLabel.setOpaque(false);
           launcherVersionLabel.setEditable(false);
           this.add(launcherVersionLabel);
@@ -367,6 +384,15 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           panel.add(aboutModsPage);
           aboutModsPage.setVisible(false);
 
+
+          settingsColorsPage.setBounds(0, 0);
+          panel.add(settingsColorsPage);
+          settingsColorsPage.setVisible(false);
+
+          settingsDiscordPage.setBounds(0, 0);
+          panel.add(settingsDiscordPage);
+          settingsDiscordPage.setVisible(false);
+
           this.add(panel);
 
           aboutModsPage.setServer(Launcher.ASTRAUWORLD_MC);
@@ -386,6 +412,74 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           }
      }
 
+     public void recolor() {
+
+          CustomScrollBarUI.staticRecolor(
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get().brighter(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.MAIN_COLOR.get().darker(),
+                  Launcher.CUSTOM_COLORS.MAIN_COLOR.get(),
+                  Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get().brighter());
+
+
+          initProfileButtons();
+          loadingBar = new SColoredBar(getTransparentWhite(25), Launcher.CUSTOM_COLORS.MAIN_COLOR.get()){
+               @Override
+               public void setVisible(boolean aFlag) {
+                    super.setVisible(aFlag);
+                    if (aFlag) {
+                         profileHomePage.newsButton.setLocation(profileHomePage.newsButton.getX(), 462);
+                    } else {
+                         profileHomePage.newsButton.setLocation(profileHomePage.newsButton.getX(), 465);
+                    }
+               }
+          };
+
+          tabManager.recolor();
+          leftMenuSelector.recolor();
+          newsButton.recolor();
+          changesButton.recolor();
+          aboutButton.recolor();
+          settingsButton.recolor();
+          titleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          subTitleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          barLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          percentLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          infosLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          launcherVersionLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get().darker().darker());
+          launcherVersionLabel.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+          launcherVersionLabel.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
+
+          newsScrollPanel.recolor();
+          newsOpenScrollPanel.recolor();
+
+          profileHomePage.recolor();
+          profileWhitelistServersPage.recolor();
+          profileAccountPage.recolor();
+          profileAddonsModsPage.recolor();
+          profileAddonsShadersPage.recolor();
+          profileAddonsShadersChocapicv6Page.recolor();
+          profileAddonsShadersChocapicv7Page.recolor();
+          profileAddonsShadersChocapicv9Page.recolor();
+          profileSettingsPage.recolor();
+
+          changelogsPage.recolor();
+
+          aboutInfosPage.recolor();
+          aboutModsPage.recolor();
+
+          settingsColorsPage.recolor();
+          settingsDiscordPage.recolor();
+
+          LauncherFrame.getInstance().revalidate();
+          LauncherFrame.getInstance().repaint();
+     }
+
      /**
       * Background
       * @param g the <code>Graphics</code> object to protect
@@ -397,14 +491,14 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
 
           Graphics2D g2d = (Graphics2D) g;
 
-          g2d.setColor(Launcher.DARKER_BACKGROUND);
+          g2d.setColor(Launcher.CUSTOM_COLORS.DARKER_BACKGROUND_COLOR.get());
           g2d.fillRect(0, 33, 178, 597);
      //     g2d.fillRect(0, 0, 1000, 33);
 
-          g2d .setColor(Launcher.MID_BACKGROUND);
+          g2d .setColor(Launcher.CUSTOM_COLORS.MID_BACKGROUND_COLOR.get());
           g2d.fillRect(178, 33, 822, 80);
 
-          g2d.setColor(Launcher.BASE_BACKGROUND);
+          g2d.setColor(Launcher.CUSTOM_COLORS.BASE_BACKGROUND_COLOR.get());
           g2d.fillRect(178, 113, 822, 517);
 
      }
@@ -441,5 +535,38 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
      @Override
      public void onEvent(SwingerEvent e) {
           OnButtonEvent.onButtonEvent(e);
+     }
+
+     public void startStatusVid(){
+          final JFXPanel VFXPanel = new JFXPanel();
+
+          String video_source = "";
+
+          Media m = new Media(video_source);
+          MediaPlayer player = new MediaPlayer(m);
+          MediaView viewer = new MediaView(player);
+
+          StackPane root = new StackPane();
+          Scene scene = new Scene(root);
+
+          // center video position
+          javafx.geometry.Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+          viewer.setX((screen.getWidth() - this.getWidth()) / 2);
+          viewer.setY((screen.getHeight() - this.getHeight()) / 2);
+
+          // resize video based on screen size
+          DoubleProperty width = viewer.fitWidthProperty();
+          DoubleProperty height = viewer.fitHeightProperty();
+          width.bind(Bindings.selectDouble(viewer.sceneProperty(), "width"));
+          height.bind(Bindings.selectDouble(viewer.sceneProperty(), "height"));
+          viewer.setPreserveRatio(true);
+
+          // add video to stackpane
+          root.getChildren().add(viewer);
+
+          VFXPanel.setScene(scene);
+          player.play();
+          this.setLayout(new BorderLayout());
+          this.add(VFXPanel, BorderLayout.CENTER);
      }
 }

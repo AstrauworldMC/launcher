@@ -1,54 +1,110 @@
 package fr.timeto.astrauworld.launcher.main;
 
 import br.com.azalim.mcserverping.MCPingOptions;
-import fr.flowarg.flowlogger.ILogger;
-import fr.flowarg.flowupdater.FlowUpdater;
-import fr.flowarg.flowupdater.download.DownloadList;
-import fr.flowarg.flowupdater.download.IProgressCallback;
-import fr.flowarg.flowupdater.download.Step;
-import fr.flowarg.flowupdater.download.json.CurseFileInfo;
-import fr.flowarg.flowupdater.download.json.OptiFineInfo;
-import fr.flowarg.flowupdater.utils.ModFileDeleter;
-import fr.flowarg.flowupdater.versions.AbstractForgeVersion;
-import fr.flowarg.flowupdater.versions.ForgeVersionBuilder;
-import fr.flowarg.flowupdater.versions.VanillaVersion;
-import fr.flowarg.openlauncherlib.NoFramework;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
-import fr.theshark34.openlauncherlib.JavaUtil;
 import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
-import fr.timeto.astrauworld.launcher.secret.DiscordManager;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
 import net.harawata.appdirs.AppDirsFactory;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.List;
 
 import static fr.timeto.astrauworld.launcher.main.LauncherFrame.getInstance;
 import static fr.timeto.astrauworld.launcher.main.LauncherFrame.launcherProperties;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
-import static fr.timeto.astrauworld.launcher.main.LauncherSystemTray.getJava;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
 @SuppressWarnings("unused")
 public class Launcher {
 
-    public static final Color DARKER_BACKGROUND = Color.BLACK;
-    public static final Color MID_BACKGROUND = new Color(9, 9, 9);
-    public static final Color BASE_BACKGROUND = new Color(18, 18, 18);
-    public static final Color LIGHTER_GREY = new Color(30, 30, 30);
-    public static final Color MAIN_COLOR = Color.RED;
-    public static final Color TEXT_COLOR = Color.WHITE;
+    public enum CUSTOM_COLORS {
+        MAIN_COLOR(Color.RED, KEY.GLOBALSETTINGS_MAINCOLOR),
+        TEXT_COLOR(Color.WHITE, KEY.GLOBALSETTINGS_TEXTCOLOR),
+        SECONDTEXT_COLOR(new Color(153, 153, 153), KEY.GLOBALSETTINGS_SECONDTEXTCOLOR),
+        DARKER_BACKGROUND_COLOR(Color.BLACK, KEY.GLOBALSETTINGS_DARKERBACKGROUNDCOLOR),
+        MID_BACKGROUND_COLOR(new Color(9, 9, 9), KEY.GLOBALSETTINGS_MIDBACKGROUNDCOLOR),
+        BASE_BACKGROUND_COLOR(new Color(18, 18, 18), KEY.GLOBALSETTINGS_BASEBACKGROUNDCOLOR),
+        ELEMENTS_COLOR(new Color(30, 30, 30), KEY.GLOBALSETTINGS_ELEMENTSCOLOR);
+
+        private Color color;
+        private final KEY key;
+
+        CUSTOM_COLORS(Color color, KEY key) {
+            this.color = color;
+            this.key = key;
+        }
+
+        public Color get() {
+            return color;
+        }
+
+        public void set(Color color) {
+            this.color = color;
+            try {
+                LauncherPanel container = (LauncherPanel) LauncherFrame.getInstance().getContentPane();
+                container.recolor();
+            } catch (ClassCastException | NullPointerException ignored) {}
+            setFileColor(color);
+        }
+
+        public void setWithoutRecolor(Color color) {
+            this.color = color;
+            setFileColor(color);
+        }
+
+        public Color getFileColor() {
+            String[] split = globalSettingsSaver.get(key.get()).split("-");
+            int r = Integer.parseInt(split[0]);
+            int g = Integer.parseInt(split[1]);
+            int b = Integer.parseInt(split[2]);
+
+            return new Color(r, g, b);
+        }
+
+        private void setFileColor(Color color) {
+            int r = color.getRed();
+            int g = color.getGreen();
+            int b = color.getBlue();
+            globalSettingsSaver.set(key.get(), r + "-" + g + "-" + b);
+        }
+
+        /**
+         * Doit être en format 'rouge-vert-bleu'
+         */
+        private void setFileColor(String color) {
+            globalSettingsSaver.set(key.get(), color);
+        }
+
+        public void reset() {
+            setFileColor(key.getDefaultValue());
+            set(getFileColor());
+        }
+
+        public Color getDefault() {
+            String[] split = key.getDefaultValue().split("-");
+            int r = Integer.parseInt(split[0]);
+            int g = Integer.parseInt(split[1]);
+            int b = Integer.parseInt(split[2]);
+
+            return new Color(r, g, b);
+        }
+
+        public KEY getKey() {
+            return key;
+        }
+
+    }
 
     public static final String separatorChar = File.separator;
 
@@ -57,22 +113,6 @@ public class Launcher {
 
     // String des les path dont on a besoin
     public static final String filesFolder =  AppDirsFactory.getInstance().getUserDataDir("Astrauworld Launcher", null, null, true);
-    public static final String crashFolder = filesFolder + separatorChar + "crashes";
-    public static final String gameFilesFolder = filesFolder + separatorChar + "GameFiles";
-    public static final String dataFolder = filesFolder + separatorChar + "data";
-    public static final String globalSettingsData = dataFolder + separatorChar + "settings.properties";
-
-    public static final String firstProfileData = dataFolder + separatorChar + "firstProfile.properties";
-    public static final String firstProfileIcon = dataFolder + separatorChar + "firstProfile.png";
-    public static final String firstProfileCustomFilesFolder = dataFolder + separatorChar + "firstProfileCustomFiles";
-
-    public static final String secondProfileData = dataFolder + separatorChar + "secondProfile.properties";
-    public static final String secondProfileIcon = dataFolder + separatorChar + "secondProfile.png";
-    public static final String secondProfileCustomFilesFolder = dataFolder + separatorChar + "secondProfileCustomFiles";
-
-    public static final String thirdProfileData = dataFolder + separatorChar + "thirdProfile.properties";
-    public static final String thirdProfileIcon = dataFolder + separatorChar + "thirdProfile.png";
-    public static final String thirdProfileCustomFilesFolder = dataFolder + separatorChar + "thirdProfileCustomFiles";
 
     // Version de Minecraft et de Forge utilisée
     public static final String mcVersion = launcherProperties.getProperty("mcVersion");
@@ -88,41 +128,46 @@ public class Launcher {
 
     // File des dont on a besoin
     public static final File AW_DIR = new File(filesFolder);
-    public static final File AW_CRASH_FOLDER = new File(crashFolder);
-    public static final File AW_GAMEFILES_FOLDER = new File(gameFilesFolder);
-    public static final File AW_DATA_FOLDER = new File(dataFolder);
-    public static final File AW_SETTINGS_DATA = new File(globalSettingsData);
+    public static final File AW_CRASH_FOLDER = new File(AW_DIR, "crashes");
+    public static final File AW_GAMEFILES_FOLDER = new File(AW_DIR, "GameFiles");
+    public static final File AW_DATA_FOLDER = new File(AW_DIR, "data");
+    public static final File AW_DISCORD_DATA_FOLDER = new File(AW_DATA_FOLDER, "discord");
+    public static final File AW_SETTINGS_DATA = new File(AW_DATA_FOLDER, "settings.properties");
 
-    public static final File AW_FIRSTPROFILE_DATA = new File(firstProfileData);
-    public static final File AW_FIRSTPROFILE_ICON = new File(firstProfileIcon);
-    public static final File AW_FIRSTPROFILE_CUSTOMFILES_FOLDER = new File(firstProfileCustomFilesFolder);
+    public static final File AW_DISCORD_AVATAR_ICON = new File(AW_DISCORD_DATA_FOLDER, "discordUserAvatar.png");
+    public static final File AW_DISCORD_BIGIMAGE_ICON = new File(AW_DISCORD_DATA_FOLDER, "discordBigImage.png");
+    public static final File AW_DISCORD_SMALLIMAGE_ICON = new File(AW_DISCORD_DATA_FOLDER, "discordSmallImage.png");
 
-    public static final File AW_SECONDPROFILE_DATA = new File(secondProfileData);
-    public static final File AW_SECONDPROFILE_ICON = new File(secondProfileIcon);
-    public static final File AW_SECONDPROFILE_CUSTOMFILES_FOLDER = new File(secondProfileCustomFilesFolder);
+    public static final File AW_FIRSTPROFILE_DATA = new File(AW_DATA_FOLDER, "firstProfile.properties");
+    public static final File AW_FIRSTPROFILE_ICON = new File(AW_DATA_FOLDER, "firstProfile.png");
+    public static final File AW_FIRSTPROFILE_CUSTOMFILES_FOLDER = new File(AW_DATA_FOLDER, "firstProfileCustomFiles");
 
-    public static final File AW_THIRDPROFILE_DATA= new File(thirdProfileData);
-    public static final File AW_THIRDPROFILE_ICON = new File(thirdProfileIcon);
-    public static final File AW_THIRDPROFILE_CUSTOMFILES_FOLDER = new File(thirdProfileCustomFilesFolder);
+    public static final File AW_SECONDPROFILE_DATA = new File(AW_DATA_FOLDER, "secondProfile.properties");
+    public static final File AW_SECONDPROFILE_ICON = new File(AW_DATA_FOLDER, "secondProfile.png");
+    public static final File AW_SECONDPROFILE_CUSTOMFILES_FOLDER = new File(AW_DATA_FOLDER, "secondProfileCustomFiles");
+
+    public static final File AW_THIRDPROFILE_DATA= new File(AW_DATA_FOLDER, "thirdProfile.properties");
+    public static final File AW_THIRDPROFILE_ICON = new File(AW_DATA_FOLDER, "thirdProfile.png");
+    public static final File AW_THIRDPROFILE_CUSTOMFILES_FOLDER = new File(AW_DATA_FOLDER, "thirdProfileCustomFiles");
 
     // Path dont on a besoin
-    public static final Path awFilesFolder = Paths.get(filesFolder);
-    public static final Path awCrashFolder = Paths.get(crashFolder);
-    public static final Path awGameFilesFolder = Paths.get(gameFilesFolder);
-    public static final Path awDataFolder = Paths.get(dataFolder);
-    public static final Path awSettingsData = Paths.get(globalSettingsData);
+    public static final Path awFilesFolder = AW_DIR.toPath();
+    public static final Path awCrashFolder = AW_CRASH_FOLDER.toPath();
+    public static final Path awGameFilesFolder = AW_GAMEFILES_FOLDER.toPath();
+    public static final Path awDataFolder = AW_DATA_FOLDER.toPath();
+    public static final Path awSettingsData = AW_SETTINGS_DATA.toPath();
 
-    public static final Path awFirstProfileData = Paths.get(firstProfileData);
-    public static final Path awFirstProfileIcon = Paths.get(firstProfileIcon);
-    public static final Path awFirstProfileCustomFilesFolder = Paths.get(firstProfileCustomFilesFolder);
+    public static final Path awFirstProfileData = AW_FIRSTPROFILE_DATA.toPath();
+    public static final Path awFirstProfileIcon = AW_FIRSTPROFILE_ICON.toPath();
+    public static final Path awFirstProfileCustomFilesFolder = AW_FIRSTPROFILE_CUSTOMFILES_FOLDER.toPath();
 
-    public static final Path awSecondProfileData = Paths.get(secondProfileData);
-    public static final Path awSecondProfileIcon = Paths.get(secondProfileIcon);
-    public static final Path awSecondProfileCustomFilesFolder = Paths.get(secondProfileCustomFilesFolder);
+    public static final Path awSecondProfileData = AW_SECONDPROFILE_DATA.toPath();
+    public static final Path awSecondProfileIcon = AW_SECONDPROFILE_ICON.toPath();
+    public static final Path awSecondProfileCustomFilesFolder = AW_SECONDPROFILE_CUSTOMFILES_FOLDER.toPath();
 
-    public static final Path awThirdProfileData = Paths.get(thirdProfileData);
-    public static final Path awThirdProfileIcon = Paths.get(thirdProfileIcon);
-    public static final Path awThirdProfileCustomFilesFolder = Paths.get(thirdProfileCustomFilesFolder);
+    public static final Path awThirdProfileData = AW_THIRDPROFILE_DATA.toPath();
+    public static final Path awThirdProfileIcon = AW_THIRDPROFILE_ICON.toPath();
+    public static final Path awThirdProfileCustomFilesFolder = AW_THIRDPROFILE_CUSTOMFILES_FOLDER.toPath();
 
     private static AuthInfos authInfos;
 
@@ -140,11 +185,101 @@ public class Launcher {
         System.out.println("[" + dtf.format(now) + "] [Astrauworld Launcher] " + str);
     }
 
+    public static boolean colorsEquals(Color color1, Color color2) {
+        if (color1 == null || color2 == null) {
+            return false;
+        }
+
+        return color1.getRed() == color2.getRed()
+                && color1.getGreen() == color2.getGreen()
+                && color1.getBlue() == color2.getBlue();
+    }
+
+    public static BufferedImage takeAppScreenshot() {
+
+        Robot r;
+        try {
+            r = new Robot();
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Used to get ScreenSize and capture image
+        Rectangle capture = new Rectangle(
+                getInstance().getX(),
+                getInstance().getY(),
+                getInstance().getWidth(),
+                getInstance().getHeight());
+
+        return r.createScreenCapture(capture);
+    }
+
     public static String convertStringArrayToString(String[] strArr, String delimiter) {
         StringBuilder sb = new StringBuilder();
         for (String str : strArr)
             sb.append(str).append(delimiter);
         return sb.substring(0, sb.length() - 1);
+    }
+
+    public static BufferedImage makeRoundedCorner(BufferedImage image, int cornerRadius) {
+        return makeRoundedCorner(image, cornerRadius, Color.WHITE);
+    }
+
+    public static BufferedImage makeRoundedCorner(BufferedImage image, int cornerRadius, Color color) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+        BufferedImage output = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2 = output.createGraphics();
+
+        // This is what we want, but it only does hard-clipping, i.e. aliasing
+        // g2.setClip(new RoundRectangle2D ...)
+
+        // so instead fake soft-clipping by first drawing the desired clip shape
+        // in fully opaque white with antialiasing enabled...
+        g2.setComposite(AlphaComposite.Src);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(color);
+        g2.fill(new RoundRectangle2D.Float(0, 0, w, h, cornerRadius, cornerRadius));
+
+        // ... then compositing the image on top,
+        // using the white shape from above as alpha source
+        g2.setComposite(AlphaComposite.SrcAtop);
+        g2.drawImage(image, 0, 0, null);
+
+        g2.dispose();
+
+        return output;
+    }
+
+    public static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
+
+        // append = false
+        try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
+            int read;
+            final int DEFAULT_BUFFER_SIZE = 8192;
+            byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
+
+    }
+
+    public static BufferedImage getImageFromFile(File file) {
+        // This time, you can use an InputStream to load
+        try {
+            // Grab the InputStream for the image.
+            InputStream in = new FileInputStream(file);
+
+            // Then read it.
+            return ImageIO.read(in);
+        } catch (IOException e) {
+            Launcher.println("The image was not loaded.");
+            return null;
+        }
+
     }
 
     public static void saveInfosWhenConnect(Saver saver, MicrosoftAuthResult result, String oldAccount){
@@ -176,6 +311,10 @@ public class Launcher {
         MicrosoftAuthResult result = authenticator.loginWithWebview();
         Launcher.println("webview");
 
+        if (result == null) {
+            throw new MicrosoftAuthenticationException("Aucun résultat");
+        }
+
         saveInfosWhenConnect(saver, result, oldAccount);
 
         Launcher.println("Compte enregistré : " + result.getProfile().getName() + " (compte Microsoft) via la webview");
@@ -200,55 +339,6 @@ public class Launcher {
         authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId(), result.getXuid(), result.getClientId());
         Launcher.println("Connecté avec " + saver.get(ProfileSaver.KEY.INFOS_NAME.get()));
         infosLabel.setText("Connect\u00e9 avec " + saver.get(ProfileSaver.KEY.INFOS_NAME.get()));
-
-    }
-
-    public static void launch(boolean connectToServer, Saver saver) throws Exception{
-        String javaCommand;
-        final Path java = Paths.get(getJava().getAbsolutePath(), "bin", "java");
-        if (System.getProperty("os.name").toLowerCase().contains("win"))
-            javaCommand = "\"" + java + "\"";
-        else javaCommand = java.toString();
-        JavaUtil.setJavaCommand(javaCommand);
-
-        System.out.println(authInfos.getUsername());
-        System.out.println(authInfos.getUuid());
-        System.out.println(authInfos.getAccessToken());
-        System.out.println(authInfos.getAuthXUID());
-        System.out.println(authInfos.getClientId());
-
-        NoFramework noFramework= new NoFramework(awGameFilesFolder, authInfos, GameFolder.FLOW_UPDATER);
-        noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get()))) + "G");
-        if (connectToServer) {
-            noFramework.getAdditionalArgs().addAll(Arrays.asList("--server", serverOptions.getHostname(), "--port", Integer.toString(serverOptions.getPort())));
-        }
-
-        LauncherFrame.getInstance().setVisible(false);
-
-        process = noFramework.launch(mcVersion, forgeVersion, NoFramework.ModLoader.FORGE);
-        LauncherSystemTray.initGameSystemTray(getSelectedProfile(saver));
-        getInstance().setName("AstrauworldMC");
-        DiscordManager.setGamePresence(authInfos);
-
-        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-        String s;
-        while ((s = stdInput.readLine()) != null) {
-            System.out.println(s);
-            if (s.contains("Connecting to ")) {
-                if (s.contains(serverOptions.getHostname())) {
-                    DiscordManager.setGamePresence(authInfos, "AstrauworldMC");
-                }
-            } else if (s.contains("[voicechat/]: Clearing audio channels") || s.contains("Stopping JEI GUI")) {
-                DiscordManager.setGamePresence(authInfos);
-            }
-        }
-
-        Launcher.println("");
-        Launcher.println("");
-
-        String[] args = new String[] {afterMcExitArg, getSelectedProfile(saver)};
-        Main.main(args);
 
     }
 
@@ -321,139 +411,6 @@ public class Launcher {
         ProfileSaver.loadCustomFiles(saver);
         ProfileSaver.saveCustomFiles(saver);
     };
-
-
-    public static void update(Saver saver) throws Exception {
-        updateSaver = saver;
-
-        loadingBar.setVisible(true);
-
-        IProgressCallback callback = new IProgressCallback() {
-            private final DecimalFormat decimalFormat = new DecimalFormat("#.#");
-
-            @Override
-            public void init(ILogger logger) {
-            }
-
-            @Override
-            public void step(Step step) {
-                infosLabel.setText(StepInfo.valueOf(step.name()).getDetails());
-
-            }
-
-            public void onFileDownloaded(Path path) {
-                barLabel.setText(path.getFileName().toString());
-            }
-
-            @Override
-            public void update(DownloadList.DownloadInfo info) {
-
-                long progressLong = info.getDownloadedBytes();
-                long maximumLong = info.getTotalToDownloadBytes();
-                long result = (progressLong * 100) / maximumLong;
-
-                int progress = (int) info.getDownloadedBytes();
-                int maximum = (int) info.getTotalToDownloadBytes();
-
-                percentLabel.setText(result + "%");
-                loadingBar.setValue(progress);
-                loadingBar.setMaximum(maximum);
-            }
-        };
-
-        final VanillaVersion vanillaVersion = new VanillaVersion.VanillaVersionBuilder()
-                .withName(mcVersion)
-                .build();
-
-        final List<CurseFileInfo> modInfos = new ArrayList<>();
-
-        // Liste des mods serveurs
-        modInfos.add(new CurseFileInfo(352835, 3923041)); // Backpacked 2.1.10
-        modInfos.add(new CurseFileInfo(416811, 3858618)); // Medieval Craft 1.18.2 weapons only
-        modInfos.add(new CurseFileInfo(509041, 4393487)); // Epic Knights [...] 7.1
-        modInfos.add(new CurseFileInfo(419699, 4384391)); //    |_> Architectury API v4.11.89
-        modInfos.add(new CurseFileInfo(237307, 4016730)); // Cosmetic Armor Reworked 1.18.2-v2a
-        modInfos.add(new CurseFileInfo(238222, 3940240)); // JEI forge 1.18.1-9.7.1.255
-        modInfos.add(new CurseFileInfo(416089, 4372207)); // Simple Voice Chat [FORGE] 1.18.2-2.3.28
-    //    modInfos.add(new CurseFileInfo(274259, 3674344)); // Carry On 1.18.2-1.17.0.8
-        modInfos.add(new CurseFileInfo(426558, 3853078)); // Alex's Mobs 1.18.6
-        modInfos.add(new CurseFileInfo(331936, 3783096)); //    |_> Citadel 1.11.3-1.18.2
-        modInfos.add(new CurseFileInfo(421377, 4388478)); // HT's TreeChop 1.18.2-0.17.4
-        modInfos.add(new CurseFileInfo(433969, 3912070)); // HT's TreePlant 1.18.2-0.3.1
-        modInfos.add(new CurseFileInfo(316582, 3694258)); // Corpse 1.18.2-1.0.1
-        modInfos.add(new CurseFileInfo(225738, 3820503)); // MmmMmmMmmMmm (Target Dummy) 1.18.2-1.5.2
-        modInfos.add(new CurseFileInfo(350727, 4119502)); // Joy of Painting (xerapaint) 1.18.2-1.0.1
-        modInfos.add(new CurseFileInfo(341448, 4131736)); // Music Maker Mod (xeramusic) 1.18.2-1.0.2
-        modInfos.add(new CurseFileInfo(328085, 3864525)); // Create v0.5.0
-        modInfos.add(new CurseFileInfo(486392, 3864518)); //    |_> Flywheel forge 1.18.2-0.6.3
-        modInfos.add(new CurseFileInfo(360203, 3823106)); // Guard Villagers 1.18.2-1.4.3
-        modInfos.add(new CurseFileInfo(581854, 4346452)); // InvMove v0.8.2 (1.18. [Forge]
-        modInfos.add(new CurseFileInfo(348521, 3972426)); //    |_> Cloth Config API v6.4.90
-        modInfos.add(new CurseFileInfo(441647, 3850130)); // FramedBlocks 5.4.0
-        modInfos.add(new CurseFileInfo(558126, 4341453)); // This Rocks! 1.18.2-1.0.4
-        modInfos.add(new CurseFileInfo(377051, 3807788)); // Bed Benefits 1.18.2-6.0.2
-        modInfos.add(new CurseFileInfo(228525, 4351251)); //    |_> Bookshelf 1.18.2-13.2.52
-        modInfos.add(new CurseFileInfo(608235, 3919398)); // YDM's Weapon Master Forge - Multiplayer - 1.18.x - v3.0.3
-        modInfos.add(new CurseFileInfo(260262, 4124030)); // Tool Belt 1.18.2-1.18.9
-        modInfos.add(new CurseFileInfo(570319, 4279118)); // Human Companions 1.18.2-1.7.3
-        modInfos.add(new CurseFileInfo(450659, 3908056)); // Small Ships 1.18.2-2.0.0-Alpha-0.4
-        modInfos.add(new CurseFileInfo(223852, 3807626)); // Storage Drawers 1.18.2-10.2.1
-        modInfos.add(new CurseFileInfo(542110, 3682173)); // Jumpy Boats 1.18.2-0.1.0.3
-        modInfos.add(new CurseFileInfo(64760 , 3921270)); // SecurityCraft v1.9.3.1
-        modInfos.add(new CurseFileInfo(398521, 3999153)); // Farmer's Delight 1.2 - 1.18.2
-        modInfos.add(new CurseFileInfo(55438 , 4374992)); // MrCrayfish's Furniture Mod 7.0.0-pre35
-        modInfos.add(new CurseFileInfo(482378, 3969410)); // ParCool! 1.18.2-2.0.0.3-R
-        modInfos.add(new CurseFileInfo(60028 , 4183848)); // Aquaculture 2 1.18.2-2.3.10
-        modInfos.add(new CurseFileInfo(243121, 3840125)); // Quark 3.2-358
-        modInfos.add(new CurseFileInfo(250363, 3642382)); //   |_> AutoRegLib 1.7-53
-        modInfos.add(new CurseFileInfo(579403, 3778254)); // Calemi's Economy 1.0.1
-        modInfos.add(new CurseFileInfo(573646, 3778251)); //   |_> Calemi Core 1.0.14
-        modInfos.add(new CurseFileInfo(351725, 4178158)); // Macaw's Bridges v2.0.6
-        modInfos.add(new CurseFileInfo(359540, 4018178)); //   "     Furniture v3.0.2
-        modInfos.add(new CurseFileInfo(352039, 4205653)); //   "     Roofs v2.2.2
-        modInfos.add(new CurseFileInfo(378646, 4381503)); //   "     Doors v1.0.8
-        modInfos.add(new CurseFileInfo(629153, 4126518)); //   "     Path and Pavings v1.0.2
-        modInfos.add(new CurseFileInfo(502372, 4358260)); //   "     Lights and Lamps v1.0.5
-        modInfos.add(new CurseFileInfo(453925, 4204541)); //   "     Fences and Walls v1.0.7
-        modInfos.add(new CurseFileInfo(400933, 4181456)); //   "     Trapdoors v1.0.8
-        modInfos.add(new CurseFileInfo(438116, 3922996)); //   "     Paintings v1.0.4
-        modInfos.add(new CurseFileInfo(363569, 4203418)); //   "     Windows v2.1.1
-        modInfos.add(new CurseFileInfo(373774, 3669561)); // Rare Ice v0.4.1
-        modInfos.add(new CurseFileInfo(280200, 4087911)); // Colytra 1.18.1-5.2.0.4
-        modInfos.add(new CurseFileInfo(308989, 3650485)); //   |_> Caelus API 1.18.1-3.0.0.2
-        modInfos.add(new CurseFileInfo(517167, 3760573)); // Flash's NPCs 1.18.1-1.1.4v2
-    //    modInfos.add(new CurseFileInfo(273771, 4367403)); // AstikorCarts 1.1.2
-        modInfos.add(new CurseFileInfo(403422, 3955900)); // EmoteCraft 2.2.5-forge
-        modInfos.add(new CurseFileInfo(658587, 4418152)); //   |_> PlayerAnimator 1.0.2
-        modInfos.add(new CurseFileInfo(623373, 3955900)); //         |_> Bendy-lib 2.1.1
-
-        initClientMods(saver, modInfos, mcVersion);
-
-        AbstractForgeVersion forge;
-
-        if (Objects.equals(saver.get(KEY.MOD_OPTIFINE.get()), "true")) {
-            forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-                    .withForgeVersion(mcVersion + "-" + forgeVersion)
-                    .withOptiFine(new OptiFineInfo(optifineVersion))
-                    .withCurseMods(modInfos)
-                    .withFileDeleter(new ModFileDeleter(true))
-                    .build();
-        } else {
-            forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-                    .withForgeVersion(mcVersion + "-" + forgeVersion)
-                    .withCurseMods(modInfos)
-                    .withFileDeleter(new ModFileDeleter(true))
-                    .build();
-        }
-
-        final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
-                .withVanillaVersion(vanillaVersion)
-                .withProgressCallback(callback)
-                .withModLoaderVersion(forge)
-                .withPostExecutions(Collections.singletonList(postExecutions))
-                .build();
-        updater.update(awGameFilesFolder);
-    }
 
     public static CrashReporter getCrashReporter() {
         return crashReporter;

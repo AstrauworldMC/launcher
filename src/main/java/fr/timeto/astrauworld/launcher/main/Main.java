@@ -36,9 +36,7 @@ public class Main {
             } else if (OS.toLowerCase().contains("nix") || OS.toLowerCase().contains("nux") || OS.toLowerCase().contains("aix")) {
                 Launcher.println("Unix OK");
             } else {
-                Thread ok = new Thread(() -> {
-                    System.exit(1);
-                });
+                Thread ok = new Thread(() -> System.exit(1));
                 PopUpMessages.errorMessage("Erreur", "Désolé, votre système d'exploitation (" + OS + ") n'est pas compatible", ok);
                 Launcher.println("OS non supporté");
             }
@@ -46,8 +44,9 @@ public class Main {
             Launcher.println("Chargement...");
 
             Launcher.println("[Lancement] Création des dossiers");
-            Launcher.AW_DIR.mkdir();
+            Launcher.AW_DIR.mkdirs();
             Launcher.AW_DATA_FOLDER.mkdir();
+            Launcher.AW_DISCORD_DATA_FOLDER.mkdir();
             Launcher.AW_GAMEFILES_FOLDER.mkdir();
             Launcher.AW_CRASH_FOLDER.mkdir();
 
@@ -66,6 +65,14 @@ public class Main {
 
             Launcher.println("[Lancement] Initialisation des fichiers de données");
             initializeDataFiles();
+
+            Launcher.CUSTOM_COLORS.MAIN_COLOR.set(Launcher.CUSTOM_COLORS.MAIN_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.TEXT_COLOR.set(Launcher.CUSTOM_COLORS.TEXT_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.set(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.DARKER_BACKGROUND_COLOR.set(Launcher.CUSTOM_COLORS.DARKER_BACKGROUND_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.MID_BACKGROUND_COLOR.set(Launcher.CUSTOM_COLORS.MID_BACKGROUND_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.BASE_BACKGROUND_COLOR.set(Launcher.CUSTOM_COLORS.BASE_BACKGROUND_COLOR.getFileColor());
+            Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.set(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.getFileColor());
 
             if (firstProfileSaver.get(ProfileSaver.KEY.INFOS_NAME.get()).toLowerCase().replaceAll(" ", "").equals("no")) {
                 firstProfileSaver.set(ProfileSaver.KEY.SETTINGS_PROFILENAME.get(), "Vide");
@@ -113,18 +120,18 @@ public class Main {
                 Thread t = new Thread(() -> {
                     try {
 
+                        Launcher.println("[Lancement] Lancement du system tray icon");
+                        initLauncherSystemTray();
+
                         Launcher.println("[Lancement] Lancement du DiscordRPC");
                         DiscordManager.start();
                         DiscordManager.setLauncherPresence();
 
                         Launcher.println("[Lancement] Initialisation des easters eggs");
                         EasterEggs.initEastereggs();
-                        new File(Launcher.dataFolder + "eastereggs.properties").delete();
+                        new File(Launcher.AW_DATA_FOLDER.getAbsolutePath() + "eastereggs.properties").delete();
 
                         PageChange.lastSettingsSaver = null;
-
-                        Launcher.println("[Lancement] Lancement du system tray icon");
-                        initLauncherSystemTray();
 
                         Launcher.println("[Lancement] Initialisation des images de profil");
                         initProfileIcon();
@@ -150,7 +157,7 @@ public class Main {
                             mcVersionJsonFile.createNewFile();
                         }
 
-                        File serverDat = new File(Launcher.AW_GAMEFILES_FOLDER + File.separator + "servers.dat");
+                        File serverDat = new File(Launcher.AW_GAMEFILES_FOLDER, "servers.dat");
                         if (!serverDat.exists()) {
                             Launcher.println("[Lancement] Téléchargement du servers.dat");
                             TimFilesUtils.downloadFromInternet("https://github.com/AstrauworldMC/resources/raw/main/servers.dat", serverDat);
@@ -158,9 +165,7 @@ public class Main {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Thread tt = new Thread(() -> {
-                            System.exit(1);
-                        });
+                        Thread tt = new Thread(() -> System.exit(1));
                         try {
                             String[] causeSplit1 = e.getCause().toString().split(":");
                             String[] causeSplit2 = causeSplit1[0].split("\\.");
@@ -199,9 +204,7 @@ public class Main {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Thread t = new Thread(() -> {
-                System.exit(1);
-            });
+            Thread t = new Thread(() -> System.exit(1));
             try {
                 String[] causeSplit1 = e.getCause().toString().split(":");
                 String[] causeSplit2 = causeSplit1[0].split("\\.");

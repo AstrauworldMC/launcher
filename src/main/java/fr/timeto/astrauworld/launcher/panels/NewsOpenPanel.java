@@ -1,6 +1,7 @@
 package fr.timeto.astrauworld.launcher.panels;
 
 import fr.theshark34.swinger.Swinger;
+import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
@@ -67,20 +68,34 @@ public class NewsOpenPanel extends PageCreator {
 
         titleLabel.setBounds(20, 220, 764, 30);
         titleLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(22f));
-        titleLabel.setForeground(Launcher.TEXT_COLOR);
+        titleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         inside.add(titleLabel);
 
         textArea.setBounds(20, 260, 764, 1200);
     //    textArea.setContentType("text/html");
         textArea.setFont(CustomFonts.robotoMediumFont.deriveFont(16f));
-        textArea.setForeground(Launcher.TEXT_COLOR);
-        textArea.setSelectionColor(Launcher.MAIN_COLOR);
+        textArea.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        textArea.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        textArea.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
         textArea.setOpaque(false);
         textArea.setEditable(false);
         inside.add(textArea);
 
         add(getBg().getPanel());
+    }
 
+    @Override
+    public void recolor() {
+        titleLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        textArea.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        textArea.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        textArea.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
+        CustomScrollBarUI scrollBarUI1 = (CustomScrollBarUI) scrollPane.getHorizontalScrollBar().getUI();
+        CustomScrollBarUI scrollBarUI2 = (CustomScrollBarUI) scrollPane.getVerticalScrollBar().getUI();
+        scrollBarUI1.recolor();
+        scrollBarUI2.recolor();
+        scrollPane.getHorizontalScrollBar().repaint();
+        scrollPane.getVerticalScrollBar().repaint();
     }
 
     public void setNewsPage(News news) {

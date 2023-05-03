@@ -52,6 +52,12 @@ public class ChangelogsPage extends PageCreator implements ActionListener {
     }
 
     @Override
+    public void recolor() {
+        versionComboBox.recolor();
+        textArea.recolor();
+    }
+
+    @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setSubtitle(versionComboBox.getSelectedItem().toString());

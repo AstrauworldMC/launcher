@@ -1,0 +1,40 @@
+{
+  "extfiles": [
+    {
+      "path": "javafx-base-17-mac.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-base/17/javafx-base-17-mac.jar",
+      "sha1": "61d52392b063be78f7cc1b0fbfc04dda7a835a15",
+      "size": 745746
+    },
+    {
+      "path": "javafx-controls-17-mac.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-controls/17/javafx-controls-17-mac.jar",
+      "sha1": "e73acf695ffccb4f904ff7b76de8999eefb547c2",
+      "size": 2544836
+    },
+    {
+      "path": "javafx-graphics-17-mac.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-graphics/17/javafx-graphics-17-mac.jar",
+      "sha1": "8b1d1124ce83e874db390016913fba7708f3592d",
+      "size": 4850659
+    },
+    {
+      "path": "javafx-media-17-mac.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-media/17/javafx-media-17-mac.jar",
+      "sha1": "ef463caf627c4c97b8e5c6a5ae16050c56aed966",
+      "size": 1725582
+    },
+    {
+      "path": "javafx-swing-17-mac.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-swing/17/javafx-swing-17-mac.jar",
+      "sha1": "9db4af0939f1a1f82d727d3f6d133ba4096c5aad",
+      "size": 88801
+    },
+    {
+      "path": "javafx-web-17-mac.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-web/17/javafx-web-17-mac.jar",
+      "sha1": "bf188c003e54ffb4cff6a9be7ce437fa269964fe",
+      "size": 31026454
+    }
+  ]
+}

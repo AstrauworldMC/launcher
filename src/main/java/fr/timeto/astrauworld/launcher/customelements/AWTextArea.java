@@ -39,12 +39,21 @@ public class AWTextArea extends JTextArea {
     public AWTextArea(String text, float deriveFont, boolean editable) {
         super(text);
 
-        setForeground(Launcher.TEXT_COLOR);
+        setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         setFont(CustomFonts.robotoBoldFont.deriveFont(deriveFont));
-        setCaretColor(Launcher.MAIN_COLOR);
-        setSelectionColor(Launcher.MAIN_COLOR);
-        setBackground(Launcher.LIGHTER_GREY);
+        setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
+        setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
         setBorder(new EmptyBorder(5, 10, 5, 10));
         setEditable(editable);
+    }
+
+    public void recolor() {
+        setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
+        setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
     }
 }

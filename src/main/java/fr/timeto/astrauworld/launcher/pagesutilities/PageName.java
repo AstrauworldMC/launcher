@@ -24,7 +24,12 @@ public enum PageName {
 
     ABOUT_INFOS("about-infos", new Background(), "4.1"),
     ABOUT_MODS("about-mods", new Background(), "4.2"),
-    ABOUT("about", new Background(), "4");
+    ABOUT("about", new Background(), "4"),
+
+    SETTINGS_COLORS("settings-colors", new Background().addMiddleVerticalLine(), "5.1"),
+    SETTINGS_DISCORD("settings-discord", new Background().addMiddleVerticalLine(), "5.2.1"),
+    SETTINGS_OTHERS("settings-others", new Background().addMiddleVerticalLine(), "5.3"),
+    SETTINGS("settings", new Background(), "5");
 
     private final String name;
     private final Background background;

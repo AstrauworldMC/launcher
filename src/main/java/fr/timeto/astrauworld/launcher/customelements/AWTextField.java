@@ -23,11 +23,20 @@ public class AWTextField extends JTextField {
     public AWTextField(String text, float deriveFont) {
         super(text);
 
-        setForeground(Launcher.TEXT_COLOR);
+        setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         setFont(CustomFonts.robotoBlackFont.deriveFont(deriveFont));
-        setCaretColor(Launcher.MAIN_COLOR);
-        setSelectionColor(Launcher.MAIN_COLOR);
-        setBackground(Launcher.LIGHTER_GREY);
+        setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
+        setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
         setBorder(new EmptyBorder(2, 10, 0, 10));
+    }
+
+    public void recolor() {
+        setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
+        setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
     }
 }

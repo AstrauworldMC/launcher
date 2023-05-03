@@ -1,0 +1,160 @@
+{
+  "extfiles": [
+    {
+      "path": "annotations-23.0.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/jetbrains/annotations/23.0.0/annotations-23.0.0.jar",
+      "sha1": "8cc20c07506ec18e0834947b84a864bfc094484e",
+      "size": 29371
+    },
+    {
+      "path": "appdirs-1.2.1.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/net/harawata/appdirs/1.2.1/appdirs-1.2.1.jar",
+      "sha1": "80aa50324d89ac015504563a52c6848f3654b0b9",
+      "size": 12659
+    },
+    {
+      "path": "bungeecord-chat-1.16-R0.4.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/net/md-5/bungeecord-chat/1.16-R0.4/bungeecord-chat-1.16-R0.4.jar",
+      "sha1": "e043e8eed8fdb5c157090a84ac8fd64a6a8d0d88",
+      "size": 148961
+    },
+    {
+      "path": "commonmark-0.21.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/commonmark/commonmark/0.21.0/commonmark-0.21.0.jar",
+      "sha1": "c98f0473b17c87fe4fa2fc62a7c6523a2fe018f0",
+      "size": 170750
+    },
+    {
+      "path": "commons-compress-1.21.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.21/commons-compress-1.21.jar",
+      "sha1": "4ec95b60d4e86b5c95a0e919cb172a0af98011ef",
+      "size": 1018316
+    },
+    {
+      "path": "discord-rpc-master-SNAPSHOT.jar",
+      "downloadURL": "https://jitpack.io/com/github/TimEtOff/discord-rpc/master-SNAPSHOT/discord-rpc-master-3ab9b590ea-1.jar",
+      "sha1": "80f9bd8bd7a37655f1f854c2bfddc85da9cf6f5e",
+      "size": 2505888
+    },
+    {
+      "path": "dnsjava-3.4.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/dnsjava/dnsjava/3.4.0/dnsjava-3.4.0.jar",
+      "sha1": "a214858bba6ddc017a3c2fd5d17f0ee359770dad",
+      "size": 456514
+    },
+    {
+      "path": "flowmultitools-1.4.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/fr/flowarg/flowmultitools/1.4.0/flowmultitools-1.4.0.jar",
+      "sha1": "8aaee86ee78c238e36fae95e5accc6a7b47d2269",
+      "size": 22698
+    },
+    {
+      "path": "flowupdater-1.7.4.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/fr/flowarg/flowupdater/1.7.4/flowupdater-1.7.4.jar",
+      "sha1": "8889d0096162fb868f882e946cbfcc0a1e74177a",
+      "size": 124933
+    },
+    {
+      "path": "gson-2.10.1.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar",
+      "sha1": "b3add478d4382b78ea20b1671390a858002feb6c",
+      "size": 283367
+    },
+    {
+      "path": "guava-21.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/com/google/guava/guava/21.0/guava-21.0.jar",
+      "sha1": "3a3d111be1be1b745edfa7d91678a12d7ed38709",
+      "size": 2521113
+    },
+    {
+      "path": "imgscalr-lib-4.2.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/imgscalr/imgscalr-lib/4.2/imgscalr-lib-4.2.jar",
+      "sha1": "e2838f7119361511ef7d54fe0d502bf07f3325eb",
+      "size": 27893
+    },
+    {
+      "path": "javafx-base-17.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-base/17/javafx-base-17.jar",
+      "sha1": "1e6732190939254735dc2a88eca88c5c7ccc719d",
+      "size": 261
+    },
+    {
+      "path": "javafx-controls-17.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-controls/17/javafx-controls-17.jar",
+      "sha1": "7116001b777530c89e5c7381d39a2c9268f71e7e",
+      "size": 261
+    },
+    {
+      "path": "javafx-graphics-17.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-graphics/17/javafx-graphics-17.jar",
+      "sha1": "616d987ba02a86196d7feca443677fff908d5737",
+      "size": 261
+    },
+    {
+      "path": "javafx-media-17.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-media/17/javafx-media-17.jar",
+      "sha1": "4d95015ecad2405a9b90482a201147b55a0165c6",
+      "size": 261
+    },
+    {
+      "path": "jna-5.6.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.6.0/jna-5.6.0.jar",
+      "sha1": "330f2244e9030119ab3030fc3fededc86713d9cc",
+      "size": 1509440
+    },
+    {
+      "path": "jna-platform-5.6.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/net/java/dev/jna/jna-platform/5.6.0/jna-platform-5.6.0.jar",
+      "sha1": "d18424ffb8bbfd036d71bcaab9b546858f2ef986",
+      "size": 2735878
+    },
+    {
+      "path": "json-20230227.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/json/json/20230227/json-20230227.jar",
+      "sha1": "7a0d4aca76513d8ce81f9b044ce8126b84809ad8",
+      "size": 72591
+    },
+    {
+      "path": "lombok-1.18.26.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar",
+      "sha1": "8f8cf0372abf564913e9796623aac4c8ea44025a",
+      "size": 1975593
+    },
+    {
+      "path": "minecraft-server-ping-b1d8c96009d3a86184f5e75820e1e6e97eee5cd1.jar",
+      "downloadURL": "https://jitpack.io/com/github/lucaazalim/minecraft-server-ping/b1d8c96009d3a86184f5e75820e1e6e97eee5cd1/minecraft-server-ping-b1d8c96009d3a86184f5e75820e1e6e97eee5cd1.jar",
+      "sha1": "ca79a429fa18b6e91e50e66f36a4419ab768131a",
+      "size": 16142
+    },
+    {
+      "path": "OpenAuth-master-SNAPSHOT.jar",
+      "downloadURL": "https://jitpack.io/com/github/litarvan/OpenAuth/master-SNAPSHOT/OpenAuth-master-518589d222-1.jar",
+      "sha1": "1c17be600fd2154a7770d65ab9a0b0f908467489",
+      "size": 49264
+    },
+    {
+      "path": "openlauncherlib-3.2.6.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/fr/flowarg/openlauncherlib/3.2.6/openlauncherlib-3.2.6.jar",
+      "sha1": "90278fc5f2481654823b9e28f4336dc606a556e5",
+      "size": 101140
+    },
+    {
+      "path": "slf4j-api-1.7.30.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar",
+      "sha1": "b5a4b6d16ab13e34a88fae84c35cd5d68cac922c",
+      "size": 41472
+    },
+    {
+      "path": "swinger-1.0.1-BETA.jar",
+      "downloadURL": "https://litarvan.github.io/maven/fr/theshark34/swinger/swinger/1.0.1-BETA/swinger-1.0.1-BETA.jar",
+      "sha1": "fec28a7d61550db75b40aa125d78bbae4e8e40de",
+      "size": 25836
+    },
+    {
+      "path": "TimUtilsLib-8ebcad452b312494aa1384fa739af9f9b293d26d.jar",
+      "downloadURL": "https://jitpack.io/com/github/TimEtOff/TimUtilsLib/8ebcad452b312494aa1384fa739af9f9b293d26d/TimUtilsLib-8ebcad452b312494aa1384fa739af9f9b293d26d.jar",
+      "sha1": "c8e3054669fa238f978aaeadfc1978cf471565b6",
+      "size": 1296116
+    }
+  ]
+}

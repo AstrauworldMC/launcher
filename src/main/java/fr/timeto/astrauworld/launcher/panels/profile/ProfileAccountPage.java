@@ -7,6 +7,7 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.AWPasswordField;
 import fr.timeto.astrauworld.launcher.customelements.AWTextField;
+import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
@@ -80,7 +81,7 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         textField.setBounds(39, 55, 395, 55);
         add(textField);
 
-        textFieldLabel.setForeground(Launcher.TEXT_COLOR);
+        textFieldLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         textFieldLabel.setFont(textField.getFont().deriveFont(20f));
         textFieldLabel.setBounds(42, 10, 386, 60);
         add(textFieldLabel);
@@ -88,15 +89,16 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         passwordField.setBounds(39, 149, 395, 55);
         add(passwordField);
 
-        passwordFieldLabel.setForeground(Launcher.TEXT_COLOR);
+        passwordFieldLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         passwordFieldLabel.setFont(textFieldLabel.getFont());
         passwordFieldLabel.setBounds(42, 104, 386, 60);
         add(passwordFieldLabel);
 
-        infosLabel.setForeground(new Color(109, 109, 109));
+        infosLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get().darker());
         infosLabel.setFont(CustomFonts.robotoMediumFont.deriveFont(14f));
-        infosLabel.setCaretColor(Launcher.MAIN_COLOR);
-        infosLabel.setSelectionColor(Launcher.MAIN_COLOR);
+        infosLabel.setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        infosLabel.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        infosLabel.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
         infosLabel.setOpaque(false);
         infosLabel.setBorder(null);
         infosLabel.setEditable(false);
@@ -104,18 +106,36 @@ public class ProfileAccountPage extends PageCreator implements SwingerEventListe
         add(infosLabel);
 
         accountLabel.setBounds(380 - 178, 523 - 113, 276, 31);
-        accountLabel.setForeground(Launcher.TEXT_COLOR);
+        accountLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
         accountConnectedLabel.setBounds(198 - 178, 523 - 113, 191, 31);
-        accountConnectedLabel.setForeground(new Color(179, 179, 179));
+        accountConnectedLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get());
         accountConnectedLabel.setFont(accountLabel.getFont());
         add(accountConnectedLabel);
 
         add(getBg().getPanel());
     }
 
+    @Override
+    public void recolor() {
+        textField.recolor();
+        textFieldLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+
+        passwordField.recolor();
+        passwordFieldLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+
+        infosLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get().darker());
+        infosLabel.setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        infosLabel.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        infosLabel.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
+
+        accountLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        accountConnectedLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get());
+    }
+
+    @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setTitle("Profil " + ProfileSaver.getSelectedProfile());

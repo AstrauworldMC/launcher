@@ -3,6 +3,7 @@ package fr.timeto.astrauworld.launcher.panels.profile;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.customelements.ModPanel;
 import fr.timeto.astrauworld.launcher.customelements.ShaderPanel;
 import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
@@ -90,7 +91,7 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
         optifineSwitchButton.addEventListener(this);
         add(optifineSwitchButton);
 
-        optifineLabel.setForeground(Launcher.TEXT_COLOR);
+        optifineLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         optifineLabel.setFont(modsFpsmodelPanel.getNameLabel().getFont().deriveFont(24f));
         optifineLabel.setBounds(89, 22, 91, 24);
         add(optifineLabel);
@@ -245,11 +246,12 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
             optifineNeededLabel.setForeground(new Color(109, 109, 109));
             optifineNeededLabel.setFont(CustomFonts.robotoMediumFont.deriveFont(16f));
             optifineNeededLabel.setBounds(6, 46, 210, 30);
-            optifineNeededLabel.setCaretColor(Launcher.MAIN_COLOR);
+            optifineNeededLabel.setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
             optifineNeededLabel.setBorder(null);
             optifineNeededLabel.setOpaque(false);
             optifineNeededLabel.setAlignmentX(SwingConstants.RIGHT);
-            optifineNeededLabel.setSelectionColor(Launcher.MAIN_COLOR);
+            optifineNeededLabel.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+            optifineNeededLabel.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
             optifineNeededLabel.setEditable(false);
             add(optifineNeededLabel);
 
@@ -259,18 +261,29 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
         }
 
         accountLabel.setBounds(380 - 178, 574 - 113, 276, 31);
-        accountLabel.setForeground(Launcher.TEXT_COLOR);
+        accountLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         accountLabel.setFont(CustomFonts.robotoBlackFont.deriveFont(17f));
         this.add(accountLabel);
 
         accountConnectedLabel.setBounds(198 - 178, 574 - 113, 191, 31);
-        accountConnectedLabel.setForeground(new Color(179, 179, 179));
+        accountConnectedLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get());
         accountConnectedLabel.setFont(accountLabel.getFont());
         add(accountConnectedLabel);
 
         add(bg.getPanel());
     }
 
+    @Override
+    public void recolor() {
+        optifineLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        optifineNeededLabel.setCaretColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        optifineNeededLabel.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        optifineNeededLabel.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
+        accountLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        accountConnectedLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get());
+    }
+
+    @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             setTitle("Profil " + getSelectedProfile());

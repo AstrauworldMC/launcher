@@ -3,10 +3,12 @@ package fr.timeto.astrauworld.launcher.panels.about;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
+import fr.timeto.astrauworld.launcher.eastereggs.BlackSpace;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
@@ -35,6 +37,8 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
         }
     };
     public JTextArea textArea = new JTextArea();
+
+    public final BlackSpace blackSpace = new BlackSpace();
 
     public AboutInfosPage() {
         super(PageName.ABOUT_INFOS, "À propos", "Infos");
@@ -78,12 +82,28 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
         eastereggsLabel.setForeground(new Color(151, 151, 151));
         eastereggsLabel.setFont(robotoMediumFont.deriveFont(15f));
         eastereggsLabel.setOpaque(false);
+    /*    eastereggsLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (EasterEggs.getNumberOfFoundEasterEggs() >= EasterEggs.getNumberTotalEasterEggs() - 2) {
+                    LauncherFrame.getInstance().setContentPane(blackSpace);
+                    LauncherFrame.getInstance().revalidate();
+                    LauncherFrame.getInstance().repaint();
+                    Thread t = new Thread(() -> {
+                        blackSpace.startAnim();
+                    });
+                    t.start();
+                }
+            }
+        });*/
         this.add(eastereggsLabel);
 
         textArea.setBounds(12, 144, 700, 450);
-        textArea.setForeground(Launcher.TEXT_COLOR);
+        textArea.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         textArea.setFont(CustomFonts.robotoMediumFont.deriveFont(17f));
-        textArea.setSelectionColor(Launcher.MAIN_COLOR);
+        textArea.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        textArea.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
         textArea.setEditable(false);
         textArea.setOpaque(false);
         this.add(textArea);
@@ -103,6 +123,13 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
         );
 
         add(getBg().getPanel());
+    }
+
+    @Override
+    public void recolor() {
+        textArea.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+        textArea.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
+        textArea.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
     }
 
     @Override

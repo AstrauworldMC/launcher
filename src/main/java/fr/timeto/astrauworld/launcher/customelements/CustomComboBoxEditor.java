@@ -8,19 +8,19 @@ package fr.timeto.astrauworld.launcher.customelements;
     import java.awt.*;
 
 public class CustomComboBoxEditor extends BasicComboBoxEditor {
-    private final JLabel label = new JLabel();
-    private final JPanel panel = new JPanel();
-    private Object selectedItem;
+    protected final JLabel label = new JLabel();
+    protected final JPanel panel = new JPanel();
+    protected Object selectedItem;
 
     public CustomComboBoxEditor() {
 
         label.setOpaque(false);
         label.setFont(CustomFonts.robotoBlackFont.deriveFont(14f));
-        label.setForeground(Launcher.TEXT_COLOR);
+        label.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
 
         panel.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 4));
         panel.add(label);
-        panel.setBackground(Launcher.LIGHTER_GREY);
+        panel.setBackground(Launcher.CUSTOM_COLORS.ELEMENTS_COLOR.get());
     }
 
     public Component getEditorComponent() {
@@ -28,7 +28,7 @@ public class CustomComboBoxEditor extends BasicComboBoxEditor {
     }
 
     public Object getItem() {
-        return "[" + this.selectedItem.toString() + "]";
+        return this.selectedItem.toString();
     }
 
     public void setItem(Object item) {

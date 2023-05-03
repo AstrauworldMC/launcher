@@ -1,0 +1,40 @@
+{
+  "extfiles": [
+    {
+      "path": "javafx-base-17-win.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-base/17/javafx-base-17-win.jar",
+      "sha1": "b63b9696f73009ca5002f49ec4db73576e2de168",
+      "size": 745751
+    },
+    {
+      "path": "javafx-controls-17-win.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-controls/17/javafx-controls-17-win.jar",
+      "sha1": "efc0f4edde079c22987064922530c67fa1350a9b",
+      "size": 2544873
+    },
+    {
+      "path": "javafx-graphics-17-win.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-graphics/17/javafx-graphics-17-win.jar",
+      "sha1": "2c56d252b97eba8b42f049c6ce145172d744ce08",
+      "size": 5767125
+    },
+    {
+      "path": "javafx-media-17-win.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-media/17/javafx-media-17-win.jar",
+      "sha1": "6012cc30ced1539f167b64959cb9d6a4283f7aa7",
+      "size": 1089764
+    },
+    {
+      "path": "javafx-swing-17-win.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-swing/17/javafx-swing-17-win.jar",
+      "sha1": "aa76aa2e01dc8899dbfd4f2fb296cec7fc266ec6",
+      "size": 88801
+    },
+    {
+      "path": "javafx-web-17-win.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/openjfx/javafx-web/17/javafx-web-17-win.jar",
+      "sha1": "be4a308dbcc947af2a9d9c42a72fd7f6d0ba77b9",
+      "size": 26212988
+    }
+  ]
+}
