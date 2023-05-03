@@ -117,8 +117,8 @@ public class EasterEggs {
             trueAsrielName,
             floweyName,
             cursedFloweyName,
-            blackSpace,
-            blackSpaceStab,
+         /*   blackSpace,
+            blackSpaceStab,*/
             aubreyName,
             aubreyDreamName,
             basilName,

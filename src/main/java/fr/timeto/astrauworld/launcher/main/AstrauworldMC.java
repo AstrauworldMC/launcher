@@ -79,5 +79,6 @@ public class AstrauworldMC extends Server {
         mods.add(new Mod("EmoteCraft",                  "2.2.5",               new CurseFileInfo(403422, 3955900)));
         /* |_> */ mods.add(new Mod("PlayerAnimator",    "1.0.2",               new CurseFileInfo(658587, 4418152)));
             /* |_> */ mods.add(new Mod("Bendy-lib",     "2.1.1",               new CurseFileInfo(623373, 3930014)));
+        mods.add(new Mod("Female Gender & Age Mod",     "1.9.2+F5",            new CurseFileInfo(48446 , 3687012)));
     }
 }

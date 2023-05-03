@@ -5,7 +5,6 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.main.Launcher;
-import fr.timeto.astrauworld.launcher.main.LauncherFrame;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
@@ -14,8 +13,6 @@ import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -85,7 +82,7 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
         eastereggsLabel.setForeground(new Color(151, 151, 151));
         eastereggsLabel.setFont(robotoMediumFont.deriveFont(15f));
         eastereggsLabel.setOpaque(false);
-        eastereggsLabel.addMouseListener(new MouseAdapter() {
+    /*    eastereggsLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -99,7 +96,7 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
                     t.start();
                 }
             }
-        });
+        });*/
         this.add(eastereggsLabel);
 
         textArea.setBounds(12, 144, 700, 450);
