@@ -36,10 +36,6 @@ public class ShadersSwitchButton extends AbstractButton {
 
     public String getShaderFileName() {return shaderFileName;}
 
-    public void defineTextures() {
-
-    }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -54,7 +50,7 @@ public class ShadersSwitchButton extends AbstractButton {
             this.setEnabled(false);
         }
 
-        if (Boolean.parseBoolean(shaderOptionsSaver.get(selectedShaderKey))) {
+        if (Objects.equals(shaderOptionsSaver.get(selectedShaderKey), shaderFileName)) {
             if (!this.isEnabled()) {
                 // true - disabled
                 g2d.setColor(Color.BLACK);
@@ -146,8 +142,8 @@ public class ShadersSwitchButton extends AbstractButton {
                 g2d.setColor(new Color(59, 59, 59));
                 g2d.fillRect(5, 12, 64, 26);
 
-                g2d.setColor(new Color(30, 30, 30));
-                g2d.fillRect(29, 22, 16, 6);
+                g2d.setColor(new Color(46, 46, 46));
+                g2d.fillRect(34, 17, 6, 16);
 
 
                 g2d.setColor(Color.BLACK);
@@ -172,8 +168,8 @@ public class ShadersSwitchButton extends AbstractButton {
                 g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
                 g2d.fillRect(5, 12, 64, 26);
 
-                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 65));
-                g2d.fillRect(29, 22, 16, 6);
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 107));
+                g2d.fillRect(34, 17, 6, 16);
 
 
                 g2d.setColor(Color.WHITE);
@@ -198,8 +194,8 @@ public class ShadersSwitchButton extends AbstractButton {
                 g2d.setColor(new Color(46, 46, 46));
                 g2d.fillRect(5, 12, 64, 26);
 
-                g2d.setColor(new Color(184, 184, 184));
-                g2d.fillRect(29, 22, 16, 6);
+                g2d.setColor(new Color(107, 107, 107));
+                g2d.fillRect(34, 17, 6, 16);
 
 
                 g2d.setColor(Color.BLACK);
@@ -220,7 +216,7 @@ public class ShadersSwitchButton extends AbstractButton {
     @Override
     public void setVisible(boolean aFlag) {
         if(aFlag) {
-            defineTextures();
+            repaint();
             super.setVisible(aFlag);
         } else {
             super.setVisible(aFlag);
@@ -231,7 +227,6 @@ public class ShadersSwitchButton extends AbstractButton {
         this.setBounds(x, y, 74, 50);
     }
 
-    // FIXME TOGGLE MARCHE PLUS
     public void toggle() {
         initOptionSaver();
 
@@ -285,7 +280,7 @@ public class ShadersSwitchButton extends AbstractButton {
                 barLabel.setVisible(false);
                 percentLabel.setVisible(false);
                 infosLabel.setVisible(false);
-                defineTextures();
+                repaint();
                 LauncherPanel.inDownload = false;
             } catch (Exception e) {
                 throw new RuntimeException(e);

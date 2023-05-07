@@ -8,12 +8,12 @@ import java.awt.*;
 
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
-public class TexturedSwitchButton extends AbstractButton {
+public class SwitchButton extends AbstractButton {
     private final String saverKeyStr;
     private final KEY saverKey;
     private final boolean global;
 
-    public TexturedSwitchButton(KEY saverKey, boolean global) {
+    public SwitchButton(KEY saverKey, boolean global) {
         super();
         this.saverKeyStr = saverKey.get();
         this.saverKey = saverKey;
@@ -122,8 +122,8 @@ public class TexturedSwitchButton extends AbstractButton {
                 g2d.setColor(new Color(59, 59, 59));
                 g2d.fillRect(5, 12, 64, 26);
 
-                g2d.setColor(new Color(30, 30, 30));
-                g2d.fillRect(29, 22, 16, 6);
+                g2d.setColor(new Color(46, 46, 46));
+                g2d.fillRect(34, 17, 6, 16);
 
 
                 g2d.setColor(Color.BLACK);
@@ -148,8 +148,8 @@ public class TexturedSwitchButton extends AbstractButton {
                 g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
                 g2d.fillRect(5, 12, 64, 26);
 
-                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 65));
-                g2d.fillRect(29, 22, 16, 6);
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 107));
+                g2d.fillRect(34, 17, 6, 16);
 
 
                 g2d.setColor(Color.WHITE);
@@ -174,8 +174,8 @@ public class TexturedSwitchButton extends AbstractButton {
                 g2d.setColor(new Color(46, 46, 46));
                 g2d.fillRect(5, 12, 64, 26);
 
-                g2d.setColor(new Color(184, 184, 184));
-                g2d.fillRect(29, 22, 16, 6);
+                g2d.setColor(new Color(107, 107, 107));
+                g2d.fillRect(34, 17, 6, 16);
 
 
                 g2d.setColor(Color.BLACK);
@@ -197,10 +197,6 @@ public class TexturedSwitchButton extends AbstractButton {
         this.setBounds(x, y, 74, 50);
     }
 
-    public void defineTextures() {
-
-    }
-
     public String getSaverKey() {
         return saverKeyStr;
     }
@@ -212,7 +208,7 @@ public class TexturedSwitchButton extends AbstractButton {
     @Override
     public void setVisible(boolean aFlag) {
         if(aFlag) {
-            defineTextures();
+            repaint();
             super.setVisible(aFlag);
         } else {
             super.setVisible(aFlag);

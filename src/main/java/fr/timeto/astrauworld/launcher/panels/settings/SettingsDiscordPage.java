@@ -38,7 +38,6 @@ public class SettingsDiscordPage extends PageCreator implements SwingerEventList
         allShowTime.setBounds(0, 90);
         allShowTime.addEventListener(this);
         add(allShowTime);
-        allShowTime.setEnabled(false);
 
         launcherLabel.setBounds(25, 190, 280, 24);
         launcherLabel.setFont(CustomFonts.robotoBoldFont.deriveFont(21f));

@@ -12,7 +12,7 @@ import java.awt.*;
 public class SwitchButtonPanel extends JPanel implements SwingerEventListener {
 
     private final JLabel label = new JLabel();
-    private final TexturedSwitchButton switchButton;
+    private final SwitchButton switchButton;
 
     private SwingerEventListener eventListener;
 
@@ -27,10 +27,10 @@ public class SwitchButtonPanel extends JPanel implements SwingerEventListener {
         label.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
         add(label);
 
-        switchButton = new TexturedSwitchButton(key, global);
+        switchButton = new SwitchButton(key, global);
         switchButton.setBounds(297, 5);
         switchButton.addEventListener(this);
-        switchButton.defineTextures();
+        switchButton.repaint();
         add(switchButton);
 
     }

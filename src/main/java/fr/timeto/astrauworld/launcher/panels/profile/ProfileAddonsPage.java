@@ -6,7 +6,7 @@ import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.customelements.ModPanel;
 import fr.timeto.astrauworld.launcher.customelements.ShaderPanel;
-import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
+import fr.timeto.astrauworld.launcher.customelements.SwitchButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
@@ -33,7 +33,7 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
     public STexturedButton resourcePacksButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/resourcePacksButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/resourcePacksButton-hover.png"));
     public STexturedButton modsButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/modsButton-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/modsButton-hover.png"));
     public STexturedButton goToFolderButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/goToFolder-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/goToFolder-hover.png"));
-    public TexturedSwitchButton optifineSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.MOD_OPTIFINE, false);
+    public SwitchButton optifineSwitchButton = new SwitchButton(ProfileSaver.KEY.MOD_OPTIFINE, false);
     public final JLabel optifineLabel = new JLabel("Optifine");
     public final JTextArea optifineNeededLabel = new JTextArea("Obligatoire pour les shaders");
 
@@ -289,7 +289,7 @@ public class ProfileAddonsPage extends PageCreator implements SwingerEventListen
             setTitle("Profil " + getSelectedProfile());
 
             Thread t = new Thread(() -> {
-                optifineSwitchButton.defineTextures();
+                optifineSwitchButton.repaint();
 
                 if (Objects.equals(pageName.getSubTab3(), PageName.PROFILE_ADDONS_MODS.getSubTab3())) {
                     int i = 0;

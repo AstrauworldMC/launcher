@@ -24,7 +24,7 @@ public class ModPanel extends JPanel implements SwingerEventListener {
     private final URL url;
 
     private final JLabel nameLabel;
-    private final TexturedSwitchButton switchButton;
+    private final SwitchButton switchButton;
     private final STexturedButton moreInfosButton;
 
     public ModPanel(String name, ProfileSaver.KEY key, String moreInfosUrl) {
@@ -41,7 +41,7 @@ public class ModPanel extends JPanel implements SwingerEventListener {
         setPreferredSize(new Dimension(400, 60));
         setBackground(Swinger.getTransparentWhite(10));
 
-        switchButton = new TexturedSwitchButton(key, false);
+        switchButton = new SwitchButton(key, false);
         moreInfosButton = new STexturedButton(getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-normal.png"), getResourceIgnorePath("/assets/launcher/profilesPage/addons/moreInfos-hover.png"));
         nameLabel = new JLabel(name, SwingConstants.RIGHT);
 
@@ -65,13 +65,13 @@ public class ModPanel extends JPanel implements SwingerEventListener {
 
     public void setVisible(boolean aFlag) {
         if (aFlag) {
-            switchButton.defineTextures();
+            switchButton.repaint();
         }
         super.setVisible(aFlag);
     }
 
     public void defineTextures() {
-        switchButton.defineTextures();
+        switchButton.repaint();
     }
 
     public void recolor() {
@@ -90,7 +90,7 @@ public class ModPanel extends JPanel implements SwingerEventListener {
         return url;
     }
 
-    public TexturedSwitchButton getSwitchButton() {
+    public SwitchButton getSwitchButton() {
         return switchButton;
     }
 

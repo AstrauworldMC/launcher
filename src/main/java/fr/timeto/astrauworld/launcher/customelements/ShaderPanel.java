@@ -1,6 +1,5 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
-import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
@@ -92,7 +91,7 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
     }
 
     public void defineTextures() {
-        switchButton.defineTextures();
+        switchButton.repaint();
         downloadButton.defineTextures();
     }
 
@@ -146,7 +145,7 @@ public class ShaderPanel extends JPanel implements SwingerEventListener {
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             if (!isLink) {
-                switchButton.defineTextures();
+                switchButton.repaint();
                 downloadButton.defineTextures();
             }
         }

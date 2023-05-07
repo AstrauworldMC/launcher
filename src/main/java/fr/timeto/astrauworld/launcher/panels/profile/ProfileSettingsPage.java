@@ -5,7 +5,7 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.AWSpinner;
 import fr.timeto.astrauworld.launcher.customelements.AWTextField;
-import fr.timeto.astrauworld.launcher.customelements.TexturedSwitchButton;
+import fr.timeto.astrauworld.launcher.customelements.SwitchButton;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
@@ -16,7 +16,6 @@ import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
 
-import java.awt.*;
 import java.util.Objects;
 
 import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
@@ -29,7 +28,7 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
 
     public AWTextField profileNameTextField = new AWTextField(25f);
     public JLabel profileNameTextFieldLabel = new JLabel("Nom du profil");
-    public final TexturedSwitchButton helmIconSwitchButton = new TexturedSwitchButton(ProfileSaver.KEY.SETTINGS_HELMICON, false);
+    public final SwitchButton helmIconSwitchButton = new SwitchButton(ProfileSaver.KEY.SETTINGS_HELMICON, false);
     public JLabel helmIconSwitchButtonLabel1 = new JLabel("Ic\u00f4ne du joueur avec", SwingConstants.RIGHT);
     public JLabel helmIconSwitchButtonLabel2 = new JLabel("la 2nde couche", SwingConstants.RIGHT);
     public AWSpinner allowedRamSpinner = new AWSpinner(new SpinnerNumberModel(3, 1, 256.00, 1));
@@ -118,7 +117,7 @@ public class ProfileSettingsPage extends PageCreator implements SwingerEventList
         if (aFlag) {
             setTitle("Profil " + ProfileSaver.getSelectedProfile());
             profileNameTextField.setText(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_PROFILENAME.get()));
-            helmIconSwitchButton.defineTextures();
+            helmIconSwitchButton.repaint();
             allowedRamSpinner.setValue(Float.parseFloat(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get())));
 
             if (!Objects.equals(ProfileSaver.getSelectedSaver().get(ProfileSaver.KEY.INFOS_NAME.get()), "")) {
