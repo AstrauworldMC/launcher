@@ -451,6 +451,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener { // T
           barLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           percentLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
           infosLabel.setForeground(Launcher.CUSTOM_COLORS.TEXT_COLOR.get());
+          loadingBar.setForeground(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
           launcherVersionLabel.setForeground(Launcher.CUSTOM_COLORS.SECONDTEXT_COLOR.get().darker().darker());
           launcherVersionLabel.setSelectionColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get());
           launcherVersionLabel.setSelectedTextColor(HSLColor.getContrastVersionForColor(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), true));
