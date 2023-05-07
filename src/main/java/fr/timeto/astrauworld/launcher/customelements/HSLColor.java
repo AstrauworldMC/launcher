@@ -509,4 +509,40 @@ public class HSLColor
             return rbDiff <= tolerance && rbDiff >= -tolerance;
         return true;
     }
+
+    public static Color getColorDarker(Color color, int dark) {
+        int r = color.getRed() - dark;
+        int g = color.getGreen() - dark;
+        int b = color.getBlue() - dark;
+
+        if (r < 0) {
+            r = 0;
+        }
+        if (g < 0) {
+            g = 0;
+        }
+        if (b < 0) {
+            b = 0;
+        }
+
+        return new Color(r, g, b, color.getAlpha());
+    }
+
+    public static Color getColorLighter(Color color, int light) {
+        int r = color.getRed() + light;
+        int g = color.getGreen() + light;
+        int b = color.getBlue() + light;
+
+        if (r > 255) {
+            r = 255;
+        }
+        if (g > 255) {
+            g = 255;
+        }
+        if (b > 255) {
+            b = 255;
+        }
+
+        return new Color(r, g, b, color.getAlpha());
+    }
 }

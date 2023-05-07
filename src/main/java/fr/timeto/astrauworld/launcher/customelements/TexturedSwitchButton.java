@@ -1,70 +1,204 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
 import fr.theshark34.openlauncherlib.util.Saver;
-import fr.theshark34.swinger.textured.STexturedButton;
+import fr.theshark34.swinger.abstractcomponents.AbstractButton;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 
-import java.awt.image.BufferedImage;
+import java.awt.*;
 
-import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
-public class TexturedSwitchButton extends STexturedButton {
-    private final BufferedImage textureOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png");
-    private final BufferedImage textureOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_on.png");
-    private final BufferedImage textureHoverOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-hover_off.png");
-    private final BufferedImage textureHoverOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-hover_on.png");
-    private final BufferedImage textureDisabledOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_off.png");
-    private final BufferedImage textureDisabledOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_on.png");
+public class TexturedSwitchButton extends AbstractButton {
     private final String saverKeyStr;
     private final KEY saverKey;
     private final boolean global;
 
-    public BufferedImage getTexture() {
+    public TexturedSwitchButton(KEY saverKey, boolean global) {
+        super();
+        this.saverKeyStr = saverKey.get();
+        this.saverKey = saverKey;
+        this.global = global;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+
         Saver saver;
         if (global) {
             saver = globalSettingsSaver;
         } else saver = getSelectedSaver();
 
         if (Boolean.parseBoolean(saver.get(saverKeyStr))) {
-            return(textureOn);
+            if (!this.isEnabled()) {
+                // true - disabled
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(new Color(77, 77, 77));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(new Color(59, 59, 59));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(new Color(30, 30, 30));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(46, 0, 28, 50);
+
+                g2d.setColor(new Color(132, 132, 132));
+                g2d.fillRect(49, 3, 22, 44);
+
+                g2d.setColor(new Color(74, 74, 74));
+                g2d.fillRect(52, 6, 19, 41);
+
+                g2d.setColor(new Color(117, 117, 117));
+                g2d.fillRect(52, 6, 16, 38);
+            } else if (this.isHover()) {
+                // true - hover
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 154));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 65));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(46, 0, 28, 50);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 77));
+                g2d.fillRect(49, 3, 22, 44);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
+                g2d.fillRect(52, 6, 19, 41);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 122));
+                g2d.fillRect(52, 6, 16, 38);
+            } else {
+                // true
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(new Color(57, 57, 57));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(new Color(46, 46, 46));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(new Color(184, 184, 184));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(46, 0, 28, 50);
+
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(49, 3, 22, 44);
+
+                g2d.setColor(new Color(109, 109, 109));
+                g2d.fillRect(52, 6, 19, 41);
+
+                g2d.setColor(new Color(180, 180, 180));
+                g2d.fillRect(52, 6, 16, 38);
+            }
+        } else {
+            if (!this.isEnabled()) {
+                // false - disabled
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(new Color(77, 77, 77));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(new Color(59, 59, 59));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(new Color(30, 30, 30));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 0, 28, 50);
+
+                g2d.setColor(new Color(132, 132, 132));
+                g2d.fillRect(3, 3, 22, 44);
+
+                g2d.setColor(new Color(74, 74, 74));
+                g2d.fillRect(6, 6, 19, 41);
+
+                g2d.setColor(new Color(117, 117, 117));
+                g2d.fillRect(6, 6, 16, 38);
+            } else if (this.isHover()) {
+                // false - hover
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 154));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 65));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 0, 28, 50);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 77));
+                g2d.fillRect(3, 3, 22, 44);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
+                g2d.fillRect(6, 6, 19, 41);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 122));
+                g2d.fillRect(6, 6, 16, 38);
+            } else {
+                // false
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(new Color(57, 57, 57));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(new Color(46, 46, 46));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(new Color(184, 184, 184));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 0, 28, 50);
+
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(3, 3, 22, 44);
+
+                g2d.setColor(new Color(109, 109, 109));
+                g2d.fillRect(6, 6, 19, 41);
+
+                g2d.setColor(new Color(180, 180, 180));
+                g2d.fillRect(6, 6, 16, 38);
+            }
         }
-        return textureOff;
     }
 
-    public BufferedImage getTextureHover() {
-        if (getSelectedSaver().get(saverKeyStr).contains("true")) {
-            return(textureHoverOn);
-        }
-        return textureHoverOff;
-    }
-
-    public BufferedImage getTextureDisabled() {
-        if (getSelectedSaver().get(saverKeyStr).contains("true")) {
-            return(textureDisabledOn);
-        }
-        return textureDisabledOff;
+    public void setBounds(int x, int y) {
+        this.setBounds(x, y, 74, 50);
     }
 
     public void defineTextures() {
-        Saver saver;
-        if (global) {
-            saver = globalSettingsSaver;
-        } else saver = getSelectedSaver();
 
-        try {
-            if (Boolean.parseBoolean(saver.get(saverKeyStr))) {
-                super.setTexture(textureOn);
-                super.setTextureHover(textureHoverOn);
-                super.setTextureDisabled(textureDisabledOn);
-            } else {
-                super.setTexture(textureOff);
-                super.setTextureHover(textureHoverOff);
-                super.setTextureDisabled(textureDisabledOff);
-            }
-        } catch (NullPointerException e) {
-            saver.set(saverKeyStr, saverKey.getDefaultValue());
-            defineTextures();
-        }
     }
 
     public String getSaverKey() {
@@ -73,14 +207,6 @@ public class TexturedSwitchButton extends STexturedButton {
 
     public KEY getKey() {
         return saverKey;
-    }
-
-    public TexturedSwitchButton(KEY saverKey, boolean global) {
-        super(getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
-        this.saverKeyStr = saverKey.get();
-        this.saverKey = saverKey;
-        this.global = global;
-
     }
 
     @Override
@@ -95,15 +221,14 @@ public class TexturedSwitchButton extends STexturedButton {
 
     public void toggleButton() {
         String value;
-
+        Saver saver;
         if (global) {
-            value = globalSettingsSaver.get(saverKeyStr);
-            globalSettingsSaver.set(getSaverKey(), String.valueOf(!Boolean.parseBoolean(value)));
-        } else {
-            value = getSelectedSaver().get(saverKeyStr);
-            getSelectedSaver().set(getSaverKey(), String.valueOf(!Boolean.parseBoolean(value)));
-        }
-        defineTextures();
+            saver = globalSettingsSaver;
+        } else saver = getSelectedSaver();
+
+        value = saver.get(saverKeyStr);
+        saver.set(saverKeyStr, String.valueOf(!Boolean.parseBoolean(value)));
+        repaint();
     }
 
 }

@@ -48,6 +48,11 @@ public class SwitchButtonPanel extends JPanel implements SwingerEventListener {
     }
 
     @Override
+    public void setEnabled(boolean aFlag) {
+        switchButton.setEnabled(aFlag);
+    }
+
+    @Override
     public void onEvent(SwingerEvent e) {
         if (e.getSource() == switchButton) {
             switchButton.toggleButton();

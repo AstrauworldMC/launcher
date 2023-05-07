@@ -1,29 +1,22 @@
 package fr.timeto.astrauworld.launcher.customelements;
 
 import fr.theshark34.openlauncherlib.util.Saver;
-import fr.theshark34.swinger.textured.STexturedButton;
+import fr.theshark34.swinger.abstractcomponents.AbstractButton;
+import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherPanel;
 import fr.timeto.timutilslib.TimFilesUtils;
 
-import java.awt.image.BufferedImage;
+import java.awt.*;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.infosLabel;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 
-public class ShadersSwitchButton extends STexturedButton {
-
-    private final BufferedImage textureOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png");
-    private final BufferedImage textureOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_on.png");
-    private final BufferedImage textureHoverOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-hover_off.png");
-    private final BufferedImage textureHoverOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-hover_on.png");
-    private final BufferedImage textureDisabledOff = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_off.png");
-    private final BufferedImage textureDisabledOn = getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-disabled_on.png");
+public class ShadersSwitchButton extends AbstractButton {
 
     private Saver shaderOptionsSaver;
     private final String shaderResourceFolderUrl = "https://github.com/AstrauworldMC/resources/blob/main/shaderpacks/";
@@ -37,54 +30,190 @@ public class ShadersSwitchButton extends STexturedButton {
     }
 
     public ShadersSwitchButton(Shader fileName) {
-        super(getResourceIgnorePath("/assets/launcher/commonButtons/toggleButton-normal_off.png"));
+        super();
         shaderFileName = fileName.get();
-    }
-
-    public BufferedImage getTexture() {
-        initOptionSaver();
-        if (Objects.equals(shaderOptionsSaver.get(selectedShaderKey), shaderFileName)) {
-            return(textureOn);
-        }
-        return textureOff;
-    }
-
-    public BufferedImage getTextureHover() {
-        initOptionSaver();
-        if (Objects.equals(shaderOptionsSaver.get(selectedShaderKey), shaderFileName)) {
-            return(textureHoverOn);
-        }
-        return textureHoverOff;
-    }
-
-    public BufferedImage getTextureDisabled() {
-        initOptionSaver();
-        if (Objects.equals(shaderOptionsSaver.get(selectedShaderKey), shaderFileName)) {
-            return(textureDisabledOn);
-        }
-        return textureDisabledOff;
     }
 
     public String getShaderFileName() {return shaderFileName;}
 
     public void defineTextures() {
+
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+
         initOptionSaver();
-        if (Objects.equals(shaderOptionsSaver.get(selectedShaderKey), shaderFileName)) {
-            super.setTexture(textureOn);
-            super.setTextureHover(textureHoverOn);
-            super.setTextureDisabled(textureDisabledOn);
-        } else {
-            super.setTexture(textureOff);
-            super.setTextureHover(textureHoverOff);
-            super.setTextureDisabled(textureDisabledOff);
-        }
 
         if (Objects.equals(getSelectedSaver().get(KEY.MOD_OPTIFINE.get()), "true") && new File(shaderpacksProfileFolder + File.separator + shaderFileName).exists()) {
             this.setEnabled(true);
         } else {
             shaderOptionsSaver.set(selectedShaderKey, "");
-            super.setTextureDisabled(textureDisabledOff);
             this.setEnabled(false);
+        }
+
+        if (Boolean.parseBoolean(shaderOptionsSaver.get(selectedShaderKey))) {
+            if (!this.isEnabled()) {
+                // true - disabled
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(new Color(77, 77, 77));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(new Color(59, 59, 59));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(new Color(30, 30, 30));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(46, 0, 28, 50);
+
+                g2d.setColor(new Color(132, 132, 132));
+                g2d.fillRect(49, 3, 22, 44);
+
+                g2d.setColor(new Color(74, 74, 74));
+                g2d.fillRect(52, 6, 19, 41);
+
+                g2d.setColor(new Color(117, 117, 117));
+                g2d.fillRect(52, 6, 16, 38);
+            } else if (this.isHover()) {
+                // true - hover
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 154));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 65));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(46, 0, 28, 50);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 77));
+                g2d.fillRect(49, 3, 22, 44);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
+                g2d.fillRect(52, 6, 19, 41);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 122));
+                g2d.fillRect(52, 6, 16, 38);
+            } else {
+                // true
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(new Color(57, 57, 57));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(new Color(46, 46, 46));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(new Color(184, 184, 184));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(46, 0, 28, 50);
+
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(49, 3, 22, 44);
+
+                g2d.setColor(new Color(109, 109, 109));
+                g2d.fillRect(52, 6, 19, 41);
+
+                g2d.setColor(new Color(180, 180, 180));
+                g2d.fillRect(52, 6, 16, 38);
+            }
+        } else {
+            if (!this.isEnabled()) {
+                // false - disabled
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(new Color(77, 77, 77));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(new Color(59, 59, 59));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(new Color(30, 30, 30));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 0, 28, 50);
+
+                g2d.setColor(new Color(132, 132, 132));
+                g2d.fillRect(3, 3, 22, 44);
+
+                g2d.setColor(new Color(74, 74, 74));
+                g2d.fillRect(6, 6, 19, 41);
+
+                g2d.setColor(new Color(117, 117, 117));
+                g2d.fillRect(6, 6, 16, 38);
+            } else if (this.isHover()) {
+                // false - hover
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 154));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 65));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 0, 28, 50);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 77));
+                g2d.fillRect(3, 3, 22, 44);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 141));
+                g2d.fillRect(6, 6, 19, 41);
+
+                g2d.setColor(HSLColor.getColorDarker(Launcher.CUSTOM_COLORS.MAIN_COLOR.get(), 122));
+                g2d.fillRect(6, 6, 16, 38);
+            } else {
+                // false
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 7, 74, 36);
+
+                g2d.setColor(new Color(57, 57, 57));
+                g2d.fillRect(3, 10, 68, 30);
+
+                g2d.setColor(new Color(46, 46, 46));
+                g2d.fillRect(5, 12, 64, 26);
+
+                g2d.setColor(new Color(184, 184, 184));
+                g2d.fillRect(29, 22, 16, 6);
+
+
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(0, 0, 28, 50);
+
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(3, 3, 22, 44);
+
+                g2d.setColor(new Color(109, 109, 109));
+                g2d.fillRect(6, 6, 19, 41);
+
+                g2d.setColor(new Color(180, 180, 180));
+                g2d.fillRect(6, 6, 16, 38);
+            }
         }
     }
 
@@ -98,6 +227,11 @@ public class ShadersSwitchButton extends STexturedButton {
         }
     }
 
+    public void setBounds(int x, int y) {
+        this.setBounds(x, y, 74, 50);
+    }
+
+    // FIXME TOGGLE MARCHE PLUS
     public void toggle() {
         initOptionSaver();
 
@@ -106,7 +240,7 @@ public class ShadersSwitchButton extends STexturedButton {
         } else {
             shaderOptionsSaver.set(selectedShaderKey, "");
         }
-        this.defineTextures();
+        this.repaint();
 
         int i = 0;
 
@@ -120,10 +254,10 @@ public class ShadersSwitchButton extends STexturedButton {
 
         i = 0;
         while (i != enabledShadersButtonsList.toArray().length) {
-            enabledShadersButtonsList.toArray(new ShadersSwitchButton[0])[i].defineTextures();
+            enabledShadersButtonsList.toArray(new ShadersSwitchButton[0])[i].repaint();
             i++;
         }
-
+        this.repaint();
     }
 
     public Thread installShader() {
