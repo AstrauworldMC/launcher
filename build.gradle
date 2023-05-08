@@ -43,8 +43,6 @@ dependencies {
     implementation('com.github.TimEtOff:discord-rpc:master-SNAPSHOT')
     implementation('net.harawata:appdirs:1.2.1')
     implementation('org.imgscalr:imgscalr-lib:4.2')
-//    testImplementation('com.github.java-native-access:jna:5.6.0')
-//    testImplementation('net.java.dev.jna:jna:5.13.0')
     implementation('org.apache.xmlgraphics:batik-all:1.16')
 }
 
