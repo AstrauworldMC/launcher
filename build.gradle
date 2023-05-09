@@ -24,6 +24,10 @@ repositories {
         url 'https://jitpack.io'
         name 'Jitpack'
     }
+    maven {
+        name 'bungeecord-repo'
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
 }
 
 dependencies {

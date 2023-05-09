@@ -13,12 +13,6 @@
       "size": 12659
     },
     {
-      "path": "bungeecord-chat-1.16-R0.4.jar",
-      "downloadURL": "https://repo.maven.apache.org/maven2/net/md-5/bungeecord-chat/1.16-R0.4/bungeecord-chat-1.16-R0.4.jar",
-      "sha1": "e043e8eed8fdb5c157090a84ac8fd64a6a8d0d88",
-      "size": 148961
-    },
-    {
       "path": "commonmark-0.21.0.jar",
       "downloadURL": "https://repo.maven.apache.org/maven2/org/commonmark/commonmark/0.21.0/commonmark-0.21.0.jar",
       "sha1": "c98f0473b17c87fe4fa2fc62a7c6523a2fe018f0",
@@ -59,12 +53,6 @@
       "downloadURL": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar",
       "sha1": "b3add478d4382b78ea20b1671390a858002feb6c",
       "size": 283367
-    },
-    {
-      "path": "guava-21.0.jar",
-      "downloadURL": "https://repo.maven.apache.org/maven2/com/google/guava/guava/21.0/guava-21.0.jar",
-      "sha1": "3a3d111be1be1b745edfa7d91678a12d7ed38709",
-      "size": 2521113
     },
     {
       "path": "imgscalr-lib-4.2.jar",
@@ -191,6 +179,126 @@
       "downloadURL": "https://repo.maven.apache.org/maven2/org/apache/xmlgraphics/batik-all/1.16/batik-all-1.16.jar",
       "sha1": "f20b2c2c23bdb4c79f3b1d1b7880d144257f065",
       "size": 4291677
+    },
+    {
+      "path": "jo-nbt-1.3.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/se/llbit/jo-nbt/1.3.0/jo-nbt-1.3.0.jar",
+      "sha1": "fbbf96a883d5b53536bc526a57a22c550e15f02f",
+      "size": 28399
+    },
+    {
+      "path": "netty-resolver-4.1.92.Final.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.92.Final/netty-resolver-4.1.92.Final.jar",
+      "sha1": "fe96e210a4e139cb043d26702792b6098b93b13f",
+      "size": 37788
+    },
+    {
+      "path": "netty-transport-native-unix-common-4.1.92.Final.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.1.92.Final/netty-transport-native-unix-common-4.1.92.Final.jar",
+      "sha1": "22364cca56b752abb49fb7972f0f6299b8d6be98",
+      "size": 43895
+    },
+    {
+      "path": "failureaccess-1.0.1.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
+      "sha1": "1dcf1de382a0bf95a3d8b0849546c88bac1292c9",
+      "size": 4617
+    },
+    {
+      "path": "j2objc-annotations-1.3.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar",
+      "sha1": "ba035118bc8bac37d7eff77700720999acd9986d",
+      "size": 8781
+    },
+    {
+      "path": "error_prone_annotations-2.11.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.11.0/error_prone_annotations-2.11.0.jar",
+      "sha1": "c5a0ace696d3f8b1c1d8cc036d8c03cc0cbe6b69",
+      "size": 15979
+    },
+    {
+      "path": "bungeecord-event-1.19-R0.1-SNAPSHOT.jar",
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-event/1.19-R0.1-SNAPSHOT/bungeecord-event-1.19-R0.1-20230430.024526-63.jar",
+      "sha1": "ec5fae7a2d0c03c6fad5949ff3672bb42c2d83d1",
+      "size": 7901
+    },
+    {
+      "path": "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "sha1": "b421526c5f297295adef1c886e5246c39d4ac629",
+      "size": 2199
+    },
+    {
+      "path": "bungeecord-api-1.19-R0.1-SNAPSHOT.jar",
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-api/1.19-R0.1-SNAPSHOT/bungeecord-api-1.19-R0.1-20230430.024555-63.jar",
+      "sha1": "335bf204ac343a581a98e8fe7427883029dbf45d",
+      "size": 104912
+    },
+    {
+      "path": "checker-qual-3.12.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar",
+      "sha1": "d5692f0526415fcc6de94bb5bfbd3afd9dd3b3e5",
+      "size": 208835
+    },
+    {
+      "path": "bungeecord-chat-1.19-R0.1-SNAPSHOT.jar",
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-chat/1.19-R0.1-SNAPSHOT/bungeecord-chat-1.19-R0.1-20230430.024508-63.jar",
+      "sha1": "63409756348f64bd60f5ff3345556c0b7dfdf884",
+      "size": 148954
+    },
+    {
+      "path": "bungeecord-protocol-1.19-R0.1-SNAPSHOT.jar",
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-protocol/1.19-R0.1-SNAPSHOT/bungeecord-protocol-1.19-R0.1-20230430.024541-63.jar",
+      "sha1": "8b63401819fd5a8ad34c6066563e00644854651b",
+      "size": 167737
+    },
+    {
+      "path": "netty-buffer-4.1.92.Final.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.1.92.Final/netty-buffer-4.1.92.Final.jar",
+      "sha1": "5ff1ba7ec68c20e635fc0f2b792c38c951f688d6",
+      "size": 305437
+    },
+    {
+      "path": "netty-codec-4.1.92.Final.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.1.92.Final/netty-codec-4.1.92.Final.jar",
+      "sha1": "9496b3d59290edcc6480cbe064f33560873f7484",
+      "size": 345166
+    },
+    {
+      "path": "brigadier-1.0.16-SNAPSHOT.jar",
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/brigadier/1.0.16-SNAPSHOT/brigadier-1.0.16-20181219.233212-1.jar",
+      "sha1": "86edc5380c2b4fa37dca9810104fff8a7460411c",
+      "size": 78725
+    },
+    {
+      "path": "bungeecord-config-1.19-R0.1-SNAPSHOT.jar",
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-config/1.19-R0.1-SNAPSHOT/bungeecord-config-1.19-R0.1-20230430.024518-63.jar",
+      "sha1": "220e5dca51a299a8984ca02d63c42b9b06211217",
+      "size": 13778
+    },
+    {
+      "path": "netty-common-4.1.92.Final.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/io/netty/netty-common/4.1.92.Final/netty-common-4.1.92.Final.jar",
+      "sha1": "66133f9ad31816a227acf3030632903cb9e4c5a2",
+      "size": 659265
+    },
+    {
+      "path": "netty-transport-4.1.92.Final.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.92.Final/netty-transport-4.1.92.Final.jar",
+      "sha1": "e0cf483b7c04af7207c02a6ff0c861592b09c97a",
+      "size": 488581
+    },
+    {
+      "path": "guava-31.1-jre.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar",
+      "sha1": "60458f877d055d0c9114d9e1a2efb737b4bc282c",
+      "size": 2959479
+    },
+    {
+      "path": "core-3.1.0.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/net/sf/trove4j/core/3.1.0/core-3.1.0.jar",
+      "sha1": "5fd0207b685536b29dd65c86f4b3bf89befb885c",
+      "size": 2560395
     }
   ]
 }
