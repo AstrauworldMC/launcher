@@ -134,21 +134,16 @@ public class Server {
 
         if (modLoader == MODLOADER_FORGE) {
             if (Integer.parseInt(mcVersion.split("\\.")[1]) >= 12) {
-                ForgeVersionBuilder forge_temp = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
+                ForgeVersionBuilder forge_temp = new ForgeVersionBuilder(ForgeVersionType.NEW)
                         .withForgeVersion(mcVersion + "-" + modLoaderVersion)
                         .withCurseMods(modInfos)
                         .withFileDeleter(new ModFileDeleter(true));
                 if (Objects.equals(saver.get(ProfileSaver.KEY.MOD_OPTIFINE.get()), "true")) {
-                    Launcher.println(" ------------------------------------------- ");
-                    Launcher.println(optifineVersion);
-                    OptiFineInfo opti=new OptiFineInfo(optifineVersion);
-                    Launcher.println(opti.getVersion());
-                    forge_temp.withOptiFine(opti);
-                    Launcher.println(" ------------------------------------------- ");
+                    forge_temp.withOptiFine(new OptiFineInfo(optifineVersion)); // FIXME Optifine pété pour le moment, attendre une nouvelle ver de flowupdater
                 }
                 forge = forge_temp.build();
             } else {
-                ForgeVersionBuilder forge_temp = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.OLD)
+                ForgeVersionBuilder forge_temp = new ForgeVersionBuilder(ForgeVersionType.OLD)
                         .withForgeVersion(mcVersion + "-" + modLoaderVersion)
                         .withCurseMods(modInfos)
                         .withFileDeleter(new ModFileDeleter(true));

@@ -5,10 +5,12 @@ import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.main.Launcher;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Objects;
 
+import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.LauncherPanel.Components.*;
 
 /**
@@ -225,29 +227,29 @@ public class EasterEggs {
         }
     }
 
-    public static String getOmoriIcon(String characterName) {
-        String base = "http://www.astrauworld.be:3001/eastereggs/omori/";
+    public static BufferedImage getOmoriIcon(String characterName) {
+        String base = "/assets/launcher/eastereggs/pfp/omori/";
 
         if (!isOmoriCharacter(characterName)) return null;
 
         if (characterName.equalsIgnoreCase("omori")) {
-            return base + characterName.toLowerCase() + "-" + getOmoriEmotion3Stage(getOmoriEmotion()) + ".png";
+            return getResourceIgnorePath(base + characterName.toLowerCase() + "-" + getOmoriEmotion3Stage(getOmoriEmotion()) + ".png");
         } else {
-            return base + characterName.toLowerCase() + "-" + getOmoriEmotion2Stage(getOmoriEmotion()) + ".png";
+            return getResourceIgnorePath(base + characterName.toLowerCase() + "-" + getOmoriEmotion2Stage(getOmoriEmotion()) + ".png");
         }
     }
 
-    public static String getOmoriDreamIcon(String characterName) {
-        String base = "http://www.astrauworld.be:3001/eastereggs/omori/";
+    public static BufferedImage getOmoriDreamIcon(String characterName) {
+        String base = "/assets/launcher/eastereggs/pfp/omori/";
 
         if (!isOmoriCharacter(characterName)) return null;
 
         if (characterName.equalsIgnoreCase("omori") || characterName.equalsIgnoreCase("sunny")) {
             return getOmoriIcon(characterName);
         } else if (characterName.equalsIgnoreCase("basil")) {
-            return base + characterName.toLowerCase() + "Dream-" + getOmoriEmotion3Stage(getOmoriEmotion()) + ".png";
+            return getResourceIgnorePath(base + characterName.toLowerCase() + "Dream-" + getOmoriEmotion3Stage(getOmoriEmotion()) + ".png");
         } else {
-            return base + characterName.toLowerCase() + "Dream-" + getOmoriEmotion2Stage(getOmoriEmotion()) + ".png";
+            return getResourceIgnorePath(base + characterName.toLowerCase() + "Dream-" + getOmoriEmotion2Stage(getOmoriEmotion()) + ".png");
         }
     }
 

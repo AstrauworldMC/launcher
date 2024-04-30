@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
+import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.pagesutilities.PageChange.*;
 import static fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver.*;
 import static fr.timeto.timutilslib.CustomFonts.robotoBlackFont;
@@ -115,7 +116,7 @@ public class ProfileButton extends JPanel implements SwingerEventListener {
             Launcher.println("The image was not loaded.");
             if (firstTry) {
                 try {
-                    ProfileSaver.dlProfileIcon("https://user-images.githubusercontent.com/97166376/214735612-abc155df-6535-4852-aad5-cd97901f5e86.png", Integer.parseInt(ProfileSaver.getSelectedProfile(saver)));
+                    ProfileSaver.changeProfileIcon(getResourceIgnorePath("/assets/launcher/eastereggs/pfp/dirtTexture34.png"), Integer.parseInt(ProfileSaver.getSelectedProfile(saver)));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

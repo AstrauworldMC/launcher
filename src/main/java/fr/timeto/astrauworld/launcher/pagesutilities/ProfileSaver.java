@@ -7,13 +7,16 @@ import fr.timeto.astrauworld.launcher.main.Launcher;
 import fr.timeto.astrauworld.launcher.main.LauncherFrame;
 import fr.timeto.astrauworld.launcher.main.LauncherSystemTray;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
 import static fr.timeto.astrauworld.launcher.main.Launcher.copyInputStreamToFile;
 import static fr.timeto.timutilslib.TimFilesUtils.*;
 
@@ -236,15 +239,15 @@ public class ProfileSaver {
     }
 
     /**
-     * Télécharge l'image de profil depuis internet puis la stocke (../AppData/Roaming/Astrauworld Launcher/data)
-     * @param imageURL L'URL de l'image
+     * Change l'image d'un profil (../AppData/Roaming/Astrauworld Launcher/data)
+     * @param image l'image
      * @param profile le numéro du profil
      * @throws IOException Si l'image n'est pas trouvée
      * @see ProfileSaver#initProfileIcon(Saver)
      * @see ProfileSaver#initProfileIcon()
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
-    public static void dlProfileIcon(String imageURL, int profile) throws IOException {
+    public static void changeProfileIcon(BufferedImage image, int profile) throws IOException {
         File destinationFile = null;
         if(profile == 1){
             destinationFile = Launcher.AW_FIRSTPROFILE_ICON;
@@ -253,70 +256,65 @@ public class ProfileSaver {
         }else if(profile == 3){
             destinationFile = Launcher.AW_THIRDPROFILE_ICON;
         }
-        URL url = new URL(imageURL);
-        InputStream is = url.openStream();
-        OutputStream os = new FileOutputStream(destinationFile);
-
-        byte[] b = new byte[2048];
-        int length;
-
-        while ((length = is.read(b)) != -1) {
-            os.write(b, 0, length);
-        }
-
-        is.close();
-        os.close();
+        ImageIO.write(image, "png", destinationFile);
     }
 
     /**
-     * Initialise l'image du profil sélectionné en définissant l'URL puis appelle {@link ProfileSaver#dlProfileIcon(String, int)}
+     * Initialise l'image du profil sélectionné en définissant l'URL puis appelle {@link ProfileSaver#changeProfileIcon(BufferedImage, int)}
      * @param saver Le Saver sélectionné
      * @throws IOException Si l'image n'est pas trouvée
      * @see ProfileSaver#initProfileIcon()
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void initProfileIcon(Saver saver) throws IOException {
-        String url;
+        BufferedImage image;
 
         if (EasterEggs.isOmoriCharacter(saver.get(KEY.SETTINGS_PROFILENAME.get()))) {
             if (Boolean.parseBoolean(saver.get(KEY.SETTINGS_HELMICON.get()))) {
-                url = EasterEggs.getOmoriIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
+                image = EasterEggs.getOmoriIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
                 EasterEggs.setOmoriNameEasterEggAsFound(saver.get(KEY.SETTINGS_PROFILENAME.get()), false);
             } else {
-                url = EasterEggs.getOmoriDreamIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
+                image = EasterEggs.getOmoriDreamIcon(saver.get(KEY.SETTINGS_PROFILENAME.get()));
                 EasterEggs.setOmoriNameEasterEggAsFound(saver.get(KEY.SETTINGS_PROFILENAME.get()), true);
             }
 
         } else {
-            if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("")) {
-                url = "http://www.astrauworld.be:3001/eastereggs/dirtTexture34.png";
+            if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("vide") || saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").isEmpty()) {
+                image = getResourceIgnorePath("/assets/launcher/eastereggs/pfp/dirtTexture34.png");
             } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("frisk")) {
-                url = "http://www.astrauworld.be:3001/eastereggs/frisk34.png";
+                image = getResourceIgnorePath("/assets/launcher/eastereggs/pfp/frisk34.png");
                 EasterEggs.setEatereggAsFound(EasterEggs.friskName);
             } else if (saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("chara")) {
-                url = "http://www.astrauworld.be:3001/eastereggs/chara34.png";
+                image = getResourceIgnorePath("/assets/launcher/eastereggs/pfp/chara34.png");
                 EasterEggs.setEatereggAsFound(EasterEggs.charaName);
             } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
-                url = "http://www.astrauworld.be:3001/eastereggs/asriel34.png";
+                image = getResourceIgnorePath("/assets/launcher/eastereggs/pfp/asriel34.png");
                 EasterEggs.setEatereggAsFound(EasterEggs.asrielName);
             } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("asriel")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
-                url = "http://www.astrauworld.be:3001/eastereggs/trueAsriel34.png";
+                image = getResourceIgnorePath("/assets/launcher/eastereggs/pfp/trueAsriel34.png");
                 EasterEggs.setEatereggAsFound(EasterEggs.trueAsrielName);
             } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true"))) {
-                url = "http://www.astrauworld.be:3001/eastereggs/flowey34.png";
+                image = getResourceIgnorePath("/assets/launcher/eastereggs/pfp/flowey34.png");
                 EasterEggs.setEatereggAsFound(EasterEggs.floweyName);
             } else if ((saver.get(KEY.SETTINGS_PROFILENAME.get()).toLowerCase().replaceAll(" ", "").equals("flowey")) && (saver.get(KEY.SETTINGS_HELMICON.get()).contains("false"))) {
-                url = "http://www.astrauworld.be:3001/eastereggs/cursedflowey34.png";
+                image = getResourceIgnorePath("/assets/launcher/eastereggs/pfp/cursedflowey34.png");
                 EasterEggs.setEatereggAsFound(EasterEggs.cursedFloweyName);
             } else if (saver.get(KEY.SETTINGS_HELMICON.get()).contains("true")) {
-                url = "https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID.get()) + "/34.png";
+                URL url = new URL("https://minotar.net/helm/" + saver.get(KEY.INFOS_UUID.get()) + "/34.png");
+                InputStream is = url.openStream();
+                image = ImageIO.read(is);
+                is.close();
+
             } else {
-                url = "https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID.get()) + "/34.png";
+                URL url = new URL("https://minotar.net/avatar/" + saver.get(KEY.INFOS_UUID.get()) + "/34.png");
+                InputStream is = url.openStream();
+                image = ImageIO.read(is);
+                is.close();
             }
         }
 
         try {
-            dlProfileIcon(url, Integer.parseInt(getSelectedProfile(saver)));
+            changeProfileIcon(image, Integer.parseInt(getSelectedProfile(saver)));
         } catch (IOException e) {
             copyInputStreamToFile(LauncherFrame.getFileFromResourceAsStream("assets/launcher/icons/grassBlockIcon.png"), getIconFileFromSaver(saver));
             throw e;
@@ -337,7 +335,7 @@ public class ProfileSaver {
     /**
      * Initialise les trois images des profils avec {@link ProfileSaver#initProfileIcon(Saver)}
      * @throws IOException Si une image n'est pas trouvée
-     * @see ProfileSaver#dlProfileIcon(String, int)
+     * @see ProfileSaver#changeProfileIcon(BufferedImage, int)
      * @author <a href="https://github.com/TimEtOff">TimEtO</a>
      */
     public static void initProfileIcon() {
@@ -524,7 +522,7 @@ public class ProfileSaver {
      */
     public static File optionsShadersProfileTextfile = null;
 
-    public static enum Shader {
+    public enum Shader {
         CHOCAPICV6_LITE("Chocapic13_V6_Lite.zip"),
         CHOCAPICV6_LOW("Chocapic13_V6_Low.zip"),
         CHOCAPICV6_MEDIUM("Chocapic13_V6_Medium.zip"),
@@ -555,7 +553,7 @@ public class ProfileSaver {
         }
     }
 
-    public static final ArrayList<ShadersSwitchButton> shadersButtonsList = new ArrayList<ShadersSwitchButton>();
+    public static final ArrayList<ShadersSwitchButton> shadersButtonsList = new ArrayList<>();
 
     /**
      * Initialise les dossiers customs
