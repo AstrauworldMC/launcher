@@ -77,10 +77,18 @@ public class Tab extends JPanel implements SwingerEventListener {
     }
 
     public static Dimension getStringSize(JComponent c, String text) {
+        return getStringSize(c, text, 2);
+    }
+
+    public static Dimension getStringSize(JComponent c, String text, int pixelToAddEach) {
+        return getStringSize(c, text, pixelToAddEach, pixelToAddEach);
+    }
+
+    public static Dimension getStringSize(JComponent c, String text, int pixelToAddWidth, int pixelToAddHeight) {
         FontMetrics metrics = c.getFontMetrics(c.getFont());
         int hgt = metrics.getHeight();
         int adv = metrics.stringWidth(text);
-        return new Dimension(adv + 2, hgt + 2);
+        return new Dimension(adv + pixelToAddWidth, hgt + pixelToAddHeight);
     }
 
     @Override
