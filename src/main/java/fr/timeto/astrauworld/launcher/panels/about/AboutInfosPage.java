@@ -5,10 +5,12 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 import fr.timeto.astrauworld.launcher.customelements.HSLColor;
 import fr.timeto.astrauworld.launcher.main.Launcher;
+import fr.timeto.astrauworld.launcher.main.LauncherFrame;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.panels.PageCreator;
 import fr.timeto.astrauworld.launcher.eastereggs.BlackSpace;
+import fr.timeto.astrauworld.launcher.secret.Infos;
 import fr.timeto.timutilslib.CustomFonts;
 
 import javax.swing.*;
@@ -138,7 +140,7 @@ public class AboutInfosPage extends PageCreator implements SwingerEventListener 
 
         if (src == textLogo) {
             try {
-                Desktop.getDesktop().browse(new URL("http://www.astrauworld.be:3001").toURI());
+                Desktop.getDesktop().browse(new URL(Infos.getServerHostname() + ":" + LauncherFrame.launcherProperties.getProperty("sitePort")).toURI());
             } catch (IOException | URISyntaxException ignored) {}
         } else if (src == astrauwolfLogo) {
             try {
