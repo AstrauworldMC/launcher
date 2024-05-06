@@ -43,10 +43,10 @@
       "size": 21988
     },
     {
-      "path": "flowupdater-1.8.4.jar",
-      "downloadURL": "https://repo.maven.apache.org/maven2/fr/flowarg/flowupdater/1.8.4/flowupdater-1.8.4.jar",
-      "sha1": "083e257a12a117719afb4d7e5987d96330eee818",
-      "size": 126483
+      "path": "flowupdater-1.8.5.jar",
+      "downloadURL": "https://repo.maven.apache.org/maven2/fr/flowarg/flowupdater/1.8.5/flowupdater-1.8.5.jar",
+      "sha1": "020bf6c7feb7b5d7b83545160637d26867d5ed1a",
+      "size": 125599
     },
     {
       "path": "gson-2.10.1.jar",

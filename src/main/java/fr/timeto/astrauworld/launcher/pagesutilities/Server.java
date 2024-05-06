@@ -244,12 +244,6 @@ public class Server {
         JavaUtil.setJavaCommand(javaCommand);
         infosLabel.setText("");
 
-        System.out.println(authInfos.getUsername());
-        System.out.println(authInfos.getUuid());
-        System.out.println(authInfos.getAccessToken());
-        System.out.println(authInfos.getAuthXUID());
-        System.out.println(authInfos.getClientId());
-
         NoFramework noFramework= new NoFramework(path, authInfos, GameFolder.FLOW_UPDATER);
         noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get()))) + "G");
         if(connectToServer) {
@@ -299,6 +293,8 @@ public class Server {
                 Launcher.println("Déconnexion d'un serveur détecté");
             }
         }
+
+        process.waitFor();
 
         Launcher.println("");
         Launcher.println("");
