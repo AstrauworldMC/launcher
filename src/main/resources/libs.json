@@ -182,8 +182,8 @@
     },
     {
       "path": "bungeecord-event-1.19-R0.1-SNAPSHOT.jar",
-      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-event/1.19-R0.1-SNAPSHOT/bungeecord-event-1.19-R0.1-20230430.024526-63.jar",
-      "sha1": "ec5fae7a2d0c03c6fad5949ff3672bb42c2d83d1",
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-event/1.19-R0.1-SNAPSHOT/bungeecord-event-1.19-R0.1-20230526.084943-70.jar",
+      "sha1": "86222be476a897b83e7b5c2990d9ac7ea752b3c1",
       "size": 7901
     },
     {
@@ -194,8 +194,8 @@
     },
     {
       "path": "bungeecord-api-1.19-R0.1-SNAPSHOT.jar",
-      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-api/1.19-R0.1-SNAPSHOT/bungeecord-api-1.19-R0.1-20230430.024555-63.jar",
-      "sha1": "335bf204ac343a581a98e8fe7427883029dbf45d",
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-api/1.19-R0.1-SNAPSHOT/bungeecord-api-1.19-R0.1-20230526.085010-70.jar",
+      "sha1": "5e811a64289673d5ca643860e0307a9b8e324a93",
       "size": 104912
     },
     {
@@ -206,15 +206,15 @@
     },
     {
       "path": "bungeecord-chat-1.19-R0.1-SNAPSHOT.jar",
-      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-chat/1.19-R0.1-SNAPSHOT/bungeecord-chat-1.19-R0.1-20230430.024508-63.jar",
-      "sha1": "63409756348f64bd60f5ff3345556c0b7dfdf884",
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-chat/1.19-R0.1-SNAPSHOT/bungeecord-chat-1.19-R0.1-20230526.084915-70.jar",
+      "sha1": "cafd430239a970e7cb6ad0fce85266d0cb1bf031",
       "size": 148954
     },
     {
       "path": "bungeecord-protocol-1.19-R0.1-SNAPSHOT.jar",
-      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-protocol/1.19-R0.1-SNAPSHOT/bungeecord-protocol-1.19-R0.1-20230430.024541-63.jar",
-      "sha1": "8b63401819fd5a8ad34c6066563e00644854651b",
-      "size": 167737
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-protocol/1.19-R0.1-SNAPSHOT/bungeecord-protocol-1.19-R0.1-20230526.084957-70.jar",
+      "sha1": "09428eb8271687477dca5ed4dbcd7e84147a0ea8",
+      "size": 167738
     },
     {
       "path": "netty-buffer-4.1.92.Final.jar",
@@ -236,9 +236,9 @@
     },
     {
       "path": "bungeecord-config-1.19-R0.1-SNAPSHOT.jar",
-      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-config/1.19-R0.1-SNAPSHOT/bungeecord-config-1.19-R0.1-20230430.024518-63.jar",
-      "sha1": "220e5dca51a299a8984ca02d63c42b9b06211217",
-      "size": 13778
+      "downloadURL": "https://oss.sonatype.org/content/repositories/snapshots/net/md-5/bungeecord-config/1.19-R0.1-SNAPSHOT/bungeecord-config-1.19-R0.1-20230526.084928-70.jar",
+      "sha1": "44acc2d44e4e8d665952c1e1d0de775b941d857c",
+      "size": 13779
     },
     {
       "path": "netty-common-4.1.92.Final.jar",
