@@ -8,6 +8,7 @@ import fr.theshark34.openlauncherlib.minecraft.*;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 import fr.theshark34.openlauncherlib.util.Saver;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
+import fr.timeto.astrauworld.launcher.secret.Infos;
 import net.harawata.appdirs.AppDirsFactory;
 
 import javax.imageio.ImageIO;
@@ -119,8 +120,8 @@ public class Launcher {
     public static final String forgeVersion = launcherProperties.getProperty("forgeVersion");
     public static final String optifineVersion = launcherProperties.getProperty("optifineVersion"); // FIXME Bug certaines textures sont unies
     public static MCPingOptions serverOptions = MCPingOptions.builder()
-            .hostname(launcherProperties.getProperty("serverHostname")) // 207.180.196.61
-            .port(Integer.parseInt(launcherProperties.getProperty("serverPort"))) //33542
+            .hostname(Infos.getServerHostname())
+            .port(Integer.parseInt(launcherProperties.getProperty("serverPort")))
             .build();
 
     // Version du launcher

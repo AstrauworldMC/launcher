@@ -6,6 +6,7 @@ import fr.timeto.astrauworld.launcher.pagesutilities.PageChange;
 import fr.timeto.astrauworld.launcher.pagesutilities.EasterEggs;
 import fr.timeto.astrauworld.launcher.pagesutilities.PageName;
 import fr.timeto.astrauworld.launcher.pagesutilities.ProfileSaver;
+import fr.timeto.astrauworld.launcher.secret.Infos;
 import net.harawata.appdirs.AppDirsFactory;
 
 import java.awt.*;
@@ -202,7 +203,7 @@ public class LauncherSystemTray {
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == mapItem) {
                 try {
-                    Desktop.getDesktop().browse(new URL(LauncherFrame.launcherProperties.getProperty("blueMapLink")).toURI());
+                    Desktop.getDesktop().browse(new URL(Infos.getServerHostname() + ":" + LauncherFrame.launcherProperties.getProperty("bluemapPort")).toURI());
                 } catch (IOException | URISyntaxException ignored) {}
             } else if (src == problemLauncherItem) {
                 try {

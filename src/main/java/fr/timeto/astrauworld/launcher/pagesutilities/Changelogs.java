@@ -21,6 +21,11 @@ public class Changelogs {
      */
     private static class TEXTS {
 
+        public static final String BETA2_3_4 = """
+                - Bouton de switch relatifs à la couleur principale choisie
+                - Optimisation et réglages de bugs
+                """;
+
         public static final String BETA2_3_3 = """
                 - Ajout de la page des paramètres globaux
                 - Ajout de la personnalisation complète des couleurs et de l'intégration Discord
@@ -105,6 +110,7 @@ public class Changelogs {
      * @since Beta2.1.2
      */
     private static final Changelogs[] changelogsList = {
+            new Changelogs("Beta2.3.4", Launcher.parseUnicode(TEXTS.BETA2_3_4)),
             new Changelogs("Beta2.3.3", Launcher.parseUnicode(TEXTS.BETA2_3_3)),
             new Changelogs("Beta2.3.2", Launcher.parseUnicode(TEXTS.BETA2_3_2)),
             new Changelogs("Beta2.3.1", Launcher.parseUnicode(TEXTS.BETA2_3_1)),

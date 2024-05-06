@@ -134,35 +134,23 @@ public class Server {
 
         if (modLoader == MODLOADER_FORGE) {
             if (Integer.parseInt(mcVersion.split("\\.")[1]) >= 12) {
+                ForgeVersionBuilder forge_temp = new ForgeVersionBuilder(ForgeVersionType.NEW)
+                        .withForgeVersion(mcVersion + "-" + modLoaderVersion)
+                        .withCurseMods(modInfos)
+                        .withFileDeleter(new ModFileDeleter(true));
                 if (Objects.equals(saver.get(ProfileSaver.KEY.MOD_OPTIFINE.get()), "true")) {
-                    forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-                            .withForgeVersion(mcVersion + "-" + modLoaderVersion)
-                            .withOptiFine(new OptiFineInfo(optifineVersion))
-                            .withCurseMods(modInfos)
-                            .withFileDeleter(new ModFileDeleter(true))
-                            .build();
-                } else {
-                    forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.NEW)
-                            .withForgeVersion(mcVersion + "-" + modLoaderVersion)
-                            .withCurseMods(modInfos)
-                            .withFileDeleter(new ModFileDeleter(true))
-                            .build();
+                    forge_temp.withOptiFine(new OptiFineInfo(optifineVersion)); // FIXME Optifine pété pour le moment, attendre une nouvelle ver de flowupdater
                 }
+                forge = forge_temp.build();
             } else {
+                ForgeVersionBuilder forge_temp = new ForgeVersionBuilder(ForgeVersionType.OLD)
+                        .withForgeVersion(mcVersion + "-" + modLoaderVersion)
+                        .withCurseMods(modInfos)
+                        .withFileDeleter(new ModFileDeleter(true));
                 if (Objects.equals(saver.get(ProfileSaver.KEY.MOD_OPTIFINE.get()), "true")) {
-                    forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.OLD)
-                            .withForgeVersion(mcVersion + "-" + modLoaderVersion)
-                            .withOptiFine(new OptiFineInfo(optifineVersion))
-                            .withCurseMods(modInfos)
-                            .withFileDeleter(new ModFileDeleter(true))
-                            .build();
-                } else {
-                    forge = new ForgeVersionBuilder(ForgeVersionBuilder.ForgeVersionType.OLD)
-                            .withForgeVersion(mcVersion + "-" + modLoaderVersion)
-                            .withCurseMods(modInfos)
-                            .withFileDeleter(new ModFileDeleter(true))
-                            .build();
+                    forge_temp.withOptiFine(new OptiFineInfo(optifineVersion));
                 }
+                forge = forge_temp.build();
             }
 
             updaterBuilder.withModLoaderVersion(forge);
@@ -256,12 +244,6 @@ public class Server {
         JavaUtil.setJavaCommand(javaCommand);
         infosLabel.setText("");
 
-        System.out.println(authInfos.getUsername());
-        System.out.println(authInfos.getUuid());
-        System.out.println(authInfos.getAccessToken());
-        System.out.println(authInfos.getAuthXUID());
-        System.out.println(authInfos.getClientId());
-
         NoFramework noFramework= new NoFramework(path, authInfos, GameFolder.FLOW_UPDATER);
         noFramework.getAdditionalVmArgs().add("-Xmx" + Math.round(Double.parseDouble(getSelectedSaver().get(ProfileSaver.KEY.SETTINGS_RAM.get()))) + "G");
         if(connectToServer) {
@@ -311,6 +293,8 @@ public class Server {
                 Launcher.println("Déconnexion d'un serveur détecté");
             }
         }
+
+        process.waitFor();
 
         Launcher.println("");
         Launcher.println("");

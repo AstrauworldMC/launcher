@@ -3,6 +3,7 @@ package fr.timeto.astrauworld.launcher.main;
 import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.timeto.astrauworld.launcher.pagesutilities.Mod;
 import fr.timeto.astrauworld.launcher.pagesutilities.Server;
+import fr.timeto.astrauworld.launcher.secret.Infos;
 
 import java.nio.file.Paths;
 
@@ -21,7 +22,7 @@ public class AstrauworldMC extends Server {
                 Paths.get("GameFiles"),
                 Launcher.optifineVersion);
 
-        setIpOnConnect("207.180.196.61");
+        setIpOnConnect(Infos.getServerHostname());
 
         mods.add(new Mod("Backpacked",                  "2.1.10",              new CurseFileInfo(352835, 3923041)));
         mods.add(new Mod("Medieval Craft",              "1.18.2 weapons only", new CurseFileInfo(416811, 3858618)));

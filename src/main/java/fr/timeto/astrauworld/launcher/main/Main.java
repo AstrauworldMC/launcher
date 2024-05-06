@@ -112,8 +112,7 @@ public class Main {
                     devEnv = true;
                     Launcher.println("[Lancement] Environnement de développement détecté");
                 }
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
 
             if (profileAfterMcExit == null) {
 
